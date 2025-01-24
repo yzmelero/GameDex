@@ -1,27 +1,26 @@
-pages:
-  stages:
-    - deploy
+stages:
+  - deploy
 
-  pages_development:
-    stage: deploy
-    script:
-    - mkdir .public
-    - cp -r ./* .public
-    - mv .public public
-    artifacts:
-      paths:
-      - public
-    only:
-    - developer
+pages_development:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r ./* .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - developer
 
-  pages_production:
-    stage: deploy
-    script:
-    - mkdir .public
-    - cp -r ./* .public
-    - mv .public public
-    artifacts:
-      paths:
-      - public
-    only:
-    - main
+pages_production:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r ./* .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - main
