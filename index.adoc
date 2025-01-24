@@ -53,16 +53,6 @@ Primer de tot, qualsevol usuari pot afegir videojocs nous a la pàgina, això po
 
 La segona proposta de procés de negoci és que a l’hora de què **un usuari vulgui afegir una puntuació/valoració al joc, haurà de primer haver afegit el joc a la seva biblioteca personal i haver-lo guardat com “Acabat”**, així evitarem que qualsevol usuari que encara no hagi jugat ni acabar un videojoc pugui afegir una puntuació per a obtenir una mitjana de valoració més realista.
 
-=== [aqua]#1.1. IDEA 2: Venta d'articles de segona mà#
 
-==== [aqua]#1.2.1. Objectiu de l’app i quines necessitats resol#
-
-El nostre objectiu amb aquesta aplicació és crear un espai on un usuari pugui **comprar ítems de segona mà a venedors particulars locals**. Aquesta aplicació té diversos objectius:
-
-El primer és **donar una segona vida** a productes que encara tenen vida útil i que o bé anaven a acabar a la brossa o bé no estaven fent-se servir. Per exemple, llibres, CDs, mobles, roba, joguines, etc. 
-
-Un altre objectiu molt important és **posar a l’abast de més persones**, sobretot a nivell d’accessibilitat econòmica, el màxim de productes possibles. Aquest aspecte ens permetria apropar l’educació a més infants, o apropar oci de diversos àmbits a més persones. 
-
-Finalment, creiem que aquesta aplicació podria ajudar a **reduir el consumisme no sostenible**, fomentant la producció i el consum responsable. 
-
-
+//El include añadira los documentos seleccionados
+include::./Asciidocs/guiodActors.adoc[]
