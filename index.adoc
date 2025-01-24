@@ -65,4 +65,5 @@ Un altre objectiu molt important és **posar a l’abast de més persones**, sob
 
 Finalment, creiem que aquesta aplicació podria ajudar a **reduir el consumisme no sostenible**, fomentant la producció i el consum responsable. 
 
-
+//El include añadira los documentos seleccionados
+include::./Asciidocs/guiodActors.adoc[]
