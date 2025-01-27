@@ -1,26 +1,13 @@
-stages:
-  - deploy
-
-pages_development:
+pages:
   stage: deploy
   script:
-  - mkdir .public
-  - cp -r ./* .public
-  - mv .public public
+    - mkdir -p public
+    - cp -r index.html public/ # Ajusta segons els fitxers que vulguis copiar
   artifacts:
     paths:
-    - public
-  only:
-  - developer
-
-pages_production:
-  stage: deploy
-  script:
-  - mkdir .public
-  - cp -r ./* .public
-  - mv .public public
-  artifacts:
-    paths:
-    - public
-  only:
-  - main
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "developer"
+      when: always

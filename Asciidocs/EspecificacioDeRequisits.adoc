@@ -77,6 +77,8 @@
   ** **(RF03) Recuperar contrasenya: ** L’usuari ha de poder recuperar  la contrasenya en cas d’oblit.
 
   ** **(RF04) Editar perfil usuari: ** L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.
+  
+  **  ** (RF48) Consultar perfil d’usuari: ** Cada usuari podrà consultar el seu perfil d’usuari. (Afegida)
 
   ** **(RF05) Logout: ** L’usuari ha de poder tancar la sessió de manera segura.
 
@@ -127,6 +129,8 @@
   ** **(RF42) Modificar videojoc a la biblioteca personal: ** Tots els usuaris podran modificar l'estat dels jocs a la seva biblioteca personal. (Afegida)
   
   ** **(RF43) Eliminar videojoc de la biblioteca personal: ** Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)
+  
+  ** ** (RF47) Consultar biblioteca personal: ** Cada usuari podrà consultar la seva biblioteca personal. (Afegida)
 
   ** **(RF30) Afegir comentaris: ** Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.
 
