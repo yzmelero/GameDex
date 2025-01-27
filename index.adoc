@@ -61,3 +61,6 @@ include::./Asciidocs/EspecificacioDeRequisits.adoc[]
 
 //include para guio d'actors
 include::./Asciidocs/guiodActors.adoc[]
+
+//include per diagrames
+include::./Asciidocs/Diagrames.adoc[]

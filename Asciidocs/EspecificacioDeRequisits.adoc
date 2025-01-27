@@ -1,7 +1,7 @@
 :hardbreaks:
-== [aqua]#2. Especificació de requisits.#
+== [aqua]#2. ESPECIFICACIÓ DE REQUISITS#
 
-=== [aqua]#2.1. Requisits no funcionals.#
+=== [aqua]#2.1. Requisits no funcionals#
 
 **Requisits Tècnics part frontend Mobile**
 
@@ -66,7 +66,7 @@
 ** **(RN42)** El backend s’ha d’implementar mitjançant SpringBoot.  
 
 
-=== [aqua]#2.2. Requisits funcionals.#
+=== [aqua]#2.2. Requisits funcionals#
 
   ** **(RF01) Login Usuari: ** L’usuari ha de poder iniciar sessió a l’aplicació amb el seu correu electrònic i contrasenya i sempre que estigui activat.
 
