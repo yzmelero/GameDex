@@ -64,3 +64,6 @@ include::./Asciidocs/guiodActors.adoc[]
 
 //include per diagrames
 include::./Asciidocs/Diagrames.adoc[]
+
+//include per especificacions de cas d'us
+include::./Asciidocs/EspecificacionsCasDUs.adoc[]
