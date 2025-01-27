@@ -4,6 +4,8 @@
 
 === [aqua]#4.1. Diagrama casos d'ús#
 
+image::DiagramaCasDUs.png[]
+
 === [aqua]#4.2. Diagrama entitat-relació#
 
 image::DiagramaER.jpg[Imatge del diagrama entitat-relació]
