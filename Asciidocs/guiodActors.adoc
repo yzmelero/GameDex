@@ -20,6 +20,12 @@
 
   **(RF05) Logout: **L’usuari ha de poder tancar la sessió de manera segura.
 
+  ** (RF08) Llistar usuaris: ** Tots els usuaris han de poder llistar tots els usuaris. (modificada)
+ 
+  ** (RF44) Filtre d'usuaris: ** Tots els usuaris podran filtrar el llistat d'usuaris per nom d'usuari. (Afegida)
+  
+  ** (RF46) Consultar usuaris: ** Tots els usuaris podran consultar/visualitzar el perfil de la resta d'usuaris, per veure la seva activitat de videojocs. (Afegida)
+
   **(RF11) Llistar categories: **Llistar tipus de videojocs. L’usuari ha de poder veure una llista de tots els tipus existents.
 
   ** (RF12) Filtrar per categoria: ** L’usuari ha de poder cercar tipus pel seu nom i veure els resultats ordenats alfabèticament.
@@ -28,7 +34,7 @@
 
   ** (RF16) Filtrar Videojocs per Categories:** L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.
 
-  ** (RF20) Afegir videojoc: ** L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria.
+  ** (RF20) Afegir videojoc: ** L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.
 
   ** (RF21) Llistar videojocs: ** L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.
 
@@ -38,9 +44,13 @@
 
   ** (RF24) Consultar videojoc:** Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).
 
-  ** (RF25) Modificar videojoc:** Només l’usuari que ha creat un videojoc, o l’administrador, han de poder modificar-ne la informació, excepte l’autor, la data de creació, les valoracions i els comentaris.
-
-  ** (RF26) Eliminar videojoc: ** Només l’usuari que ha creat un videojoc, o l’administrador, han de poder eliminar-lo.
+  ** (RF40) Validar proposta de videojocs: ** L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)
+  
+  ** (RF41) Afegir videojoc a biblioteca personal: ** Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l'estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)
+  
+  ** (RF42) Modificar videojoc a la biblioteca personal: ** Tots els usuaris podran modificar l'estat dels jocs a la seva biblioteca personal. (Afegida)
+  
+  ** (RF43) Eliminar videojoc de la biblioteca personal: ** Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)
 
   ** (RF30) Afegir comentaris: ** Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.
 
@@ -49,6 +59,10 @@
   ** (RF32) Llistar comentaris (per puntuació): ** Llistar comentaris d’un videojoc ordenats per puntuació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.
 
   ** (RF33) Visualitzar puntuació mitjana: ** Visualitzar puntuació mitjana dels comentaris d’un videojoc.
+  
+  ** (RF44) Filtre d'usuaris: ** Tots els usuaris podran filtrar el llistat d'usuaris per nom d'usuari.
+  
+  ** (RF46) Consultar usuaris: ** Tots els usuaris podran consultar/visualitzar el perfil de la resta d'usuaris, per veure la seva activitat de videojocs. 
 
 |===
 
@@ -66,6 +80,8 @@
 
   ** (RF02) Registre Usuari: ** L’usuari ha de poder registrar-se per poder utilitzar l’app. Un nou client enregistrat, per defecte està en estat desactivat.
 
+  ** (RF45) Registre d'administrador: ** Els administradors podran registrar nous administradors al sistema, afegint tota la informació necessària. (Afegida)
+
   ** (RF03) Recuperar contrasenya: ** L’usuari ha de poder recuperar la contrasenya en cas d’oblit.
 
   ** (RF04) Editar perfil usuari: ** L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.
@@ -76,9 +92,13 @@
 
   ** (RF07) Eliminar usuari: ** L’administrador ha de poder eliminar un usuari.
 
-  ** (RF08) Llistar usuaris: ** L’administrador ha de poder llistar tots els usuaris.
+  ** (RF08) Llistar usuaris: ** Tots els usuaris han de poder llistar tots els usuaris. (modificada)
 
   ** (RF09) Modificar usuaris: ** L’administrador ha de poder modificar un usuari.
+  
+  ** (RF44) Filtre d'usuaris: ** Tots els usuaris podran filtrar el llistat d'usuaris per nom d'usuari. (Afegida)
+  
+  ** (RF46) Consultar usuaris: ** Tots els usuaris podran consultar/visualitzar el perfil de la resta d'usuaris, per veure la seva activitat de videojocs. (Afegida)
 
   ** (RF10) Crear categoria: ** Crear un nou tipus. Només l’usuari administrador ha de poder crear un nou tipus de videojoc que contingui com a mínim un nom, una imatge i una descripció.
 
@@ -94,7 +114,7 @@
 
   ** (RF16) Filtrar Videojocs per Categories: ** L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.
 
-  ** (RF20) Afegir videojoc: ** L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria.
+  ** (RF20) Afegir videojoc: ** L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.
 
   ** (RF21) Llistar videojocs: ** L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.
 
@@ -104,9 +124,17 @@
 
   ** (RF24) Consultar videojoc: ** Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).
 
-  ** (RF25) Modificar videojoc: ** Només l’usuari que ha creat un videojoc, o l’administrador, han de poder modificar-ne la informació, excepte l’autor, la data de creació, les valoracions i els comentaris.
+  ** (RF25) Modificar videojoc: ** L'administrador, ha de poder modificar-ne la informació d'un videojoc, excepte l’autor, la data de creació, les valoracions i els comentaris. (Modificada)
 
-  ** (RF26) Eliminar videojoc: ** Només l’usuari que ha creat un videojoc, o l’administrador, han de poder eliminar-lo.
+  ** (RF26) Eliminar videojoc: ** L’administrador, han de poder eliminar un videojoc. (Modificada)
+  
+  ** (RF40) Validar proposta de videojocs: ** L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)
+  
+  ** (RF41) Afegir videojoc a biblioteca personal: ** Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l'estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)
+  
+  ** (RF42) Modificar videojoc a la biblioteca personal: ** Tots els usuaris podran modificar l'estat dels jocs a la seva biblioteca personal. (Afegida)
+  
+  ** (RF43) Eliminar videojoc de la biblioteca personal: ** Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)
 
   ** (RF30) Afegir comentaris: ** Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.
 
@@ -117,9 +145,7 @@
   ** (RF33) Visualitzar puntuació mitjana: ** Visualitzar puntuació mitjana dels comentaris d’un videojoc.
 
   ** (RF34) Eliminar comentaris: ** Només l’administrador, han de poder eliminar.
-
-  ** (RF) Validar proposta de videojocs: ** L’administrador ha de validar les propostes creades pels usuaris i acceptar o rebutjar-les.
-
+  
 |===
 
     

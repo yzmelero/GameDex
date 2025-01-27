@@ -471,6 +471,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong>(RF05) Logout: </strong>L’usuari ha de poder tancar la sessió de manera segura.<br>
 <br>
+  <strong> (RF08) Llistar usuaris: </strong> Tots els usuaris han de poder llistar tots els usuaris. (modificada)<br>
+<br>
+  <strong> (RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari. (Afegida)<br>
+<br>
+  <strong> (RF46) Consultar usuaris: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs. (Afegida)<br>
+<br>
   <strong>(RF11) Llistar categories: </strong>Llistar tipus de videojocs. L’usuari ha de poder veure una llista de tots els tipus existents.<br>
 <br>
   <strong> (RF12) Filtrar per categoria: </strong> L’usuari ha de poder cercar tipus pel seu nom i veure els resultats ordenats alfabèticament.<br>
@@ -479,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF16) Filtrar Videojocs per Categories:</strong> L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.<br>
 <br>
-  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria.<br>
+  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.<br>
 <br>
   <strong> (RF21) Llistar videojocs: </strong> L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.<br>
 <br>
@@ -489,9 +495,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF24) Consultar videojoc:</strong> Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).<br>
 <br>
-  <strong> (RF25) Modificar videojoc:</strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder modificar-ne la informació, excepte l’autor, la data de creació, les valoracions i els comentaris.<br>
+  <strong> (RF40) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)<br>
 <br>
-  <strong> (RF26) Eliminar videojoc: </strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder eliminar-lo.<br>
+  <strong> (RF41) Afegir videojoc a biblioteca personal: </strong> Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l&#8217;estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)<br>
+<br>
+  <strong> (RF42) Modificar videojoc a la biblioteca personal: </strong> Tots els usuaris podran modificar l&#8217;estat dels jocs a la seva biblioteca personal. (Afegida)<br>
+<br>
+  <strong> (RF43) Eliminar videojoc de la biblioteca personal: </strong> Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)<br>
 <br>
   <strong> (RF30) Afegir comentaris: </strong> Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.<br>
 <br>
@@ -499,7 +509,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF32) Llistar comentaris (per puntuació): </strong> Llistar comentaris d’un videojoc ordenats per puntuació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.<br>
 <br>
-  <strong> (RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.</p></td>
+  <strong> (RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.<br>
+<br>
+  <strong> (RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari.<br>
+<br>
+  <strong> (RF46) Consultar usuaris: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs.</p></td>
 </tr>
 </tbody>
 </table>
@@ -528,6 +542,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF02) Registre Usuari: </strong> L’usuari ha de poder registrar-se per poder utilitzar l’app. Un nou client enregistrat, per defecte està en estat desactivat.<br>
 <br>
+  <strong> (RF45) Registre d&#8217;administrador: </strong> Els administradors podran registrar nous administradors al sistema, afegint tota la informació necessària. (Afegida)<br>
+<br>
   <strong> (RF03) Recuperar contrasenya: </strong> L’usuari ha de poder recuperar la contrasenya en cas d’oblit.<br>
 <br>
   <strong> (RF04) Editar perfil usuari: </strong> L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.<br>
@@ -538,9 +554,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF07) Eliminar usuari: </strong> L’administrador ha de poder eliminar un usuari.<br>
 <br>
-  <strong> (RF08) Llistar usuaris: </strong> L’administrador ha de poder llistar tots els usuaris.<br>
+  <strong> (RF08) Llistar usuaris: </strong> Tots els usuaris han de poder llistar tots els usuaris. (modificada)<br>
 <br>
   <strong> (RF09) Modificar usuaris: </strong> L’administrador ha de poder modificar un usuari.<br>
+<br>
+  <strong> (RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari. (Afegida)<br>
+<br>
+  <strong> (RF46) Consultar usuaris: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs. (Afegida)<br>
 <br>
   <strong> (RF10) Crear categoria: </strong> Crear un nou tipus. Només l’usuari administrador ha de poder crear un nou tipus de videojoc que contingui com a mínim un nom, una imatge i una descripció.<br>
 <br>
@@ -556,7 +576,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF16) Filtrar Videojocs per Categories: </strong> L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.<br>
 <br>
-  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria.<br>
+  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.<br>
 <br>
   <strong> (RF21) Llistar videojocs: </strong> L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.<br>
 <br>
@@ -566,9 +586,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF24) Consultar videojoc: </strong> Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).<br>
 <br>
-  <strong> (RF25) Modificar videojoc: </strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder modificar-ne la informació, excepte l’autor, la data de creació, les valoracions i els comentaris.<br>
+  <strong> (RF25) Modificar videojoc: </strong> L&#8217;administrador, ha de poder modificar-ne la informació d&#8217;un videojoc, excepte l’autor, la data de creació, les valoracions i els comentaris. (Modificada)<br>
 <br>
-  <strong> (RF26) Eliminar videojoc: </strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder eliminar-lo.<br>
+  <strong> (RF26) Eliminar videojoc: </strong> L’administrador, han de poder eliminar un videojoc. (Modificada)<br>
+<br>
+  <strong> (RF40) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)<br>
+<br>
+  <strong> (RF41) Afegir videojoc a biblioteca personal: </strong> Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l&#8217;estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)<br>
+<br>
+  <strong> (RF42) Modificar videojoc a la biblioteca personal: </strong> Tots els usuaris podran modificar l&#8217;estat dels jocs a la seva biblioteca personal. (Afegida)<br>
+<br>
+  <strong> (RF43) Eliminar videojoc de la biblioteca personal: </strong> Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)<br>
 <br>
   <strong> (RF30) Afegir comentaris: </strong> Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.<br>
 <br>
@@ -578,9 +606,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.<br>
 <br>
-  <strong> (RF34) Eliminar comentaris: </strong> Només l’administrador, han de poder eliminar.<br>
-<br>
-  <strong> (RF) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes creades pels usuaris i acceptar o rebutjar-les.</p></td>
+  <strong> (RF34) Eliminar comentaris: </strong> Només l’administrador, han de poder eliminar.</p></td>
 </tr>
 </tbody>
 </table>
@@ -590,7 +616,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-24 15:42:16 +0100
+Last updated 2025-01-27 09:01:58 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
