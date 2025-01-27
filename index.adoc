@@ -55,4 +55,9 @@ La segona proposta de procés de negoci és que a l’hora de què **un usuari v
 
 
 //El include añadira los documentos seleccionados
+
+//include para adoc de especificacio de requisits
+include::./Asciidocs/EspecificacioDeRequisits.adoc[]
+
+//include para guio d'actors
 include::./Asciidocs/guiodActors.adoc[]
