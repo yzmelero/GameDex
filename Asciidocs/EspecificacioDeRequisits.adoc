@@ -124,7 +124,7 @@
   
   ** **(RF40) Validar proposta de videojocs: ** L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)
   
-  ** ***(RF41) Afegir videojoc a biblioteca personal: ** Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l'estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)
+  ** **(RF41) Afegir videojoc a biblioteca personal: ** Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l'estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)
   
   ** **(RF42) Modificar videojoc a la biblioteca personal: ** Tots els usuaris podran modificar l'estat dels jocs a la seva biblioteca personal. (Afegida)
   
