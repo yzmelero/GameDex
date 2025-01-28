@@ -1,13 +1,12 @@
+image: alpine
+
 pages:
-  stage: deploy
   script:
     - mkdir -p public
-    - cp -r index.html public/ # Ajusta segons els fitxers que vulguis copiar
+    - asciidoctor -D public index.adoc
+    - cp -r Asciidocs public/
   artifacts:
     paths:
       - public
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: always
-    - if: $CI_COMMIT_BRANCH == "developer"
-      when: always
+  only:
+    - developer
