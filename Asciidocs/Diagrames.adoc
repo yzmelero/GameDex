@@ -3,12 +3,12 @@
 == [aqua]#4. DIAGRAMES#
 
 === [aqua]#4.1. Diagrama casos d'ús#
-image::diagramaCasDUs.png[align="center"]
+image::DiagramaCasDUs.png[align="center"]
 
 Enllaç al diagrama: https://drive.google.com/file/d/1wv_vgXYEm49lvKDeumHc-RMjSW0Ys1wh/view?usp=sharing
 
 === [aqua]#4.2. Diagrama entitat-relació#
-image::diagramaER.jpg[align="center"]
+image::DiagramaER.jpg[align="center"]
 
 === [aqua]#4.3. Diagrama d'arquitectura#
 
