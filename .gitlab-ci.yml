@@ -1,12 +1,11 @@
-image: alpine
-
 pages:
+  stage: deploy
   script:
-    - mkdir -p public
-    - asciidoctor -D public index.adoc
-    - cp -r Asciidocs public/
+  - mkdir .public
+  - cp -r ./* .public
+  - mv .public public
   artifacts:
     paths:
-      - public
+    - public
   only:
-    - developer
+  - developer
