@@ -1,10 +1,10 @@
-= Memoria GameDEX Projecte 3
-
 :toc-title: INDEX
 :toc: left
 :toclevels: 3
 :hardbreaks:
 :imagesdir: ./images
+
+= Memoria GameDEX Projecte 3
 
 
 == [aqua]#1. PROPOSTES D'IDEES DEL PROJECTE#
