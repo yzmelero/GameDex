@@ -3,9 +3,9 @@
 == [aqua]#4. DIAGRAMES#
 
 === [aqua]#4.1. Diagrama casos d'ús#
-image::/images/DiagramaCasDUs.png[align="center"]
+image::diagramaCasDUs.png[align="center"]
 
 === [aqua]#4.2. Diagrama entitat-relació#
-image::/images/DiagramaER.jpg[align="center"]
+image::diagramaER.jpg[align="center"]
 
 === [aqua]#4.3. Diagrama d'arquitectura#
