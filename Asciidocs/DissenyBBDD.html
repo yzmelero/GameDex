@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>4. DIAGRAMES</title>
+<title>7. DISSENY DE LA BASE DE DADES</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,68 +439,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_4_diagrames"><span class="aqua">4. DIAGRAMES</span></h2>
+<h2 id="_7_disseny_de_la_base_de_dades"><span class="aqua">7. DISSENY DE LA BASE DE DADES</span></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_4_1_diagrama_casos_dús"><span class="aqua">4.1. Diagrama casos d&#8217;ús</span></h3>
-<div class="imageblock text-center">
-<div class="content">
-<img src="diagramaCasDUs.png" alt="diagramaCasDUs">
-</div>
-</div>
 <div class="paragraph">
-<p>Enllaç al diagrama: <a href="https://drive.google.com/file/d/1wv_vgXYEm49lvKDeumHc-RMjSW0Ys1wh/view?usp=sharing" class="bare">https://drive.google.com/file/d/1wv_vgXYEm49lvKDeumHc-RMjSW0Ys1wh/view?usp=sharing</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_2_diagrama_entitat_relació"><span class="aqua">4.2. Diagrama entitat-relació</span></h3>
-<div class="imageblock text-center">
-<div class="content">
-<img src="diagramaER.jpg" alt="diagramaER">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_3_diagrama_darquitectura"><span class="aqua">4.3. Diagrama d&#8217;arquitectura</span></h3>
-<div class="paragraph">
-<p>Per a l’arquitectura d’aquest projecte, el nostre grup proposa una divisió de dues parts, el front-end per la part d’Android i el back-end per la part de Java.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_3_1_back_end"><span class="aqua">4.3.1. Back end</span></h3>
-<div class="paragraph">
-<p>BACK END (Java Spring Boot)<br>
-GameDex_Backend<br>
-* webController<br>
-* lògica<br>
-* repositori<br>
-* entitats<br>
-* apiController</p>
-</div>
-<div class="paragraph">
-<p>Pel que fa el back-end hem decidit crear cinc packages, 4 que ja hem fet servir per a altres projectes que són: “entitats” (per als fitxers de classes), el de “repositori” (per a les operacions intermèdies entre la base de dades i la nostra aplicació Spring Boot), el de “lògica” (per a la lògica de negoci) i el de “controller”, que s’encarrega de gestionar les sol·licituds client-servidor. El nou package que incorporem és el d’apiController, on es gestionen les operacions API REST.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_3_2_front_end"><span class="aqua">4.3.2 Front end</span></h3>
-<div class="paragraph">
-<p>FRONT END (Android MVVM + Feature Layer)<br>
-GameDex_Frontend<br>
-* Feature layer (px. pantallaLogin)<br>
-  * View → Interfície usuari<br>
-  * ViewModel → Lògica de negoci<br>
-  * Model → Gestionar dades i cridar l’API REST.</p>
-</div>
-<div class="paragraph">
-<p>De cara al front-end, hem decidit partir d’una “feature layer” on hi haurà packages independents per a cada funcionalitat. A dins de cada funcionalitat, hi haurà els fitxers de view (presentació), model (connexió amb API REST) i viewModel (lògica de negoci) per a la funcionalitat corresponent.</p>
-</div>
+<p>Totes les dades de la nostra aplicació seran emmagatzemades en una base de dades no relacional (MongoDB) per la seva gran escalabilitat. Les dades que emmagatzemem són: usuaris, tipus de videojocs (categoria), videojocs (ítem) i biblioteca, que serà l’entitat resultant de la relació entre videojocs i usuaris i que es farà càrrec dels comentaris, puntuació i el seguiment de l’estat del videojoc.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-28 18:24:50 +0100
+Last updated 2025-01-28 18:25:05 +0100
 </div>
 </div>
 </body>

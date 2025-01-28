@@ -1,0 +1,4 @@
+:hardbreaks:
+== [aqua]#7. DISSENY DE LA BASE DE DADES#
+
+Totes les dades de la nostra aplicació seran emmagatzemades en una base de dades no relacional (MongoDB) per la seva gran escalabilitat. Les dades que emmagatzemem són: usuaris, tipus de videojocs (categoria), videojocs (ítem) i biblioteca, que serà l’entitat resultant de la relació entre videojocs i usuaris i que es farà càrrec dels comentaris, puntuació i el seguiment de l’estat del videojoc.
