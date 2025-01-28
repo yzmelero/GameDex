@@ -4,49 +4,55 @@
 Enllaç al prototip en figma: https://www.figma.com/design/20bKgUXKKStzkyAi8DGw7P/GameDex?node-id=56-282&t=ZU2t5j3mICRfmB4Y-1
 
 === [aqua]#6.1. Pantalla de registre#
-:image: PantallaRegistre.png[align="center"]
+image::PantallaRegistre.jpg[align="center"]
 
 === [aqua]#6.2. Pantalla de login#
-:image: PantallaLogin.png[align="center"]
+image::PantallaLogin.jpg[align="center"]
 
 === [aqua]#6.3. Llistat de categories#
-:image: LlistatCategories.png[align="center"]
+image::LlistatCategories.jpg[align="center"]
 
 === [aqua]#6.4. Llistat de videojocs#
-:image: LlistatVideojocs.png[align="center"]
+image::LlistatVideojocs.jpg[align="center"]
 
 === [aqua]#6.5. Pantalla de modificar perfil#
-:image: ModificarPerfil.png[align="center"]
+image::ModificarPerfil.jpg[align="center"]
 
 === [aqua]#6.6. Llistat de usuaris#
-:image: LlistatUsuaris.png[align="center"]
+image::LlistatUsuaris.jpg[align="center"]
 
 === [aqua]#6.7. Visualitzar videojoc#
-:image: VisualitzarVideojoc.png[align="center"]
+image::VisualitzarVideojoc.jpg[align="center"]
+=== FALTA LA IMATGE
 
 === [aqua]#6.8. Pantalla de perfil#
-:image: PantallaPerfil.png[align="center"]
+image::PantallaPerfil.jpg[align="center"]
 
 === [aqua]#6.9. Visualitzar categoria#
-:image: VisualitzarCategoria.png[align="center"]
+image::VisualitzarCategoria.jpg[align="center"]
 
 === [aqua]#6.10. Afegir videojoc#
-:image: AfegirVideojoc.png[align="center"]
+image::AfegirVideojoc.jpg[align="center"]
 
 === [aqua]#6.11. Afegir categoria#
-:image: AfegirCategoria.png[align="center"]
+image::AfegirCategoria.jpg[align="center"]
 
 === [aqua]#6.12. Modificar videojoc#
-:image: ModificarVideojoc.png[align="center"]
+image::ModificarVideojoc.jpg[align="center"]
+=== FALTA LA IMATGE
 
 === [aqua]#6.13. Modificar categoria#
-:image: ModificarCategoria.png[align="center"]
+image::ModificarCategoria.jpg[align="center"]
+=== FALTA LA IMATGE
 
 === [aqua]#6.14. Verificar videojoc#
-:image: VerificarVideojoc.png[align="center"]
+image::VerificarVideojoc.jpg[align="center"]
+=== FALTA LA IMATGE
 
 === [aqua]#6.15. Verificar usuari#
-:image: VerificarUsuari.png[align="center"]
+image::VerificarUsuari.jpg[align="center"]
+=== FALTA LA IMATGE
 
 === [aqua]#6.16. Pantalla de biblioteca#
-:image: PantallaBiblioteca.png[align="center"]
+image::PantallaBiblioteca.jpg[align="center"]
+=== FALTA LA IMATGE
