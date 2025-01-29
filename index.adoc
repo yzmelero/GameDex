@@ -6,6 +6,18 @@
 
 = Memoria GameDEX Projecte 3
 
+image::GDEX.png[align="center", width="1000", height="1000"]
+ 
+[.text-right]
+****
+**Noms:** Anna Serrano,
+Yaiza Melero,
+Héctor Vico,
+Mario Olaya   
+**Any:** 2025  
+**Curs:** DAM2M
+****
+
 
 == [aqua]#1. PROPOSTES D'IDEES DEL PROJECTE#
 

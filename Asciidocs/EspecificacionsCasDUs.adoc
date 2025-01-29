@@ -1,7 +1,7 @@
 .ID: CU33
 == [aqua]#5. Especificacions de casos d’ús de negoci#
 
-=== Validar proposta de videojocs
+Validar proposta de videojocs
 
 *Nom:* Validar proposta de videojocs
 
