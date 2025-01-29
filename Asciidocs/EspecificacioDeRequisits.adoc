@@ -92,7 +92,7 @@
   
   ** **(RF44) Filtre d'usuaris: ** Tots els usuaris podran filtrar el llistat d'usuaris per nom d'usuari. (Afegida)
   
-  ** **(RF46) Consultar usuaris: ** Tots els usuaris podran consultar/visualitzar el perfil de la resta d'usuaris, per veure la seva activitat de videojocs. (Afegida)
+  ** **(RF46) Consultar usuari: ** Tots els usuaris podran consultar/visualitzar el perfil de la resta d'usuaris, per veure la seva activitat de videojocs. (Afegida)
 
   ** **(RF10) Crear categoria: ** Crear un nou tipus. Només l’usuari administrador ha de poder crear un nou tipus de videojoc que contingui com a mínim un nom, una imatge i una descripció.
 

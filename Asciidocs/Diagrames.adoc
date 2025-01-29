@@ -14,6 +14,8 @@ image::DiagramaER.jpg[align="center"]
 
 Per a l’arquitectura d’aquest projecte, el nostre grup proposa una divisió de dues parts, el front-end per la part d’Android i el back-end per la part de Java. 
 
+image::DiagramaArquitectura.jpg[align="center"]
+
 === [aqua]#4.3.1. Back end#
 BACK END (Java Spring Boot)
 
