@@ -16,22 +16,24 @@ Per a l’arquitectura d’aquest projecte, el nostre grup proposa una divisió 
 
 === [aqua]#4.3.1. Back end#
 BACK END (Java Spring Boot)
+
 GameDex_Backend
-* webController 
+
 * lògica
 * repositori
 * entitats
 * apiController
 
-Pel que fa el back-end hem decidit crear cinc packages, 4 que ja hem fet servir per a altres projectes que són: “entitats” (per als fitxers de classes), el de “repositori” (per a les operacions intermèdies entre la base de dades i la nostra aplicació Spring Boot), el de “lògica” (per a la lògica de negoci) i el de “controller”, que s’encarrega de gestionar les sol·licituds client-servidor. El nou package que incorporem és el d’apiController, on es gestionen les operacions API REST. 
+Pel que fa el back-end hem decidit crear quatre packages, 3 que ja hem fet servir per a altres projectes que són: “entitats” (per als fitxers de classes), el de “repositori” (per a les operacions intermèdies entre la base de dades i la nostra aplicació Spring Boot) i el de “lògica” (per a la lògica de negoci). El nou package que incorporem és el d’apiController, on es gestionen les operacions API REST. 
 
 
 === [aqua]#4.3.2 Front end#
 FRONT END (Android MVVM + Feature Layer)
 GameDex_Frontend
+
 * Feature layer (px. pantallaLogin)
-  * View → Interfície usuari
-  * ViewModel → Lògica de negoci
-  * Model → Gestionar dades i cridar l’API REST.
+** View → Interfície usuari
+** ViewModel → Lògica de negoci
+** Model → Gestionar dades i cridar l’API REST.
 
 De cara al front-end, hem decidit partir d’una “feature layer” on hi haurà packages independents per a cada funcionalitat. A dins de cada funcionalitat, hi haurà els fitxers de view (presentació), model (connexió amb API REST) i viewModel (lògica de negoci) per a la funcionalitat corresponent.
