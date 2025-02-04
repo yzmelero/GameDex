@@ -4,36 +4,40 @@ import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
 import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document
+@Document(collection = "user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
     @Id
-    String username;
+    private String username;
 
-    String password;
+    private String password;
 
-    String name;
+    private String name;
 
-    String surname;
+    private String surname;
 
-    String email;
+    private String email;
 
-    int telephone;
+    private int telephone;
 
-    LocalDate birthDate;
+    @Field(name = "birth_date")
+    private LocalDate birthDate;
 
-    Binary[] profilePicture;
+    @Field(name = "profile_picture")
+    private Binary[] profilePicture;
 
     // 0 for disabled or non validated users, 1 for validated users
-    Boolean state;
+    private Boolean state;
 
-    UserType userType;
+    @Field(name = "user_type")
+    private UserType userType;
 }
