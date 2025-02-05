@@ -1,0 +1,3 @@
+public enum StateType {
+    PLAYING,WANTTOPLAY,FINISHED,DROPPED
+}
