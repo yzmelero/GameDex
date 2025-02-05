@@ -1,0 +1,10 @@
+:hardbreaks:
+
+== [aqua]#8. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE#
+
+
+Com a persones joves, ens envoltem contínuament d’estímuls dins del nostre àmbit d’oci que tot i que no som conscients de manera activa, ens perjudiquen com a societat. És el cas de comunitats i jocs poc inclusius que no sols no estan pensats perquè jugui tothom sinó que inciten a marginar a col·lectius. És per això que nosaltres volem incloure en la nostra idea d’aplicació, una biblioteca de videojocs, espais segurs on les desigualtats no tenen cabuda, seguint com a exemple, l’objectiu de desenvolupament sostenible número 10: reducció de les desigualtats. 
+
+La nostra idea és que quan un usuari iniciï l’aplicació i aparegui en la pàgina principal, trobarà un llistat de categories, on a part de les típiques etiquetes com poden ser “aventures”, “acció”, “shooters”, també trobarà algunes més inclusives com ara “educatius”, “accessibles”, “cultural i històric” o “diversitat”. 
+
+Dins la categoria d’educatius, ens agradaria incloure videojocs que puguin aportar valors tant ètics com acadèmics en els infants i joves. Pel que fa als videojocs accessibles, creiem que és important afegir experiencies per a persones amb discapacitats físiques o cognitives. En cultural i històric hi hauria videojocs que explorin la història i les cultures d’arreu del món des d’un punt de vista objectiu i fidel al lloc corresponent. I finalment en la categoria de diversitat, afegiríem videojocs que destaquen per la inclusió, ja sigui en una creació de personatges amb moltes possibilitats de personalització, en videojocs que explorin cultures diferents des del respecte, etc.

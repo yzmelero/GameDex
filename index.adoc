@@ -87,3 +87,6 @@ include::./Asciidocs/DissenyPantalles.adoc[]
 
 //include per disseny de la base de dades
 include::./Asciidocs/DissenyBBDD.adoc[]
+
+//include per disseny de la base de dades
+include::./Asciidocs/FOL.adoc[]
