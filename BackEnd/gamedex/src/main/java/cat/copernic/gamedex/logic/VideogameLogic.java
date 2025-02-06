@@ -26,4 +26,48 @@ public class VideogameLogic {
         }
 
     }
+
+    public Videogame modifyVideogame(Videogame videogame) {
+        try {
+            Optional<Videogame> oldVideogame = videogameRepo.findById(videogame.getGameId());
+            if (oldVideogame.isEmpty()) {
+                throw new RuntimeException("Videogame not found");
+            } else {
+                Videogame newVideogame = oldVideogame.get();
+
+                if (videogame.getNameGame() != newVideogame.getNameGame()) {
+                    newVideogame.setNameGame(videogame.getNameGame());
+                }
+
+                if (videogame.getDescriptionGame() != newVideogame.getDescriptionGame()) {
+                    newVideogame.setDescriptionGame(videogame.getDescriptionGame());
+                }
+
+                if (videogame.getReleaseYear() != newVideogame.getReleaseYear()) {
+                    newVideogame.setReleaseYear(videogame.getReleaseYear());
+                }
+
+                if (videogame.getGamePhoto() != newVideogame.getGamePhoto()) {
+                    newVideogame.setGamePhoto(videogame.getGamePhoto());
+                }
+
+                if (videogame.getAgeRecomendation() != newVideogame.getAgeRecomendation()) {
+                    newVideogame.setAgeRecomendation(videogame.getAgeRecomendation());
+                }
+
+                if (videogame.getDeveloper() != newVideogame.getDeveloper()) {
+                    newVideogame.setDeveloper(videogame.getDeveloper());
+                }
+
+                if (videogame.getNameCategory() != newVideogame.getNameCategory()) {
+                    newVideogame.setNameCategory(videogame.getNameCategory());
+                }
+
+                return videogameRepo.save(newVideogame);
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error modifying videogame");
+        }
+    }
 }
