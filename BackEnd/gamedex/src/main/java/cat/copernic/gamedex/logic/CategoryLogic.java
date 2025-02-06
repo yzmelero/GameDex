@@ -1,12 +1,12 @@
 package cat.copernic.gamedex.logic;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.Category;
-import cat.copernic.gamedex.entity.User;
 import cat.copernic.gamedex.repository.CategoryRepository;
 
 @Service
@@ -26,6 +26,7 @@ public class CategoryLogic {
             throw new RuntimeException("Unexpected error creating Category");
         }
     }
+
     public void deleteCategory(String nameCategory) {
         try {
             Optional<Category> category = categoryRepository.findById(nameCategory);
@@ -60,5 +61,13 @@ public class CategoryLogic {
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying category", e);
         }
-    }    
+    }
+
+    public List<Category> getAllCategory() {
+        try {
+            return categoryRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting all Categorys");
+        }
+    }
 }
