@@ -26,7 +26,6 @@ public class CategoryLogic {
             throw new RuntimeException("Unexpected error creating Category");
         }
     }
-
     public void deleteCategory(String nameCategory) {
         try {
             Optional<Category> category = categoryRepository.findById(nameCategory);
@@ -39,4 +38,27 @@ public class CategoryLogic {
         }
     }
     
+    public Category modifyCategory(Category category) {
+        try {
+            Optional<Category> oldCategory = categoryRepository.findById(category.getNameCategory());
+            if (oldCategory.isEmpty()) {
+                throw new RuntimeException("Category not found");
+            } else {
+                Category newCategory = oldCategory.get();
+    
+                if (!category.getDescription().equals(newCategory.getDescription())) {
+                    newCategory.setDescription(category.getDescription());
+                }
+    
+                if (category.getCategoryPhoto() != null && 
+                    !category.getCategoryPhoto().equals(newCategory.getCategoryPhoto())) {
+                    newCategory.setCategoryPhoto(category.getCategoryPhoto());
+                }
+    
+                return categoryRepository.save(newCategory);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error modifying category", e);
+        }
+    }    
 }
