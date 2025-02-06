@@ -22,6 +22,8 @@ public class CategoryLogic {
                 throw new RuntimeException("Category already exists");
             }
             return categoryRepository.save(category);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating Category");
         }
@@ -34,6 +36,8 @@ public class CategoryLogic {
                 throw new RuntimeException("Category not found");
             }
             categoryRepository.deleteById(nameCategory);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error deleting category", e);
         }
@@ -59,6 +63,8 @@ public class CategoryLogic {
     
                 return categoryRepository.save(newCategory);
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying category", e);
         }
@@ -67,6 +73,8 @@ public class CategoryLogic {
     public List<Category> getAllCategory() {
         try {
             return categoryRepository.findAll();
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all Categorys");
         }

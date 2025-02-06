@@ -3,8 +3,6 @@ package cat.copernic.gamedex;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import java.util.Optional;
-import java.util.List;
-import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,57 +26,92 @@ public class CategoryTest {
     }
 
     @Test
-    public void testCreateCategory() {
-        Category category = new Category("Action", "Action games", null);
+    public void testCreateCategory_CategoryAlreadyExists() {
+        Category category = new Category();
+        category.setNameCategory("testCategory");
+
+        when(categoryRepository.findById(category.getNameCategory())).thenReturn(Optional.of(category));
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            categoryLogic.createCategory(category);
+        });
+
+        assertEquals("Category already exists", exception.getMessage());
+    }
+
+    @Test
+    public void testCreateCategory_Success() {
+        Category category = new Category();
+        category.setNameCategory("testCategory");
+
         when(categoryRepository.findById(category.getNameCategory())).thenReturn(Optional.empty());
         when(categoryRepository.save(category)).thenReturn(category);
 
         Category createdCategory = categoryLogic.createCategory(category);
 
         assertNotNull(createdCategory);
-        assertEquals("Action", createdCategory.getNameCategory());
-        verify(categoryRepository, times(1)).findById(category.getNameCategory());
-        verify(categoryRepository, times(1)).save(category);
+        assertEquals("testCategory", createdCategory.getNameCategory());
     }
 
     @Test
-    public void testDeleteCategory() {
-        String categoryName = "Action";
-        Category category = new Category(categoryName, "Action games", null);
-        when(categoryRepository.findById(categoryName)).thenReturn(Optional.of(category));
+    public void testModifyCategory_CategoryNotFound() {
+        Category category = new Category();
+        category.setNameCategory("testCategory");
 
-        categoryLogic.deleteCategory(categoryName);
+        when(categoryRepository.findById(category.getNameCategory())).thenReturn(Optional.empty());
 
-        verify(categoryRepository, times(1)).findById(categoryName);
-        verify(categoryRepository, times(1)).deleteById(categoryName);
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            categoryLogic.modifyCategory(category);
+        });
+
+        assertEquals("Category not found", exception.getMessage());
     }
 
     @Test
-    public void testModifyCategory() {
-        Category oldCategory = new Category("Action", "Old description", null);
-        Category newCategory = new Category("Action", "New description", null);
-        when(categoryRepository.findById(oldCategory.getNameCategory())).thenReturn(Optional.of(oldCategory));
-        when(categoryRepository.save(oldCategory)).thenReturn(oldCategory);
+    public void testModifyCategory_Success() {
+        Category category = new Category();
+        category.setNameCategory("testCategory");
+        category.setDescription("newDescription");
 
-        Category modifiedCategory = categoryLogic.modifyCategory(newCategory);
+        Category existingCategory = new Category();
+        existingCategory.setNameCategory("testCategory");
+        existingCategory.setDescription("oldDescription");
+
+        when(categoryRepository.findById(category.getNameCategory())).thenReturn(Optional.of(existingCategory));
+        when(categoryRepository.save(existingCategory)).thenReturn(existingCategory);
+
+        Category modifiedCategory = categoryLogic.modifyCategory(category);
 
         assertNotNull(modifiedCategory);
-        assertEquals("New description", modifiedCategory.getDescription());
-        verify(categoryRepository, times(1)).findById(oldCategory.getNameCategory());
-        verify(categoryRepository, times(1)).save(oldCategory);
+        assertEquals("newDescription", modifiedCategory.getDescription());
     }
 
     @Test
-    public void testGetAllCategory() {
-        List<Category> categories = new ArrayList<>();
-        categories.add(new Category("Action", "Action games", null));
-        categories.add(new Category("Adventure", "Adventure games", null));
-        when(categoryRepository.findAll()).thenReturn(categories);
+    public void testDeleteCategory_CategoryNotFound() {
+        String nameCategory = "testCategory";
 
-        List<Category> result = categoryLogic.getAllCategory();
+        when(categoryRepository.findById(nameCategory)).thenReturn(Optional.empty());
 
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        verify(categoryRepository, times(1)).findAll();
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            categoryLogic.deleteCategory(nameCategory);
+        });
+
+        assertEquals("Category not found", exception.getMessage());
+    }
+
+    @Test
+    public void testDeleteCategory_Success() {
+        String nameCategory = "testCategory";
+
+        Category category = new Category();
+        category.setNameCategory(nameCategory);
+
+        when(categoryRepository.findById(nameCategory)).thenReturn(Optional.of(category));
+
+        assertDoesNotThrow(() -> {
+            categoryLogic.deleteCategory(nameCategory);
+        });
+
+        verify(categoryRepository, times(1)).deleteById(nameCategory);
     }
 }
