@@ -2,6 +2,7 @@ package cat.copernic.gamedex.logic;
 
 import cat.copernic.gamedex.entity.Commentary;
 import cat.copernic.gamedex.repository.CommentaryRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,14 @@ public class CommentaryLogic {
             return commentaryRepository.save(commentary);
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error while creating commentary");
+        }
+    }
+    
+    public List<Commentary> getAllCommentaries(){
+        try{
+           return commentaryRepository.findAllByVideogame();
+        }catch(Exception e){
+            throw new RuntimeException("Unexpected error while listing commentaries");
         }
     }
 }
