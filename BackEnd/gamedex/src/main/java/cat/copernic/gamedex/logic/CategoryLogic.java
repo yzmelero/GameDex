@@ -1,12 +1,12 @@
 package cat.copernic.gamedex.logic;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.Category;
-import cat.copernic.gamedex.entity.User;
 import cat.copernic.gamedex.repository.CategoryRepository;
 
 @Service
@@ -22,10 +22,13 @@ public class CategoryLogic {
                 throw new RuntimeException("Category already exists");
             }
             return categoryRepository.save(category);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating Category");
         }
     }
+
     public void deleteCategory(String nameCategory) {
         try {
             Optional<Category> category = categoryRepository.findById(nameCategory);
@@ -33,6 +36,8 @@ public class CategoryLogic {
                 throw new RuntimeException("Category not found");
             }
             categoryRepository.deleteById(nameCategory);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error deleting category", e);
         }
@@ -46,7 +51,8 @@ public class CategoryLogic {
             } else {
                 Category newCategory = oldCategory.get();
     
-                if (!category.getDescription().equals(newCategory.getDescription())) {
+                if (category.getDescription() != null && 
+                    !category.getDescription().equals(newCategory.getDescription())) {
                     newCategory.setDescription(category.getDescription());
                 }
     
@@ -57,8 +63,20 @@ public class CategoryLogic {
     
                 return categoryRepository.save(newCategory);
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying category", e);
         }
-    }    
+    }
+
+    public List<Category> getAllCategory() {
+        try {
+            return categoryRepository.findAll();
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting all Categorys");
+        }
+    }
 }
