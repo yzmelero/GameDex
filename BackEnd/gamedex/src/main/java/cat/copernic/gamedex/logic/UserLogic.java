@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.User;
+import cat.copernic.gamedex.entity.UserType;
 import cat.copernic.gamedex.repository.UserRepository;
 
 @Service
@@ -21,7 +22,33 @@ public class UserLogic {
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
             }
+
+            //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
+            user.setState(false);
+            user.setUserType(UserType.USER);
+
             return userRepository.save(user);
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error creating user", e);
+        }
+    }
+
+    public User createAdmin(User user){
+        try {
+            Optional<User> oldUser = userRepository.findById(user.getUsername());
+            if (oldUser.isPresent()) {
+                throw new RuntimeException("User already exists");
+            }
+
+            //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
+            user.setState(true);
+            user.setUserType(UserType.ADMIN);
+
+            return userRepository.save(user);
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating user");
         }
@@ -73,6 +100,8 @@ public class UserLogic {
 
                 return userRepository.save(newUser);
             }
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying user");
 
@@ -86,6 +115,8 @@ public class UserLogic {
                 throw new RuntimeException("User not found");
             }
             userRepository.deleteById(username);
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error deleting user");
         }
@@ -94,6 +125,8 @@ public class UserLogic {
     public List<User> getAllUsers() {
         try {
             return userRepository.findAll();
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all users");
         }
