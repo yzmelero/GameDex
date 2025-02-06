@@ -15,8 +15,6 @@ import cat.copernic.gamedex.entity.UserType;
 import cat.copernic.gamedex.logic.UserLogic;
 import cat.copernic.gamedex.repository.UserRepository;
 
-
-
 public class UserLogicTest {
 
     @Mock
