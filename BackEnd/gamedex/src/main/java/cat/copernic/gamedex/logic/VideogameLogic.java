@@ -22,6 +22,8 @@ public class VideogameLogic {
                 throw new RuntimeException("Videogame already exists");
             }
             return videogameRepo.save(videogame);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating videogame");
         }
@@ -67,6 +69,8 @@ public class VideogameLogic {
                 return videogameRepo.save(newVideogame);
 
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying videogame");
         }
@@ -79,6 +83,9 @@ public class VideogameLogic {
                 throw new RuntimeException("Videogame is not found");
             }
             videogameRepo.deleteById(gameId);
+
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpecting error deleting videogame");
         }
@@ -88,6 +95,8 @@ public class VideogameLogic {
     public List<Videogame> getAllVideogames() {
         try {
             return videogameRepo.findAll();
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all videogames");
         }
@@ -101,6 +110,8 @@ public class VideogameLogic {
             } else {
                 return videogame.get();
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting the videogame");
         }
