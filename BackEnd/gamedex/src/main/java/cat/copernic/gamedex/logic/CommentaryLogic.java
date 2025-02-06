@@ -21,7 +21,9 @@ public class CommentaryLogic {
                 throw new RuntimeException("Commentary already exists");
             }
             return commentaryRepository.save(commentary);
-        } catch (Exception e) {
+        } catch(RuntimeException e){
+            throw e;
+        } catch(Exception e){
             throw new RuntimeException("Unexpected error while creating commentary");
         }
     }
@@ -34,6 +36,8 @@ public class CommentaryLogic {
             }else{
                 throw new RuntimeException("Commentary not found");
             } 
+        } catch(RuntimeException e){
+            throw e;
         } catch(Exception e){
             throw new RuntimeException("Unexpected error while deleting commentary");
         }
