@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.User;
+import cat.copernic.gamedex.entity.UserType;
 import cat.copernic.gamedex.repository.UserRepository;
 
 @Service
@@ -21,6 +22,28 @@ public class UserLogic {
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
             }
+
+            //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
+            user.setState(false);
+            user.setUserType(UserType.USER);
+
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error creating user");
+        }
+    }
+
+    public User createAdmin(User user){
+        try {
+            Optional<User> oldUser = userRepository.findById(user.getUsername());
+            if (oldUser.isPresent()) {
+                throw new RuntimeException("User already exists");
+            }
+
+            //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
+            user.setState(true);
+            user.setUserType(UserType.ADMIN);
+
             return userRepository.save(user);
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating user");
