@@ -132,4 +132,12 @@ public class UserLogic {
         }
     }
 
+    public List<User> getUserByUsername(String username){
+        try {
+            return userRepository.findByUsernameContaining(username);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting user by username");
+        } 
+    }
+
 }

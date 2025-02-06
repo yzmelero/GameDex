@@ -15,6 +15,8 @@ import cat.copernic.gamedex.entity.UserType;
 import cat.copernic.gamedex.logic.UserLogic;
 import cat.copernic.gamedex.repository.UserRepository;
 
+
+
 public class UserLogicTest {
 
     @Mock
@@ -164,5 +166,31 @@ public class UserLogicTest {
 
         assertNotNull(allUsers);
         assertEquals(2, allUsers.size());
+    }
+
+    @Test
+    public void testGetUserByUsername_UserNotFound() {
+        String username = "testUser";
+
+        when(userRepository.findByUsernameContaining(username)).thenReturn(Arrays.asList());
+
+        List<User> users = userLogic.getUserByUsername(username);
+
+        assertTrue(users.isEmpty());
+    }
+
+    @Test
+    public void testGetUserByUsername_Success() {
+        String username = "testUser";
+
+        User user = new User();
+        user.setUsername(username);
+
+        when(userRepository.findByUsernameContaining(username)).thenReturn(Arrays.asList(user));
+
+        List<User> foundUsers = userLogic.getUserByUsername(username);
+        assertNotNull(foundUsers);
+        assertEquals(1, foundUsers.size());
+        assertEquals(username, foundUsers.get(0).getUsername());
     }
 }
