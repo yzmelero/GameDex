@@ -92,4 +92,17 @@ public class VideogameLogic {
             throw new RuntimeException("Unexpected error getting all videogames");
         }
     }
+
+    public Videogame getVideogameById(String gameId) {
+        try {
+            Optional<Videogame> videogame = videogameRepo.findById(gameId);
+            if (videogame.isEmpty()) {
+                throw new RuntimeException("Videogame not found");
+            } else {
+                return videogame.get();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting the videogame");
+        }
+    }
 }
