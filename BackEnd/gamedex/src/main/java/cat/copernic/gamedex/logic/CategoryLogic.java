@@ -1,5 +1,7 @@
 package cat.copernic.gamedex.logic;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,14 @@ public class CategoryLogic {
     private CategoryRepository categoryRepository;
 
     public Category createCategory(Category category) {
-        return categoryRepository.save(category);
+       try {
+            Optional<Category> oldCategory = categoryRepository.findById(category.getNameCategory());
+            if (oldCategory.isPresent()) {
+                throw new RuntimeException("Category already exists");
+            }
+            return categoryRepository.save(category);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error creating Category");
+        }
     }
 }

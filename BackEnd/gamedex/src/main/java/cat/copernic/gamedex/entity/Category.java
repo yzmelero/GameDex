@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Category {
 
     @Id
-    private String name;
+    private String nameCategory;
 
     private String description;
 
