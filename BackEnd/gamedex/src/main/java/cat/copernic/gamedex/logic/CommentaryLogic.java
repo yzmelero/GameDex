@@ -26,6 +26,20 @@ public class CommentaryLogic {
         }
     }
     
+    public void deleteCommentary(String idCommentary){
+        try{
+            Optional<Commentary> commentary = commentaryRepository.findById(idCommentary);
+            if (commentary.isPresent()) {
+                commentaryRepository.deleteById(idCommentary);
+            }else{
+                throw new RuntimeException("Commentary not found");
+            } 
+        } catch(Exception e){
+            throw new RuntimeException("Unexpected error while deleting commentary");
+        }
+        
+    }
+    
     public List<Commentary> getAllCommentaries(){
         try{
            return commentaryRepository.findAllByVideogame();
