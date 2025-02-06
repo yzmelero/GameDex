@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Commentary {
 
     @Id
+    @Field(name = "id_commentary")
     private String idCommentary;
 
     private StateType state;
