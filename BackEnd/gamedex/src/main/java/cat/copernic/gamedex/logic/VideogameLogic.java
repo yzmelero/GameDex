@@ -79,7 +79,7 @@ public class VideogameLogic {
             }
             videogameRepo.deleteById(gameId);
         } catch (Exception e) {
-            throw new RuntimeException("Unexpecting error deleting videogame")
+            throw new RuntimeException("Unexpecting error deleting videogame");
         }
 
     }
