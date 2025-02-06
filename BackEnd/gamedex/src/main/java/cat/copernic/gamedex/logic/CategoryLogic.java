@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.Category;
+import cat.copernic.gamedex.entity.User;
 import cat.copernic.gamedex.repository.CategoryRepository;
 
 @Service
@@ -25,4 +26,17 @@ public class CategoryLogic {
             throw new RuntimeException("Unexpected error creating Category");
         }
     }
+
+    public void deleteCategory(String nameCategory) {
+        try {
+            Optional<Category> category = categoryRepository.findById(nameCategory);
+            if (category.isEmpty()) {
+                throw new RuntimeException("Category not found");
+            }
+            categoryRepository.deleteById(nameCategory);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error deleting category", e);
+        }
+    }
+    
 }
