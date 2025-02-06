@@ -1,3 +1,5 @@
-public class userApiController {
+package cat.copernic.gamedex.apiController;
+
+public class UserApiController {
 
 }
