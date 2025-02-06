@@ -3,6 +3,7 @@ package cat.copernic.gamedex.entity;
 import java.time.LocalDate;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -40,4 +41,6 @@ public class Videogame {
     @Field(name = "name_category")
     private String nameCategory;
 
+    @DBRef
+    private Category category;
 }

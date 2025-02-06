@@ -1,5 +1,6 @@
 package cat.copernic.gamedex.logic;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,8 +80,16 @@ public class VideogameLogic {
             }
             videogameRepo.deleteById(gameId);
         } catch (Exception e) {
-            throw new RuntimeException("Unexpecting error deleting videogame")
+            throw new RuntimeException("Unexpecting error deleting videogame");
         }
 
+    }
+
+    public List<Videogame> getAllVideogames() {
+        try {
+            return videogameRepo.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting all videogames");
+        }
     }
 }
