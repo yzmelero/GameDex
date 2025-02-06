@@ -17,9 +17,9 @@ public class Videogame {
     @Id
     private String gameId;
 
-    private String name;
+    private String nameGame;
 
-    private String description;
+    private String descriptionGame;
 
     private LocalDate releaseYear;
     
