@@ -47,7 +47,8 @@ public class CategoryLogic {
             } else {
                 Category newCategory = oldCategory.get();
     
-                if (!category.getDescription().equals(newCategory.getDescription())) {
+                if (category.getDescription() != null && 
+                    !category.getDescription().equals(newCategory.getDescription())) {
                     newCategory.setDescription(category.getDescription());
                 }
     
