@@ -1,6 +1,6 @@
 :hardbreaks:
 
-== [aqua]#8. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE#
+== [aqua]#10. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE#
 
 
 Com a persones joves, ens envoltem contínuament d’estímuls dins del nostre àmbit d’oci que tot i que no som conscients de manera activa, ens perjudiquen com a societat. És el cas de comunitats i jocs poc inclusius que no sols no estan pensats perquè jugui tothom sinó que inciten a marginar a col·lectius. És per això que nosaltres volem incloure en la nostra idea d’aplicació, una biblioteca de videojocs, espais segurs on les desigualtats no tenen cabuda, seguint com a exemple, l’objectiu de desenvolupament sostenible número 10: reducció de les desigualtats. 

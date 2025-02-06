@@ -88,5 +88,8 @@ include::./Asciidocs/DissenyPantalles.adoc[]
 //include per disseny de la base de dades
 include::./Asciidocs/DissenyBBDD.adoc[]
 
+//include per el Trello
+include::./Asciidocs/Trello.adoc[]
+
 //include per disseny de la base de dades
 include::./Asciidocs/FOL.adoc[]

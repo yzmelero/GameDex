@@ -1,5 +1,6 @@
 package cat.copernic.gamedex.logic;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,21 @@ public class UserLogic {
     @Autowired
     private UserRepository userRepository;
 
-    public void createUser(User user) {
+    public User createUser(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
-            } else {
-                userRepository.save(user);
             }
+            return userRepository.save(user);
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating user");
         }
     }
 
-    public void modifyUser(String username, User user) {
+    public User modifyUser(User user) {
         try {
-            Optional<User> oldUser = userRepository.findById(username);
+            Optional<User> oldUser = userRepository.findById(user.getUsername());
             if (oldUser.isEmpty()) {
                 throw new RuntimeException("User not found");
             } else {
@@ -71,7 +71,7 @@ public class UserLogic {
                     newUser.setUserType(user.getUserType());
                 }
 
-                userRepository.save(newUser);
+                return userRepository.save(newUser);
             }
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying user");
@@ -84,11 +84,18 @@ public class UserLogic {
             Optional<User> user = userRepository.findById(username);
             if (user.isEmpty()) {
                 throw new RuntimeException("User not found");
-            } else {
-                userRepository.deleteById(username);
             }
+            userRepository.deleteById(username);
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error deleting user");
+        }
+    }
+
+    public List<User> getAllUsers() {
+        try {
+            return userRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting all users");
         }
     }
 
