@@ -70,4 +70,17 @@ public class VideogameLogic {
             throw new RuntimeException("Unexpected error modifying videogame");
         }
     }
+
+    public void deleteVideogame (String gameId) {
+        try {
+            Optional<Videogame> videogame = videogameRepo.findById(gameId);
+            if (videogame.isEmpty()) {
+                throw new RuntimeException("Videogame is not found");
+            }
+            videogameRepo.deleteById(gameId);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpecting error deleting videogame")
+        }
+
+    }
 }
