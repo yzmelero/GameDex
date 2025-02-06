@@ -28,8 +28,10 @@ public class UserLogic {
             user.setUserType(UserType.USER);
 
             return userRepository.save(user);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Unexpected error creating user");
+            throw new RuntimeException("Unexpected error creating user", e);
         }
     }
 
@@ -45,6 +47,8 @@ public class UserLogic {
             user.setUserType(UserType.ADMIN);
 
             return userRepository.save(user);
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating user");
         }
@@ -96,6 +100,8 @@ public class UserLogic {
 
                 return userRepository.save(newUser);
             }
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying user");
 
@@ -109,6 +115,8 @@ public class UserLogic {
                 throw new RuntimeException("User not found");
             }
             userRepository.deleteById(username);
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error deleting user");
         }
@@ -117,6 +125,8 @@ public class UserLogic {
     public List<User> getAllUsers() {
         try {
             return userRepository.findAll();
+        } catch (RuntimeException e) {
+            throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all users");
         }
