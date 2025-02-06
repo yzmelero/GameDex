@@ -114,6 +114,3 @@ include::./Asciidocs/PropostesDeMillora.adoc[]
 
 //include per a la conclusió
 include::./Asciidocs/Conclusio.adoc[]
-
-//include per el Trello
-include::./Asciidocs/Trello.adoc[]

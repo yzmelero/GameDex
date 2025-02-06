@@ -1,3 +1,4 @@
 :hardbreaks:
 == [aqua]#15. PROPOSTES DE MILLORA#
 === [red]#FALTA POR HACER#
+//TODO: FALTA POR HACER
