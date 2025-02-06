@@ -114,4 +114,32 @@ public class CategoryTest {
 
         verify(categoryRepository, times(1)).deleteById(nameCategory);
     }
+
+    @Test
+    public void testGetCategoryById_CategoryNotFound() {
+        String categoryId = "testCategory";
+
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            categoryLogic.getCategoryById(categoryId);
+        });
+
+        assertEquals("Category not found", exception.getMessage());
+    }
+
+    @Test
+    public void testGetCategoryById_Success() {
+        String categoryId = "testCategory";
+
+        Category category = new Category();
+        category.setNameCategory(categoryId);
+
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
+
+        Category foundCategory = categoryLogic.getCategoryById(categoryId);
+
+        assertNotNull(foundCategory);
+        assertEquals(categoryId, foundCategory.getNameCategory());
+    }
 }
