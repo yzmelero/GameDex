@@ -1,0 +1,4 @@
+:hardbreaks:
+== [aqua]#10. MANUAL D'USUARI#
+=== [red]#FALTA POR HACER#
+//TODO: FALTA POR HACER

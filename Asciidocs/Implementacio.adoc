@@ -1,0 +1,4 @@
+:hardbreaks:
+== [aqua]#9. IMPLEMENTACIÓ#
+=== [red]#FALTA POR HACER#
+//TODO: FALTA POR HACER
