@@ -79,4 +79,19 @@ public class CategoryLogic {
             throw new RuntimeException("Unexpected error getting all Categorys");
         }
     }
+
+    public Category getCategoryById(String categoryId) {
+        try {
+            Optional<Category> category = categoryRepository.findById(categoryId);
+            if (category.isEmpty()) {
+                throw new RuntimeException("Category not found");
+            } else {
+                return category.get();
+            }
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting the category", e);
+        }
+    }
 }
