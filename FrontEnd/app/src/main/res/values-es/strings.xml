@@ -8,4 +8,5 @@
     <string name="telephone">Teléfono</string>
     <string name="birthdate">Fecha de Nacimiento</string>
     <string name="confirm">Confirmar</string>
+    <string name="sign_up">Registro</string>
 </resources>
