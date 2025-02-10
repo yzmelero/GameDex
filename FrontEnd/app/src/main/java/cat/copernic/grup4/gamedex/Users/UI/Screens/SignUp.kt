@@ -62,7 +62,7 @@ fun SignUpScreen() {
             ) {
                 // Icono a la izquierda
                 FloatingActionButton(
-                    onClick = { /* Acción de volver */ },
+                    onClick = { /* TODO Acción de volver */ },
                     modifier = Modifier.size(40.dp).padding(top = 12.dp),
                     containerColor = colorResource(R.color.header)
                 ) {
