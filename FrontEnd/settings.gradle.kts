@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GameDexAndroid"
+rootProject.name = "Gamedex"
 include(":app")
  
