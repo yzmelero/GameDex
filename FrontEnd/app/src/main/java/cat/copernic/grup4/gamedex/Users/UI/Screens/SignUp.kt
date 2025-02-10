@@ -6,17 +6,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.*
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -38,7 +38,7 @@ fun SignUpScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFC0CB)), // Fondo degradado rosa-morado
+            .background(colorResource(R.color.background)), // Fondo degradado rosa-morado
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(20.dp))
@@ -60,13 +60,13 @@ fun SignUpScreen() {
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                InputField(label = "Username", value = username) { username = it }
-                InputField(label = "Password", value = password, isPassword = true) { password = it }
-                InputField(label = "Name", value = name) { name = it }
-                InputField(label = "Surname", value = surname) { surname = it }
-                InputField(label = "Email", value = email) { email = it }
-                InputField(label = "Telephone", value = telephone, keyboardType = KeyboardType.Number) { telephone = it }
-                InputField(label = "BirthDate", value = birthDate) { birthDate = it }
+                InputField(label = stringResource(R.string.username), value = username) { username = it }
+                InputField(label = stringResource(R.string.password), value = password, isPassword = true) { password = it }
+                InputField(label = stringResource(R.string.name), value = name) { name = it }
+                InputField(label = stringResource(R.string.surname), value = surname) { surname = it }
+                InputField(label = stringResource(R.string.email), value = email) { email = it }
+                InputField(label = stringResource(R.string.telephone), value = telephone, keyboardType = KeyboardType.Number) { telephone = it }
+                InputField(label = stringResource(R.string.birthdate), value = birthDate) { birthDate = it }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -75,13 +75,14 @@ fun SignUpScreen() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
+                    //TODO accion de registro
                     onClick = { /* Acción de registro */ },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(16.dp))
                 ) {
-                    Text(text = "Confirm", color = Color.White)
+                    Text(text = stringResource(R.string.confirm), color = Color.White)
                 }
             }
         }
@@ -115,6 +116,7 @@ fun AvatarSection() {
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(50))
+                //TODO accion para elegir imagen
                 .clickable { /* Acción para elegir imagen */ }
         )
         Text(text = "Avatar", fontSize = 14.sp, color = Color.Black)
