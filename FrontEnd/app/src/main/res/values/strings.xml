@@ -10,4 +10,5 @@
     <string name="birthdate">Birth Date</string>
     <string name="confirm">Confirm</string>
     <string name="sign_up">Sign Up</string>
+    <string name="add_avatar">Add Avatar</string>
 </resources>

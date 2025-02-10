@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -23,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,7 +57,7 @@ fun SignUpScreen() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(16.dp, end = 56.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Icono a la izquierda
@@ -67,7 +67,7 @@ fun SignUpScreen() {
                     containerColor = colorResource(R.color.header)
                 ) {
                     Icon(
-                        Icons.Default.ArrowBack,
+                        Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.Black,
                         modifier = Modifier.size(32.dp)
@@ -149,10 +149,15 @@ fun SignUpScreen() {
                         value = birthDate
                     ) { birthDate = it }
 
+                    Text(
+                        text = "Avatar",
+                        color = Color.Black
+
+                    )
 
                     AvatarSection()
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
 
                     Button(
                         modifier = Modifier
@@ -191,23 +196,34 @@ fun InputField(
                 .clip(RoundedCornerShape(10.dp))
                 .background(Color.LightGray)
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(6.dp))
     }
 }
 
 @Composable
 fun AvatarSection() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = painterResource(id = R.drawable.coche),
-            contentDescription = "Avatar",
-            modifier = Modifier
-                .size(80.dp)
-                .clip(RoundedCornerShape(50))
-                //TODO añadir acción para elegir imagen
-                .clickable { /* Acción para elegir imagen */ }
-        )
-        Text(text = "Avatar", fontSize = 14.sp, color = Color.Black)
+        Row() {
+            Image(
+                painter = painterResource(id = R.drawable.coche),
+                contentDescription = "Avatar",
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(50))
+                    //TODO añadir acción para elegir imagen
+                    .clickable { /* Acción para elegir imagen */ }
+            )
+            Icon(
+                Icons.Default.Add,
+                contentDescription = stringResource(R.string.add_avatar),
+                modifier = Modifier
+                    .clickable { /*TODO Acción para elegir imagen */ }
+                    .padding(top = 40.dp)
+                    .background(Color.Red.copy(alpha = 0.7f), shape = RoundedCornerShape(50))
+                    .clip(RoundedCornerShape(50))
+                    .size(40.dp)
+                )
+        }
     }
 }
 
