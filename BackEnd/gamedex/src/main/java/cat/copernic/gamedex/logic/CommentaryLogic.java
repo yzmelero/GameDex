@@ -1,3 +1,4 @@
+
 package cat.copernic.gamedex.logic;
 
 import cat.copernic.gamedex.entity.Commentary;
