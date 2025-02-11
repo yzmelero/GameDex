@@ -8,4 +8,6 @@
     <string name="telephone">Telèfon</string>
     <string name="birthdate">Data de naixement</string>
     <string name="confirm">Confirmar</string>
+    <string name="sign_up">Registre</string>
+    <string name="add_avatar">Afegir avatar</string>
 </resources>

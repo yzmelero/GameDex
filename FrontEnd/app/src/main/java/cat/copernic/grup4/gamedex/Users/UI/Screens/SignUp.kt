@@ -6,6 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
@@ -38,51 +42,134 @@ fun SignUpScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(R.color.background)), // Fondo degradado rosa-morado
+            .background(colorResource(R.color.background))
+            .padding(bottom = 14.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(text = "GDEX", fontSize = 24.sp, color = Color.White)
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Text(text = "Sign Up", fontSize = 22.sp, color = Color.Black)
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            modifier = Modifier.padding(16.dp)
+        // Columna para el título "GDEX"
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(colorResource(R.color.header)) // Fondo más oscuro
+                .padding(12.dp), // Añadido padding
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp, end = 56.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                InputField(label = stringResource(R.string.username), value = username) { username = it }
-                InputField(label = stringResource(R.string.password), value = password, isPassword = true) { password = it }
-                InputField(label = stringResource(R.string.name), value = name) { name = it }
-                InputField(label = stringResource(R.string.surname), value = surname) { surname = it }
-                InputField(label = stringResource(R.string.email), value = email) { email = it }
-                InputField(label = stringResource(R.string.telephone), value = telephone, keyboardType = KeyboardType.Number) { telephone = it }
-                InputField(label = stringResource(R.string.birthdate), value = birthDate) { birthDate = it }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                AvatarSection()
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    //TODO accion de registro
-                    onClick = { /* Acción de registro */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
+                // Icono a la izquierda
+                FloatingActionButton(
+                    onClick = { /* TODO Acción de volver */ },
+                    modifier = Modifier.size(40.dp).padding(top = 12.dp),
+                    containerColor = colorResource(R.color.header)
                 ) {
-                    Text(text = stringResource(R.string.confirm), color = Color.White)
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.Black,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
+
+                // Título centrado en la pantalla
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "GDEX",
+                        fontSize = 32.sp,
+                        color = Color.White
+                    )
+                }
+            }
+
+        }
+
+        // Columna para el resto del contenido
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f), // Para que ocupe el espacio restante
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(
+                text = stringResource(id = R.string.sign_up),
+                fontSize = 28.sp,
+                color = Color.Black
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Card(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+
+
+                ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    InputField(
+                        label = stringResource(id = R.string.username),
+                        value = username
+                    ) { username = it }
+                    InputField(
+                        label = stringResource(id = R.string.password),
+                        value = password,
+                        isPassword = true
+                    ) { password = it }
+                    InputField(label = stringResource(id = R.string.name), value = name) {
+                        name = it
+                    }
+                    InputField(
+                        label = stringResource(id = R.string.surname),
+                        value = surname
+                    ) { surname = it }
+                    InputField(label = stringResource(id = R.string.email), value = email) {
+                        email = it
+                    }
+                    InputField(
+                        label = stringResource(id = R.string.telephone),
+                        value = telephone,
+                        keyboardType = KeyboardType.Number
+                    ) { telephone = it }
+                    InputField(
+                        label = stringResource(id = R.string.birthdate),
+                        value = birthDate
+                    ) { birthDate = it }
+
+                    Text(
+                        text = "Avatar",
+                        color = Color.Black
+
+                    )
+
+                    AvatarSection()
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Button(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp)),
+                        //TODO añadir acción de registro
+                        onClick = { /* Acción de registro */ },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+
+                        ) {
+                        Text(text = stringResource(id = R.string.confirm), color = Color.White)
+                    }
                 }
             }
         }
@@ -90,7 +177,13 @@ fun SignUpScreen() {
 }
 
 @Composable
-fun InputField(label: String, value: String, isPassword: Boolean = false, keyboardType: KeyboardType = KeyboardType.Text, onValueChange: (String) -> Unit) {
+fun InputField(
+    label: String,
+    value: String,
+    isPassword: Boolean = false,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    onValueChange: (String) -> Unit
+) {
     Column {
         Text(text = label, color = Color.Black, fontSize = 14.sp)
         TextField(
@@ -103,23 +196,34 @@ fun InputField(label: String, value: String, isPassword: Boolean = false, keyboa
                 .clip(RoundedCornerShape(10.dp))
                 .background(Color.LightGray)
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(6.dp))
     }
 }
 
 @Composable
 fun AvatarSection() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = painterResource(id = R.drawable.coche),
-            contentDescription = "Avatar",
-            modifier = Modifier
-                .size(80.dp)
-                .clip(RoundedCornerShape(50))
-                //TODO accion para elegir imagen
-                .clickable { /* Acción para elegir imagen */ }
-        )
-        Text(text = "Avatar", fontSize = 14.sp, color = Color.Black)
+        Row() {
+            Image(
+                painter = painterResource(id = R.drawable.coche),
+                contentDescription = "Avatar",
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(50))
+                    //TODO añadir acción para elegir imagen
+                    .clickable { /* Acción para elegir imagen */ }
+            )
+            Icon(
+                Icons.Default.Add,
+                contentDescription = stringResource(R.string.add_avatar),
+                modifier = Modifier
+                    .clickable { /*TODO Acción para elegir imagen */ }
+                    .padding(top = 40.dp)
+                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                    .clip(RoundedCornerShape(50))
+                    .size(40.dp)
+                )
+        }
     }
 }
 
