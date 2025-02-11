@@ -219,7 +219,7 @@ fun AvatarSection() {
                 modifier = Modifier
                     .clickable { /*TODO Acción para elegir imagen */ }
                     .padding(top = 40.dp)
-                    .background(Color.Red.copy(alpha = 0.7f), shape = RoundedCornerShape(50))
+                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
                     .clip(RoundedCornerShape(50))
                     .size(40.dp)
                 )
