@@ -92,7 +92,6 @@ fun AddGamesScreen() {
                         value = releaseYear,
                         onValueChange = { releaseYear = it },
                         label = { Text("Release Year") },
-                        keyboardType = KeyboardType.Number,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
@@ -104,7 +103,6 @@ fun AddGamesScreen() {
                         value = ageRecomendation,
                         onValueChange = { ageRecomendation = it },
                         label = { Text("Age Recommendation") },
-                        keyboardType = KeyboardType.Number,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
