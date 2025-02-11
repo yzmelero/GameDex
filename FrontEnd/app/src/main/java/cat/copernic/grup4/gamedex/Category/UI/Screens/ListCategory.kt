@@ -143,7 +143,7 @@ fun FloatingAddButton(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 100.dp, end = 16.dp), // Ajusta la posición sobre el BottomNavBar
+            .padding(bottom = 100.dp, end = 16.dp),
         contentAlignment = Alignment.BottomEnd
     ) {
         IconButton(
@@ -154,7 +154,7 @@ fun FloatingAddButton(onClick: () -> Unit) {
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = stringResource(R.string.add_avatar),
+                contentDescription = stringResource(R.string.add_category),
                 modifier = Modifier.size(40.dp)
             )
         }
