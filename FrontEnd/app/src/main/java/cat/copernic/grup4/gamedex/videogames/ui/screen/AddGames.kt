@@ -46,6 +46,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 
 @Composable
@@ -57,27 +58,35 @@ fun AddGamesScreen() {
     var nameCategory by remember { mutableStateOf("") }
     var descriptionGame by remember { mutableStateOf("") }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .windowInsetsPadding(WindowInsets.systemBars) ) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .navigationBarsPadding()
+                .background(Color.Gray),
+            verticalArrangement = Arrangement.Top
+        ) {
+            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 80.dp)
+                .padding(bottom = 80.dp, top = 70.dp)
                 .background(colorResource(R.color.background))
                 .windowInsetsPadding(WindowInsets.systemBars)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(text = "GDEX", fontSize = 24.sp, color = Color.White)
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Add Games", fontSize = 22.sp, color = Color.Black)
-            Spacer(modifier = Modifier.height(20.dp))
 
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
                 modifier = Modifier.padding(16.dp)
             ) {
+
                 Column(
                     modifier = Modifier.padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
