@@ -1,5 +1,8 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +39,7 @@ fun ListCategoryScreen() {
             .background(colorResource(R.color.background)), // Fons degradat rosa-morat
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopBar() // Afegida la barra superior
+        TopBar()
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -44,24 +48,39 @@ fun ListCategoryScreen() {
         Spacer(modifier = Modifier.height(10.dp))
 
         CategoriesGrid(categories)
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        BottomNavBar(onItemSelected = {})
     }
 }
 
 @Composable
 fun TopBar() {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
-            .background(colorResource(R.color.purple_700)), // Color morat superior
-        contentAlignment = Alignment.Center
+            .background(colorResource(R.color.header))
+            .padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "GDEX",
-            fontSize = 28.sp,
-            color = Color.White,
-            fontWeight = FontWeight.Bold
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = "GDEX",
+                    fontSize = 32.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
     }
 }
 
@@ -96,7 +115,9 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 
 @Composable
 fun CategoriesGrid(categories: List<String>) {
-    Column(modifier = Modifier.padding(horizontal = 16.dp) .padding(top = 16.dp)) {
+    Column(modifier = Modifier
+        .padding(horizontal = 16.dp)
+        .padding(top = 16.dp)) {
         categories.chunked(2).forEach { rowCategories ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -127,6 +148,34 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize()
         ) {
             Text(text = name, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+        }
+    }
+}
+
+@Composable
+fun BottomNavBar(selectedItem: Int = 0, onItemSelected: (Int) -> Unit) {
+    NavigationBar (
+        containerColor = Color(0xFF9D6EDB)
+    ) {
+        val icons = listOf(R.drawable.apps, R.drawable.gamepad, R.drawable.users_alt, R.drawable.user, R.drawable.book_open_cover)
+
+        icons.forEachIndexed { index, iconRes ->
+            NavigationBarItem(
+                icon = {
+                    Image(
+                        painter = painterResource(id = iconRes),
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp))
+                },
+                selected = selectedItem == index,
+                onClick = { onItemSelected(index)},
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.Black,
+                    unselectedIconColor = Color.Gray,
+                    indicatorColor = Color.White
+                ),
+                modifier = Modifier.size(40.dp)
+            )
         }
     }
 }
