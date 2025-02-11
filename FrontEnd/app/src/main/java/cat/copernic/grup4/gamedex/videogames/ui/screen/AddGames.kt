@@ -46,17 +46,13 @@ fun AddGamesScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(R.color.background)), // Fondo degradado rosa-morado
+            .background(colorResource(R.color.background)),// Fondo degradado rosa-morado
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(20.dp))
-
         Text(text = "GDEX", fontSize = 24.sp, color = Color.White)
-
         Spacer(modifier = Modifier.height(10.dp))
-
         Text(text = "Add Games", fontSize = 22.sp, color = Color.Black)
-
         Spacer(modifier = Modifier.height(20.dp))
 
         Card(
@@ -155,9 +151,12 @@ fun AddGamesScreen() {
                 ) {
                     Text(text = stringResource(R.string.confirm), color = Color.White)
                 }
+
             }
+
         }
     }
+    //BottomNavBar(onItemSelected = {})
 }
 
 
