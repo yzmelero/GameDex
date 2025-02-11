@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gamedex</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apelllido</string>
+    <string name="telephone">Teléfono</string>
+    <string name="birthdate">Fecha de Nacimiento</string>
+    <string name="confirm">Confirmar</string>
+    <string name="sign_up">Registro</string>
+    <string name="add_avatar">Añadir avatar</string>
+</resources>
