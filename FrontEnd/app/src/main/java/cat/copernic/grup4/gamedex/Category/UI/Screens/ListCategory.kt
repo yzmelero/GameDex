@@ -1,14 +1,14 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,6 +19,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,10 +37,10 @@ fun ListCategoryScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(R.color.background)), // Fons degradat rosa-morat
+            .background(colorResource(R.color.background)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopBar()
+        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -56,33 +57,43 @@ fun ListCategoryScreen() {
 }
 
 @Composable
-fun TopBar() {
-    Column(
+fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(R.color.header))
             .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
+        Image(
+            painter = painterResource(id = profileImageRes),
+            contentDescription = "Profile Avatar",
             modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = "GDEX",
-                    fontSize = 32.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+                .size(40.dp)
+                .background(Color.White, shape = CircleShape)
+                .padding(2.dp)
+        )
+
+        Text(
+            text = "GDEX",
+            fontSize = 32.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.Center
+        )
+
+        IconButton(onClick = onLogoutClick) {
+            Icon(
+                imageVector = Icons.Default.ExitToApp,
+                contentDescription = "Logout",
+                Modifier.size(40.dp)
+            )
         }
     }
 }
+
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
