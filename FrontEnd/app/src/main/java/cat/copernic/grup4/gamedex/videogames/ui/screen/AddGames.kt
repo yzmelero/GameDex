@@ -1,5 +1,9 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screen
 
+
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -37,7 +42,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,8 +61,9 @@ fun AddGamesScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(bottom = 80.dp)
                 .background(colorResource(R.color.background))
-                .padding(bottom = 56.dp)
+                .windowInsetsPadding(WindowInsets.systemBars)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
@@ -144,7 +149,7 @@ fun AddGamesScreen() {
                     Spacer(modifier = Modifier.height(20.dp))
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Row() {
+                        Row {
                             Text(text = "Cover:", fontSize = 14.sp, color = Color.Black)
                             Image(
                                 painter = painterResource(id = R.drawable.coche),
@@ -177,12 +182,13 @@ fun AddGamesScreen() {
                     ) {
                         Text(text = stringResource(R.string.confirm), color = Color.White)
                     }
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         }
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
             BottomNavBar(selectedItem = 1, onItemSelected = {})
