@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -23,6 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 
 @Composable
@@ -34,13 +38,21 @@ fun ListCategoryScreen() {
         "OPEN WORLD", "SIMULATION"
     )
 
+    Box(modifier = Modifier.fillMaxSize()) {
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(R.color.background)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Top
+        ) {
+            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -52,48 +64,17 @@ fun ListCategoryScreen() {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavBar(onItemSelected = {})
     }
-}
-
-@Composable
-fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(colorResource(R.color.header))
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Image(
-            painter = painterResource(id = profileImageRes),
-            contentDescription = "Profile Avatar",
+        Column(
             modifier = Modifier
-                .size(40.dp)
-                .background(Color.White, shape = CircleShape)
-                .padding(2.dp)
-        )
-
-        Text(
-            text = "GDEX",
-            fontSize = 32.sp,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.Center
-        )
-
-        IconButton(onClick = onLogoutClick) {
-            Icon(
-                imageVector = Icons.Default.ExitToApp,
-                contentDescription = "Logout",
-                Modifier.size(40.dp)
-            )
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            BottomNavBar(onItemSelected = {})
         }
+
     }
 }
-
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
@@ -126,22 +107,19 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 
 @Composable
 fun CategoriesGrid(categories: List<String>) {
-    Column(modifier = Modifier
-        .padding(horizontal = 16.dp)
-        .padding(top = 16.dp)) {
-        categories.chunked(2).forEach { rowCategories ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp) // Espaiat entre botons
-            ) {
-                rowCategories.forEach { category ->
-                    CategoryButton(category, Modifier.weight(1f))
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        categories.forEach { category ->
+            CategoryButton(category, Modifier.fillMaxWidth()) // Ocupa todo el ancho disponible
         }
     }
 }
+
 
 @Composable
 fun CategoryButton(name: String, modifier: Modifier = Modifier) {
@@ -159,34 +137,6 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize()
         ) {
             Text(text = name, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-        }
-    }
-}
-
-@Composable
-fun BottomNavBar(selectedItem: Int = 0, onItemSelected: (Int) -> Unit) {
-    NavigationBar (
-        containerColor = Color(0xFF9D6EDB)
-    ) {
-        val icons = listOf(R.drawable.apps, R.drawable.gamepad, R.drawable.users_alt, R.drawable.user, R.drawable.book_open_cover)
-
-        icons.forEachIndexed { index, iconRes ->
-            NavigationBarItem(
-                icon = {
-                    Image(
-                        painter = painterResource(id = iconRes),
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp))
-                },
-                selected = selectedItem == index,
-                onClick = { onItemSelected(index)},
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.Black,
-                    unselectedIconColor = Color.Gray,
-                    indicatorColor = Color.White
-                ),
-                modifier = Modifier.size(40.dp)
-            )
         }
     }
 }
