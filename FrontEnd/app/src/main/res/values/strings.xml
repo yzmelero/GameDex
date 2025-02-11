@@ -5,8 +5,10 @@
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
-    <string name="email">Email</string>
+    <string name="email" translatable="false">Email</string>
     <string name="telephone">Telephone</string>
-    <string name="birthdate">BirthDate</string>
+    <string name="birthdate">Birth Date</string>
     <string name="confirm">Confirm</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="add_avatar">Add Avatar</string>
 </resources>
