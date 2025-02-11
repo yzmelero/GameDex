@@ -13,20 +13,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
+import cat.copernic.grup4.gamedex.R
 
 @Composable
 fun Library(){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD8B4FE))
+            .background(colorResource(id = R.color.background))
             .padding(16.dp)
     ) {
     Text(
@@ -45,7 +47,7 @@ fun Library(){
         modifier = Modifier
             .align(Alignment.End)
             .padding(16.dp),
-        containerColor = Color(0xFFE63946)
+        containerColor = colorResource(id = R.color.buttons)
     ) {
         Icon(Icons.Default.Add, contentDescription = "Add Videogame")
     }}
@@ -78,6 +80,12 @@ fun VideogameItem(){
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun LibraryPreview(){
+    Library()
 }
 
 

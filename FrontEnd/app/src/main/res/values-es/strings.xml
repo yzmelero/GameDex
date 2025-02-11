@@ -10,4 +10,9 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registro</string>
     <string name="add_avatar">Añadir avatar</string>
+    <string name="library">Biblioteca</string>
+    <string name="playing">Jugando</string>
+    <string name="wanttoplay">Pendiente</string>
+    <string name="finished">Acabado</string>
+    <string name="dropped">Abandonado</string>
 </resources>

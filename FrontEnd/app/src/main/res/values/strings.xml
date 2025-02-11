@@ -11,4 +11,9 @@
     <string name="confirm">Confirm</string>
     <string name="sign_up">Sign Up</string>
     <string name="add_avatar">Add Avatar</string>
+    <string name="library">Library</string>
+    <string name="playing">Playing</string>
+    <string name="wanttoplay">Want to play</string>
+    <string name="finished">Finished</string>
+    <string name="dropped">Dropped</string>
 </resources>

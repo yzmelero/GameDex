@@ -10,4 +10,9 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registre</string>
     <string name="add_avatar">Afegir avatar</string>
+    <string name="library">Biblioteca</string>
+    <string name="playing">Jugant</string>
+    <string name="wanttoplay">Pendent</string>
+    <string name="finished">Acabat</string>
+    <string name="dropped">Abandonat</string>
 </resources>
