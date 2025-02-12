@@ -23,12 +23,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 
 @Composable
-fun ListCategoryScreen() {
+fun ListCategoryScreen(/*navController: NavController*/) {
     var searchQuery by remember { mutableStateOf("") }
     val categories = listOf(
         "ALL", "ACTION", "ADVENTURE", "SHOOTER", "RPG", "MOBA",
