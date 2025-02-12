@@ -12,4 +12,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="add_avatar">Add Avatar</string>
     <string name="add_category">add_string</string>
+    <string name="category_title">Category</string>
 </resources>
