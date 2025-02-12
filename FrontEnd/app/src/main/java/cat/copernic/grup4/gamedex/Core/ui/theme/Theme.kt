@@ -50,9 +50,14 @@ fun GamedexTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
+    /*MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = content
+    )*/
+    MaterialTheme(
+        typography = GameDexTypography,
+        content = content
     )
+
 }

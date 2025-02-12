@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gamedex</string>
+    <string name="app_name">GameDex</string>
     <string name="username">Nom d\'usuari</string>
     <string name="password">Contrasenya</string>
     <string name="name">Nom</string>
@@ -10,4 +10,6 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registre</string>
     <string name="add_avatar">Afegir avatar</string>
+    <string name="login">Iniciar sessió</string>
+    <string name="forgot_password">Has oblidat la contrasenya?</string>
 </resources>
