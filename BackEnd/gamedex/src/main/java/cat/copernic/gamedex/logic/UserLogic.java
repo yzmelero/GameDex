@@ -132,6 +132,10 @@ public class UserLogic {
         }
     }
 
+    public User getUserById(String userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
     public List<User> getUserByUsername(String username){
         try {
             return userRepository.findByUsernameContaining(username);
