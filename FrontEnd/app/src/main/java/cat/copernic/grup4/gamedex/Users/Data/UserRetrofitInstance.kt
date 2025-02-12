@@ -13,7 +13,7 @@ object UserRetrofitInstance {
 
 
     //Cuando se usa el emulador de movil desde AndroidStudio, la 10.0.2.2 de la red virtual apunta a localhost de la máquina anfitrion
-    private const val BASE_URL = "http://localhost:8080/api/user/"  // Reemplaza con la URL de tu servidor Spring Boot
+    private const val BASE_URL = "http://10.0.2.2:8080/api/user/"  // Reemplaza con la URL de tu servidor Spring Boot
 
 
     val retrofitInstance: Retrofit by lazy {

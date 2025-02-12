@@ -16,14 +16,20 @@ public class UserApiController {
     @Autowired
     private UserLogic userLogic;
 
-
-    @GetMapping("/all&{userId}")
-    public List<User> getAllUsers(@PathVariable String userId) {
-        if (userId.isEmpty()||userId==null) {
+    @GetMapping("/all/{userId}")
+    public List<User> getAllUsersbyUsername(@PathVariable String userId) {
+        if (userId.isEmpty() || userId == null) {
             return userLogic.getAllUsers();
-        }else{
+        } else {
             return userLogic.getUserByUsername(userId);
         }
+    }
+
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+
+        return userLogic.getAllUsers();
+
     }
 
     @GetMapping("/byId/{userId}")
@@ -34,6 +40,11 @@ public class UserApiController {
     @PutMapping("/update")
     public User updateUser(@RequestBody User user) {
         return userLogic.modifyUser(user);
+    }
+
+    @PostMapping("/create")
+    public User createUser(@RequestBody User user) {
+        return userLogic.createUser(user);
     }
 
     @DeleteMapping("/delete/{userId}")
