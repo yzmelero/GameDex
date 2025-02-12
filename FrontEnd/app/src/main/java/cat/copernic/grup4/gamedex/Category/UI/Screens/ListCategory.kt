@@ -57,7 +57,7 @@ fun ListCategoryScreen() {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = stringResource(R.string.category_title),
+                text = stringResource(R.string.category),
                 fontSize = 24.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,

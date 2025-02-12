@@ -10,5 +10,6 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registro</string>
     <string name="add_avatar">Añadir avatar</string>
-    <string name="category_title">Categoría</string>
+    <string name="add_category">Añadir Categoría</string>
+    <string name="category">Categoría</string>
 </resources>
