@@ -1,6 +1,7 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screen
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -42,6 +43,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,155 +56,207 @@ import cat.copernic.grup4.gamedex.R
 fun AddGamesScreen() {
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
-    var ageRecomendation by remember { mutableStateOf("") }
+    var ageRecommendation by remember { mutableStateOf("") }
     var developer by remember { mutableStateOf("") }
     var nameCategory by remember { mutableStateOf("") }
     var descriptionGame by remember { mutableStateOf("") }
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .windowInsetsPadding(WindowInsets.systemBars) ) {
-        Column(
-            modifier = Modifier.fillMaxWidth()
-                .navigationBarsPadding()
-                .background(Color.Gray),
-            verticalArrangement = Arrangement.Top
-        ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
-        }
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 80.dp, top = 70.dp)
+                .fillMaxWidth()
                 .background(colorResource(R.color.background))
-                .windowInsetsPadding(WindowInsets.systemBars)
-                .verticalScroll(rememberScrollState()),
+                .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Add Games", fontSize = 22.sp, color = Color.Black)
-
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                modifier = Modifier.padding(16.dp)
-            ) {
-
-                Column(
-                    modifier = Modifier.padding(20.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    TextField(
-                        value = nameGame,
-                        onValueChange = { nameGame = it },
-                        label = { Text("Game Name") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.LightGray)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    TextField(
-                        value = releaseYear,
-                        onValueChange = { releaseYear = it },
-                        label = { Text("Release Year") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.LightGray)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    TextField(
-                        value = ageRecomendation,
-                        onValueChange = { ageRecomendation = it },
-                        label = { Text("Age Recommendation") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.LightGray)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    TextField(
-                        value = developer,
-                        onValueChange = { developer = it },
-                        label = { Text("Developer") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.LightGray)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    TextField(
-                        value = nameCategory,
-                        onValueChange = { nameCategory = it },
-                        label = { Text("Category") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.LightGray)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    TextField(
-                        value = descriptionGame,
-                        onValueChange = { descriptionGame = it },
-                        label = { Text("Description") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.LightGray)
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Row {
-                            Text(text = "Cover:", fontSize = 14.sp, color = Color.Black)
-                            Image(
-                                painter = painterResource(id = R.drawable.coche),
-                                contentDescription = "Cover",
-                                modifier = Modifier
-                                    .size(120.dp)
-                                    //TODO accion para elegir imagen
-                                    .clickable { /* Acción para elegir imagen */ }
-                            )
-                            Icon(
-                                Icons.Default.Add,
-                                contentDescription = stringResource(R.string.add_avatar),
-                                modifier = Modifier
-                                    .clickable { /*TODO Acción para elegir imagen */ }
-                                    .padding(top = 60.dp, start = 10.dp)
-                                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
-                                    .clip(RoundedCornerShape(50))
-                                    .size(30.dp)
-                            )
-                        }
-
-                    }
-                    Button(
-                        //TODO accion de registro
-                        onClick = { /* Acción de registro */ },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(16.dp))
-                    ) {
-                        Text(text = stringResource(R.string.confirm), color = Color.White)
-                    }
-                    Spacer(modifier = Modifier.height(10.dp))
-                }
-            }
-        }
-        Column(
-            modifier = Modifier.fillMaxSize()
-                .navigationBarsPadding(),
-            verticalArrangement = Arrangement.Bottom
         ) {
-            BottomNavBar(selectedItem = 1, onItemSelected = {})
+            HeaderSection()
+
+            ContentSection(
+                nameGame, { nameGame = it },
+                releaseYear, { releaseYear = it },
+                ageRecommendation, { ageRecommendation = it },
+                developer, { developer = it },
+                nameCategory, { nameCategory = it },
+                descriptionGame, { descriptionGame = it }
+            )
         }
+        BottomSection()
+    }
+}
+
+@Composable
+fun HeaderSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+
+    }
+}
+
+@Composable
+fun ContentSection(
+    nameGame: String, onNameChange: (String) -> Unit,
+    releaseYear: String, onReleaseYearChange: (String) -> Unit,
+    ageRecommendation: String, onAgeChange: (String) -> Unit,
+    developer: String, onDeveloperChange: (String) -> Unit,
+    nameCategory: String, onCategoryChange: (String) -> Unit,
+    descriptionGame: String, onDescriptionChange: (String) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 80.dp)
+            .background(colorResource(R.color.background))
+            .windowInsetsPadding(WindowInsets.systemBars)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = stringResource(R.string.add_game),
+            fontSize = 22.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        )
+
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            modifier = Modifier.padding(16.dp)
+        ) {
+            FormFields(
+                nameGame, onNameChange,
+                releaseYear, onReleaseYearChange,
+                ageRecommendation, onAgeChange,
+                developer, onDeveloperChange,
+                nameCategory, onCategoryChange,
+                descriptionGame, onDescriptionChange
+            )
+        }
+    }
+}
+
+@Composable
+fun FormFields(
+    nameGame: String, onNameChange: (String) -> Unit,
+    releaseYear: String, onReleaseYearChange: (String) -> Unit,
+    ageRecommendation: String, onAgeChange: (String) -> Unit,
+    developer: String, onDeveloperChange: (String) -> Unit,
+    nameCategory: String, onCategoryChange: (String) -> Unit,
+    descriptionGame: String, onDescriptionChange: (String) -> Unit
+) {
+    Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        TextField(
+            value = nameGame,
+            onValueChange = onNameChange,
+            label = { Text(stringResource(R.string.game_name)) },
+            modifier = textFieldModifier()
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            value = releaseYear,
+            onValueChange = onReleaseYearChange,
+            label = { Text(stringResource(R.string.release_year)) },
+            modifier = textFieldModifier()
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            value = ageRecommendation,
+            onValueChange = onAgeChange,
+            label = { Text(stringResource(R.string.age_recommendation)) },
+            modifier = textFieldModifier()
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            value = developer,
+            onValueChange = onDeveloperChange,
+            label = { Text(stringResource(R.string.developer)) },
+            modifier = textFieldModifier()
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            value = nameCategory,
+            onValueChange = onCategoryChange,
+            label = { Text(stringResource(R.string.game_category)) },
+            modifier = textFieldModifier()
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(
+            value = descriptionGame,
+            onValueChange = onDescriptionChange,
+            label = { Text(stringResource(R.string.description)) },
+            modifier = textFieldModifier()
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        ImagePicker()
+        ConfirmButton()
+    }
+}
+
+@Composable
+fun textFieldModifier() = Modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(10.dp))
+        .background(Color.LightGray)
+
+@Composable
+fun ImagePicker() {
+    Row {
+        Text(
+            text = stringResource(R.string.cover) + ":",
+            fontSize = 14.sp,
+            color = Color.Black
+        )
+        Image(
+            painter = painterResource(id = R.drawable.coche),
+            contentDescription = stringResource(R.string.cover),
+            modifier = Modifier
+                .size(120.dp)
+                .clickable { /* Acción para elegir imagen */ }
+        )
+        Icon(
+            Icons.Default.Add,
+            contentDescription = stringResource(R.string.add_avatar),
+            modifier = Modifier
+                .clickable { /* Acción para elegir imagen */ }
+                .padding(top = 60.dp, start = 10.dp)
+                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                .clip(RoundedCornerShape(50))
+                .size(30.dp)
+        )
+    }
+}
+
+@Composable
+fun ConfirmButton() {
+    Button(
+        onClick = { /* Acción de registro */ },
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+    ) {
+        Text(text = stringResource(R.string.confirm), color = Color.White)
+    }
+    Spacer(modifier = Modifier.height(10.dp))
+}
+
+@Composable
+fun BottomSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding(),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        BottomNavBar(selectedItem = 1, onItemSelected = {})
     }
 }
 

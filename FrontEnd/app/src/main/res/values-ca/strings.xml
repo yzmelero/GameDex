@@ -10,4 +10,12 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registre</string>
     <string name="add_avatar">Afegir avatar</string>
+    <string name="add_game">Afegir videojocs</string>
+    <string name="game_name">Nom del Joc</string>
+    <string name="release_year">Data Llançament</string>
+    <string name="age_recommendation">Edat Recomenada</string>
+    <string name="developer">Creador</string>
+    <string name="game_category">Categoria</string>
+    <string name="description">Descripció</string>
+    <string name="cover">Portada</string>
 </resources>
