@@ -179,7 +179,6 @@ fun FloatingAddButton(onClick: () -> Unit) {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewListCategoryScreen() {
