@@ -1,6 +1,6 @@
 <resources>
     <!--TODO añadir idiomas -->
-    <string name="app_name">Gamedex</string>
+    <string name="app_name">GameDex</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
@@ -11,4 +11,7 @@
     <string name="confirm">Confirm</string>
     <string name="sign_up">Sign Up</string>
     <string name="add_avatar">Add Avatar</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot your password?</string>
+
 </resources>
