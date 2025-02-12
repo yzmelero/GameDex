@@ -18,4 +18,6 @@
     <string name="game_category">Categoría</string>
     <string name="description">Descripcion</string>
     <string name="cover">Portada</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="forgot_password">Has olvidado la contraseña?</string>
 </resources>
