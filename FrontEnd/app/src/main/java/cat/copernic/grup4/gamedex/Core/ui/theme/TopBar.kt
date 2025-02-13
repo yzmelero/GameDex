@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -41,6 +42,7 @@ fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
             contentDescription = "Profile Avatar",
             modifier = Modifier
                 .size(40.dp)
+                .clip(CircleShape)
                 .background(Color.White, shape = CircleShape)
                 .padding(2.dp)
         )
@@ -67,4 +69,4 @@ fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTopBar() {
-    TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)}
+    TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)}
