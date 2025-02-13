@@ -186,7 +186,7 @@ fun GameCard(videogame: Videogame) {
             Text(
                 text = videogame.descriptionGame,
                 fontSize = 14.sp,
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(16.dp)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(
@@ -247,13 +247,14 @@ fun CommentsSection() {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "VicoGracias",
+                        text = "VicoGracias" /* Nom usuari comentari */,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥")
+                        text = "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥" /* comentari del usuari */
+                    )
                 }
                 Box(
                     modifier = Modifier
@@ -290,7 +291,7 @@ fun CommentsSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewViewGamesScreen() {
-    val testGame = Videogame(
+    val testGame = Videogame( /* test per mostrar dades del joc, encara no hi ha dades a la bbdd */
         nameGame = "Elden Ring",
         releaseYear = 2022,
         nameCategory = "RPG",
