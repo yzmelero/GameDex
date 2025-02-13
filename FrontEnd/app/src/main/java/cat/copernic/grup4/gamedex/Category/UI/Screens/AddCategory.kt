@@ -114,7 +114,6 @@ fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (S
             modifier = Modifier
                 .padding(bottom = 10.dp),
             fontSize = 16.sp,
-            color = Color.Black
         ) },
         textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
         modifier = Modifier
