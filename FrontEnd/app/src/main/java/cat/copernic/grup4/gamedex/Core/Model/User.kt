@@ -1,26 +1,14 @@
-package cat.copernic.grup4.gamedex.Core.Model;
+package cat.copernic.grup4.gamedex.Core.Model
 
-import java.time.LocalDate;
+data class User(
 
-public class User {
-    private String username;
+    val username: String,
+    val password: String,
+    val name: String,
+    val surname: String,
+    val email: String,
+    val telephone: Int,
+    val birthDate: String,
+    val profilePicture: String? = null
 
-    private String password;
-
-    private String name;
-
-    private String surname;
-
-    private String email;
-
-    private int telephone;
-
-    private LocalDate birthDate;
-
-    private String profilePicture;
-
-    // 0 for disabled or non validated users, 1 for validated users
-    private Boolean state;
-
-    private UserType userType;
-}
+)
