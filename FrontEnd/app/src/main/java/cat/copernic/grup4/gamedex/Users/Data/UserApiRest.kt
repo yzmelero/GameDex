@@ -20,7 +20,7 @@ interface UserApiRest {
     suspend fun getUserById(@Path("userId") userId: String): Response<User>
 
     @POST("create")
-    fun createUser(@Body user: User): Response<User>
+    fun createUser(@Body user: User): Call<User>
 
     @PUT("update")
     suspend fun updateUser(@Body user: User): Response<User>
