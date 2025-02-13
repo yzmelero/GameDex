@@ -11,7 +11,7 @@ data class User(
     val email: String,
     val telephone: Int,
     val birthDate: String,
-
+    val userType: UserType,
     val profilePicture: String? = null
 
 
