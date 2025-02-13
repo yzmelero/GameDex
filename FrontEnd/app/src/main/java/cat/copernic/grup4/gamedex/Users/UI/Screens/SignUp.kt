@@ -27,10 +27,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import java.time.LocalDate
 
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController, userViewModel: UserViewModel = viewModel()) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -62,7 +69,8 @@ fun SignUpScreen(navController: NavController) {
             ) {
                 // Icono a la izquierda
                 FloatingActionButton(
-                    onClick = { /* TODO Acción de volver */ },
+                    onClick = { /* TODO Acción de volver */
+                    navController.navigate("login")},
                     modifier = Modifier.size(40.dp).padding(top = 12.dp),
                     containerColor = colorResource(R.color.header)
                 ) {
@@ -164,7 +172,41 @@ fun SignUpScreen(navController: NavController) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
                         //TODO añadir acción de registro
-                        onClick = { /* Acción de registro */ },
+                        onClick = {
+                            val user = User()
+                            user.username = username
+                            user.password = password
+                            user.name = name
+                            user.surname = surname
+                            user.email = email
+
+                            if (!telephone.isEmpty() && telephone != null)
+                                user.telephone = telephone.toInt()
+                            else
+                                user.telephone = 0
+                            try {
+                                user.birthDate = LocalDate.parse(birthDate)
+                            }catch (e: Exception){
+                                user.birthDate = LocalDate.of(2000,1,1)
+                            }
+
+                            user.profilePicture = null
+                            user.state = false
+                            user.userType = UserType.USER
+
+
+                            userViewModel.createUser(user,
+                                /*onSuccess = {
+                                   navController.navigate("login")
+                                },
+                                onError = { errorMessage ->
+                                    // Mostrar error
+                                    // Print the selected error
+                                    println("Error creating user: $errorMessage")
+
+                                }*/
+                            )
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {
@@ -222,7 +264,7 @@ fun AvatarSection() {
                     .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
                     .clip(RoundedCornerShape(50))
                     .size(40.dp)
-                )
+            )
         }
     }
 }
@@ -230,5 +272,6 @@ fun AvatarSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSignUpScreen() {
-    //SignUpScreen()
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    SignUpScreen(navController = fakeNavController)
 }

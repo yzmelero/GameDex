@@ -16,10 +16,11 @@ object UserRetrofitInstance {
     private const val BASE_URL = "http://10.0.2.2:8080/api/user/"  // Reemplaza con la URL de tu servidor Spring Boot
 
 
-    val retrofitInstance: Retrofit by lazy {
+    val retrofitInstance: UserApiRest by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())  // Convierte JSON a objetos Kotlin
             .build()
+            .create(UserApiRest::class.java)
     }
 }
