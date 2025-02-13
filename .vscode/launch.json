@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GamedexApplication<gamedex>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cat.copernic.gamedex.GamedexApplication",
+            "projectName": "gamedex",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
