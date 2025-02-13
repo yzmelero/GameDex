@@ -22,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
@@ -42,14 +41,29 @@ fun ListCategoryScreen(/*navController: NavController*/) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(R.color.background)),
+            .background(colorResource(R.color.background))
+            .windowInsetsPadding(WindowInsets.systemBars),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Top
+            modifier = Modifier.fillMaxWidth()
+                .navigationBarsPadding(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = stringResource(R.string.category),
+                fontSize = 24.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+            )
         }
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -65,7 +79,8 @@ fun ListCategoryScreen(/*navController: NavController*/) {
     }
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
             BottomNavBar(onItemSelected = {})
@@ -108,7 +123,7 @@ fun CategoriesGrid(categories: List<String>) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 16.dp)
+            .padding(top = 16.dp, bottom = 80.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -127,7 +142,7 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Ombra afegida
         modifier = modifier
             .padding(top = 5.dp)
-            .height(50.dp) // Més alçada per semblar-se més a la imatge
+            .height(50.dp)
             .clickable { /* Acció de selecció */ }
     ) {
         Box(
@@ -144,6 +159,7 @@ fun FloatingAddButton(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .navigationBarsPadding()
             .padding(bottom = 100.dp, end = 16.dp),
         contentAlignment = Alignment.BottomEnd
     ) {
@@ -161,7 +177,6 @@ fun FloatingAddButton(onClick: () -> Unit) {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

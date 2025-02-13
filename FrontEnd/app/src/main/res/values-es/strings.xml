@@ -10,6 +10,10 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registro</string>
     <string name="add_avatar">Añadir avatar</string>
+    <string name="add_category">Añadir Categoría</string>
+    <string name="category">Categoría</string>
+    <string name="name_category">Nombre Categoría</string>
+    <string name="image_category">Imagen Categoría</string>
     <string name="add_game">Añadir Videojuegos</string>
     <string name="game_name">Título Juego</string>
     <string name="release_year">Año Lanzamiento</string>
