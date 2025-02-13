@@ -19,11 +19,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
@@ -53,7 +51,7 @@ fun ListCategoryScreen(/*navController: NavController*/) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
 
             Spacer(modifier = Modifier.height(16.dp))
 

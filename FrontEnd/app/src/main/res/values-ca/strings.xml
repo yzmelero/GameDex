@@ -12,6 +12,8 @@
     <string name="add_avatar">Afegir avatar</string>
     <string name="add_category">Afegir Categoria</string>
     <string name="category">Categoria</string>
+    <string name="name_category">Nom Categoria</string>
+    <string name="image_category">Imatge Categoria</string>
     <string name="add_game">Afegir videojocs</string>
     <string name="game_name">Nom del Joc</string>
     <string name="release_year">Data Llançament</string>

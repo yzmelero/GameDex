@@ -3,8 +3,9 @@ package cat.copernic.grup4.gamedex.Category.UI.Screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
@@ -13,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,7 +40,7 @@ fun AddCategoryScreen() {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -60,16 +60,17 @@ fun AddCategoryScreen() {
                     .padding(horizontal = 16.dp)
                     .fillMaxHeight(1f)
                     .padding(bottom = 100.dp)
-                    .clip(RoundedCornerShape(16.dp)),
+                    .clip(RoundedCornerShape(16.dp))
+                    .verticalScroll(rememberScrollState()),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Spacer(modifier = Modifier.height(20.dp))
-                    TextField(label = "Name", text = categoryName) { categoryName = it }
+                    TextField(label = stringResource(R.string.name_category), text = categoryName) { categoryName = it }
                     Spacer(modifier = Modifier.height(20.dp))
-                    TextField(label = "Description", text = categoryDescription, height = 100.dp) { categoryDescription = it }
+                    TextField(label = stringResource(R.string.description), text = categoryDescription, height = 180.dp) { categoryDescription = it }
                     Spacer(modifier = Modifier.height(20.dp))
-                    Text("Image", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(stringResource(R.string.image_category), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Spacer(modifier = Modifier.height(20.dp))
                     ImageUploadSection()
                 }
@@ -104,20 +105,24 @@ fun AddCategoryScreen() {
 }
 
 @Composable
-fun TextField(label: String, text: String, height: Dp = 56.dp, onTextChanged: (String) -> Unit) {
-    Column {
-        Text(label, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-        BasicTextField(
-            value = text,
-            onValueChange = onTextChanged,
-            textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
+fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (String) -> Unit) {
+    TextField(
+        value = text,
+        onValueChange = onTextChanged,
+        label = { Text(
+            label,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(height)
-                .background(Color.LightGray, RoundedCornerShape(8.dp))
-                .padding(8.dp)
-        )
-    }
+                .padding(bottom = 10.dp),
+            fontSize = 16.sp,
+            color = Color.Black
+        ) },
+        textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .clip(RoundedCornerShape(15.dp))
+            .padding(8.dp),
+    )
 }
 
 @Composable
