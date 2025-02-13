@@ -27,6 +27,13 @@ public class UserLogic {
             user.setState(false);
             user.setUserType(UserType.USER);
 
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                throw new RuntimeException("Email already exists");
+            }
+            if (userRepository.findByTelephone(user.getTelephone()).isPresent()) {
+                throw new RuntimeException("Telephone already exists");   
+            }
+
             return userRepository.save(user);
         } catch (RuntimeException e) {
             throw e;

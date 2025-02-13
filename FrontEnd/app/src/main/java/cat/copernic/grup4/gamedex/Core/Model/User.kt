@@ -1,5 +1,7 @@
 package cat.copernic.grup4.gamedex.Core.Model
 
+import java.time.LocalDate
+
 data class User(
 
     val username: String,
@@ -9,6 +11,8 @@ data class User(
     val email: String,
     val telephone: Int,
     val birthDate: String,
+
     val profilePicture: String? = null
+
 
 )
