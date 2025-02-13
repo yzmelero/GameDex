@@ -11,5 +11,15 @@
     <string name="confirm">Confirm</string>
     <string name="sign_up">Sign Up</string>
     <string name="add_avatar">Add Avatar</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot your password?</string>
     <string name="add_category">add_string</string>
+    <string name="add_game">Add Games</string>
+    <string name="game_name">Game Name</string>
+    <string name="release_year">Release Year</string>
+    <string name="age_recommendation">Age Recommendation</string>
+    <string name="developer">Developer</string>
+    <string name="game_category">Category</string>
+    <string name="description">Description</string>
+    <string name="cover">Cover</string>
 </resources>
