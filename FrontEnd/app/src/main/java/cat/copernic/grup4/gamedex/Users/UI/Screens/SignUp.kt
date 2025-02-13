@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,18 +28,21 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.Model.User
-import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
-import java.time.LocalDate
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun SignUpScreen(navController: NavController, userViewModel: UserViewModel = viewModel()) {
+fun SignUpScreen(navController: NavController) {
+
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -45,6 +50,9 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel = vi
     var email by remember { mutableStateOf("") }
     var telephone by remember { mutableStateOf("") }
     var birthDate by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val registrationState by userViewModel.registrationSuccess.collectAsState()
 
     Column(
         modifier = Modifier
@@ -69,8 +77,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel = vi
             ) {
                 // Icono a la izquierda
                 FloatingActionButton(
-                    onClick = { /* TODO Acción de volver */
-                    navController.navigate("login")},
+                    onClick = {  navController.popBackStack() },
                     modifier = Modifier.size(40.dp).padding(top = 12.dp),
                     containerColor = colorResource(R.color.header)
                 ) {
@@ -172,41 +179,17 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel = vi
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
                         //TODO añadir acción de registro
-                        onClick = {
-                            val user = User()
-                            user.username = username
-                            user.password = password
-                            user.name = name
-                            user.surname = surname
-                            user.email = email
-
-                            if (!telephone.isEmpty() && telephone != null)
-                                user.telephone = telephone.toInt()
-                            else
-                                user.telephone = 0
-                            try {
-                                user.birthDate = LocalDate.parse(birthDate)
-                            }catch (e: Exception){
-                                user.birthDate = LocalDate.of(2000,1,1)
-                            }
-
-                            user.profilePicture = null
-                            user.state = false
-                            user.userType = UserType.USER
-
-
-                            userViewModel.createUser(user,
-                                /*onSuccess = {
-                                   navController.navigate("login")
-                                },
-                                onError = { errorMessage ->
-                                    // Mostrar error
-                                    // Print the selected error
-                                    println("Error creating user: $errorMessage")
-
-                                }*/
-                            )
-                        },
+                        onClick = { val newUser = User(
+                            username = username,
+                            password = password,
+                            name = name,
+                            surname = surname,
+                            email = email,
+                            telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
+                            birthDate = birthDate,
+                            profilePicture = null
+                        )
+                            userViewModel.registerUser(newUser) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {
@@ -216,6 +199,17 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel = vi
             }
         }
     }
+    LaunchedEffect(registrationState) {
+        registrationState?.let { success ->
+            if (success) {
+                Toast.makeText(context, "Usuari creat!", Toast.LENGTH_LONG).show()
+                navController.navigate("login")
+            } else {
+                Toast.makeText(context, "Error en crear l'usuari", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
 }
 
 @Composable

@@ -3,6 +3,7 @@ package cat.copernic.gamedex.apiController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import cat.copernic.gamedex.entity.User;
@@ -43,8 +44,9 @@ public class UserApiController {
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
-        return userLogic.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User newUser = userLogic.createUser(user);
+        return ResponseEntity.ok(newUser);
     }
 
     @DeleteMapping("/delete/{userId}")

@@ -33,9 +33,9 @@ public class GamedexApplication {
 
 		User user = new User("user", "user", "usuari", "apellido", "user@gmail.com", 12345678,
 				LocalDate.of(1990, 1, 1), null, false, UserType.USER);
-		if (userRepository.findById(user.getUsername()).isEmpty()) {
-			userLogic.createUser(user);
-		}
+		if (userRepository.findById(user.getUsername()).isPresent()) {
+		}else
+		userLogic.createUser(user);
 
 		// Crear administrador de ejemplo
 		User admin = new User("admin", "admin", "admin", "apellido", "admin@gmail.com", 87654321,
