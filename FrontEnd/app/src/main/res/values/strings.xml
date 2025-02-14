@@ -25,4 +25,15 @@
     <string name="game_category">Category</string>
     <string name="description">Description</string>
     <string name="cover">Cover</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
+    <string name="library">Library</string>
+    <string name="completed">Completed</string>
+    <string name="playing">Playing</string>
+    <string name="pending">Pending</string>
+    <string name="profile_avatar">Profile Avatar</string>
+    <string name="logout">Logout</string>
+    <string name="user_created">User Created</string>
+    <string name="error_creating_user">Error creating User</string>
 </resources>
