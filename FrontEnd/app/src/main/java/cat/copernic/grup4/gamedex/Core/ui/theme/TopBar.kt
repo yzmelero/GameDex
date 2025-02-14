@@ -2,6 +2,7 @@ package cat.copernic.grup4.gamedex.Core.ui.theme
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,19 +41,20 @@ fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
     ) {
         Image(
             painter = painterResource(id = profileImageRes),
-            contentDescription = "Profile Avatar",
+            contentDescription = stringResource(R.string.profile_avatar),
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(Color.White, shape = CircleShape)
                 .padding(2.dp)
+                .clickable {//TODO añadir redireccion al perfil
+                    }
         )
 
         Text(
+            style = GameDexTypography.headlineMedium.copy(fontSize = 48.sp),
             text = "GDEX",
-            fontSize = 32.sp,
             color = Color.White,
-            fontWeight = FontWeight.Bold,
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Center
         )
@@ -59,7 +62,7 @@ fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
         IconButton(onClick = onLogoutClick) {
             Icon(
                 imageVector = Icons.Default.ExitToApp,
-                contentDescription = "Logout",
+                contentDescription = stringResource(R.string.logout),
                 Modifier.size(40.dp)
             )
         }
