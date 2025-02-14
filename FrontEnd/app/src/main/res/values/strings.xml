@@ -36,4 +36,11 @@
     <string name="logout">Logout</string>
     <string name="user_created">User Created</string>
     <string name="error_creating_user">Error creating User</string>
+    <string name="addgame_library">Add game to library</string>
+    <string name="add_comment">Add comment</string>
+    <string name="comments">COMMENTS</string>
+    <string name="modify">Modify</string>
+    <string name="pegi">PEGI</string>
+    <string name="by_developer">By</string>
+    <string name="year">Year</string>
 </resources>
