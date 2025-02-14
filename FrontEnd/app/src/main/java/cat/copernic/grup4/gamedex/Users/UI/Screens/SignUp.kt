@@ -32,6 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
@@ -98,7 +99,7 @@ fun SignUpScreen(navController: NavController) {
                 ) {
                     Text(
                         text = "GDEX",
-                        fontSize = 32.sp,
+                        style = GameDexTypography.headlineMedium.copy(fontSize = 48.sp),
                         color = Color.White
                     )
                 }
@@ -117,7 +118,8 @@ fun SignUpScreen(navController: NavController) {
 
             Text(
                 text = stringResource(id = R.string.sign_up),
-                fontSize = 28.sp,
+                fontSize = 40.sp,
+                style = GameDexTypography.bodyLarge,
                 color = Color.Black
             )
 
@@ -140,6 +142,7 @@ fun SignUpScreen(navController: NavController) {
                     InputField(
                         label = stringResource(id = R.string.username),
                         value = username
+
                     ) { username = it }
                     InputField(
                         label = stringResource(id = R.string.password),
@@ -168,9 +171,9 @@ fun SignUpScreen(navController: NavController) {
 
                     Text(
                         text = "Avatar",
+                        style = GameDexTypography.bodySmall.copy(fontSize = 16.sp),
                         color = Color.Black
-
-                    )
+                        )
 
                     AvatarSection()
 
@@ -195,7 +198,10 @@ fun SignUpScreen(navController: NavController) {
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {
-                        Text(text = stringResource(id = R.string.confirm), color = Color.White)
+                        Text(text = stringResource(id = R.string.confirm),
+                            color = Color.White,
+                            style = GameDexTypography.bodySmall.copy(fontSize = 16.sp),
+                        )
                     }
                 }
             }
@@ -204,10 +210,11 @@ fun SignUpScreen(navController: NavController) {
     LaunchedEffect(registrationState) {
         registrationState?.let { success ->
             if (success) {
-                Toast.makeText(context, "Usuari creat!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.user_created), Toast.LENGTH_LONG).show()
                 navController.navigate("login")
             } else {
-                Toast.makeText(context, "Error en crear l'usuari", Toast.LENGTH_LONG).show()
+                Toast.makeText(context,
+                    context.getString(R.string.error_creating_user), Toast.LENGTH_LONG).show()
             }
         }
     }
