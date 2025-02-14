@@ -27,6 +27,13 @@ public class UserLogic {
             user.setState(false);
             user.setUserType(UserType.USER);
 
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                throw new RuntimeException("Email already exists");
+            }
+            if (userRepository.findByTelephone(user.getTelephone()).isPresent()) {
+                throw new RuntimeException("Telephone already exists");   
+            }
+
             return userRepository.save(user);
         } catch (RuntimeException e) {
             throw e;
@@ -130,6 +137,10 @@ public class UserLogic {
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all users");
         }
+    }
+
+    public User getUserById(String userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public List<User> getUserByUsername(String username){

@@ -15,7 +15,7 @@ import cat.copernic.grup4.gamedex.R
 @Composable
 fun BottomNavBar(selectedItem: Int = 0, onItemSelected: (Int) -> Unit) {
     NavigationBar (
-        containerColor = Color(0xFF9D6EDB)
+        containerColor = Color(0xFFCE55F4)
     ) {
         val icons = listOf(R.drawable.apps, R.drawable.gamepad, R.drawable.users_alt, R.drawable.user, R.drawable.book_open_cover)
 

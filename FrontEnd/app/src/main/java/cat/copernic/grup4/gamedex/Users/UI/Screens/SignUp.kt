@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,10 +28,23 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import java.time.LocalDate
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navController: NavController) {
+
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -38,6 +52,9 @@ fun SignUpScreen() {
     var email by remember { mutableStateOf("") }
     var telephone by remember { mutableStateOf("") }
     var birthDate by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val registrationState by userViewModel.registrationSuccess.collectAsState()
 
     Column(
         modifier = Modifier
@@ -62,7 +79,7 @@ fun SignUpScreen() {
             ) {
                 // Icono a la izquierda
                 FloatingActionButton(
-                    onClick = { /* TODO Acción de volver */ },
+                    onClick = {  navController.popBackStack() },
                     modifier = Modifier.size(40.dp).padding(top = 12.dp),
                     containerColor = colorResource(R.color.header)
                 ) {
@@ -164,7 +181,17 @@ fun SignUpScreen() {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
                         //TODO añadir acción de registro
-                        onClick = { /* Acción de registro */ },
+                        onClick = { val newUser = User(
+                            username = username,
+                            password = password,
+                            name = name,
+                            surname = surname,
+                            email = email,
+                            telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
+                            birthDate = birthDate,
+                            profilePicture = null
+                        )
+                            userViewModel.registerUser(newUser) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {
@@ -174,6 +201,17 @@ fun SignUpScreen() {
             }
         }
     }
+    LaunchedEffect(registrationState) {
+        registrationState?.let { success ->
+            if (success) {
+                Toast.makeText(context, "Usuari creat!", Toast.LENGTH_LONG).show()
+                navController.navigate("login")
+            } else {
+                Toast.makeText(context, "Error en crear l'usuari", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
 }
 
 @Composable
@@ -222,7 +260,7 @@ fun AvatarSection() {
                     .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
                     .clip(RoundedCornerShape(50))
                     .size(40.dp)
-                )
+            )
         }
     }
 }
@@ -230,5 +268,6 @@ fun AvatarSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSignUpScreen() {
-    SignUpScreen()
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    SignUpScreen(navController = fakeNavController)
 }

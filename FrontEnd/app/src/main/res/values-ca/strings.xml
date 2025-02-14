@@ -15,4 +15,25 @@
     <string name="wanttoplay">Pendent</string>
     <string name="finished">Acabat</string>
     <string name="dropped">Abandonat</string>
+    <string name="add_category">Afegir Categoria</string>
+    <string name="category">Categoria</string>
+    <string name="name_category">Nom Categoria</string>
+    <string name="image_category">Imatge Categoria</string>
+    <string name="add_game">Afegir videojocs</string>
+    <string name="game_name">Nom del Joc</string>
+    <string name="release_year">Data Llançament</string>
+    <string name="age_recommendation">Edat Recomenada</string>
+    <string name="developer">Creador</string>
+    <string name="game_category">Categoria</string>
+    <string name="description">Descripció</string>
+    <string name="cover">Portada</string>
+    <string name="login">Iniciar sessió</string>
+    <string name="forgot_password">Has oblidat la contrasenya?</string>
+    <string name="addgame_library">Add game to library</string>
+    <string name="add_comment">Add comment</string>
+    <string name="comments">COMMENTS</string>
+    <string name="modify">Modify</string>
+    <string name="pegi">PEGI</string>
+    <string name="by_developer">By</string>
+    <string name="year">Year</string>
 </resources>

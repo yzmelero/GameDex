@@ -10,4 +10,7 @@
     <color name="background">#FFD9A5FC</color>
     <color name="header">#FFCE55F4</color>
     <color name="buttons">#FFFC1A90</color>
+    <color name="boxbackground">#FFF1F1F1</color>
+    <color name="bubblegum">#FFF98FD1</color>
+    <color name="yellowdark">#FFC000</color>
 </resources>
