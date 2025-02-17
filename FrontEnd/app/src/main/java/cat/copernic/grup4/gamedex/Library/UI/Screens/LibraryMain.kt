@@ -27,49 +27,55 @@ import cat.copernic.grup4.gamedex.Core.Model.StateType
 import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
-
+import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import cat.copernic.grup4.gamedex.videogames.ui.screen.HeaderSection
+import coil.compose.AsyncImage
 
 
 @Composable
-fun Library(library: List<Library>, onDelete: (Videogame) -> Unit){
+fun Library(library: List<Library>, onDelete: (Videogame) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.background))
             .padding(16.dp)
     ) {
-    Text(
-        text = stringResource(R.string.library),
-        fontSize = 24.sp,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(bottom = 16.dp)
-    )
-    LazyColumn {
-        items(library) { library ->
-            VideogameItem(library, onDelete)
+        HeaderSection()
+
+        Text(
+            text = stringResource(R.string.library),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        LazyColumn {
+            items(library) { library ->
+                VideogameItem(library, onDelete)
+            }
+        }
+        FloatingActionButton(
+            onClick = { },//TODO Navegar a pantalla de afegir joc
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(16.dp),
+            containerColor = colorResource(id = R.color.buttons)
+        ) {
+            Icon(Icons.Default.Add, contentDescription = "Add Videogame")
         }
     }
-    FloatingActionButton(
-        onClick = { },//TODO Navegar a pantalla de afegir joc
-        modifier = Modifier
-            .align(Alignment.End)
-            .padding(16.dp),
-        containerColor = colorResource(id = R.color.buttons)
-    ) {
-        Icon(Icons.Default.Add, contentDescription = "Add Videogame")
-    }}
+    BottomSection()
 }
 
 @Composable
-fun VideogameItem(library: Library, onDelete: (Library) -> Unit){
+fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(4.dp)
-    ){
-        Row(modifier = Modifier.padding(16.dp)){
+    ) {
+        Row(modifier = Modifier.padding(16.dp)) {
             AsyncImage(
                 model = library.videogame.gamePhoto,
                 contentDescription = library.videogame.nameGame,
@@ -82,16 +88,28 @@ fun VideogameItem(library: Library, onDelete: (Library) -> Unit){
                 Text(text = library.state.name, fontSize = 14.sp)
             }
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = {onDelete(library)}) {
+            IconButton(onClick = { onDelete(library) }) {
                 Icon(Icons.Default.Delete, contentDescription = "Delete Game")
             }
         }
     }
 }
 
+@Composable
+fun BottomSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding(),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        BottomNavBar(selectedItem = 4, onItemSelected = {})
+    }
+}
+
 @Preview
 @Composable
-fun LibraryPreview(){
+fun LibraryPreview() {
 
 }
 
