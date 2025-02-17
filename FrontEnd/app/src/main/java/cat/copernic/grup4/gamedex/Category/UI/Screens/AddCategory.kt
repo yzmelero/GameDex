@@ -104,7 +104,7 @@ fun AddCategoryScreen(navController: NavController) {
                     onClick = { val newCategory = Category(
                         nameCategory = categoryName,
                         description = categoryDescription,
-                        categoryPhoto = "url_de_la_imagen"
+                        categoryPhoto = null
                     )
                         categoryViewModel.addCategory(newCategory)},
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),

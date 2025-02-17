@@ -22,5 +22,5 @@ public class Category {
     private String description;
 
     @Field(name = "category_photo")
-    private Binary categoryPhoto;
+    private String categoryPhoto;
 }
