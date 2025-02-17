@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,18 +28,26 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCasesAdd
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 
 @Composable
-fun AddCategoryScreen(navController: NavController, viewModel: CategoryViewModel = viewModel()) {
+fun AddCategoryScreen(navController: NavController) {
+
+    val useCases = CategoryCasesAdd(CategoryRepository())
+    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(useCases))
 
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }
-    val categoryAdded by viewModel.categoryAdded.collectAsState()
+
+    val categoryAdded by categoryViewModel.categoryAdded.collectAsState()
+    val context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -96,7 +106,7 @@ fun AddCategoryScreen(navController: NavController, viewModel: CategoryViewModel
                         description = categoryDescription,
                         categoryPhoto = "url_de_la_imagen"
                     )
-                        viewModel.addCategory(newCategory)},
+                        categoryViewModel.addCategory(newCategory)},
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                     ) {
@@ -116,8 +126,15 @@ fun AddCategoryScreen(navController: NavController, viewModel: CategoryViewModel
     }
 
     LaunchedEffect(categoryAdded) {
-        if (categoryAdded == true) {
-            navController.navigate("category_list") // 🔵 Cambia "category_list" por la pantalla a la que quieres ir
+        categoryAdded?.let { success ->
+            if (success) {
+                Toast.makeText(context, context.getString(R.string.category_added), Toast.LENGTH_LONG).show()
+                navController.navigate("category_list") {
+                    popUpTo("add_category") { inclusive = true }
+                }
+            } else {
+                Toast.makeText(context, context.getString(R.string.category_not_created), Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
