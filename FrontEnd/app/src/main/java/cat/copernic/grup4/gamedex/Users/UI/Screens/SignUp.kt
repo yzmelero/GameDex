@@ -1,10 +1,15 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -18,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -38,7 +44,7 @@ import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
-import java.time.LocalDate
+import coil.compose.AsyncImage
 
 @Composable
 fun SignUpScreen(navController: NavController) {
@@ -53,6 +59,7 @@ fun SignUpScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var telephone by remember { mutableStateOf("") }
     var birthDate by remember { mutableStateOf("") }
+    var profilePicture by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val registrationState by userViewModel.registrationSuccess.collectAsState()
@@ -80,7 +87,7 @@ fun SignUpScreen(navController: NavController) {
             ) {
                 // Icono a la izquierda
                 FloatingActionButton(
-                    onClick = {  navController.popBackStack() },
+                    onClick = { navController.popBackStack() },
                     modifier = Modifier.size(40.dp).padding(top = 12.dp),
                     containerColor = colorResource(R.color.header)
                 ) {
@@ -173,9 +180,67 @@ fun SignUpScreen(navController: NavController) {
                         text = "Avatar",
                         style = GameDexTypography.bodySmall.copy(fontSize = 16.sp),
                         color = Color.Black
-                        )
+                    )
 
-                    AvatarSection()
+
+
+
+                    //AVATARSECTION
+                    var selectedImageUri by remember {
+                        mutableStateOf<Uri?>(null)
+                    }
+
+                    val imagePickerLauncher = rememberLauncherForActivityResult(
+                        contract = ActivityResultContracts.PickVisualMedia(),
+                        onResult = { uri -> selectedImageUri = uri }
+                    )
+
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Row() {
+                            if (selectedImageUri == null) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.coche),
+                                    contentDescription = "Avatar",
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(RoundedCornerShape(50))
+                                        //TODO añadir acción para elegir imagen
+                                        .clickable { /* Acción para elegir imagen */ }
+                                )
+                            } else {
+                                profilePicture = userViewModel.uriToByteArray(selectedImageUri!!,
+                                    context.contentResolver).toString()
+                                AsyncImage(
+                                    model = selectedImageUri,
+                                    contentDescription = "Avatar",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(CircleShape)
+                                )
+                            }
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = stringResource(R.string.add_avatar),
+                                modifier = Modifier
+                                    .clickable {
+                                        imagePickerLauncher
+                                            .launch(
+                                                PickVisualMediaRequest(
+                                                    ActivityResultContracts
+                                                        .PickVisualMedia.ImageOnly
+                                                )
+                                            )
+                                    }
+                                    .padding(top = 40.dp)
+                                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                                    .clip(RoundedCornerShape(50))
+                                    .size(40.dp)
+                            )
+                        }
+                    }
+
+
 
                     Spacer(modifier = Modifier.height(4.dp))
 
@@ -184,21 +249,24 @@ fun SignUpScreen(navController: NavController) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
                         //TODO añadir acción de registro
-                        onClick = { val newUser = User(
-                            username = username,
-                            password = password,
-                            name = name,
-                            surname = surname,
-                            email = email,
-                            telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
-                            birthDate = birthDate,
-                            profilePicture = null
-                        )
-                            userViewModel.registerUser(newUser) },
+                        onClick = {
+                            val newUser = User(
+                                username = username,
+                                password = password,
+                                name = name,
+                                surname = surname,
+                                email = email,
+                                telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
+                                birthDate = birthDate,
+                                profilePicture = profilePicture
+                            )
+                            userViewModel.registerUser(newUser)
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {
-                        Text(text = stringResource(id = R.string.confirm),
+                        Text(
+                            text = stringResource(id = R.string.confirm),
                             color = Color.White,
                             style = GameDexTypography.bodySmall.copy(fontSize = 16.sp),
                         )
@@ -210,11 +278,14 @@ fun SignUpScreen(navController: NavController) {
     LaunchedEffect(registrationState) {
         registrationState?.let { success ->
             if (success) {
-                Toast.makeText(context, context.getString(R.string.user_created), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.user_created), Toast.LENGTH_LONG)
+                    .show()
                 navController.navigate("login")
             } else {
-                Toast.makeText(context,
-                    context.getString(R.string.error_creating_user), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.error_creating_user), Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -245,36 +316,6 @@ fun InputField(
     }
 }
 
-@Composable
-fun AvatarSection() {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Row() {
-            Image(
-                painter = painterResource(id = R.drawable.coche),
-                contentDescription = "Avatar",
-                modifier = Modifier
-                    .size(120.dp)
-                    .clip(RoundedCornerShape(50))
-                    //TODO añadir acción para elegir imagen
-                    .clickable { /* Acción para elegir imagen */ }
-            )
-            Icon(
-                Icons.Default.Add,
-                contentDescription = stringResource(R.string.add_avatar),
-                modifier = Modifier
-                    .clickable { /*TODO Acción para elegir imagen */ }
-                    .padding(top = 40.dp)
-                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
-                    .clip(RoundedCornerShape(50))
-                    .size(40.dp)
-            )
-        }
-    }
-}
-
-fun addImage(){
-
-}
 
 @Preview(showBackground = true)
 @Composable

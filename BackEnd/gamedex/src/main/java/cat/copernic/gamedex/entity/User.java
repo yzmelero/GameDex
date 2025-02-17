@@ -33,7 +33,8 @@ public class User {
     private LocalDate birthDate;
 
     @Field(name = "profile_picture")
-    private Binary[] profilePicture;
+    private String profilePicture;
+    //private Binary[] profilePicture;
 
     // 0 for disabled or non validated users, 1 for validated users
     private Boolean state;
