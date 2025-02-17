@@ -1,0 +1,16 @@
+package cat.copernic.grup4.gamedex.videogames.data
+
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+
+interface VideogameApiRest {
+
+    @POST("videogame/create")
+    suspend fun createVideogame(@Body videogame: Videogame): Response<Videogame>
+
+    @GET("videogame/all")
+    suspend fun getAllVideogames(): Response<List<Videogame>>
+}

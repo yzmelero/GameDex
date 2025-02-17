@@ -1,7 +1,6 @@
-package cat.copernic.grup4.gamedex.videogames.ui.screen
+package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -44,16 +43,24 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
+import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
 fun AddGamesScreen() {
+    val videogameUseCase = VideogameUseCase(VideogameRepository())
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
@@ -81,7 +88,8 @@ fun AddGamesScreen() {
                 nameCategory, { nameCategory = it },
                 descriptionGame, { descriptionGame = it }
             )
-        }
+
+                }
         BottomSection()
     }
 }
@@ -109,6 +117,7 @@ fun AddContentSection(
     nameCategory: String, onCategoryChange: (String) -> Unit,
     descriptionGame: String, onDescriptionChange: (String) -> Unit
 ) {
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(VideogameUseCase(VideogameRepository())))
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -139,6 +148,26 @@ fun AddContentSection(
                 nameCategory, onCategoryChange,
                 descriptionGame, onDescriptionChange
             )
+            Button(
+                onClick = { val newGame = Videogame(
+                    nameGame = nameGame,
+                    releaseYear = releaseYear,
+                    ageRecommendation = ageRecommendation,
+                    developer = developer,
+                    nameCategory = nameCategory,
+                    descriptionGame = descriptionGame,
+                    gamePhoto = null
+                )
+                    gameViewModel.createVideogame(newGame) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+            ) {
+                Text(text = stringResource(R.string.confirm), color = Color.White)
+            }
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
@@ -196,7 +225,6 @@ fun AddGameFormFields(
         )
         Spacer(modifier = Modifier.height(20.dp))
         ImagePicker()
-        ConfirmButton()
     }
 }
 
@@ -214,7 +242,7 @@ fun ImagePicker() {
             color = Color.Black
         )
         Image(
-            painter = painterResource(id = R.drawable.coche),
+            painter = painterResource(R.drawable.eldenring),
             contentDescription = stringResource(R.string.cover),
             modifier = Modifier
                 .size(120.dp)
@@ -233,19 +261,6 @@ fun ImagePicker() {
     }
 }
 
-@Composable
-fun ConfirmButton() {
-    Button(
-        onClick = { /* Acción de registro */ },
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-    ) {
-        Text(text = stringResource(R.string.confirm), color = Color.White)
-    }
-    Spacer(modifier = Modifier.height(10.dp))
-}
 
 @Composable
 fun BottomSection() {

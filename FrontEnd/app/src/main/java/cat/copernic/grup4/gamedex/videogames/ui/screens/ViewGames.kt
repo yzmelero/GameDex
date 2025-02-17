@@ -1,4 +1,4 @@
-package cat.copernic.grup4.gamedex.videogames.ui.screen
+package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -29,10 +27,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,18 +37,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.resolveDefaults
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedexandroid.Core.Model.Videogame
 
 @Composable
 fun ViewGamesScreen(videogame: Videogame) {
@@ -112,7 +105,7 @@ fun GameCard(videogame: Videogame) {
             }
             Row(verticalAlignment = Alignment.Top) {
                 Image(
-                    painter = painterResource(videogame.gamePhoto),
+                    painter = painterResource(R.drawable.eldenring),
                     contentDescription = stringResource(R.string.cover),
                     modifier = Modifier.size(180.dp)
                 )
@@ -137,7 +130,7 @@ fun GameCard(videogame: Videogame) {
                             color = colorResource(R.color.purple_700)
                         )
                         Text(
-                            text = ": ${videogame.ageRecomendation}",
+                            text = ": ${videogame.ageRecommendation}",
                             fontSize = 14.sp
                         )
                     }
@@ -293,13 +286,13 @@ fun CommentsSection() {
 fun PreviewViewGamesScreen() {
     val testGame = Videogame( /* test per mostrar dades del joc, encara no hi ha dades a la bbdd */
         nameGame = "Elden Ring",
-        releaseYear = 2022,
+        releaseYear = "2022",
         nameCategory = "RPG",
         developer = "FromSoftware",
-        ageRecomendation = 18,
+        ageRecommendation = "18",
         descriptionGame = "Elden Ring is an action RPG which takes place in the Lands Between, sometime after the Shattering of the titular Elden Ring. Players must explore and fight their way through the vast open-world to unite all the shards, restore the Elden Ring, and become Elden Lord.",
-        gamePhoto = R.drawable.eldenring,
-        gameId = "1"
+        gamePhoto = painterResource(R.drawable.eldenring).toString(),
+        gameId = 1
     )
     ViewGamesScreen(testGame)
 }
