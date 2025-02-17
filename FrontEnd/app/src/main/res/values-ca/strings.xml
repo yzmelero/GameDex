@@ -36,4 +36,8 @@
     <string name="pegi">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
+    <string name="select">Selecciona…</string>
+    <string name="review">Ressenya</string>
+    <string name="rating">Valoració</string>
+    <string name="comment">Comentari</string>
 </resources>

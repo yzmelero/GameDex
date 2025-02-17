@@ -31,7 +31,7 @@ import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.videogames.ui.screen.HeaderSection
 import coil.compose.AsyncImage
 
-
+/*
 @Composable
 fun Library(library: List<Library>, onDelete: (Videogame) -> Unit) {
     Column(
@@ -112,5 +112,5 @@ fun BottomSection() {
 fun LibraryPreview() {
 
 }
-
+*/
 
