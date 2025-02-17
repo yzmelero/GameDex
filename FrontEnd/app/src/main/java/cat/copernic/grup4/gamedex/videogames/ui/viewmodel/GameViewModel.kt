@@ -12,11 +12,21 @@ class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewModel(
 
     private val _videogameCreated = MutableStateFlow<Boolean?>(null)
     val videogameCreated: StateFlow<Boolean?> = _videogameCreated
-
     fun createVideogame(videogame: Videogame) {
         viewModelScope.launch {
             val response = videogameUseCase.createVideogame(videogame)
             _videogameCreated.value = response.isSuccessful
         }
     }
+
+    private val _getVideogame = MutableStateFlow<Videogame?>(null)
+    val gameById: StateFlow<Videogame?> = _getVideogame
+    fun videogamesById(gameId: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.videogamesById(gameId)
+            _getVideogame.value = response.body()
+        }
+    }
+
+
 }

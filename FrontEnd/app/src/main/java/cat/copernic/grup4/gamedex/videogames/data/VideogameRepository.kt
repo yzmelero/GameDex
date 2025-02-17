@@ -7,4 +7,7 @@ class VideogameRepository {
     suspend fun createVideogame(videogame: Videogame): Response<Videogame> {
         return RetrofitInstance.api.createVideogame(videogame)
     }
+    suspend fun videogamesById(gameId: String): Response<Videogame> {
+        return RetrofitInstance.api.videogamesById(gameId)
+    }
 }

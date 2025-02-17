@@ -29,6 +29,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,9 +49,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 
 @Composable
-fun ViewGamesScreen(videogame: Videogame) {
+fun ViewGamesScreen(viewModel: GameViewModel, gameId: String) {
+
+    LaunchedEffect(gameId) {
+        viewModel.videogamesById(gameId)
+    }
+
+    val game by viewModel.gameById.collectAsState()
+
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
@@ -69,7 +79,7 @@ fun ViewGamesScreen(videogame: Videogame) {
         ) {
             HeaderSection()
 
-            GameCard(videogame)
+            game?.let { GameCard(it) }
 
         }
         BottomSection()
@@ -77,7 +87,7 @@ fun ViewGamesScreen(videogame: Videogame) {
 }
 
 @Composable
-fun GameCard(videogame: Videogame) {
+fun GameCard(videogame : Videogame) {
     Column ( modifier = Modifier
         .fillMaxSize()
         .padding(bottom = 80.dp)
@@ -284,6 +294,9 @@ fun CommentsSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewViewGamesScreen() {
+    val fakeViewModel = GameViewModel() // Simula un ViewModel para la preview
+    ViewGamesScreen(viewModel = fakeViewModel, gameId = "1")
+    /*
     val testGame = Videogame( /* test per mostrar dades del joc, encara no hi ha dades a la bbdd */
         nameGame = "Elden Ring",
         releaseYear = "2022",
@@ -294,5 +307,5 @@ fun PreviewViewGamesScreen() {
         gamePhoto = painterResource(R.drawable.eldenring).toString(),
         gameId = 1
     )
-    ViewGamesScreen(testGame)
+    ViewGamesScreen(testGame)*/
 }

@@ -2,7 +2,7 @@ package cat.copernic.grup4.gamedex.Core.Model
 
 data class Videogame (
 
-    val gameId: Int? = null,
+    val gameId: String,
     val nameGame: String,
     val descriptionGame: String,
     val releaseYear: String,
