@@ -272,6 +272,10 @@ fun AvatarSection() {
     }
 }
 
+fun addImage(){
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewSignUpScreen() {

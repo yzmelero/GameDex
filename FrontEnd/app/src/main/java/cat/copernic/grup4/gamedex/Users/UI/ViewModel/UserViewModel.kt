@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(private val useCases: UseCases) : ViewModel() {
 
+    private val _users = MutableStateFlow<List<User>>(emptyList())
+    val users: StateFlow<List<User>> = _users
     private val _registrationSuccess = MutableStateFlow<Boolean?>(null)
     val registrationSuccess: StateFlow<Boolean?> = _registrationSuccess
 
@@ -19,5 +21,28 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             val response = useCases.registerUser(user)
             _registrationSuccess.value = response.isSuccessful
         }
+    }
+
+    init {
+        listUsers()
+    }
+
+    fun listUsers() {
+        viewModelScope.launch {
+            try {
+                val response =
+                    useCases.listUsers()
+                if (response.isSuccessful) {
+                    response.body()?.let { userList ->
+                        _users.value = userList
+                    }
+                } else {
+                    println("Error en la API: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                println("Error al obtener usuarios: ${e.message}")
+            }
+        }
+
     }
 }

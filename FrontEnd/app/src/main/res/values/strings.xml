@@ -43,4 +43,6 @@
     <string name="pegi">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
+    <string name="users">Users</string>
+    <string name="verify">Verify</string>
 </resources>

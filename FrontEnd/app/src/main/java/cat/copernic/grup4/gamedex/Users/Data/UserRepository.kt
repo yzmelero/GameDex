@@ -7,4 +7,9 @@ class UserRepository {
     suspend fun registerUser(user: User): Response<User> {
         return RetrofitInstance.api.registerUser(user)
     }
+
+    suspend fun getAllUsers(): Response<List<User>> {
+        return RetrofitInstance.api.getAllUsers()
+    }
+
 }
