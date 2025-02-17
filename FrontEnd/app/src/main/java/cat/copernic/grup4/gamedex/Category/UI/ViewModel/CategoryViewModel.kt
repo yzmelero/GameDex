@@ -1,23 +1,23 @@
-package cat.copernic.grup4.gamedex.Users.UI.ViewModel
-
+package cat.copernic.grup4.gamedex.Category.UI.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cat.copernic.grup4.gamedex.Users.Domain.UseCases
-import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCasesAdd
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val useCases: UseCases) : ViewModel() {
 
-    private val _registrationSuccess = MutableStateFlow<Boolean?>(null)
-    val registrationSuccess: StateFlow<Boolean?> = _registrationSuccess
+class CategoryViewModel(private val categoryCasesAdd: CategoryCasesAdd) : ViewModel() {
 
-    fun registerUser(user: User) {
+    private val _categoryAdded = MutableStateFlow<Boolean?>(null)
+    val categoryAdded: StateFlow<Boolean?> = _categoryAdded
+
+    fun addCategory(category: Category) {
         viewModelScope.launch {
-            val response = useCases.registerUser(user)
-            _registrationSuccess.value = response.isSuccessful
+            val response = categoryCasesAdd.addCategory(category)
+            _categoryAdded.value = response.isSuccessful
         }
     }
 }

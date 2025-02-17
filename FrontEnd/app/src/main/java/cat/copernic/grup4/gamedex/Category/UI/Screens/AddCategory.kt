@@ -23,14 +23,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 
 @Composable
-fun AddCategoryScreen() {
+fun AddCategoryScreen(navController: NavController, viewModel: CategoryViewModel = viewModel()) {
+
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }
+    val categoryAdded by viewModel.categoryAdded.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -84,7 +91,12 @@ fun AddCategoryScreen() {
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp)),
                     //TODO añadir acción de registro
-                    onClick = { /* Acción de registro */ },
+                    onClick = { val newCategory = Category(
+                        nameCategory = categoryName,
+                        description = categoryDescription,
+                        categoryPhoto = "url_de_la_imagen"
+                    )
+                        viewModel.addCategory(newCategory)},
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                     ) {
@@ -100,6 +112,12 @@ fun AddCategoryScreen() {
             verticalArrangement = Arrangement.Bottom
         ) {
             BottomNavBar(onItemSelected = {})
+        }
+    }
+
+    LaunchedEffect(categoryAdded) {
+        if (categoryAdded == true) {
+            navController.navigate("category_list") // 🔵 Cambia "category_list" por la pantalla a la que quieres ir
         }
     }
 }
@@ -155,5 +173,6 @@ fun ImageUploadSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddCategoryScreen() {
-    AddCategoryScreen()
+    val fakeNavController = rememberNavController()
+    AddCategoryScreen(navController = fakeNavController)
 }

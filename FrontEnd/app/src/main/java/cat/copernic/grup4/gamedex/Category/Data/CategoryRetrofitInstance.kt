@@ -1,32 +1,4 @@
-package cat.copernic.grup4.gamedex.Users.Data
-/*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-*/
-
-/***
- * Un objecte a kotlin és una sola instancia d'una classe.
- * És similar a una classe singleton de Java.
- * Si no està contingut a cap classe, la seva visibilitat per defecta és a nivell de package
- */
-
-/*
-object UserRetrofitInstance {
-
-
-    //Cuando se usa el emulador de movil desde AndroidStudio, la 10.0.2.2 de la red virtual apunta a localhost de la máquina anfitrion
-    private const val BASE_URL = "http://10.0.2.2:8080/api/user/"  // Reemplaza con la URL de tu servidor Spring Boot
-
-
-    val retrofitInstance: UserApiRest by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())  // Convierte JSON a objetos Kotlin
-            .build()
-            .create(UserApiRest::class.java)
-    }
-}
-*/
+package cat.copernic.grup4.gamedex.Category.Data
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -50,7 +22,7 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: UserApiRest by lazy {
-        retrofit.create(UserApiRest::class.java)
+    val api: CategoryApiRest by lazy {
+        retrofit.create(CategoryApiRest::class.java)
     }
 }

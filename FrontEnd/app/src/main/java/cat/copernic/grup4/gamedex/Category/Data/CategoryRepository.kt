@@ -1,10 +1,10 @@
-package cat.copernic.grup4.gamedex.Users.Data
+package cat.copernic.grup4.gamedex.Category.Data
 
-import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 import retrofit2.Response
 
-class UserRepository {
-    suspend fun registerUser(user: User): Response<User> {
-        return RetrofitInstance.api.registerUser(user)
+class CategoryRepository {
+    suspend fun addCategory(category: Category): Response<Category> {
+        return RetrofitInstance.api.addCategory(category)
     }
 }
