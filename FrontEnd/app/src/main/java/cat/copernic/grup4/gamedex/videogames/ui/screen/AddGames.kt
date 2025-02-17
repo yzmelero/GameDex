@@ -73,7 +73,7 @@ fun AddGamesScreen() {
         ) {
             HeaderSection()
 
-            ContentSection(
+            AddContentSection(
                 nameGame, { nameGame = it },
                 releaseYear, { releaseYear = it },
                 ageRecommendation, { ageRecommendation = it },
@@ -101,7 +101,7 @@ fun HeaderSection() {
 }
 
 @Composable
-fun ContentSection(
+fun AddContentSection(
     nameGame: String, onNameChange: (String) -> Unit,
     releaseYear: String, onReleaseYearChange: (String) -> Unit,
     ageRecommendation: String, onAgeChange: (String) -> Unit,
@@ -131,7 +131,7 @@ fun ContentSection(
             colors = CardDefaults.cardColors(containerColor = Color.White),
             modifier = Modifier.padding(16.dp)
         ) {
-            FormFields(
+            AddGameFormFields(
                 nameGame, onNameChange,
                 releaseYear, onReleaseYearChange,
                 ageRecommendation, onAgeChange,
@@ -144,7 +144,7 @@ fun ContentSection(
 }
 
 @Composable
-fun FormFields(
+fun AddGameFormFields(
     nameGame: String, onNameChange: (String) -> Unit,
     releaseYear: String, onReleaseYearChange: (String) -> Unit,
     ageRecommendation: String, onAgeChange: (String) -> Unit,
@@ -204,7 +204,6 @@ fun FormFields(
 fun textFieldModifier() = Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(10.dp))
-        .background(Color.LightGray)
 
 @Composable
 fun ImagePicker() {
