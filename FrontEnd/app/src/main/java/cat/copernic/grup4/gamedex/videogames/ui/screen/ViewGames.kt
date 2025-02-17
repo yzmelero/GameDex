@@ -53,7 +53,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedexandroid.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 
 @Composable
 fun ViewGamesScreen(videogame: Videogame) {
@@ -137,7 +137,7 @@ fun GameCard(videogame: Videogame) {
                             color = colorResource(R.color.purple_700)
                         )
                         Text(
-                            text = ": ${videogame.ageRecomendation}",
+                            text = ": ${videogame.ageRecommendation}",
                             fontSize = 14.sp
                         )
                     }
@@ -296,7 +296,7 @@ fun PreviewViewGamesScreen() {
         releaseYear = 2022,
         nameCategory = "RPG",
         developer = "FromSoftware",
-        ageRecomendation = 18,
+        ageRecommendation = 18,
         descriptionGame = "Elden Ring is an action RPG which takes place in the Lands Between, sometime after the Shattering of the titular Elden Ring. Players must explore and fight their way through the vast open-world to unite all the shards, restore the Elden Ring, and become Elden Lord.",
         gamePhoto = R.drawable.eldenring,
         gameId = "1"

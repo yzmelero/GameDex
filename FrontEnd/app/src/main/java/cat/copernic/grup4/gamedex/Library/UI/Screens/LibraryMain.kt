@@ -20,11 +20,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import cat.copernic.grup4.gamedex.Core.Model.Library
+import cat.copernic.grup4.gamedex.Core.Model.StateType
+import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
+
+
 
 @Composable
-fun Library(){
+fun Library(library: List<Library>, onDelete: (Videogame) -> Unit){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -32,18 +39,18 @@ fun Library(){
             .padding(16.dp)
     ) {
     Text(
-        text = "Library",
+        text = stringResource(R.string.library),
         fontSize = 24.sp,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(bottom = 16.dp)
     )
     LazyColumn {
-        items(videogames) { videogame ->
-            VideogameItem(videogame, onDelete)
+        items(library) { library ->
+            VideogameItem(library, onDelete)
         }
     }
     FloatingActionButton(
-        onClick = {},
+        onClick = { },//TODO Navegar a pantalla de afegir joc
         modifier = Modifier
             .align(Alignment.End)
             .padding(16.dp),
@@ -54,7 +61,7 @@ fun Library(){
 }
 
 @Composable
-fun VideogameItem(){
+fun VideogameItem(library: Library, onDelete: (Library) -> Unit){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,18 +71,18 @@ fun VideogameItem(){
     ){
         Row(modifier = Modifier.padding(16.dp)){
             AsyncImage(
-                model = videogame.imageUrl,
-                contentDescription = game.name,
+                model = library.videogame.gamePhoto,
+                contentDescription = library.videogame.nameGame,
                 modifier = Modifier.size(64.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Column {
-                Text(text = game.name, fontWeight = FontWeight.Bold)
-                Text(text = game.genre, fontSize = 14.sp, color = Color.Gray)
-                Text(text = game.status.name, fontSize = 14.sp)
+                Text(text = library.videogame.nameGame, fontWeight = FontWeight.Bold)
+                Text(text = library.videogame.nameCategory, fontSize = 14.sp, color = Color.Gray)
+                Text(text = library.state.name, fontSize = 14.sp)
             }
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = {onDelete(videogame)}) {
+            IconButton(onClick = {onDelete(library)}) {
                 Icon(Icons.Default.Delete, contentDescription = "Delete Game")
             }
         }
@@ -85,7 +92,7 @@ fun VideogameItem(){
 @Preview
 @Composable
 fun LibraryPreview(){
-    Library()
+
 }
 
 

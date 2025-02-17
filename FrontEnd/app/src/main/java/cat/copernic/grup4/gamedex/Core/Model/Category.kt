@@ -1,4 +1,4 @@
-package cat.copernic.grup4.gamedexandroid.Core.Model
+package cat.copernic.grup4.gamedex.Core.Model
 
 data class Category(
     val nameCategory: String,

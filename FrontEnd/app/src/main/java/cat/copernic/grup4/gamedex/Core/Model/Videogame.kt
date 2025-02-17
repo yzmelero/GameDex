@@ -1,4 +1,4 @@
-package cat.copernic.grup4.gamedexandroid.Core.Model
+package cat.copernic.grup4.gamedex.Core.Model
 
 import androidx.annotation.DrawableRes
 import java.time.LocalDate
@@ -10,7 +10,7 @@ data class Videogame (
     val descriptionGame: String,
     val releaseYear: Int,
     @DrawableRes val gamePhoto: Int,
-    val ageRecomendation: Int,
+    val ageRecommendation: Int,
     val developer: String,
     val nameCategory: String
 
