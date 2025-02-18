@@ -3,15 +3,20 @@ package cat.copernic.gamedex.logic;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cat.copernic.gamedex.apiController.UserApiController;
 import cat.copernic.gamedex.entity.User;
 import cat.copernic.gamedex.entity.UserType;
 import cat.copernic.gamedex.repository.UserRepository;
 
 @Service
 public class UserLogic {
+    
+    Logger log = LoggerFactory.getLogger(UserApiController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -136,6 +141,15 @@ public class UserLogic {
             throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all users");
+        }
+    }
+
+    public List<User> getInactiveUsers() {
+        try {
+            log.info("Getting inactive users");
+            return userRepository.findByState(false);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting inactive users");
         }
     }
 

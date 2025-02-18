@@ -19,6 +19,10 @@ interface UserApiRest {
 
     @GET("user/all")
     suspend fun getAllUsers(): Response<List<User>>
+
+    @GET("user/all/inactive")
+    suspend fun getAllInactiveUsers(): Response<List<User>>
+
 /*
     @GET("user/byId/{userId}")
     suspend fun getUserById(@Path("userId") userId: String): Response<User>

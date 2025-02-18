@@ -12,4 +12,8 @@ class UserRepository {
         return RetrofitInstance.api.getAllUsers()
     }
 
+    suspend fun  getAllInactiveUsers(): Response<List<User>> {
+        return RetrofitInstance.api.getAllInactiveUsers()
+    }
+
 }

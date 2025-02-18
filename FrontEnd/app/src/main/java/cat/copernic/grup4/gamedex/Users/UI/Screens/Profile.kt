@@ -26,6 +26,8 @@ import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.UI.BottomSection
+import cat.copernic.grup4.gamedex.videogames.ui.screen.BottomSection
 
 @Composable
 fun ProfileScreen() {
@@ -118,17 +120,6 @@ fun StatItem(label: String, value: String) {
     }
 }
 
-@Composable
-fun BottomSection(posicion: Int) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        BottomNavBar(selectedItem = posicion, onItemSelected = {})
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

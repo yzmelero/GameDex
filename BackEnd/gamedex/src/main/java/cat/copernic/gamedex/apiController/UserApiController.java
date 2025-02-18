@@ -29,6 +29,12 @@ public class UserApiController {
             return userLogic.getUserByUsername(userId);
         }
     }
+    
+    @GetMapping("/all/inactive")
+    public List<User> getInactiveUsers() {
+        log.info("Getting inactive users");
+        return userLogic.getInactiveUsers();
+    }
 
     @GetMapping("/all")
     public List<User> getAllUsers() {

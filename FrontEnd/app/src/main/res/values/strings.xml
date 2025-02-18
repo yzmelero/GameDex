@@ -47,4 +47,5 @@
     <string name="verify">Verify</string>
     <string name="remove">Remove</string>
     <string name="add">Add</string>
+    <string name="validate_users">Validate Users</string>
 </resources>

@@ -9,5 +9,6 @@ class UseCases(private val repository: UserRepository) {
     suspend fun registerUser(user: User) = repository.registerUser(user)
 
     suspend fun listUsers() = repository.getAllUsers()
+    suspend fun listInactiveUsers() = repository.getAllInactiveUsers()
 }
 

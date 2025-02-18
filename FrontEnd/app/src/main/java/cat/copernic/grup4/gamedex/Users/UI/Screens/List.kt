@@ -47,6 +47,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
+import cat.copernic.grup4.gamedex.Users.UI.BottomSection
+import cat.copernic.grup4.gamedex.Users.UI.header
 
 @Composable
 fun UserListScreen() {
@@ -146,37 +148,6 @@ fun UserCard(user: User) {
     }
 }
 
-/*
-@Composable
-fun MyImage(base64String: String?) {
-    if (base64String != null) {
-        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-        val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-        val imageBitmap = bitmap?.asImageBitmap()
-
-        imageBitmap?.let {
-            Image(
-                bitmap = it, contentDescription = stringResource(R.string.profile_picture),
-                modifier = Modifier.size(100.dp)
-                    .clip(CircleShape)
-            )
-        }
-    }
-}
-*/
-@Composable
-fun header() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
-
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
