@@ -77,7 +77,7 @@ fun ViewGamesScreen(viewModel: GameViewModel, gameId: String) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HeaderSection()
-            game?.let { GameCard(it) } ?: Text("Cargando...", modifier = Modifier.padding(16.dp))
+            game?.let { GameCard(it) }
         }
         BottomSection()
     }
@@ -157,7 +157,7 @@ fun GameCard(videogame : Videogame) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
-                            text = stringResource(R.string.game_category),
+                            text = stringResource(R.string.category),
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             color = colorResource(R.color.purple_700)

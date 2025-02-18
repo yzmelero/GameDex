@@ -105,7 +105,6 @@ fun AddGamesScreen(navController : NavController) {
         createdGameState?.let { success ->
             if (success) {
                 Toast.makeText(context, "Videojoc creat!", Toast.LENGTH_LONG).show()
-                navController.navigate("login")
             } else {
                 Toast.makeText(context, "Error en crear el videojoc", Toast.LENGTH_LONG).show()
             }
@@ -235,7 +234,7 @@ fun AddGameFormFields(
         TextField(
             value = nameCategory,
             onValueChange = onCategoryChange,
-            label = { Text(stringResource(R.string.game_category)) },
+            label = { Text(stringResource(R.string.category)) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
