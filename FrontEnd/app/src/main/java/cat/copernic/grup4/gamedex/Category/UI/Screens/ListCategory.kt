@@ -41,14 +41,10 @@ fun ListCategoryScreen(navController: NavController) {
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
 
     var searchQuery by remember { mutableStateOf("") }
-    val categories by categoryViewModel.category.collectAsState()
+    val category by categoryViewModel.category.collectAsState()
 
     LaunchedEffect(Unit) {
         categoryViewModel.getAllCategory()
-    }
-
-    val filteredCategories = categories.filter {
-        it.nameCategory.contains(searchQuery, ignoreCase = true)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -87,7 +83,7 @@ fun ListCategoryScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        CategoriesGrid(category)
+        CategoriesGrid(category, navController)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -143,7 +139,9 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         category.forEach { category ->
-            CategoryButton(name = category.nameCategory, navController = navController) // Ocupa todo el ancho disponible
+            CategoryButton(name = category.nameCategory, modifier = Modifier.clickable {
+                // Puedes agregar una acción al hacer clic en la categoría, como navegar a otra pantalla
+            })
         }
     }
 }
