@@ -2,7 +2,6 @@ package cat.copernic.gamedex.entity;
 
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
-import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -33,8 +32,8 @@ public class User {
     private LocalDate birthDate;
 
     @Field(name = "profile_picture")
-    private String profilePicture;
-    //private Binary[] profilePicture;
+    private byte[] profilePicture;
+    //private String profilePicture;
 
     // 0 for disabled or non validated users, 1 for validated users
     private Boolean state;

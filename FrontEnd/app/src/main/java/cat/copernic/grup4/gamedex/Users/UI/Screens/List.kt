@@ -1,5 +1,8 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.graphics.BitmapFactory
+import android.util.Base64
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.content.MediaType.Companion.Image
 import androidx.compose.foundation.layout.*
@@ -39,9 +42,10 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import coil.compose.AsyncImage
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 
 @Composable
@@ -56,7 +60,8 @@ fun UserListScreen() {
             .fillMaxSize()
             .background(
                 color = colorResource(id = R.color.background),
-            ),
+            )
+            .navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         header()
@@ -88,18 +93,19 @@ fun UserListScreen() {
 
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /* TODO: Verify Users */ },
+            onClick = { /* TODO: Go to Verify user screen */ },
             shape = RoundedCornerShape(20.dp),
         ) {
             Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
         }
     }
-
     BottomSection(2)
 }
 
 @Composable
 fun UserCard(user: User) {
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -112,26 +118,52 @@ fun UserCard(user: User) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                model = user.profilePicture,
-                contentDescription = R.string.profile_picture.toString(),
-                modifier = Modifier
-                    .size(50.dp)
-                    .clip(CircleShape) // Hace la imagen redonda
-            )
+            val imageBitmap = user.profilePicture?.let {
+                userViewModel.base64ToBitmap(it)
+            }
+
+            Column {
+                imageBitmap?.let {
+                    Image(
+                        it, contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(72.dp)
+                            .clip(CircleShape)
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.width(24.dp))
             Text(user.username, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /* TODO: Add user action */ }) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
+            IconButton(onClick = { /* TODO: Go to view profile screen */ }) {
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add))
             }
             IconButton(onClick = { /* TODO: Remove user action */ }) {
-                Icon(Icons.Default.Delete, contentDescription = "Remove")
+                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.remove))
             }
         }
     }
 }
 
+/*
+@Composable
+fun MyImage(base64String: String?) {
+    if (base64String != null) {
+        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        val imageBitmap = bitmap?.asImageBitmap()
+
+        imageBitmap?.let {
+            Image(
+                bitmap = it, contentDescription = stringResource(R.string.profile_picture),
+                modifier = Modifier.size(100.dp)
+                    .clip(CircleShape)
+            )
+        }
+    }
+}
+*/
 @Composable
 fun header() {
     Column(

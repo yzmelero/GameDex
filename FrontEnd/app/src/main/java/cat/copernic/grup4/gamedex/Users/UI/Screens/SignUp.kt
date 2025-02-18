@@ -1,6 +1,8 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.content.Context
 import android.net.Uri
+import android.util.Base64
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -204,12 +206,19 @@ fun SignUpScreen(navController: NavController) {
                                     modifier = Modifier
                                         .size(120.dp)
                                         .clip(RoundedCornerShape(50))
-                                        //TODO añadir acción para elegir imagen
-                                        .clickable { /* Acción para elegir imagen */ }
+                                        .clickable {
+                                            imagePickerLauncher
+                                                .launch(
+                                                    PickVisualMediaRequest(
+                                                        ActivityResultContracts
+                                                            .PickVisualMedia.ImageOnly
+                                                    )
+                                                )
+                                        }
                                 )
                             } else {
-                                profilePicture = userViewModel.uriToByteArray(selectedImageUri!!,
-                                    context.contentResolver).toString()
+                                profilePicture =
+                                    userViewModel.uriToBase64(context, selectedImageUri!!).toString()
                                 AsyncImage(
                                     model = selectedImageUri,
                                     contentDescription = "Avatar",
@@ -315,6 +324,13 @@ fun InputField(
         Spacer(modifier = Modifier.height(6.dp))
     }
 }
+
+fun uriToBase64(context: Context, uri: Uri): String {
+    val inputStream = context.contentResolver.openInputStream(uri) ?: return ""
+    val bytes = inputStream.readBytes()
+    return Base64.encodeToString(bytes, Base64.DEFAULT) // ✅ Convertimos la imagen a Base64
+}
+
 
 
 @Preview(showBackground = true)
