@@ -57,7 +57,8 @@ fun ListCategoryScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -96,7 +97,7 @@ fun ListCategoryScreen(navController: NavController) {
         ) {
             BottomNavBar(onItemSelected = {})
         }
-        FloatingAddButton(onClick = {})
+        FloatingAddButton(navController)
     }
 }
 
@@ -168,7 +169,7 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FloatingAddButton(onClick: () -> Unit) {
+fun FloatingAddButton(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -177,7 +178,7 @@ fun FloatingAddButton(onClick: () -> Unit) {
         contentAlignment = Alignment.BottomEnd
     ) {
         IconButton(
-            onClick = onClick,
+            onClick = { navController.navigate("add_category") },
             modifier = Modifier
                 .size(56.dp)
                 .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
