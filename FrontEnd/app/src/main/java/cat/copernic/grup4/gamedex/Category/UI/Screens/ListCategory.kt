@@ -22,21 +22,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 
 @Composable
-fun ListCategoryScreen(/*navController: NavController*/) {
+fun ListCategoryScreen(navController: NavController) {
+
+    val categoryCases = CategoryCases(CategoryRepository())
+    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+
     var searchQuery by remember { mutableStateOf("") }
-    val categories = listOf(
-        "ALL", "ACTION", "ADVENTURE", "SHOOTER", "RPG", "MOBA",
-        "FANTASY", "ARCADE", "VR", "STRATEGY", "FIGHT", "SURVIVAL",
-        "OPEN WORLD", "SIMULATION"
-    )
+    val categories by categoryViewModel.category.collectAsState()
+
+    LaunchedEffect(Unit) {
+        categoryViewModel.getAllCategory()
+    }
+
+    val filteredCategories = categories.filter {
+        it.nameCategory.contains(searchQuery, ignoreCase = true)
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
-
 
     Column(
         modifier = Modifier
@@ -72,7 +87,7 @@ fun ListCategoryScreen(/*navController: NavController*/) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        CategoriesGrid(categories)
+        CategoriesGrid(category)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -119,7 +134,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 }
 
 @Composable
-fun CategoriesGrid(categories: List<String>) {
+fun CategoriesGrid(category: List<Category>, navController: NavController) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -127,8 +142,8 @@ fun CategoriesGrid(categories: List<String>) {
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        categories.forEach { category ->
-            CategoryButton(category, Modifier.fillMaxWidth()) // Ocupa todo el ancho disponible
+        category.forEach { category ->
+            CategoryButton(name = category.nameCategory, navController = navController) // Ocupa todo el ancho disponible
         }
     }
 }
@@ -181,5 +196,6 @@ fun FloatingAddButton(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewListCategoryScreen() {
-    ListCategoryScreen()
+    val fakeNavController = rememberNavController()
+    ListCategoryScreen(navController = fakeNavController)
 }

@@ -2,15 +2,13 @@ package cat.copernic.grup4.gamedex.Category.UI.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import cat.copernic.grup4.gamedex.Category.Domain.CategoryCasesAdd
-import cat.copernic.grup4.gamedex.Category.Domain.CategoryCasesGetAll
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 
-class CategoryViewModelFactory(private val categoryCasesAdd: CategoryCasesAdd,
-                               private val categoryCasesGetAll: CategoryCasesGetAll) : ViewModelProvider.Factory {
+class CategoryViewModelFactory(private val categoryCases: CategoryCases) : ViewModelProvider.Factory {
     override fun <T: ViewModel> create(ModelClass: Class<T>): T {
         if (ModelClass.isAssignableFrom(CategoryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CategoryViewModel(categoryCasesAdd, categoryCasesGetAll) as T
+            return CategoryViewModel(categoryCases) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

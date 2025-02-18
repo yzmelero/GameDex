@@ -29,7 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
-import cat.copernic.grup4.gamedex.Category.Domain.CategoryCasesAdd
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
@@ -40,8 +40,8 @@ import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 @Composable
 fun AddCategoryScreen(navController: NavController) {
 
-    val useCases = CategoryCasesAdd(CategoryRepository())
-    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(useCases))
+    val categoryCases = CategoryCases(CategoryRepository())
+    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
 
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }

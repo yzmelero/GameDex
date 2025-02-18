@@ -13,5 +13,4 @@ interface CategoryApiRest {
     @GET("category/all")
     suspend fun getAllCategory(): Response<List<Category>>
 
-
 }
