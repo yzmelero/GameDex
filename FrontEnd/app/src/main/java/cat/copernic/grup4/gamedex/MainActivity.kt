@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import cat.copernic.grup4.gamedex.Core.ui.navigation.AppNavigation
 
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
