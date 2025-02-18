@@ -170,7 +170,7 @@ fun AddContentSection(
             Button(
                 onClick = {
                     val newGame = Videogame(
-                        gameId = 1,
+                        gameId = "",
                         nameGame = nameGame,
                         releaseYear = releaseYear,
                         ageRecommendation = ageRecommendation,

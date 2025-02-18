@@ -11,4 +11,6 @@ class GameViewModelFactory(private val videogameUseCase: VideogameUseCase) : Vie
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
+
+    
 }

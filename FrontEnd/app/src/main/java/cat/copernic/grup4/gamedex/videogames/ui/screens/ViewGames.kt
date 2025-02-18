@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -47,40 +48,36 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ViewGamesScreen(viewModel: GameViewModel, gameId: String) {
 
     LaunchedEffect(gameId) {
+        Log.d("ViewGamesScreen", "Fetching game with ID: $gameId")
         viewModel.videogamesById(gameId)
     }
 
     val game by viewModel.gameById.collectAsState()
-
-    var nameGame by remember { mutableStateOf("") }
-    var releaseYear by remember { mutableStateOf("") }
-    var ageRecommendation by remember { mutableStateOf("") }
-    var developer by remember { mutableStateOf("") }
-    var nameCategory by remember { mutableStateOf("") }
-    var descriptionGame by remember { mutableStateOf("") }
+    Log.d("ViewGamesScreen", "Current game: $game")
 
     Box(
         modifier = Modifier.fillMaxSize()
+            .background(colorResource(R.color.background))
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(colorResource(R.color.background))
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HeaderSection()
-
-            game?.let { GameCard(it) }
-
+            game?.let { GameCard(it) } ?: Text("Cargando...", modifier = Modifier.padding(16.dp))
         }
         BottomSection()
     }
@@ -230,7 +227,11 @@ fun CommentsSection() {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(R.string.comments), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = stringResource(R.string.comments),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     Icons.Default.Add,
@@ -243,69 +244,74 @@ fun CommentsSection() {
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.LightGray),
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "VicoGracias" /* Nom usuari comentari */,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥" /* comentari del usuari */
-                    )
-                }
-                Box(
+            CommentItem(
+                "VicoGracias",
+                "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥",
+                "⭐9.96⭐"
+            )
+        }
+    }
+}
+@Composable
+fun CommentItem(username: String, comment: String, rating: String) {
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = username, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(text = comment)
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = rating,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "⭐9.96⭐",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .size(width = 80.dp, height = 30.dp)
-                                .background(colorResource(R.color.bubblegum), shape = RoundedCornerShape(40))
-                                .padding(top = 4.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = stringResource(R.string.addgame_library),
-                            modifier = Modifier
-                                .size(30.dp)
-                                .background(Color.Red, shape = RoundedCornerShape(50))
-                        )
-                    }
-                }
+                        .size(width = 80.dp, height = 30.dp)
+                        .clip(RoundedCornerShape(40))
+                        .background(colorResource(R.color.bubblegum))
+                        .padding(top = 4.dp)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.addgame_library),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(Color.Red)
+                )
             }
         }
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewViewGamesScreen() {
-    val fakeViewModel = GameViewModel() // Simula un ViewModel para la preview
-    ViewGamesScreen(viewModel = fakeViewModel, gameId = "1")
-    /*
-    val testGame = Videogame( /* test per mostrar dades del joc, encara no hi ha dades a la bbdd */
+    val fakeGame = Videogame(
         nameGame = "Elden Ring",
         releaseYear = "2022",
         nameCategory = "RPG",
         developer = "FromSoftware",
         ageRecommendation = "18",
-        descriptionGame = "Elden Ring is an action RPG which takes place in the Lands Between, sometime after the Shattering of the titular Elden Ring. Players must explore and fight their way through the vast open-world to unite all the shards, restore the Elden Ring, and become Elden Lord.",
-        gamePhoto = painterResource(R.drawable.eldenring).toString(),
-        gameId = 1
+        descriptionGame = "Descripción de prueba",
+        gamePhoto = "",
+        gameId = "1"
     )
-    ViewGamesScreen(testGame)*/
+
+    GameCard(fakeGame)
 }
