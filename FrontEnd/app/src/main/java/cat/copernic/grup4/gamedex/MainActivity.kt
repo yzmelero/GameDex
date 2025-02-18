@@ -13,8 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            //AppNavigation()
-            UserListScreen()
+            AppNavigation()
         }
     }
 }
