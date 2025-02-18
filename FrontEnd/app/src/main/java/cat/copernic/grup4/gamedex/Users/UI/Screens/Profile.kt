@@ -88,7 +88,7 @@ fun ProfileScreen() {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomSection()
+        BottomSection(1)
     }
 }
 
@@ -119,14 +119,14 @@ fun StatItem(label: String, value: String) {
 }
 
 @Composable
-fun BottomSection() {
+fun BottomSection(posicion: Int) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        BottomNavBar(selectedItem = 1, onItemSelected = {})
+        BottomNavBar(selectedItem = posicion, onItemSelected = {})
     }
 }
 
