@@ -1,5 +1,7 @@
 package cat.copernic.grup4.gamedex.Core.ui.theme
 
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,10 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.UI.Screens.SignUpScreen
 
 @Composable
-fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
+fun TopBar(navController: NavController, profileImageRes: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,17 +66,20 @@ fun TopBar(onLogoutClick: () -> Unit, profileImageRes: Int) {
             textAlign = TextAlign.Center
         )
 
-        IconButton(onClick = onLogoutClick) {
-            Icon(
-                imageVector = Icons.Default.ExitToApp,
-                contentDescription = stringResource(R.string.logout),
-                Modifier.size(40.dp)
-            )
-        }
+        Icon(
+            Icons.Default.ExitToApp,
+            contentDescription = stringResource(R.string.logout),
+            Modifier.size(40.dp)
+                .clickable {
+                    navController.navigate("login")
+                }
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewTopBar() {
-    TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)}
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    TopBar(navController = fakeNavController, profileImageRes = R.drawable.user)
+}

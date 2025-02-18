@@ -257,7 +257,6 @@ fun SignUpScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
-                        //TODO añadir acción de registro
                         onClick = {
                             val newUser = User(
                                 username = username,

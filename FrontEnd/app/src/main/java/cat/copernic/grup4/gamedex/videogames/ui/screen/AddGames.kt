@@ -48,12 +48,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 
 @Composable
-fun AddGamesScreen() {
+fun AddGamesScreen(navController: NavController) {
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
@@ -71,7 +74,7 @@ fun AddGamesScreen() {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderSection()
+            header(navController)
 
             AddContentSection(
                 nameGame, { nameGame = it },
@@ -86,19 +89,6 @@ fun AddGamesScreen() {
     }
 }
 
-@Composable
-fun HeaderSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
-
-    }
-}
 
 @Composable
 fun AddContentSection(
@@ -262,5 +252,6 @@ fun BottomSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddGamesScreen() {
-    AddGamesScreen()
+    val fakeNavController = rememberNavController()
+    AddGamesScreen(fakeNavController)
 }

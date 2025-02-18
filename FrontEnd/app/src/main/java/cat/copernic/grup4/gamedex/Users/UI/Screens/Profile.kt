@@ -2,8 +2,6 @@ package cat.copernic.grup4.gamedex.Users.UI.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.content.MediaType.Companion.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,7 +12,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -22,15 +19,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedex.Users.UI.BottomSection
-import cat.copernic.grup4.gamedex.videogames.ui.screen.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
     var username by remember { mutableStateOf("Juan") }
     Column(
         modifier = Modifier
@@ -44,7 +41,7 @@ fun ProfileScreen() {
     ) {
 
         // Header
-        HeaderSection()
+        header(navController)
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -95,20 +92,6 @@ fun ProfileScreen() {
 }
 
 @Composable
-fun HeaderSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
-
-    }
-}
-
-@Composable
 fun StatItem(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(label, fontSize = 32.sp,
@@ -124,6 +107,7 @@ fun StatItem(label: String, value: String) {
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen()
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    ProfileScreen(navController = fakeNavController)
 }
 

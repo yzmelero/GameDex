@@ -1,21 +1,16 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
-import android.graphics.BitmapFactory
-import android.util.Base64
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.content.MediaType.Companion.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,9 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,19 +32,18 @@ import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
-import coil.compose.AsyncImage
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
-import cat.copernic.grup4.gamedex.Users.UI.BottomSection
-import cat.copernic.grup4.gamedex.Users.UI.header
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
-fun UserListScreen() {
+fun UserListScreen(navController: NavController) {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
 
@@ -66,7 +58,7 @@ fun UserListScreen() {
             .navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        header()
+        header(navController)
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             stringResource(R.string.users),
@@ -95,7 +87,7 @@ fun UserListScreen() {
 
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /* TODO: Go to Verify user screen */ },
+            onClick = { navController.navigate("validate")},
             shape = RoundedCornerShape(20.dp),
         ) {
             Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
@@ -152,5 +144,6 @@ fun UserCard(user: User) {
 @Preview(showBackground = true)
 @Composable
 fun UserListScreenPreview() {
-    UserListScreen()
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    UserListScreen(navController = fakeNavController)
 }

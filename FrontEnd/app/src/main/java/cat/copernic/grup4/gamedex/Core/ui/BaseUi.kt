@@ -1,4 +1,4 @@
-package cat.copernic.grup4.gamedex.Users.UI
+package cat.copernic.grup4.gamedex.Core.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,12 +8,13 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 
 @Composable
-fun header() {
+fun header(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -21,7 +22,7 @@ fun header() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
+        TopBar(navController ,profileImageRes = R.drawable.coche)
 
     }
 }
