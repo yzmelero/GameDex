@@ -183,11 +183,19 @@ fun GameCard(videogame : Videogame) {
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = videogame.descriptionGame,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(16.dp)
-            )
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = stringResource(R.string.description) + ":",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(R.color.purple_700)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = videogame.descriptionGame,
+                    fontSize = 14.sp
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
             Button(
                 onClick = { /* Acción de Modificar */ },
@@ -303,12 +311,12 @@ fun CommentItem(username: String, comment: String, rating: String) {
 @Composable
 fun PreviewViewGamesScreen() {
     val fakeGame = Videogame(
-        nameGame = "Elden Ring",
+        nameGame = "Nombre prueba",
         releaseYear = "2022",
-        nameCategory = "RPG",
+        nameCategory = "Categoria",
         developer = "FromSoftware",
         ageRecommendation = "18",
-        descriptionGame = "Descripción de prueba",
+        descriptionGame = "Lorem ipsum dolor sit amet consectetur adipiscing elit odio aptent cubilia, laoreet cursus pharetra vulputate pellentesque integer nec fermentum sociis id, feugiat class torquent vel egestas primis mus sed fusce. Interdum condimentum mauris sed ridiculus duis justo phasellus, lobortis feugiat augue ultricies cum ultrices arcu ullamcorper, curabitur in cras auctor morbi sapien. Consequat penatibus litora tristique dis rutrum nec venenatis aliquam, lectus aptent laoreet fames condimentum augue varius gravida metus, montes platea duis conubia justo quis lobortis.",
         gamePhoto = "",
         gameId = "1"
     )

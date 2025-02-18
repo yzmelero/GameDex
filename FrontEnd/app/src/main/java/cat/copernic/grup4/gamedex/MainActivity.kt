@@ -16,11 +16,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            /*
             val fakeNavController = rememberNavController()
-            SignUpScreen(navController = fakeNavController)*/
-            val fakeNavController = rememberNavController()
-            AddGamesScreen(navController = fakeNavController)
+            SignUpScreen(navController = fakeNavController)
         }
     }
 }
