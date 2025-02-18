@@ -21,5 +21,5 @@ public class Category {
     private String description;
 
     @Field(name = "category_photo")
-    private String categoryPhoto;
+    private Byte categoryPhoto;
 }

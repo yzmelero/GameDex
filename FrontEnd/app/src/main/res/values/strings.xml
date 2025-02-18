@@ -45,4 +45,5 @@
     <string name="year">Year</string>
     <string name="category_added">Category Created</string>
     <string name="category_not_created">Error creating Category</string>
+    <string name="error_no_image">Error no Image</string>
 </resources>

@@ -1,6 +1,9 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -45,9 +48,15 @@ fun AddCategoryScreen(navController: NavController) {
 
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }
+    var categoryPhotoUri by remember { mutableStateOf<Uri?>(null) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     val categoryAdded by categoryViewModel.categoryAdded.collectAsState()
     val context = LocalContext.current
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        categoryPhotoUri = uri
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -89,7 +98,16 @@ fun AddCategoryScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(stringResource(R.string.image_category), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Spacer(modifier = Modifier.height(20.dp))
-                    ImageUploadSection()
+                    ImageUploadSection(categoryPhotoUri) { imagePickerLauncher.launch("image/*") }
+
+                    errorMessage?.let {
+                        Text(
+                            text = it,
+                            color = Color.Red,
+                            fontSize = 14.sp,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -100,13 +118,18 @@ fun AddCategoryScreen(navController: NavController) {
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    //TODO añadir acción de registro
-                    onClick = { val newCategory = Category(
-                        nameCategory = categoryName,
-                        description = categoryDescription,
-                        categoryPhoto = null
-                    )
-                        categoryViewModel.addCategory(newCategory)},
+                    onClick = {
+                        if (categoryPhotoUri == null) {
+                            errorMessage = context.getString(R.string.error_no_image) // Mensaje de error
+                        } else {
+                            val newCategory = Category(
+                                nameCategory = categoryName,
+                                description = categoryDescription,
+                                categoryPhoto = categoryPhotoUri.toString()
+                            )
+                            categoryViewModel.addCategory(newCategory)
+                        }
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                     ) {
@@ -160,23 +183,32 @@ fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (S
 }
 
 @Composable
-fun ImageUploadSection() {
+fun ImageUploadSection(categoryPhotoUri: Uri?, onImagePick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp),
-        contentAlignment = Alignment.BottomEnd
+        contentAlignment = Alignment.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.coche),
-            modifier = Modifier .fillMaxSize(),
-            contentDescription = "My Image"
-        )
+        if (categoryPhotoUri != null) {
+            Image(
+                painter = rememberAsyncImagePainter(categoryPhotoUri),
+                contentDescription = "Selected Image",
+                modifier = Modifier.fillMaxSize()
+            )
+        } else {
+            Image(
+                painter = painterResource(id = R.drawable.coche),
+                contentDescription = "Placeholder Image",
+                modifier = Modifier.fillMaxSize()
+            )
+        }
         IconButton(
-            onClick = { /* Open image picker */ },
+            onClick = onImagePick,
             modifier = Modifier
                 .size(48.dp)
                 .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                .align(Alignment.BottomEnd)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
