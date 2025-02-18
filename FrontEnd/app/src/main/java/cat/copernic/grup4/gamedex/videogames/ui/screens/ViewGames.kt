@@ -87,7 +87,6 @@ fun ViewGamesScreen(viewModel: GameViewModel, gameId: String) {
 fun GameCard(videogame : Videogame) {
     Column ( modifier = Modifier
         .fillMaxSize()
-        .padding(bottom = 80.dp)
         .background(colorResource(R.color.background))
         .windowInsetsPadding(WindowInsets.systemBars)
         .verticalScroll(rememberScrollState()),
@@ -232,6 +231,7 @@ fun CommentsSection() {
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.padding(16.dp)
+            .padding(bottom = 80.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
