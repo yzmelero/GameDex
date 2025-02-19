@@ -116,7 +116,7 @@ fun AddCategoryScreen(navController: NavController) {
                             val newCategory = Category(
                                 nameCategory = categoryName,
                                 description = categoryDescription,
-                                categoryPhoto = imageUri?.toString(),
+                                categoryPhoto = categoryViewModel.uriToBase64(context, imageUri!!).toString()
                             )
                             categoryViewModel.addCategory(newCategory)
                         },
