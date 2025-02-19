@@ -10,4 +10,7 @@ class VideogameRepository {
     suspend fun videogamesById(gameId: String): Response<Videogame> {
         return RetrofitInstance.api.videogamesById(gameId)
     }
+    suspend fun getAllVideogames(): Response<List<Videogame>> {
+        return RetrofitInstance.api.getAllVideogames()
+    }
 }

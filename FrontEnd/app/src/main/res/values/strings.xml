@@ -46,4 +46,5 @@
     <string name="verify">Verify</string>
     <string name="remove">Remove</string>
     <string name="add">Add</string>
+    <string name="list_game">Videogames</string>
 </resources>

@@ -105,6 +105,7 @@ fun AddGamesScreen(navController : NavController) {
         createdGameState?.let { success ->
             if (success) {
                 Toast.makeText(context, "Videojoc creat!", Toast.LENGTH_LONG).show()
+                navController.navigate("viewgames")
             } else {
                 Toast.makeText(context, "Error en crear el videojoc", Toast.LENGTH_LONG).show()
             }

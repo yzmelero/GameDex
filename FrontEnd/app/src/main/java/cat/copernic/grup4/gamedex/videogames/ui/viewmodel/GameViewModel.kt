@@ -13,6 +13,14 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
 
     private val _videogameCreated = MutableStateFlow<Boolean?>(null)
     val videogameCreated: StateFlow<Boolean?> = _videogameCreated
+
+    private val _getVideogame = MutableStateFlow<Videogame?>(null)
+    open val gameById: StateFlow<Videogame?> = _getVideogame
+
+    private val _videogameGetAll = MutableStateFlow<List<Videogame>>(emptyList())
+    open val allVideogame: StateFlow<List<Videogame>> = _videogameGetAll
+
+
     fun createVideogame(videogame: Videogame) {
         viewModelScope.launch {
             val response = videogameUseCase.createVideogame(videogame)
@@ -20,29 +28,23 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
-    private val _getVideogame = MutableStateFlow<Videogame?>(null)
-    open val gameById: StateFlow<Videogame?> = _getVideogame
-    /*
     fun videogamesById(gameId: String) {
         viewModelScope.launch {
             val response = videogameUseCase.videogamesById(gameId)
             _getVideogame.value = response.body()
         }
-    }*/
-    fun videogamesById(gameId: String) {
+    }
+
+    fun getAllVideogames() {
         viewModelScope.launch {
             try {
-                val response = videogameUseCase.videogamesById(gameId)
-                if (response.isSuccessful) {
-                    _getVideogame.value = response.body()
-                } else {
-                    Log.e("GameViewModel", "Error en la respuesta: ${response.errorBody()?.string()}")
-                }
+                val response = videogameUseCase.getAllVideogames()
+                _videogameGetAll.value = response.body() ?: emptyList()
+                Log.d("DEBUG", "Juegos cargados: $response")
             } catch (e: Exception) {
-                Log.e("GameViewModel", "Error obteniendo el videojuego", e)
+                Log.e("ERROR", "Error obteniendo juegos: ${e.message}")
             }
         }
     }
-
 
 }
