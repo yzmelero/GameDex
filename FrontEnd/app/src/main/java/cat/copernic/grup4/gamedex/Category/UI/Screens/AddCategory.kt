@@ -88,7 +88,8 @@ fun AddCategoryScreen(navController: NavController) {
                     .padding(horizontal = 16.dp)
                     .fillMaxHeight(1f)
                     .padding(bottom = 100.dp)
-                    .clip(RoundedCornerShape(16.dp)),
+                    .clip(RoundedCornerShape(16.dp))
+                    .verticalScroll(rememberScrollState()),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -130,8 +131,7 @@ fun AddCategoryScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .navigationBarsPadding()
-                .verticalScroll(rememberScrollState()),
+                .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
             BottomNavBar(onItemSelected = {})
@@ -180,23 +180,15 @@ fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
             .height(150.dp),
         contentAlignment = Alignment.Center
     ) {
-        if (imageUri != null) {
-            Image(
-                painter = rememberAsyncImagePainter(imageUri),
-                contentDescription = "Imatge seleccionada",
-                modifier = Modifier.fillMaxSize()
-            )
+        val painter = if (imageUri != null) {
+            rememberAsyncImagePainter(imageUri)
         } else {
-            Image(
-                painter = painterResource(id = R.drawable.coche),
-                modifier = Modifier.fillMaxSize(),
-                contentDescription = "Imatge per defecte"
-            )
+            painterResource(id = R.drawable.coche)
         }
         Image(
-            painter = painterResource(id = R.drawable.coche),
-            modifier = Modifier .fillMaxSize(),
-            contentDescription = "My Image"
+            painter = painter,
+            contentDescription = "Image select",
+            modifier = Modifier.fillMaxSize()
         )
         IconButton(
             onClick = { onImageClick() },
