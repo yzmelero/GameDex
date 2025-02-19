@@ -88,8 +88,7 @@ fun AddCategoryScreen(navController: NavController) {
                     .padding(horizontal = 16.dp)
                     .fillMaxHeight(1f)
                     .padding(bottom = 100.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .verticalScroll(rememberScrollState()),
+                    .clip(RoundedCornerShape(16.dp)),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -131,7 +130,8 @@ fun AddCategoryScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .navigationBarsPadding(),
+                .navigationBarsPadding()
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Bottom
         ) {
             BottomNavBar(onItemSelected = {})
