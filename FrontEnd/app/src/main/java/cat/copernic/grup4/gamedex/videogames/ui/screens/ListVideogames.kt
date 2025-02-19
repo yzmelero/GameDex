@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -32,6 +33,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -45,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -84,7 +87,7 @@ fun ListGamesScreen(navController : NavController) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(colorResource(R.color.background))
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -174,25 +177,40 @@ fun GameItem(videogame: Videogame) {
                 painter = painterResource(R.drawable.eldenring),
                 contentDescription = videogame.nameGame,
                 modifier = Modifier
-                    .size(50.dp)
-                    .clip(RoundedCornerShape(6.dp))
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(6.dp)),
+                contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.padding(8.dp))
             Column {
                 Text(
                     text = videogame.nameGame,
-                    fontSize = 16.sp,
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
+                Spacer(modifier = Modifier.padding(8.dp))
                 Text(
                     text = videogame.nameCategory,
-                    fontSize = 14.sp,
+                    fontSize = 20.sp,
                     color = Color.DarkGray
                 )
             }
+            Spacer(modifier = Modifier.width(80.dp))
+            IconButton(onClick = { /* Acción para añadir */ }) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = "Añadir",
+                    tint = Color.Black,
+                    modifier = Modifier.size(32.dp)
+                        .background(Color.Magenta, shape = RoundedCornerShape(50))
+                )
+
+            }
         }
+
     }
+
 }
 
 

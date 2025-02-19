@@ -51,7 +51,7 @@ public class VideogameApiController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity <List<Videogame>> getAllVideogames(@PathVariable String gameId) {
+    public ResponseEntity <List<Videogame>> getAllVideogames() {
         log.info("Getting all videogames");
         List<Videogame> videogames = videogameLogic.getAllVideogames();
         return ResponseEntity.ok(videogames);
