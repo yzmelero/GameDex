@@ -53,17 +53,17 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("io.coil-kt:coil-compose:2.5.0") // Usa la última versión disponible
 
     // LiveData i ViewModel (Architecture Components)
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
-    // Coil (per carregar imatges, si cal)
-    implementation ("io.coil-kt:coil-compose:2.3.0")
 
     implementation(libs.androidx.ui.graphics.android)
     implementation(libs.androidx.foundation.android)
+    implementation(libs.litert.support.api)
     implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

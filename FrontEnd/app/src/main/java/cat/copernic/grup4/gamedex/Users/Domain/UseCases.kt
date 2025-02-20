@@ -10,5 +10,6 @@ class UseCases(private val repository: UserRepository) {
 
     suspend fun loginUser(username: String, password: String) = repository.loginUser(username, password)
 
+    suspend fun listUsers() = repository.getAllUsers()
 }
 

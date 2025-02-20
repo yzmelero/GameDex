@@ -17,4 +17,9 @@ class UserRepository {
         val request = LoginRequest(username, password)  //
         return RetrofitInstance.api.loginUser(request)
     }
+
+    suspend fun getAllUsers(): Response<List<User>> {
+        return RetrofitInstance.api.getAllUsers()
+    }
+
 }

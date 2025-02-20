@@ -44,4 +44,11 @@
     <string name="by_developer">By</string>
     <string name="year">Year</string>
     <string name="error_loging_in">Error loging in</string>
+    <string name="users">Users</string>
+    <string name="verify">Verify</string>
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+    <string name="category_added">Category Created</string>
+    <string name="category_not_created">Error creating Category</string>
+    <string name="error_no_image">Error no Image</string>
 </resources>
