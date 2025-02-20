@@ -111,7 +111,6 @@ fun AddCategoryScreen(navController: NavController) {
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    //TODO añadir acción de registro
                     onClick = {
                             val newCategory = Category(
                                 nameCategory = categoryName,
@@ -142,7 +141,7 @@ fun AddCategoryScreen(navController: NavController) {
         categoryAdded?.let { success ->
             if (success) {
                 Toast.makeText(context, context.getString(R.string.category_added), Toast.LENGTH_LONG).show()
-                navController.navigate("category_list") {
+                navController.navigate("list_category") {
                     popUpTo("add_category") { inclusive = true }
                 }
             } else {

@@ -181,13 +181,19 @@ fun FloatingAddButton(navController: NavController) {
             onClick = { navController.navigate("add_category") },
             modifier = Modifier
                 .size(56.dp)
-                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
         ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = stringResource(R.string.add_category),
-                modifier = Modifier.size(40.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .size(56.dp)
+                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.add_category),
+                    modifier = Modifier.size(40.dp)
+                )
+            }
         }
     }
 }
