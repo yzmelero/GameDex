@@ -186,36 +186,45 @@ fun GameItem(videogame: Videogame) {
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.padding(8.dp))
-            Column {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
                 Text(
                     text = videogame.nameGame,
-                    fontSize = 32.sp,
+                    fontSize = 28.sp,
                     style = GameDexTypography.bodyLarge,
                     color = Color.Black
                 )
-                Spacer(modifier = Modifier.padding(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = videogame.nameCategory,
-                    fontSize = 30.sp,
+                    fontSize = 26.sp,
                     color = Color.DarkGray,
                     style = GameDexTypography.bodyLarge
                 )
             }
+
             Spacer(modifier = Modifier.width(74.dp))
-            IconButton(onClick = { /* Acción para añadir */ }) {
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .background(Color.Magenta, shape = RoundedCornerShape(50)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.eye),
-                        contentDescription = stringResource(R.string.add_game),
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .align(Alignment.CenterVertically)
+            ) {
+                IconButton(onClick = { /* Acción para añadir */ }) {
+                    Box(
                         modifier = Modifier
-                            .size(38.dp)
-                            .padding(6.dp)
-                    )
+                            .size(48.dp)
+                            .background(Color.Magenta, shape = RoundedCornerShape(50)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.eye),
+                            contentDescription = stringResource(R.string.add_game),
+                            modifier = Modifier
+                                .size(38.dp)
+                                .padding(6.dp)
+                        )
+                    }
                 }
             }
         }
