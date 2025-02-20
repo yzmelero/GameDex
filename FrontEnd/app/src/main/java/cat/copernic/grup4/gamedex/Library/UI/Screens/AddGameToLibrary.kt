@@ -3,6 +3,7 @@ package cat.copernic.grup4.gamedex.Library.UI.Screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,10 +46,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import cat.copernic.grup4.gamedex.Core.Model.StateType
+import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.UI.Screens.BottomSection
 import cat.copernic.grup4.gamedex.videogames.ui.screen.ConfirmButton
 import cat.copernic.grup4.gamedex.videogames.ui.screen.HeaderSection
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
@@ -66,99 +70,137 @@ fun AddGameToLibraryScreen() {
     var rating by remember { mutableDoubleStateOf(0.0) }
     var comment by remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
-
     var expanded by remember { mutableStateOf(false) }
-    Column(
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(R.color.background))
-            .verticalScroll(scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeaderSection()
-
-        Spacer(modifier = Modifier.height(16.dp))
-        //TODO Canviar la lletra
-        Text(text = context.getString(R.string.review), style = GameDexTypography.bodyLarge)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth(0.8f)
-                .clickable { expanded = true }
-                .padding(12.dp)
+                .fillMaxSize()
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = selectedState)
 
-            DropdownMenu(
-                expanded = expanded,
-                modifier = Modifier.zIndex(1f),
-                onDismissRequest = { expanded = false }
-            ) {
-                stateOptions.forEach { option ->
-                    DropdownMenuItem(
-                        text = { Text(text = option) },
-                        onClick = {
-                            selectedState = option
-                            expanded = false
-                        }
-                    )
-                }
+            Box(modifier = Modifier.fillMaxWidth()) {
+                HeaderSection()
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            //Rating
-            //TODO Canviar lletra
-            Text(text = context.getString(R.string.rating), fontSize = 18.sp)
-            Row {
-                (1..10).forEach { index ->
-                    Icon(
-                        imageVector = if (index <= rating.toInt()) Icons.Default.Star else Icons.Outlined.Star,
-                        contentDescription = "Star $index",
-                        tint = Color.Yellow,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clickable { rating = index.toDouble() }
-
-                    )
-                }
-            }
+            // Títol de la secció
+            Text(text = context.getString(R.string.review), style = GameDexTypography.bodyLarge)
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            //Comentari
-            //TODO Canviar lletra
-            Text(text = context.getString(R.string.comment), fontSize = 18.sp)
-
-            BasicTextField(
-                value = comment,
-                onValueChange = { comment = it },
+            Box(
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
-                    .heightIn(min = 100.dp)
-                    .border(
-                        1.dp,
-                        colorResource(id = R.color.boxbackground),
-                        RoundedCornerShape(8.dp)
-                    )
-                    .padding(12.dp),
-                textStyle = TextStyle(fontSize = 16.sp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            //TODO API afegir videojoc a la biblioteca
-            Button(
-                onClick = { /* Acción de afegir ressenya */ },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
+                    .background(colorResource(id = R.color.boxbackground), RoundedCornerShape(8.dp))
+                    .padding(16.dp)
             ) {
-                Text(text = stringResource(R.string.confirm), color = Color.White)
+                Column(modifier = Modifier.fillMaxWidth()) {
+
+                    // Estat del videojoc
+                    Text(text = context.getString(R.string.state), fontSize = 18.sp)
+
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { expanded = true }
+                            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                            .padding(12.dp)
+                    ) {
+                        Text(text = selectedState)
+                    }
+
+                    DropdownMenu(
+                        expanded = expanded,
+                        modifier = Modifier.zIndex(1f),
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        stateOptions.forEach { option ->
+                            DropdownMenuItem(
+                                text = { Text(text = option) },
+                                onClick = {
+                                    selectedState = option
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Valoració
+                    Text(text = context.getString(R.string.rating), fontSize = 18.sp)
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+
+                        (1..10).forEach { index ->
+                            Icon(
+                                imageVector = if (index <= rating.toInt()) Icons.Filled.Star else Icons.Outlined.Star,
+                                contentDescription = "Star $index",
+                                tint = if (index <= rating.toInt()) Color.Yellow else Color.Gray,
+                                modifier = Modifier
+                                    .size(28.dp)
+                                    .clickable { rating = index.toDouble() }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Comentari
+                    Text(text = context.getString(R.string.comment), fontSize = 18.sp)
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(250.dp) // Li donem un espai fixe dins la box
+                            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                            .padding(12.dp)
+                    ) {
+                        BasicTextField(
+                            value = comment,
+                            onValueChange = { comment = it },
+                            modifier = Modifier.fillMaxSize(),
+                            textStyle = TextStyle(fontSize = 16.sp)
+
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Botó de confirmació
+                    Button(
+                        onClick = { /* Afegir ressenya */ },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                    ) {
+                        Text(text = stringResource(R.string.confirm), color = Color.White)
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
+            Spacer(modifier = Modifier.weight(1f))
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+        ) {
+            BottomSection(4)
         }
     }
 }
