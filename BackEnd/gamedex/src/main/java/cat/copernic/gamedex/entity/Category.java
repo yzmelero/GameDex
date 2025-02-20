@@ -1,6 +1,5 @@
 package cat.copernic.gamedex.entity;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -22,5 +21,5 @@ public class Category {
     private String description;
 
     @Field(name = "category_photo")
-    private Binary categoryPhoto;
+    private byte[] categoryPhoto;
 }

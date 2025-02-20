@@ -31,4 +31,7 @@
     <string name="pegi">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
+    <string name="category_added">Category Creada</string>
+    <string name="category_not_created">Error en crear la categoria</string>
+    <string name="error_no_image">Error no hi ha imatge</string>
 </resources>
