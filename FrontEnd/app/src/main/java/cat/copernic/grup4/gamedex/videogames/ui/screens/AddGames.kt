@@ -54,9 +54,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.ui.header
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
@@ -102,7 +102,7 @@ fun AddGamesScreen(navController : NavController) {
             )
 
                 }
-        BottomSection()
+        BottomSection(navController, 1)
     }
     LaunchedEffect(createdGameState) {
         createdGameState?.let { success ->
@@ -274,20 +274,9 @@ fun ImagePicker() {
 }
 
 
-@Composable
-fun BottomSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        BottomNavBar(selectedItem = 1, onItemSelected = {})
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddGamesScreen() {
-    AddGamesScreen()
+    val fakeNavController = rememberNavController()
+    AddGamesScreen(navController = fakeNavController)
 }

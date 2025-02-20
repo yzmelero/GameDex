@@ -52,6 +52,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
@@ -90,10 +92,10 @@ fun ViewGamesScreen(navController: NavController) {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderSection()
+            header(navController)
             game?.let { GameCard(it) }
         }
-        BottomSection()
+        BottomSection(navController, 1)
     }
 }
 

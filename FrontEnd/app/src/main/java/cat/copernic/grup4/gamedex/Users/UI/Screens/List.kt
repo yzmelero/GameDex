@@ -93,7 +93,7 @@ fun UserListScreen(navController: NavController) {
             Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
         }
     }
-    BottomSection(2)
+    BottomSection(navController, 2)
 }
 
 @Composable

@@ -87,7 +87,7 @@ fun ProfileScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomSection(1)
+        BottomSection(navController, 3)
     }
 }
 

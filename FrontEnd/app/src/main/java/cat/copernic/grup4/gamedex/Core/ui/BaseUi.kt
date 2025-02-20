@@ -27,13 +27,13 @@ fun header(navController: NavController) {
     }
 }
 @Composable
-fun BottomSection(posicion: Int) {
+fun BottomSection(navController: NavController, posicion: Int) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        BottomNavBar(selectedItem = posicion, onItemSelected = {})
+        BottomNavBar(navController, selectedItem = posicion)
     }
 }

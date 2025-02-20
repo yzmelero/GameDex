@@ -63,6 +63,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Category.UI.Screens.FloatingAddButton
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
@@ -95,7 +97,7 @@ fun ListGamesScreen(navController : NavController) {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderSection()
+            header(navController)
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.list_game),
@@ -111,7 +113,7 @@ fun ListGamesScreen(navController : NavController) {
             VideogamesGrid(videogame, navController)
 
         }
-        BottomSection()
+        BottomSection(navController, 1)
         AddGameButton(onClick = {})
     }
 }
