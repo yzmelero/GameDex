@@ -1,7 +1,7 @@
-package cat.copernic.grup4.gamedex.videogames.ui.screen
+package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
-import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -32,6 +32,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,29 +42,43 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.ui.header
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
+import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
-fun AddGamesScreen(navController: NavController) {
+fun AddGamesScreen(navController : NavController) {
+    val videogameUseCase = VideogameUseCase(VideogameRepository())
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
     var developer by remember { mutableStateOf("") }
     var nameCategory by remember { mutableStateOf("") }
     var descriptionGame by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val createdGameState by gameViewModel.videogameCreated.collectAsState()
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -84,8 +100,19 @@ fun AddGamesScreen(navController: NavController) {
                 nameCategory, { nameCategory = it },
                 descriptionGame, { descriptionGame = it }
             )
-        }
+
+                }
         BottomSection()
+    }
+    LaunchedEffect(createdGameState) {
+        createdGameState?.let { success ->
+            if (success) {
+                Toast.makeText(context, R.string.gameCreated, Toast.LENGTH_LONG).show()
+                navController.navigate("listvideogames")
+            } else {
+                Toast.makeText(context, R.string.gameErrorCreate, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
 
@@ -99,6 +126,7 @@ fun AddContentSection(
     nameCategory: String, onCategoryChange: (String) -> Unit,
     descriptionGame: String, onDescriptionChange: (String) -> Unit
 ) {
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(VideogameUseCase(VideogameRepository())))
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -129,6 +157,29 @@ fun AddContentSection(
                 nameCategory, onCategoryChange,
                 descriptionGame, onDescriptionChange
             )
+            Button(
+                onClick = {
+                    val newGame = Videogame(
+                        gameId = "",
+                        nameGame = nameGame,
+                        releaseYear = releaseYear,
+                        ageRecommendation = ageRecommendation,
+                        developer = developer,
+                        nameCategory = nameCategory,
+                        descriptionGame = descriptionGame,
+                        gamePhoto = null
+                    )
+                    gameViewModel.createVideogame(newGame)
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+            ) {
+                Text(text = stringResource(R.string.confirm), color = Color.White)
+            }
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
@@ -174,7 +225,7 @@ fun AddGameFormFields(
         TextField(
             value = nameCategory,
             onValueChange = onCategoryChange,
-            label = { Text(stringResource(R.string.game_category)) },
+            label = { Text(stringResource(R.string.category)) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -186,7 +237,6 @@ fun AddGameFormFields(
         )
         Spacer(modifier = Modifier.height(20.dp))
         ImagePicker()
-        ConfirmButton()
     }
 }
 
@@ -204,7 +254,7 @@ fun ImagePicker() {
             color = Color.Black
         )
         Image(
-            painter = painterResource(id = R.drawable.coche),
+            painter = painterResource(R.drawable.eldenring),
             contentDescription = stringResource(R.string.cover),
             modifier = Modifier
                 .size(120.dp)
@@ -223,19 +273,6 @@ fun ImagePicker() {
     }
 }
 
-@Composable
-fun ConfirmButton() {
-    Button(
-        onClick = { /* Acción de registro */ },
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-    ) {
-        Text(text = stringResource(R.string.confirm), color = Color.White)
-    }
-    Spacer(modifier = Modifier.height(10.dp))
-}
 
 @Composable
 fun BottomSection() {
@@ -252,6 +289,5 @@ fun BottomSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddGamesScreen() {
-    val fakeNavController = rememberNavController()
-    AddGamesScreen(fakeNavController)
+    AddGamesScreen()
 }

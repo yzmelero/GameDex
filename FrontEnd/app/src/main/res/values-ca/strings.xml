@@ -19,7 +19,6 @@
     <string name="release_year">Data Llançament</string>
     <string name="age_recommendation">Edat Recomenada</string>
     <string name="developer">Creador</string>
-    <string name="game_category">Categoria</string>
     <string name="description">Descripció</string>
     <string name="cover">Portada</string>
     <string name="login">Iniciar sessió</string>
@@ -34,4 +33,7 @@
     <string name="category_added">Category Creada</string>
     <string name="category_not_created">Error en crear la categoria</string>
     <string name="error_no_image">Error no hi ha imatge</string>
+    <string name="list_game">Videogames</string>
+    <string name="gameCreated">Videogame created!</string>
+    <string name="gameErrorCreate">Error creating videogame</string>
 </resources>

@@ -12,6 +12,7 @@ uiGraphicsAndroid = "1.7.7"
 foundationAndroid = "1.6.6"
 androidx-navigation-compose = "2.8.6"
 litertSupportApi = "1.1.2"
+tracingPerfettoHandshake = "1.0.0"
 
 
 [libraries]
@@ -33,6 +34,7 @@ androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graph
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation-compose" }
 litert-support-api = { group = "com.google.ai.edge.litert", name = "litert-support-api", version.ref = "litertSupportApi" }
+androidx-tracing-perfetto-handshake = { group = "androidx.tracing", name = "tracing-perfetto-handshake", version.ref = "tracingPerfettoHandshake" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
