@@ -27,6 +27,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -60,8 +61,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.UI.Screens.FloatingAddButton
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
@@ -96,9 +99,9 @@ fun ListGamesScreen(navController : NavController) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.list_game),
-                fontSize = 30.sp,
+                fontSize = 50.sp,
                 color = Color.Black,
-                fontWeight = FontWeight.Bold
+                style = GameDexTypography.bodyLarge
             )
             Spacer(modifier = Modifier.height(10.dp))
             SearchBar(searchQuery) { searchQuery = it }
@@ -109,6 +112,7 @@ fun ListGamesScreen(navController : NavController) {
 
         }
         BottomSection()
+        AddGameButton(onClick = {})
     }
 }
 
@@ -185,32 +189,62 @@ fun GameItem(videogame: Videogame) {
             Column {
                 Text(
                     text = videogame.nameGame,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 32.sp,
+                    style = GameDexTypography.bodyLarge,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 Text(
                     text = videogame.nameCategory,
-                    fontSize = 20.sp,
-                    color = Color.DarkGray
+                    fontSize = 30.sp,
+                    color = Color.DarkGray,
+                    style = GameDexTypography.bodyLarge
                 )
             }
-            Spacer(modifier = Modifier.width(80.dp))
+            Spacer(modifier = Modifier.width(74.dp))
             IconButton(onClick = { /* Acción para añadir */ }) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = "Añadir",
-                    tint = Color.Black,
-                    modifier = Modifier.size(32.dp)
-                        .background(Color.Magenta, shape = RoundedCornerShape(50))
-                )
-
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .background(Color.Magenta, shape = RoundedCornerShape(50)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.eye),
+                        contentDescription = stringResource(R.string.add_game),
+                        modifier = Modifier
+                            .size(38.dp)
+                            .padding(6.dp)
+                    )
+                }
             }
         }
 
     }
 
+}
+@Composable
+fun AddGameButton(onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding()
+            .padding(bottom = 100.dp, end = 16.dp),
+        contentAlignment = Alignment.BottomEnd
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .size(56.dp)
+                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = stringResource(R.string.add_game),
+                modifier = Modifier.size(40.dp)
+            )
+        }
+    }
 }
 
 

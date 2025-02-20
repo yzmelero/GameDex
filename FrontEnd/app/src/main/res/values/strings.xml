@@ -47,4 +47,6 @@
     <string name="remove">Remove</string>
     <string name="add">Add</string>
     <string name="list_game">Videogames</string>
+    <string name="gameCreated">Videogame created!</string>
+    <string name="gameErrorCreate">Error creating videogame</string>
 </resources>
