@@ -57,6 +57,7 @@ dependencies {
 
     implementation(libs.androidx.ui.graphics.android)
     implementation(libs.androidx.foundation.android)
+    implementation(libs.litert.support.api)
     implementation(libs.androidx.tracing.perfetto.handshake)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
