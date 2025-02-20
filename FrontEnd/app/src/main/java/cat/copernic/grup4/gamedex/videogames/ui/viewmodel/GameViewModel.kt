@@ -37,14 +37,8 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
 
     fun getAllVideogames() {
         viewModelScope.launch {
-            try {
-                val response = videogameUseCase.getAllVideogames()
-                _videogameGetAll.value = response.body() ?: emptyList()
-                Log.d("DEBUG", "Juegos cargados: $response")
-            } catch (e: Exception) {
-                Log.e("ERROR", "Error obteniendo juegos: ${e.message}")
-            }
+            val response = videogameUseCase.getAllVideogames()
+            _videogameGetAll.value = response.body() ?: emptyList()
         }
     }
-
 }
