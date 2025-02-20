@@ -13,4 +13,5 @@
     <color name="boxbackground">#FFF1F1F1</color>
     <color name="bubblegum">#FFF98FD1</color>
     <color name="yellowdark">#FFC000</color>
+    <color name="boxbackbackground">#FFF0EDF3</color>
 </resources>
