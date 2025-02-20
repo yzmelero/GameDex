@@ -55,6 +55,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
@@ -149,9 +150,9 @@ fun AddContentSection(
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = stringResource(R.string.add_game),
-            fontSize = 22.sp,
+            fontSize = 50.sp,
             color = Color.Black,
-            fontWeight = FontWeight.Bold
+            style = GameDexTypography.bodyLarge
         )
 
         Card(
@@ -187,7 +188,12 @@ fun AddContentSection(
                     .padding(horizontal = 16.dp)
                     .clip(RoundedCornerShape(16.dp))
             ) {
-                Text(text = stringResource(R.string.confirm), color = Color.White)
+                Text(
+                    text = stringResource(R.string.confirm),
+                    color = Color.White,
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp
+                )
             }
             Spacer(modifier = Modifier.height(10.dp))
         }
@@ -207,42 +213,67 @@ fun AddGameFormFields(
         TextField(
             value = nameGame,
             onValueChange = onNameChange,
-            label = { Text(stringResource(R.string.game_name)) },
+            label = {
+                Text(
+                    stringResource(R.string.game_name),
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp)
+                    },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = releaseYear,
             onValueChange = onReleaseYearChange,
-            label = { Text(stringResource(R.string.release_year)) },
+            label = {
+                Text(
+                    stringResource(R.string.release_year),
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = ageRecommendation,
             onValueChange = onAgeChange,
-            label = { Text(stringResource(R.string.age_recommendation)) },
+            label = {
+                Text(
+                    stringResource(R.string.age_recommendation),
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = developer,
             onValueChange = onDeveloperChange,
-            label = { Text(stringResource(R.string.developer)) },
+            label = {
+                Text(
+                    stringResource(R.string.developer),
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = nameCategory,
             onValueChange = onCategoryChange,
-            label = { Text(stringResource(R.string.category)) },
+            label = {
+                Text(
+                    stringResource(R.string.category),
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = descriptionGame,
             onValueChange = onDescriptionChange,
-            label = { Text(stringResource(R.string.description)) },
+            label = {
+                Text(
+                    stringResource(R.string.description),
+                    style = GameDexTypography.bodyLarge,
+                    fontSize = 22.sp) },
             modifier = textFieldModifier()
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -260,25 +291,26 @@ fun ImagePicker() {
     Row {
         Text(
             text = stringResource(R.string.cover) + ":",
-            fontSize = 14.sp,
-            color = Color.Black
+            color = Color.Black,
+            style = GameDexTypography.bodyLarge,
+            fontSize = 22.sp
         )
         Image(
             painter = painterResource(R.drawable.eldenring),
             contentDescription = stringResource(R.string.cover),
             modifier = Modifier
-                .size(120.dp)
+                .size(140.dp)
                 .clickable { /* Acción para elegir imagen */ }
         )
         Icon(
             Icons.Default.Add,
-            contentDescription = stringResource(R.string.add_avatar),
+            contentDescription = stringResource(R.string.add_cover),
             modifier = Modifier
                 .clickable { /* Acción para elegir imagen */ }
-                .padding(top = 60.dp, start = 10.dp)
+                .padding(top = 80.dp)
                 .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
                 .clip(RoundedCornerShape(50))
-                .size(30.dp)
+                .size(40.dp)
         )
     }
 }

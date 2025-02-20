@@ -28,6 +28,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -61,12 +62,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ViewGamesScreen(navController: NavController) {
+    /*
     val gameId = remember {
         // Obté la ID del joc dels paràmetres de navegació
         navController.currentBackStackEntry?.arguments?.getString("gameId")
-    } ?: return // Si es null, surt
+    } ?: return // Si es null, surt */
 
-    //val gameId = "67b6e13cc37b260466e6342c"
+    val gameId = "67b6e13cc37b260466e6342c"
 
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
@@ -222,12 +224,17 @@ fun GameCard(videogame : Videogame) {
                 .padding(bottom = 12.dp, end = 12.dp),
             contentAlignment = Alignment.BottomEnd
         ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = stringResource(R.string.addgame_library),
-                modifier = Modifier.size(30.dp)
-                    .background(Color.Red, shape = RoundedCornerShape(50))
-            )
+            IconButton(
+                onClick = { videogame.gameId }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.delete),
+                    modifier = Modifier.size(30.dp)
+                        .background(Color.Red, shape = RoundedCornerShape(50))
+                )
+            }
+
         }
     }
     CommentsSection()
