@@ -38,7 +38,7 @@ import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedexandroid.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
