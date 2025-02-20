@@ -29,15 +29,20 @@ public class LoginApiController {
         Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
 
         if (!optionalUser.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuari no trobat");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
 
         User user = optionalUser.get();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contrasenya incorrecta");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
             
+        }
+
+        if (!user.getState()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not validated");
+
         }
 
         LoginResponse response = new LoginResponse(
