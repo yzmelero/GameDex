@@ -10,6 +10,7 @@ data class User(
     val telephone: Int,
     val birthDate: String,
     val userType: UserType,
+    val state: Boolean,
     val profilePicture: String? = null
 
 )
