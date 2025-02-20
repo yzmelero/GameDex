@@ -1,5 +1,9 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,14 +28,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun AddCategoryScreen() {
+fun AddCategoryScreen(navController: NavController) {
+
+    val categoryCases = CategoryCases(CategoryRepository())
+    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+    val context = LocalContext.current
+    val categoryAdded by categoryViewModel.categoryAdded.collectAsState()
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { imageUri = it }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -72,7 +100,7 @@ fun AddCategoryScreen() {
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(stringResource(R.string.image_category), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Spacer(modifier = Modifier.height(20.dp))
-                    ImageUploadSection()
+                    ImageUploadSection(imageUri) { imagePickerLauncher.launch("image/*") }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -83,8 +111,14 @@ fun AddCategoryScreen() {
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    //TODO añadir acción de registro
-                    onClick = { /* Acción de registro */ },
+                    onClick = {
+                            val newCategory = Category(
+                                nameCategory = categoryName,
+                                description = categoryDescription,
+                                categoryPhoto = categoryViewModel.uriToBase64(context, imageUri!!).toString()
+                            )
+                            categoryViewModel.addCategory(newCategory)
+                        },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                     ) {
@@ -100,6 +134,19 @@ fun AddCategoryScreen() {
             verticalArrangement = Arrangement.Bottom
         ) {
             BottomNavBar(onItemSelected = {})
+        }
+    }
+
+    LaunchedEffect(categoryAdded) {
+        categoryAdded?.let { success ->
+            if (success) {
+                Toast.makeText(context, context.getString(R.string.category_added), Toast.LENGTH_LONG).show()
+                navController.navigate("list_category") {
+                    popUpTo("add_category") { inclusive = true }
+                }
+            } else {
+                Toast.makeText(context, context.getString(R.string.category_not_created), Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
@@ -125,23 +172,29 @@ fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (S
 }
 
 @Composable
-fun ImageUploadSection() {
+fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp),
-        contentAlignment = Alignment.BottomEnd
+        contentAlignment = Alignment.Center
     ) {
+        val painter = if (imageUri != null) {
+            rememberAsyncImagePainter(imageUri)
+        } else {
+            painterResource(id = R.drawable.coche)
+        }
         Image(
-            painter = painterResource(id = R.drawable.coche),
-            modifier = Modifier .fillMaxSize(),
-            contentDescription = "My Image"
+            painter = painter,
+            contentDescription = "Image select",
+            modifier = Modifier.fillMaxSize()
         )
         IconButton(
-            onClick = { /* Open image picker */ },
+            onClick = { onImageClick() },
             modifier = Modifier
                 .size(48.dp)
                 .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                .align(Alignment.BottomEnd)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
@@ -155,5 +208,6 @@ fun ImageUploadSection() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddCategoryScreen() {
-    AddCategoryScreen()
+    val fakeNavController = rememberNavController()
+    AddCategoryScreen(navController = fakeNavController)
 }

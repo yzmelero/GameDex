@@ -11,11 +11,6 @@
     <string name="confirm">Confirm</string>
     <string name="sign_up">Sign Up</string>
     <string name="add_avatar">Add Avatar</string>
-    <string name="library">Library</string>
-    <string name="playing">Playing</string>
-    <string name="wanttoplay">Want to play</string>
-    <string name="finished">Finished</string>
-    <string name="dropped">Dropped</string>
     <string name="add_category">Add Category</string>
     <string name="category">Category</string>
     <string name="name_category">Name Category</string>
@@ -30,6 +25,17 @@
     <string name="game_category">Category</string>
     <string name="description">Description</string>
     <string name="cover">Cover</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
+    <string name="library">Library</string>
+    <string name="completed">Completed</string>
+    <string name="playing">Playing</string>
+    <string name="pending">Pending</string>
+    <string name="profile_avatar">Profile Avatar</string>
+    <string name="logout">Logout</string>
+    <string name="user_created">User Created</string>
+    <string name="error_creating_user">Error creating User</string>
     <string name="addgame_library">Add game to library</string>
     <string name="add_comment">Add comment</string>
     <string name="comments">COMMENTS</string>
@@ -42,4 +48,12 @@
     <string name="rating">Rating</string>
     <string name="comment">Comment</string>">
 
+    <string name="error_loging_in">Error loging in</string>
+    <string name="users">Users</string>
+    <string name="verify">Verify</string>
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+    <string name="category_added">Category Created</string>
+    <string name="category_not_created">Error creating Category</string>
+    <string name="error_no_image">Error no Image</string>
 </resources>
