@@ -33,4 +33,5 @@
     <string name="year">Year</string>
     <string name="category_added">Categoría Creada</string>
     <string name="category_not_created">Error al crear la categoría</string>
+    <string name="error_no_image">Error no hay imagen</string>
 </resources>
