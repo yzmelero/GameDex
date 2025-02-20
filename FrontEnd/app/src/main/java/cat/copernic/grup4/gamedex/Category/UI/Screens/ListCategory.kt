@@ -140,8 +140,9 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         category.forEach { category ->
-            CategoryButton(name = category.nameCategory, modifier = Modifier.clickable {
-                // Puedes agregar una acción al hacer clic en la categoría, como navegar a otra pantalla
+            CategoryButton(
+                name = category.nameCategory,
+                modifier = Modifier.clickable { navController.navigate("category/${category.nameCategory}")
             })
         }
     }

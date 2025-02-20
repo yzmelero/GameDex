@@ -41,16 +41,16 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun ViewCategoryScreen(navController: NavController) {
-    val nameCategory = remember {
-        navController.currentBackStackEntry?.arguments?.getString("nameCategory")
+    val categoryId = remember {
+        navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
 
     val categoryCases = CategoryCases(CategoryRepository())
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
     var category by remember { mutableStateOf<Category?>(null) }
 
-    LaunchedEffect(nameCategory) {
-        category = categoryViewModel.getCategoryById(nameCategory)
+    LaunchedEffect(categoryId) {
+        category = categoryViewModel.getCategoryById(categoryId)
     }
 
     val currentCategory = category
