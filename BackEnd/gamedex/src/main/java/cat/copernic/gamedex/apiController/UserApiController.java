@@ -43,7 +43,7 @@ public class UserApiController {
 
     }
 
-    @GetMapping("/byId/{userId}")
+    @GetMapping("/view/{userId}")
     public User getUserById(@PathVariable String userId) {
         return userLogic.getUserById(userId);
     }
