@@ -29,9 +29,10 @@
     <string name="back">Back</string>
     <string name="edit">Edit</string>
     <string name="library">Library</string>
-    <string name="completed">Completed</string>
+    <string name="finished">Completed</string>
+    <string name="dropped">Dropped</string>
     <string name="playing">Playing</string>
-    <string name="pending">Pending</string>
+    <string name="wanttoplay">Pending</string>
     <string name="profile_avatar">Profile Avatar</string>
     <string name="logout">Logout</string>
     <string name="user_created">User Created</string>
@@ -47,7 +48,6 @@
     <string name="review">Review</string>
     <string name="rating">Rating</string>
     <string name="comment">Comment</string>">
-
     <string name="error_loging_in">Error loging in</string>
     <string name="users">Users</string>
     <string name="verify">Verify</string>
