@@ -40,7 +40,7 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     fun registerUser(user: User) {
         viewModelScope.launch {
             val response = useCases.registerUser(user)
-           // _registrationSuccess.value = response.isSuccessful
+            // _registrationSuccess.value = response.isSuccessful
             if (response.isSuccessful) {
                 val user = response.body()
                 _currentUser.value = user  // Desa l'usuari logejat
@@ -79,6 +79,20 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             }
         }
     }
+
+    suspend fun getUser(username: String): User? {
+        return try {
+            val response = useCases.getUser(username)
+            if (response.isSuccessful) {
+                response.body() // ✅ Extraemos el User del Response
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
 
     fun listUsers() {
         viewModelScope.launch {

@@ -54,4 +54,5 @@
     <string name="gameCreated">Videogame created!</string>
     <string name="gameErrorCreate">Error creating videogame</string>
     <string name="validate_users">Validate Users</string>
+    <string name="view_profile">view profile</string>
 </resources>

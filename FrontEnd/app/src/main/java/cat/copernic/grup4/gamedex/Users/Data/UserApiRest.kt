@@ -25,14 +25,13 @@ interface UserApiRest {
     @GET("user/all/inactive")
     suspend fun getAllInactiveUsers(): Response<List<User>>
 
-
     @POST("login/verify")
     suspend fun loginUser(@Body credentials: LoginRequest): Response<LoginResponse>
 
-/*
-    @GET("user/byId/{userId}")
-    suspend fun getUserById(@Path("userId") userId: String): Response<User>
+    @GET("user/view/{userId}")
+    suspend fun getUser(@Path("userId") userId: String): Response<User>
 
+/*
     @Headers("Content-Type: application/json")
     @POST("user/create")
     suspend fun createUser(@Body user: User): Response<User>

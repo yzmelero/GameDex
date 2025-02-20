@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -81,7 +82,7 @@ fun UserListScreen(navController: NavController) {
         // User List
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(users) { user ->
-                UserCard(user)
+                UserCard(user, navController)
             }
         }
 
@@ -97,7 +98,7 @@ fun UserListScreen(navController: NavController) {
 }
 
 @Composable
-fun UserCard(user: User) {
+fun UserCard(user: User, navController: NavController) {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
     Card(
@@ -119,7 +120,7 @@ fun UserCard(user: User) {
             Column {
                 imageBitmap?.let {
                     Image(
-                        it, contentDescription = null,
+                        it, contentDescription = stringResource(R.string.profile_picture),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.size(72.dp)
                             .clip(CircleShape)
@@ -130,8 +131,8 @@ fun UserCard(user: User) {
             Spacer(modifier = Modifier.width(24.dp))
             Text(user.username, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /* TODO: Go to view profile screen */ }) {
-                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add))
+            IconButton(onClick = { navController.navigate("profile/${user.username}") }) {
+                Icon(Icons.Default.Info, contentDescription = stringResource(R.string.view_profile))
             }
             IconButton(onClick = { /* TODO: Remove user action */ }) {
                 Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.remove))
