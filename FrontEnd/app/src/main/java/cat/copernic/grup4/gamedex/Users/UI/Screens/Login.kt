@@ -28,13 +28,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -92,6 +90,9 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
             modifier = Modifier
                 .offset(y = (-100).dp) // ⬆ Mou el text cap amunt sense afectar la imatge
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Box(
             modifier = Modifier
                 .offset(y = (-50).dp)
@@ -100,36 +101,47 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                 .fillMaxWidth(0.8f)
                 .wrapContentHeight()
                 .defaultMinSize(minHeight = 200.dp)
-                .padding(10.dp)
+                //.padding(10.dp)
+                //.padding(16.dp)
                 .align(Alignment.CenterHorizontally),
         ) {
-            Text(
-                text = stringResource(id = R.string.login),
-                color = Color.Black,
-                style = GameDexTypography.headlineMedium,
-                fontSize = 36.sp,
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(vertical = 16.dp)
-            )
-
             Column(
-                modifier = Modifier
-                    .padding(16.dp, top = 70.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth(0.9f)
+                    .align(Alignment.Center),
+
+            )
+            {
+                Text(
+                    text = stringResource(id = R.string.login),
+                    color = Color.Black,
+                    style = GameDexTypography.headlineMedium,
+                    fontSize = 36.sp,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+                )
+
+                /*Column(
+                    modifier = Modifier
+                        .padding(16.dp, top = 70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {*/
                 InputField(
                     label = stringResource(id = R.string.username),
                     value = username
                 ) { username = it }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
                 InputField(
                     label = stringResource(id = R.string.password),
                     value = password
                 ) { password = it }
+
                 Spacer(modifier = Modifier.height(18.dp))
+
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(0.8f)
                         .clip(RoundedCornerShape(16.dp)),
                     onClick = { userViewModel.loginUser(username, password) },
                     colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
@@ -143,74 +155,73 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                 }
                 if (loginSuccess == false) {
                     Text(
-                        text = "Error en el login",
+                        text = stringResource(R.string.error_loging_in),
                         color = Color.Red,
                         style = GameDexTypography.bodyMedium
                     )
                 }
-            }
-            TextButton(onClick = {
-                // Acción de olvidar la contraseña
-            }) {
-                Text(
-                    text = stringResource(R.string.forgot_password),
-                    color = Color.Black,
-                    style = GameDexTypography.labelSmall,
-                    fontSize = 18.sp,
-                )
-            }
-            Button(
-                modifier = Modifier
-                    .padding(bottom = 10.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp)),
-                onClick = { navController.navigate("signup") },
-                colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
-            )
-            {
-                Text(
-                    text = stringResource(id = R.string.sign_up),
-                    color = Color.White,
-                    style = GameDexTypography.headlineMedium
-                )
-            }
 
-
+                TextButton(onClick = {
+                    // Acción de olvidar la contraseña
+                }) {
+                    Text(
+                        text = stringResource(R.string.forgot_password),
+                        color = Color.Black,
+                        style = GameDexTypography.labelSmall,
+                        fontSize = 18.sp,
+                    )
+                }
+                Button(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp)),
+                    onClick = { navController.navigate("signup") },
+                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
+                )
+                {
+                    Text(
+                        text = stringResource(id = R.string.sign_up),
+                        color = Color.White,
+                        style = GameDexTypography.headlineMedium
+                    )
+                }
+            }
         }
     }
-}
-
-//NO FUNCIONA!
-@Composable
-fun InputField(
-    label: String,
-    value: String,
-    onValueChange: (String) -> Unit
-) {
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        label = {
-            Text(
-                text = label,
-                style = GameDexTypography.bodyMedium.copy(fontSize = 18.sp)
+    //NO FUNCIONA!
+    @Composable
+    fun InputField(
+        label: String,
+        value: String,
+        onValueChange: (String) -> Unit
+    ) {
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = {
+                Text(
+                    text = label,
+                    style = GameDexTypography.bodyMedium.copy(fontSize = 18.sp)
+                )
+            },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = GameDexTypography.bodyMedium.copy(fontSize = 18.sp),
+            colors = TextFieldDefaults.colors(
+                focusedLabelColor = Color.Black,
+                unfocusedLabelColor = Color.Gray,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.DarkGray
             )
-        },
-        modifier = Modifier.fillMaxWidth(),
-        textStyle = GameDexTypography.bodyMedium.copy(fontSize = 18.sp),
-        colors = TextFieldDefaults.colors(
-            focusedLabelColor = Color.Black,
-            unfocusedLabelColor = Color.Gray,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.DarkGray
         )
-    )
+    }
 }
 
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    val fakeNavController =
+        rememberNavController() // ✅ Crear un NavController fals per la preview
     LoginScreen(
         navController = fakeNavController,
         userViewModel = UserViewModel(UseCases(UserRepository()))
