@@ -31,10 +31,31 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     private val _inactiveUsers = MutableStateFlow<List<User>>(emptyList())
     val inactiveUsers: StateFlow<List<User>> = _inactiveUsers
 
+    private val _loginSuccess = MutableStateFlow<Boolean?>(null)
+    val loginSuccess: StateFlow<Boolean?> = _loginSuccess
+
+    private val _currentUser = MutableStateFlow<User?>(null)
+    val currentUser: StateFlow<User?> = _currentUser
+
     fun registerUser(user: User) {
         viewModelScope.launch {
             val response = useCases.registerUser(user)
-            _registrationSuccess.value = response.isSuccessful
+           // _registrationSuccess.value = response.isSuccessful
+            if (response.isSuccessful) {
+                val user = response.body()
+                _currentUser.value = user  // Desa l'usuari logejat
+                _loginSuccess.value = true
+            } else {
+                _currentUser.value = null
+                _loginSuccess.value = false
+            }
+        }
+    }
+
+    fun loginUser(username: String, password: String) {
+        viewModelScope.launch {
+            val response = useCases.loginUser(username, password)
+            _loginSuccess.value = response.isSuccessful
         }
     }
 

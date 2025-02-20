@@ -1,5 +1,7 @@
 package cat.copernic.grup4.gamedex.Users.Data
 
+import cat.copernic.grup4.gamedex.Core.Model.LoginRequest
+import cat.copernic.grup4.gamedex.Core.Model.LoginResponse
 import cat.copernic.grup4.gamedex.Core.Model.User
 import retrofit2.Call
 import retrofit2.Response
@@ -22,6 +24,10 @@ interface UserApiRest {
 
     @GET("user/all/inactive")
     suspend fun getAllInactiveUsers(): Response<List<User>>
+
+
+    @POST("login/verify")
+    suspend fun loginUser(@Body credentials: LoginRequest): Response<LoginResponse>
 
 /*
     @GET("user/byId/{userId}")
