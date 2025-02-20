@@ -28,8 +28,8 @@ public class UserLogic {
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
-            user.setState(false);
-            user.setUserType(UserType.USER);
+            /*user.setState(false);
+            user.setUserType(UserType.USER);*/
 
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 throw new RuntimeException("Email already exists");
@@ -46,7 +46,7 @@ public class UserLogic {
         }
     }
 
-    public User createAdmin(User user) {
+    /*public User createAdmin(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
             if (oldUser.isPresent()) {
@@ -64,7 +64,7 @@ public class UserLogic {
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating user");
         }
-    }
+    }*/
 
     public User modifyUser(User user) {
         try {
