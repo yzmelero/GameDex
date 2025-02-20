@@ -84,6 +84,7 @@ fun ListGamesScreen(navController : NavController) {
         Log.d("DEBUG", "Lista de videojuegos: ${gameViewModel.allVideogame.value}")
     }
 
+    // TODO Botó validar videojocs
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -118,6 +119,7 @@ fun ListGamesScreen(navController : NavController) {
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
+    // TODO fer el filtre i la recerca funcional
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -171,7 +173,6 @@ fun GameItem(videogame: Videogame, navController: NavController) {
         modifier = Modifier
             .padding(top = 5.dp)
             .fillMaxWidth()
-            .clickable { /* Acción de selección */ }
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
@@ -211,6 +212,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                     .align(Alignment.CenterVertically)
             ) {
                 IconButton(onClick = {
+                    // TODO comprobar que funciona
                     navController.navigate("viewGame/${videogame.gameId}")
                 }) {
                     Box(
@@ -230,12 +232,12 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                 }
             }
         }
-
     }
 
 }
 @Composable
 fun AddGameButton(onClick: () -> Unit) {
+    // TODO acabar de mirar que funcioni Afegir Videogame
     Box(
         modifier = Modifier
             .fillMaxSize()
