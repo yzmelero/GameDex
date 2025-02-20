@@ -1,5 +1,8 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,18 +11,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,116 +35,119 @@ import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun ViewCategoryScreen(navController: NavController) {
-    val nameCategory = "Hola"
+    val nameCategory = remember {
+        navController.currentBackStackEntry?.arguments?.getString("nameCategory")
+    } ?: return
 
     val categoryCases = CategoryCases(CategoryRepository())
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+    var category by remember { mutableStateOf<Category?>(null) }
 
     LaunchedEffect(nameCategory) {
-        categoryViewModel.getCategoryById(nameCategory)
+        category = categoryViewModel.getCategoryById(nameCategory)
     }
 
-    val categoryGetById by categoryViewModel.categoryGetById.collectAsState()
+    val currentCategory = category
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color(0xFFDBB2FF), Color(0xFFF7E6FF))
+                )
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Header
+        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Título
+        Text(
+            text = stringResource(R.string.category),
+            fontSize = 50.sp,
+            color = Color.Black,
+            style = GameDexTypography.bodyLarge
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Mostrar Categoría
+        currentCategory?.let {
+            CategoryDetails(navController, it, categoryViewModel)
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        BottomNavBar(onItemSelected = {})
+    }
+}
+
+@Composable
+fun CategoryDetails(navController: NavController, category: Category, viewModel: CategoryViewModel) {
+    val categoryImage = category.categoryPhoto?.let {
+        viewModel.base64ToBitmap(it)?.asImageBitmap()
+    }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFF3E5F5)) // Fons similar al gradient de la imatge
-                .windowInsetsPadding(WindowInsets.systemBars),
+            modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+            Text(
+                text = category.nameCategory,
+                fontSize = 40.sp,
+                style = GameDexTypography.bodyLarge
+            )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            CategoryHeader()
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-                CategoryCard(navController)
-            }
-        }
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .navigationBarsPadding(),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            BottomNavBar(onItemSelected = {})
-        }
-    }
-}
-
-@Composable
-fun CategoryHeader() {
-    Text(
-        text = stringResource(R.string.category),
-        fontSize = 50.sp,
-        color = Color.Black,
-        style = GameDexTypography.bodyLarge
-    )
-}
-
-@Composable
-fun CategoryCard(navController: NavController) {
-    Box(modifier = Modifier.fillMaxWidth()) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = categoryName,
-                    fontSize = 40.sp,
-                    style = GameDexTypography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
+            categoryImage?.let {
                 Image(
-                    painter = painterResource(id = imageRes),
-                    contentDescription = "Category Image",
+                    bitmap = it,
+                    contentDescription = stringResource(R.string.image_category),
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(250.dp)
                         .clip(CircleShape)
                 )
+            }
 
-                Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-                Text(text = categoryDescription, fontSize = 14.sp)
+            Text(text = category.description, fontSize = 14.sp)
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
-                    onClick = { navController.navigate("modify_category") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = stringResource(R.string.modify), color = Color.White, fontWeight = FontWeight.Bold)
-                }
+            Button(
+                onClick = { navController.navigate("list_category") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = stringResource(R.string.modify), color = Color.White)
             }
         }
-
-        DeleteButton(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .offset(x = (-8).dp, y = (-8).dp)
-        )
     }
-}
 
+    DeleteButton(
+        modifier = Modifier
+            .offset(x = (-8).dp, y = (-8).dp)
+    )
+}
 
 @Composable
 fun DeleteButton(modifier: Modifier = Modifier) {
@@ -156,13 +160,12 @@ fun DeleteButton(modifier: Modifier = Modifier) {
         IconButton(onClick = { /* Acció per eliminar */ }) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Delete Category",
+                contentDescription = stringResource(R.string.delete_category),
                 Modifier.size(30.dp)
             )
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

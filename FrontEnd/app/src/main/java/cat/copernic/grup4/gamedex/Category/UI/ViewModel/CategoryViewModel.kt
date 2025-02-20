@@ -1,6 +1,8 @@
 package cat.copernic.grup4.gamedex.Category.UI.ViewModel
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
 import androidx.lifecycle.ViewModel
@@ -38,10 +40,26 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
-    fun getCategoryById(id: String) {
-        viewModelScope.launch {
-            val response = categoryCases.getCategoryById(id)
-            _categoryGetById.value = response.body()
+    suspend fun getCategoryById(categoryId: String): Category? {
+        return try {
+            val response = categoryCases.getCategoryById(categoryId)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+
+    fun base64ToBitmap(base64String: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        } catch (e: IllegalArgumentException) {
+            null
         }
     }
 
