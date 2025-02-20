@@ -119,7 +119,7 @@ fun ListGamesScreen(navController : NavController) {
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
-    // TODO fer el filtre i la recerca funcional
+    // TODO fer el filtre i la recerca funcional, es provisional
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
