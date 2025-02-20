@@ -61,24 +61,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ViewGamesScreen(navController: NavController) {
-    /*val gameId = remember {
+    val gameId = remember {
+        // Obté la ID del joc dels paràmetres de navegació
         navController.currentBackStackEntry?.arguments?.getString("gameId")
-    } ?: return // Si no hay ID, salir de la función
-*/
-    val gameId = "67b6e13cc37b260466e6342c"
-    // Aquí puedes obtener el videojuego del ViewModel o repositorio
-    Text(text = "Mostrando detalles del juego con ID: $gameId")
+    } ?: return // Si es null, surt
+
+    //val gameId = "67b6e13cc37b260466e6342c"
 
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+    val game by viewModel.gameById.collectAsState()
 
     LaunchedEffect(gameId) {
-        Log.d("ViewGamesScreen", "Fetching game with ID: $gameId")
         viewModel.videogamesById(gameId)
     }
-
-    val game by viewModel.gameById.collectAsState()
-    Log.d("ViewGamesScreen", "Current game: $game")
 
     Box(
         modifier = Modifier.fillMaxSize()
