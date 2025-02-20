@@ -49,6 +49,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
@@ -126,65 +127,76 @@ fun GameCard(videogame : Videogame) {
                 Column {
                     Text(
                         text = videogame.nameGame,
-                        fontSize = 22.sp, fontWeight = FontWeight.Bold
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        style = GameDexTypography.bodyLarge
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = "⭐ 7.85 ⭐",
-                        fontSize = 20.sp,
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
-                        color = colorResource(R.color.yellowdark)
+                        color = colorResource(R.color.yellowdark),
+                        style = GameDexTypography.bodyLarge
                     )
                     Spacer(modifier = Modifier.height(18.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.pegi),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.ageRecommendation}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.year),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.releaseYear}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.category),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.nameCategory}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.by_developer),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.developer}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                 }
@@ -193,14 +205,16 @@ fun GameCard(videogame : Videogame) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
                     text = stringResource(R.string.description) + ":",
-                    fontSize = 14.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = colorResource(R.color.purple_700)
+                    color = colorResource(R.color.purple_700),
+                    style = GameDexTypography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = videogame.descriptionGame,
-                    fontSize = 14.sp
+                    fontSize = 18.sp,
+                    style = GameDexTypography.bodyLarge
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -211,7 +225,11 @@ fun GameCard(videogame : Videogame) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
             ) {
-                Text(stringResource(R.string.modify))
+                Text(
+                    stringResource(R.string.modify),
+                    fontSize = 20.sp,
+                    style = GameDexTypography.bodyLarge
+                )
             }
         }
         Box(
@@ -327,7 +345,7 @@ fun CommentItem(username: String, comment: String, rating: String) {
 fun PreviewViewGamesScreen() {
     val fakeNavController = rememberNavController()
     ViewGamesScreen(navController = fakeNavController)
-    /*
+
     val fakeGame = Videogame(
         nameGame = "Nombre prueba",
         releaseYear = "2022",
@@ -339,5 +357,5 @@ fun PreviewViewGamesScreen() {
         gameId = "1"
     )
 
-    GameCard(fakeGame)*/
+    GameCard(fakeGame)
 }
