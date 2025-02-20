@@ -32,7 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
-import cat.copernic.grup4.gamedex.Category.Domain.CategoryCasesAdd
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
@@ -44,8 +44,8 @@ import coil.compose.rememberAsyncImagePainter
 @Composable
 fun AddCategoryScreen(navController: NavController) {
 
-    val useCases = CategoryCasesAdd(CategoryRepository())
-    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(useCases))
+    val categoryCases = CategoryCases(CategoryRepository())
+    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
 
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }
@@ -111,7 +111,6 @@ fun AddCategoryScreen(navController: NavController) {
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp)),
-                    //TODO añadir acción de registro
                     onClick = {
                             val newCategory = Category(
                                 nameCategory = categoryName,
@@ -142,7 +141,7 @@ fun AddCategoryScreen(navController: NavController) {
         categoryAdded?.let { success ->
             if (success) {
                 Toast.makeText(context, context.getString(R.string.category_added), Toast.LENGTH_LONG).show()
-                navController.navigate("category_list") {
+                navController.navigate("list_category") {
                     popUpTo("add_category") { inclusive = true }
                 }
             } else {
