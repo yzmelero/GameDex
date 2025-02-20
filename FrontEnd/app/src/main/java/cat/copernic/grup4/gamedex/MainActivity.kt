@@ -10,6 +10,7 @@ import cat.copernic.grup4.gamedex.Core.ui.navigation.AppNavigation
 import cat.copernic.grup4.gamedex.Users.UI.Screens.SignUpScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.AddGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ListGamesScreen
+import cat.copernic.grup4.gamedex.videogames.ui.screens.ViewGamesScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val fakeNavController = rememberNavController()
-            ListGamesScreen(navController = fakeNavController)
+            ViewGamesScreen(navController = fakeNavController)
         }
     }
 }

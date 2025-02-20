@@ -48,15 +48,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-fun ViewGamesScreen(viewModel: GameViewModel, gameId: String) {
+fun ViewGamesScreen(navController: NavController) {
+    /*val gameId = remember {
+        navController.currentBackStackEntry?.arguments?.getString("gameId")
+    } ?: return // Si no hay ID, salir de la función
+*/
+    val gameId = "67b6e13cc37b260466e6342c"
+    // Aquí puedes obtener el videojuego del ViewModel o repositorio
+    Text(text = "Mostrando detalles del juego con ID: $gameId")
+
+    val videogameUseCase = VideogameUseCase(VideogameRepository())
+    val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
 
     LaunchedEffect(gameId) {
         Log.d("ViewGamesScreen", "Fetching game with ID: $gameId")
@@ -310,6 +324,9 @@ fun CommentItem(username: String, comment: String, rating: String) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewViewGamesScreen() {
+    val fakeNavController = rememberNavController()
+    ViewGamesScreen(navController = fakeNavController)
+    /*
     val fakeGame = Videogame(
         nameGame = "Nombre prueba",
         releaseYear = "2022",
@@ -321,5 +338,5 @@ fun PreviewViewGamesScreen() {
         gameId = "1"
     )
 
-    GameCard(fakeGame)
+    GameCard(fakeGame)*/
 }

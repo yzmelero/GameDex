@@ -156,14 +156,14 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController) {
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        videogame.forEach { videogame ->
-            GameItem(videogame)
+        videogame.forEach { game ->
+            GameItem(videogame = game, navController = navController)
         }
     }
 }
 
 @Composable
-fun GameItem(videogame: Videogame) {
+fun GameItem(videogame: Videogame, navController: NavController) {
     Card(
         shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
@@ -210,7 +210,9 @@ fun GameItem(videogame: Videogame) {
                     .size(48.dp)
                     .align(Alignment.CenterVertically)
             ) {
-                IconButton(onClick = { /* Acción para añadir */ }) {
+                IconButton(onClick = {
+                    navController.navigate("viewGame/${videogame.gameId}")
+                }) {
                     Box(
                         modifier = Modifier
                             .size(48.dp)

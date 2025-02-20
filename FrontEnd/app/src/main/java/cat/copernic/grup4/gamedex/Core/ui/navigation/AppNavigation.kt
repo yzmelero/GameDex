@@ -18,6 +18,7 @@ fun AppNavigation() {
         composable("login") { LoginScreen(navController) }
         composable("signup") { SignUpScreen(navController) }
         composable("listvideogames") { ListGamesScreen(navController) }
+        composable("viewGame/{gameId}") { ViewGamesScreen(navController) }
         //Home screen / Category main screen
         //composable("category") { ListCategoryScreen(navController)}
     }
