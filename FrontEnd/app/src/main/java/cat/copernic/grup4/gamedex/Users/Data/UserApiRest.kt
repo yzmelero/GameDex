@@ -22,9 +22,8 @@ interface UserApiRest {
     @GET("user/all")
     suspend fun getAllUsers(): Response<List<User>>
 
-    @POST("login/verify")  // Endpoint que has definit al backend
-    fun loginUser(@Body request: LoginRequest): Call<LoginResponse>
-
+    @POST("login/verify")
+    suspend fun loginUser(@Body credentials: LoginRequest): Response<LoginResponse>
 
 /*
     @GET("user/byId/{userId}")
