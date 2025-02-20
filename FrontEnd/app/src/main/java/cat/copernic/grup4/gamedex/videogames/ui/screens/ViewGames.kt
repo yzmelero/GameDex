@@ -266,19 +266,19 @@ fun CommentsSection() {
         modifier = Modifier.padding(16.dp)
             .padding(bottom = 80.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(R.string.comments),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 28.sp,
+                    style = GameDexTypography.bodyLarge
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     Icons.Default.Add,
                     contentDescription = stringResource(R.string.add_comment),
                     Modifier
-                        .clickable { /* Acción para elegir imagen */ }
+                        .clickable { /* TODO Mostrar imatge */ }
                         .background(Color.Magenta, shape = RoundedCornerShape(50))
                         .clip(RoundedCornerShape(50))
                         .size(30.dp)
@@ -303,9 +303,17 @@ fun CommentItem(username: String, comment: String, rating: String) {
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = username, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = username,
+                fontSize = 24.sp,
+                style = GameDexTypography.bodyLarge
+            )
             Spacer(modifier = Modifier.height(6.dp))
-            Text(text = comment)
+            Text(
+                text = comment,
+                fontSize = 18.sp,
+                style = GameDexTypography.bodyLarge
+            )
         }
         Box(
             modifier = Modifier
