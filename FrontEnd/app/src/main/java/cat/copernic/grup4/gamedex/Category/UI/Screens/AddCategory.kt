@@ -68,7 +68,7 @@ fun AddCategoryScreen(navController: NavController) {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+            TopBar(navController, profileImageRes = R.drawable.user)
 
             Spacer(modifier = Modifier.height(16.dp))
 
