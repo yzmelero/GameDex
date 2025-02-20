@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
-
 class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() {
 
     private val _categoryAdded = MutableStateFlow<Boolean?>(null)
@@ -21,6 +20,9 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
 
     private val _categoryGetAll = MutableStateFlow<List<Category>>(emptyList())
     val category: StateFlow<List<Category>> = _categoryGetAll
+
+    private val _categoryGetById = MutableStateFlow<Category?>(null)
+    val categoryGetById: StateFlow<Category?> = _categoryGetById
 
     fun addCategory(category: Category) {
         viewModelScope.launch {
@@ -33,6 +35,13 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         viewModelScope.launch {
             val response = categoryCases.getAllCategory()
             _categoryGetAll.value = response.body() ?: emptyList()
+        }
+    }
+
+    fun getCategoryById(id: String) {
+        viewModelScope.launch {
+            val response = categoryCases.getCategoryById(id)
+            _categoryGetById.value = response.body()
         }
     }
 
