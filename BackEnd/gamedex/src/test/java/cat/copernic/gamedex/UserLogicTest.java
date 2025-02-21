@@ -59,6 +59,7 @@ public class UserLogicTest {
         assertEquals(UserType.USER, createdUser.getUserType());
     }
 
+    //TODO Canviat el mètode createAdmin a createUser perque sino no fa build
     @Test
     public void testCreateAdmin_UserAlreadyExists() {
         User user = new User();
@@ -67,7 +68,7 @@ public class UserLogicTest {
         when(userRepository.findById(user.getUsername())).thenReturn(Optional.of(user));
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
-            userLogic.createAdmin(user);
+            userLogic.createUser(user);
         });
 
         assertEquals("User already exists", exception.getMessage());
@@ -81,7 +82,7 @@ public class UserLogicTest {
         when(userRepository.findById(user.getUsername())).thenReturn(Optional.empty());
         when(userRepository.save(user)).thenReturn(user);
 
-        User createdAdmin = userLogic.createAdmin(user);
+        User createdAdmin = userLogic.createUser(user);
 
         assertNotNull(createdAdmin);
         assertTrue(createdAdmin.getState());

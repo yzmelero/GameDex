@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,16 +38,38 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.copernic.grup4.gamedex.R
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.LoginRequest
+import cat.copernic.grup4.gamedex.Core.Model.LoginState
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
+import cat.copernic.grup4.gamedex.Users.Data.RetrofitInstance
+import cat.copernic.grup4.gamedex.Users.Data.UserApiRest
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
+    val userRepository = UserRepository()
+    val useCases = UseCases(userRepository) // Aquí has d'obtenir la instància real
+    val factory = UserViewModelFactory(useCases)
+
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val loginSuccess by userViewModel.loginSuccess.collectAsState()
+
+    LaunchedEffect(loginSuccess) {
+        if (loginSuccess == true) {
+            navController.navigate("list_category")  // Si el login és correcte, naveguem
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -65,6 +90,9 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier
                 .offset(y = (-100).dp) // ⬆ Mou el text cap amunt sense afectar la imatge
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Box(
             modifier = Modifier
                 .offset(y = (-50).dp)
@@ -73,38 +101,49 @@ fun LoginScreen(navController: NavController) {
                 .fillMaxWidth(0.8f)
                 .wrapContentHeight()
                 .defaultMinSize(minHeight = 200.dp)
-                .padding(10.dp)
+                //.padding(10.dp)
+                //.padding(16.dp)
                 .align(Alignment.CenterHorizontally),
         ) {
-            Text(
-                text = stringResource(id = R.string.login),
-                color = Color.Black,
-                style = GameDexTypography.headlineMedium,
-                fontSize = 36.sp,
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(vertical = 16.dp)
-            )
-
             Column(
-                modifier = Modifier
-                    .padding(16.dp, top = 70.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth(0.9f)
+                    .align(Alignment.Center),
+
+            )
+            {
+                Text(
+                    text = stringResource(id = R.string.login),
+                    color = Color.Black,
+                    style = GameDexTypography.headlineMedium,
+                    fontSize = 36.sp,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+                )
+
+                /*Column(
+                    modifier = Modifier
+                        .padding(16.dp, top = 70.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {*/
                 InputField(
                     label = stringResource(id = R.string.username),
                     value = username
                 ) { username = it }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
                 InputField(
                     label = stringResource(id = R.string.password),
                     value = password
                 ) { password = it }
+
                 Spacer(modifier = Modifier.height(18.dp))
+
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(0.8f)
                         .clip(RoundedCornerShape(16.dp)),
-                    onClick = { navController.navigate("category") },
+                    onClick = { userViewModel.loginUser(username, password) },
                     colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
                 )
                 {
@@ -114,6 +153,14 @@ fun LoginScreen(navController: NavController) {
                         style = GameDexTypography.headlineMedium
                     )
                 }
+                if (loginSuccess == false) {
+                    Text(
+                        text = stringResource(R.string.error_loging_in),
+                        color = Color.Red,
+                        style = GameDexTypography.bodyMedium
+                    )
+                }
+
                 TextButton(onClick = {
                     // Acción de olvidar la contraseña
                 }) {
@@ -139,12 +186,9 @@ fun LoginScreen(navController: NavController) {
                         style = GameDexTypography.headlineMedium
                     )
                 }
-
-
             }
         }
     }
-}
     //NO FUNCIONA!
     @Composable
     fun InputField(
@@ -171,10 +215,15 @@ fun LoginScreen(navController: NavController) {
             )
         )
     }
+}
 
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    LoginScreen(navController = fakeNavController)  // ✅ Passar-lo a LoginScreen
+    val fakeNavController =
+        rememberNavController() // ✅ Crear un NavController fals per la preview
+    LoginScreen(
+        navController = fakeNavController,
+        userViewModel = UserViewModel(UseCases(UserRepository()))
+    )  // ✅ Passar-lo a LoginScreen
 }

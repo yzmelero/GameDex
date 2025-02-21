@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.User;
@@ -16,16 +17,19 @@ public class UserLogic {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public User createUser(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
             }
-
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
-            user.setState(false);
-            user.setUserType(UserType.USER);
+            /*user.setState(false);
+            user.setUserType(UserType.USER);*/
 
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 throw new RuntimeException("Email already exists");
@@ -42,14 +46,15 @@ public class UserLogic {
         }
     }
 
-    public User createAdmin(User user){
+    /*public User createAdmin(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
             }
 
-            //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
+            // Estas dos lineas hacen que el usuario creado por defecto sea un usuario
+            // normal y no un admin y que este desactivado.
             user.setState(true);
             user.setUserType(UserType.ADMIN);
 
@@ -59,7 +64,7 @@ public class UserLogic {
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error creating user");
         }
-    }
+    }*/
 
     public User modifyUser(User user) {
         try {
@@ -143,12 +148,12 @@ public class UserLogic {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public List<User> getUserByUsername(String username){
+    public List<User> getUserByUsername(String username) {
         try {
             return userRepository.findByUsernameContaining(username);
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting user by username");
-        } 
+        }
     }
 
 }

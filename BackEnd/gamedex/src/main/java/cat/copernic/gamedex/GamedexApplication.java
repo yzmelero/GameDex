@@ -31,8 +31,9 @@ public class GamedexApplication {
 		userRepository = context.getBean(UserRepository.class);
 		userLogic = context.getBean(UserLogic.class);
 
+		
 		User user = new User("user", "user", "usuari", "apellido", "user@gmail.com", 12345678,
-				LocalDate.of(1990, 1, 1), null, false, UserType.USER);
+				LocalDate.of(1990, 1, 1), null, true, UserType.USER);
 		if (userRepository.findById(user.getUsername()).isPresent()) {
 		}else
 		userLogic.createUser(user);
@@ -41,7 +42,7 @@ public class GamedexApplication {
 		User admin = new User("admin", "admin", "admin", "apellido", "admin@gmail.com", 87654321,
 				LocalDate.of(1985, 1, 1), null, true, UserType.ADMIN);
 		if (userRepository.findById(admin.getUsername()).isEmpty()) {
-			userLogic.createAdmin(admin);
+			userLogic.createUser(admin);
 		}
 
 		logger.info("GamedexApplication started successfully.");

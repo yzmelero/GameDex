@@ -40,6 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
@@ -258,19 +259,19 @@ fun SignUpScreen(navController: NavController) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
                         //TODO añadir acción de registro
-                        onClick = {
-                            val newUser = User(
-                                username = username,
-                                password = password,
-                                name = name,
-                                surname = surname,
-                                email = email,
-                                telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
-                                birthDate = birthDate,
-                                profilePicture = profilePicture
-                            )
-                            userViewModel.registerUser(newUser)
-                        },
+                        onClick = { val newUser = User(
+                            username = username,
+                            password = password,
+                            name = name,
+                            surname = surname,
+                            email = email,
+                            telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
+                            birthDate = birthDate,
+                            userType = UserType.USER,
+                            state = false,
+                            profilePicture = null
+                        )
+                            userViewModel.registerUser(newUser) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {
