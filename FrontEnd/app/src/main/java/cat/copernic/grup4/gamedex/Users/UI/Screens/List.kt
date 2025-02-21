@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -44,7 +46,7 @@ import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
-fun UserListScreen(navController: NavController) {
+fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
 
@@ -57,6 +59,7 @@ fun UserListScreen(navController: NavController) {
                 color = colorResource(id = R.color.background),
             )
             .navigationBarsPadding(),
+
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         header(navController)
@@ -80,21 +83,30 @@ fun UserListScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(10.dp))
 
         // User List
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier.weight(1f), // ✅ Para que se ajuste al tamaño disponible
+            contentPadding = PaddingValues(bottom = 80.dp) // ✅ Espacio extra para evitar que se oculte el último usuario
+        ) {
             items(users) { user ->
                 UserCard(user, navController)
             }
-        }
 
-        Spacer(modifier = Modifier.height(10.dp))
-        Button(
-            onClick = { navController.navigate("validate")},
-            shape = RoundedCornerShape(20.dp),
-        ) {
-            Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+            // ✅ Botón dentro de LazyColumn, al final de la lista
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+                Button(
+                    onClick = { navController.navigate("validate") },
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+                }
+            }
         }
     }
-    BottomSection(navController, 2)
+    BottomSection(navController, userViewModel,2)
 }
 
 @Composable
@@ -146,5 +158,7 @@ fun UserCard(user: User, navController: NavController) {
 @Composable
 fun UserListScreenPreview() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    UserListScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    UserListScreen(navController = fakeNavController, userViewModel = userViewModel)
 }

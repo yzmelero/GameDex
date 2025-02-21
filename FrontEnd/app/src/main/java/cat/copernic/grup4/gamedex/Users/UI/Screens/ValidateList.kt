@@ -45,7 +45,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun ValidateListScreen(navController: NavController) {
+fun ValidateListScreen(navController: NavController, userViewModel: UserViewModel) {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
 
@@ -96,7 +96,7 @@ fun ValidateListScreen(navController: NavController) {
             Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
         }
     }
-    BottomSection(navController, 2)
+    BottomSection(navController, userViewModel,2)
 }
 
 @Composable
@@ -148,5 +148,7 @@ fun ValidateList(user: User) {
 @Composable
 fun ValidateListScreenPreview() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    ValidateListScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ValidateListScreen(navController = fakeNavController, userViewModel = userViewModel)
 }

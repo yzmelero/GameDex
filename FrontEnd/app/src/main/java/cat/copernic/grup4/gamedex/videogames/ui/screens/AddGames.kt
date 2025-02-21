@@ -60,13 +60,17 @@ import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
-fun AddGamesScreen(navController : NavController) {
+fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
 
@@ -102,7 +106,7 @@ fun AddGamesScreen(navController : NavController) {
             )
 
                 }
-        BottomSection(navController, 1)
+        BottomSection(navController, userViewModel,1)
     }
     LaunchedEffect(createdGameState) {
         createdGameState?.let { success ->
@@ -278,5 +282,7 @@ fun ImagePicker() {
 @Composable
 fun PreviewAddGamesScreen() {
     val fakeNavController = rememberNavController()
-    AddGamesScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    AddGamesScreen(navController = fakeNavController, userViewModel)
 }

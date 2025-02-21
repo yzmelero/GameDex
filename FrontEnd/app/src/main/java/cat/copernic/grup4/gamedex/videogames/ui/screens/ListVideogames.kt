@@ -69,13 +69,17 @@ import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
-fun ListGamesScreen(navController : NavController) {
+fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val videogame by gameViewModel.allVideogame.collectAsState()
@@ -113,7 +117,7 @@ fun ListGamesScreen(navController : NavController) {
             VideogamesGrid(videogame, navController)
 
         }
-        BottomSection(navController, 1)
+        BottomSection(navController, userViewModel,1)
         AddGameButton(onClick = {navController.navigate("")})
     }
 }
@@ -173,7 +177,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
         modifier = Modifier
             .padding(top = 5.dp)
             .fillMaxWidth()
-            .clickable { /* Acción de selección */ }
+            .clickable { /* TODO Acción de selección */ }
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
@@ -266,5 +270,7 @@ fun AddGameButton(onClick: () -> Unit) {
 @Composable
 fun PreviewListGamesScreen() {
     val fakeNavController = rememberNavController()
-    ListGamesScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ListGamesScreen(navController = fakeNavController, userViewModel)
 }

@@ -22,25 +22,20 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(userViewModel: UserViewModel) {
     val navController = rememberNavController()
 
     //Permet la navegació i portar un historial d'aquesta
     NavHost(navController = navController, startDestination = "login") {
-        composable("login") {
-            val userRepository = UserRepository() // Inicialitza UserRepository
-            val useCases = UseCases(userRepository) // Passa'l a UseCases
-            val factory = UserViewModelFactory(useCases) // Crea la Factory
-            val viewModel: UserViewModel = viewModel(factory = factory)
-            LoginScreen(navController, viewModel) }
-        composable("signup") { SignUpScreen(navController) }
-        composable("list_category") { ListCategoryScreen(navController) }
-        composable("add_category") { AddCategoryScreen(navController) }
-        composable("userList") { UserListScreen(navController) }
-        composable("profile/{username}") { ProfileScreen(navController) }
-        composable("validate") { ValidateListScreen(navController) }
-        composable("listvideogames") { ListGamesScreen(navController) }
-        composable("viewGame/{gameId}") { ViewGamesScreen(navController) }
-        composable("category") { ListCategoryScreen(navController)}
+        composable("login") {LoginScreen(navController, userViewModel) }
+        composable("signup") { SignUpScreen(navController, userViewModel) }
+        composable("list_category") { ListCategoryScreen(navController, userViewModel) }
+        composable("add_category") { AddCategoryScreen(navController, userViewModel) }
+        composable("userList") { UserListScreen(navController, userViewModel) }
+        composable("profile/{username}") { ProfileScreen(navController, userViewModel) }
+        composable("validate") { ValidateListScreen(navController, userViewModel) }
+        composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
+        composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
+        composable("category") { ListCategoryScreen(navController, userViewModel)}
     }
 }

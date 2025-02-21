@@ -50,7 +50,7 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import coil.compose.AsyncImage
 
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
@@ -339,5 +339,7 @@ fun uriToBase64(context: Context, uri: Uri): String {
 @Composable
 fun PreviewSignUpScreen() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    SignUpScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    SignUpScreen(navController = fakeNavController, userViewModel)
 }

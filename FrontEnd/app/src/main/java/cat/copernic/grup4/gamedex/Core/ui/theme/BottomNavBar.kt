@@ -23,13 +23,11 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun BottomNavBar(navController: NavController, selectedItem: Int = 0) {
+fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, selectedItem: Int = 0) {
     NavigationBar (
         containerColor = Color(0xFFCE55F4)
     ) {
-        val useCases = UseCases(UserRepository())
-        val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-        val currentUser by userViewModel.currentUser.collectAsState()
+     val currentUser by userViewModel.currentUser.collectAsState()
         val icons = listOf(R.drawable.apps,
             R.drawable.gamepad, R.drawable.users_alt,
             R.drawable.user, R.drawable.book_open_cover)
@@ -68,5 +66,5 @@ fun BottomNavBar(navController: NavController, selectedItem: Int = 0) {
 @Composable
 fun PreviewBottomBar() {
     val fakeNavController = rememberNavController()
-    BottomNavBar(fakeNavController, selectedItem = 0)
+    //BottomNavBar(fakeNavController, selectedItem = 0)
 }

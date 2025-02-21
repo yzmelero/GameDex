@@ -55,6 +55,10 @@ import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
@@ -62,7 +66,7 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-fun ViewGamesScreen(navController: NavController) {
+fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
     /*val gameId = remember {
         navController.currentBackStackEntry?.arguments?.getString("gameId")
     } ?: return // Si no hay ID, salir de la función
@@ -95,7 +99,7 @@ fun ViewGamesScreen(navController: NavController) {
             header(navController)
             game?.let { GameCard(it) }
         }
-        BottomSection(navController, 1)
+        BottomSection(navController,userViewModel ,1)
     }
 }
 
@@ -327,7 +331,10 @@ fun CommentItem(username: String, comment: String, rating: String) {
 @Composable
 fun PreviewViewGamesScreen() {
     val fakeNavController = rememberNavController()
-    ViewGamesScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+
+    ViewGamesScreen(navController = fakeNavController, userViewModel)
     /*
     val fakeGame = Videogame(
         nameGame = "Nombre prueba",
