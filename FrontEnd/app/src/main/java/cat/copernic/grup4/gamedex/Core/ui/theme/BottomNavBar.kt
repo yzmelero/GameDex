@@ -10,14 +10,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.R
 
 @Composable
-fun BottomNavBar(selectedItem: Int = 0, onItemSelected: (Int) -> Unit) {
+fun BottomNavBar(navController: NavController, selectedItem: Int = 0) {
     NavigationBar (
         containerColor = Color(0xFFCE55F4)
     ) {
-        val icons = listOf(R.drawable.apps, R.drawable.gamepad, R.drawable.users_alt, R.drawable.user, R.drawable.book_open_cover)
+        val icons = listOf(R.drawable.apps,
+            R.drawable.gamepad, R.drawable.users_alt,
+            R.drawable.user, R.drawable.book_open_cover)
+        val destinations = listOf(
+            "list_category",
+            "listvideogames",
+            "userList",
+            "profile",
+            "library"
+        )
 
         icons.forEachIndexed { index, iconRes ->
             NavigationBarItem(
@@ -28,7 +39,9 @@ fun BottomNavBar(selectedItem: Int = 0, onItemSelected: (Int) -> Unit) {
                         modifier = Modifier.size(24.dp))
                 },
                 selected = selectedItem == index,
-                onClick = { onItemSelected(index)},
+                onClick = { if (index < destinations.size) {
+                    navController.navigate(destinations[index])
+                }},
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color.Black,
                     unselectedIconColor = Color.Gray,
@@ -43,4 +56,6 @@ fun BottomNavBar(selectedItem: Int = 0, onItemSelected: (Int) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewBottomBar() {
-    BottomNavBar(selectedItem = 0, onItemSelected = {})}
+    val fakeNavController = rememberNavController()
+    BottomNavBar(fakeNavController, selectedItem = 0)
+}

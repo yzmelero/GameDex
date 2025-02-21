@@ -2,8 +2,6 @@ package cat.copernic.grup4.gamedex.Users.UI.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.content.MediaType.Companion.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,7 +12,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -22,14 +19,34 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun ProfileScreen() {
-    var username by remember { mutableStateOf("Juan") }
+fun ProfileScreen(navController: NavController) {
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+
+    val username = remember {
+        navController.currentBackStackEntry?.arguments?.getString("username")
+    } ?: return // Si no hay ID, salir de la función
+    var user by remember { mutableStateOf<User?>(null) }
+
+    LaunchedEffect(username) { // ✅ Llama a la función suspend en una corrutina
+        user = userViewModel.getUser(username)
+    }
+    val currentUser = user
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,26 +59,37 @@ fun ProfileScreen() {
     ) {
 
         // Header
-        HeaderSection()
+        header(navController)
 
         Spacer(modifier = Modifier.height(20.dp))
 
         // Profile Image
-        Image(
-            painter = painterResource(id = R.drawable.coche),
-            contentScale = ContentScale.Crop,
-            contentDescription = stringResource(R.string.profile_picture),
-            modifier = Modifier
-                .size(320.dp)
-                .clip(CircleShape)
-        )
+        currentUser?.let {
+            val imageBitmap = currentUser.profilePicture?.let {
+                userViewModel.base64ToBitmap(it)
+            }
 
+            Column {
+                imageBitmap?.let {
+                    Image(
+                        it, contentDescription = stringResource(R.string.profile_picture),
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(320.dp)
+                            .clip(CircleShape)
+                    )
+                }
+            }
+
+        }
         Spacer(modifier = Modifier.height(10.dp))
 
         // Username
-        Text(username, fontSize = 56.sp,
+        Text(
+            username, fontSize = 56.sp,
             style = GameDexTypography.bodyLarge,
-            color = Color.Black)
+            color = Color.Black
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -80,7 +108,8 @@ fun ProfileScreen() {
             onClick = { /* TODO: Hacer el navigation a la library */ },
             shape = RoundedCornerShape(20.dp)
         ) {
-            Text(stringResource(R.string.library),
+            Text(
+                stringResource(R.string.library),
                 color = Color.White, fontSize = 18.sp,
                 style = GameDexTypography.bodyLarge
             )
@@ -88,51 +117,31 @@ fun ProfileScreen() {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomSection(1)
-    }
-}
-
-@Composable
-fun HeaderSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
-
+        BottomSection(navController, 3)
     }
 }
 
 @Composable
 fun StatItem(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, fontSize = 32.sp,
+        Text(
+            label, fontSize = 32.sp,
             style = GameDexTypography.bodyLarge,
-            color = Color.Black)
-        Text(value, fontSize = 28.sp,
+            color = Color.Black
+        )
+        Text(
+            value, fontSize = 28.sp,
             style = GameDexTypography.bodyLarge,
-            color = Color.Gray)
+            color = Color.Gray
+        )
     }
 }
 
-@Composable
-fun BottomSection(posicion: Int) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        BottomNavBar(selectedItem = posicion, onItemSelected = {})
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen()
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    ProfileScreen(navController = fakeNavController)
 }
 

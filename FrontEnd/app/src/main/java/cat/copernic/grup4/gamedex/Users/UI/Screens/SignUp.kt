@@ -258,20 +258,21 @@ fun SignUpScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
-                        //TODO añadir acción de registro
-                        onClick = { val newUser = User(
-                            username = username,
-                            password = password,
-                            name = name,
-                            surname = surname,
-                            email = email,
-                            telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
-                            birthDate = birthDate,
-                            userType = UserType.USER,
-                            state = false,
-                            profilePicture = null
-                        )
-                            userViewModel.registerUser(newUser) },
+                        onClick = {
+                            val newUser = User(
+                                username = username,
+                                password = password,
+                                name = name,
+                                surname = surname,
+                                email = email,
+                                telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
+                                birthDate = birthDate,
+                                userType = UserType.USER,
+                                state = false,
+                                profilePicture = profilePicture
+                            )
+                            userViewModel.registerUser(newUser)
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                         ) {

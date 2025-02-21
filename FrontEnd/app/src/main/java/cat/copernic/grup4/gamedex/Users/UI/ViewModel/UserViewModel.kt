@@ -28,6 +28,8 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     val users: StateFlow<List<User>> = _users
     private val _registrationSuccess = MutableStateFlow<Boolean?>(null)
     val registrationSuccess: StateFlow<Boolean?> = _registrationSuccess
+    private val _inactiveUsers = MutableStateFlow<List<User>>(emptyList())
+    val inactiveUsers: StateFlow<List<User>> = _inactiveUsers
 
     private val _loginSuccess = MutableStateFlow<Boolean?>(null)
     val loginSuccess: StateFlow<Boolean?> = _loginSuccess
@@ -38,7 +40,7 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     fun registerUser(user: User) {
         viewModelScope.launch {
             val response = useCases.registerUser(user)
-           // _registrationSuccess.value = response.isSuccessful
+            // _registrationSuccess.value = response.isSuccessful
             if (response.isSuccessful) {
                 val user = response.body()
                 _currentUser.value = user  // Desa l'usuari logejat
@@ -60,6 +62,37 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     init {
         listUsers()
     }
+
+    fun listInactiveUsers() {
+        viewModelScope.launch {
+            try {
+                val response = useCases.listInactiveUsers()
+                if (response.isSuccessful) {
+                    response.body()?.let { userList ->
+                        _inactiveUsers.value = userList
+                    }
+                } else {
+                    println("Error en la API: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                println("Error al obtener usuarios inactivos: ${e.message}")
+            }
+        }
+    }
+
+    suspend fun getUser(username: String): User? {
+        return try {
+            val response = useCases.getUser(username)
+            if (response.isSuccessful) {
+                response.body() // ✅ Extraemos el User del Response
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
 
     fun listUsers() {
         viewModelScope.launch {

@@ -35,6 +35,7 @@ import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
@@ -68,7 +69,7 @@ fun AddCategoryScreen(navController: NavController) {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+            TopBar(navController, profileImageRes = R.drawable.user)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -133,7 +134,7 @@ fun AddCategoryScreen(navController: NavController) {
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomNavBar(onItemSelected = {})
+            BottomSection(navController, 0)
         }
     }
 
