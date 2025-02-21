@@ -67,6 +67,7 @@ fun AddGamesScreen(navController : NavController) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
 
+    // TODO Moure variables al ViewModel
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
