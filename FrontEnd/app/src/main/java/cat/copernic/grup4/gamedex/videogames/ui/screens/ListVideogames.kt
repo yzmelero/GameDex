@@ -114,7 +114,7 @@ fun ListGamesScreen(navController : NavController) {
 
         }
         BottomSection(navController, 1)
-        AddGameButton(onClick = {})
+        AddGameButton(onClick = {navController.navigate("")})
     }
 }
 

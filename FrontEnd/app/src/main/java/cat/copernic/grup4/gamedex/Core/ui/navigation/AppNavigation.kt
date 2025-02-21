@@ -41,6 +41,6 @@ fun AppNavigation() {
         composable("validate") { ValidateListScreen(navController) }
         composable("listvideogames") { ListGamesScreen(navController) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController) }
-         composable("category") { ListCategoryScreen(navController)}
+        composable("category") { ListCategoryScreen(navController)}
     }
 }
