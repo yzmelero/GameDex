@@ -63,6 +63,11 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    fun logoutUser() {
+        _currentUser.value = null
+        _loginSuccess.value = false
+    }
+
     init {
         listUsers()
     }

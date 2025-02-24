@@ -57,10 +57,11 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
             .background(
                 color = colorResource(id = R.color.background),
             )
-            .navigationBarsPadding(),
+            .navigationBarsPadding()
+            .windowInsetsPadding(WindowInsets.systemBars),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        header(navController)
+        header(navController, userViewModel)
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = stringResource(R.string.validate_users),
