@@ -65,7 +65,6 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
