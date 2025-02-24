@@ -44,6 +44,16 @@ public class LibraryLogic {
         
     }
     
+    public Library addGameToLibrary(Library library){
+        Optional<Library> existingGameInLibrary = libraryRepository.findByUserIdAndVideogameId(
+            library.getUser().getUsername(), 
+            library.getVideogame().getGameId());
+
+        if(existingGameInLibrary.isPresent()){
+            throw new RuntimeException("Game already in library");
+        }
+        return libraryRepository.save(library);
+    }
     /*public List<Library> getAllCommentaries(){
         try{
             List<Library> libraries = libraryRepository.findAllByVideogame();
