@@ -1,6 +1,6 @@
 package cat.copernic.grup4.gamedex.Category.Data
 
-import cat.copernic.grup4.gamedexandroid.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
