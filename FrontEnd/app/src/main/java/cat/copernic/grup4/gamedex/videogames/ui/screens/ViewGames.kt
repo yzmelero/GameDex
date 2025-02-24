@@ -1,12 +1,12 @@
-package cat.copernic.grup4.gamedex.videogames.ui.screen
+package cat.copernic.grup4.gamedex.videogames.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -29,11 +28,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,47 +45,69 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.resolveDefaults
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
+import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
+import kotlinx.coroutines.flow.MutableStateFlow
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 
 @Composable
-fun ViewGamesScreen(videogame: Videogame) {
-    var nameGame by remember { mutableStateOf("") }
-    var releaseYear by remember { mutableStateOf("") }
-    var ageRecommendation by remember { mutableStateOf("") }
-    var developer by remember { mutableStateOf("") }
-    var nameCategory by remember { mutableStateOf("") }
-    var descriptionGame by remember { mutableStateOf("") }
+fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
+    /*val gameId = remember {
+        navController.currentBackStackEntry?.arguments?.getString("gameId")
+    } ?: return // Si no hay ID, salir de la función
+*/
+    val gameId = "67b6e13cc37b260466e6342c"
+    // Aquí puedes obtener el videojuego del ViewModel o repositorio
+    Text(text = "Mostrando detalles del juego con ID: $gameId")
+
+    val videogameUseCase = VideogameUseCase(VideogameRepository())
+    val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+
+    LaunchedEffect(gameId) {
+        Log.d("ViewGamesScreen", "Fetching game with ID: $gameId")
+        viewModel.videogamesById(gameId)
+    }
+
+    val game by viewModel.gameById.collectAsState()
+    Log.d("ViewGamesScreen", "Current game: $game")
 
     Box(
         modifier = Modifier.fillMaxSize()
+            .background(colorResource(R.color.background))
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(colorResource(R.color.background))
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderSection()
-
-            GameCard(videogame)
-
+            header(navController)
+            game?.let { GameCard(it) }
         }
-        BottomSection()
+        BottomSection(navController,userViewModel ,1)
     }
 }
 
 @Composable
-fun GameCard(videogame: Videogame) {
+fun GameCard(videogame : Videogame) {
     Column ( modifier = Modifier
         .fillMaxSize()
-        .padding(bottom = 80.dp)
         .background(colorResource(R.color.background))
         .windowInsetsPadding(WindowInsets.systemBars)
         .verticalScroll(rememberScrollState()),
@@ -112,7 +132,7 @@ fun GameCard(videogame: Videogame) {
             }
             Row(verticalAlignment = Alignment.Top) {
                 Image(
-                    painter = painterResource(videogame.gamePhoto),
+                    painter = painterResource(R.drawable.eldenring),
                     contentDescription = stringResource(R.string.cover),
                     modifier = Modifier.size(180.dp)
                 )
@@ -157,7 +177,7 @@ fun GameCard(videogame: Videogame) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
-                            text = stringResource(R.string.game_category),
+                            text = stringResource(R.string.category),
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             color = colorResource(R.color.purple_700)
@@ -183,11 +203,19 @@ fun GameCard(videogame: Videogame) {
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = videogame.descriptionGame,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(16.dp)
-            )
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = stringResource(R.string.description) + ":",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(R.color.purple_700)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = videogame.descriptionGame,
+                    fontSize = 14.sp
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
             Button(
                 onClick = { /* Acción de Modificar */ },
@@ -224,10 +252,15 @@ fun CommentsSection() {
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.padding(16.dp)
+            .padding(bottom = 80.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(R.string.comments), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = stringResource(R.string.comments),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     Icons.Default.Add,
@@ -240,66 +273,80 @@ fun CommentsSection() {
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.LightGray),
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "VicoGracias" /* Nom usuari comentari */,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥" /* comentari del usuari */
-                    )
-                }
-                Box(
+            CommentItem(
+                "VicoGracias",
+                "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥",
+                "⭐9.96⭐"
+            )
+        }
+    }
+}
+@Composable
+fun CommentItem(username: String, comment: String, rating: String) {
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = username, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(text = comment)
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = rating,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "⭐9.96⭐",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .size(width = 80.dp, height = 30.dp)
-                                .background(colorResource(R.color.bubblegum), shape = RoundedCornerShape(40))
-                                .padding(top = 4.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = stringResource(R.string.addgame_library),
-                            modifier = Modifier
-                                .size(30.dp)
-                                .background(Color.Red, shape = RoundedCornerShape(50))
-                        )
-                    }
-                }
+                        .size(width = 80.dp, height = 30.dp)
+                        .clip(RoundedCornerShape(40))
+                        .background(colorResource(R.color.bubblegum))
+                        .padding(top = 4.dp)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.addgame_library),
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(Color.Red)
+                )
             }
         }
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewViewGamesScreen() {
-    val testGame = Videogame( /* test per mostrar dades del joc, encara no hi ha dades a la bbdd */
-        nameGame = "Elden Ring",
-        releaseYear = 2022,
-        nameCategory = "RPG",
+    val fakeNavController = rememberNavController()
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+
+    ViewGamesScreen(navController = fakeNavController, userViewModel)
+    /*
+    val fakeGame = Videogame(
+        nameGame = "Nombre prueba",
+        releaseYear = "2022",
+        nameCategory = "Categoria",
         developer = "FromSoftware",
-        ageRecommendation = 18,
-        descriptionGame = "Elden Ring is an action RPG which takes place in the Lands Between, sometime after the Shattering of the titular Elden Ring. Players must explore and fight their way through the vast open-world to unite all the shards, restore the Elden Ring, and become Elden Lord.",
-        gamePhoto = R.drawable.eldenring,
+        ageRecommendation = "18",
+        descriptionGame = "Lorem ipsum dolor sit amet consectetur adipiscing elit odio aptent cubilia, laoreet cursus pharetra vulputate pellentesque integer nec fermentum sociis id, feugiat class torquent vel egestas primis mus sed fusce. Interdum condimentum mauris sed ridiculus duis justo phasellus, lobortis feugiat augue ultricies cum ultrices arcu ullamcorper, curabitur in cras auctor morbi sapien. Consequat penatibus litora tristique dis rutrum nec venenatis aliquam, lectus aptent laoreet fames condimentum augue varius gravida metus, montes platea duis conubia justo quis lobortis.",
+        gamePhoto = "",
         gameId = "1"
     )
-    ViewGamesScreen(testGame)
+
+    GameCard(fakeGame)*/
 }

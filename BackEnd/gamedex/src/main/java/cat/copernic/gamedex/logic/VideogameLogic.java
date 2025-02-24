@@ -15,13 +15,17 @@ public class VideogameLogic {
     private VideogameRepository videogameRepo;
 
     public Videogame createVideogame(Videogame videogame) {
-
         try {
-            Optional<Videogame> oldVideogame = videogameRepo.findById(videogame.getGameId());
-            if (oldVideogame.isPresent()) {
-                throw new RuntimeException("Videogame already exists");
+            // Si gameID és null o está buit, MongoDB genera un ID
+            if (videogame.getGameId() == null || videogame.getGameId().isEmpty()) {
+                videogame.setGameId(null);  // Null perque MongoDB generi un ID
+            } else {
+                Optional<Videogame> oldVideogame = videogameRepo.findById(videogame.getGameId());
+                if (oldVideogame.isPresent()) {
+                    throw new RuntimeException("Videogame already exists");
+                }
             }
-            return videogameRepo.save(videogame);
+            return videogameRepo.save(videogame);  // MongoDB genera ID si és null
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -54,8 +58,8 @@ public class VideogameLogic {
                     newVideogame.setGamePhoto(videogame.getGamePhoto());
                 }
 
-                if (videogame.getAgeRecomendation() != newVideogame.getAgeRecomendation()) {
-                    newVideogame.setAgeRecomendation(videogame.getAgeRecomendation());
+                if (videogame.getAgeRecommendation() != newVideogame.getAgeRecommendation()) {
+                    newVideogame.setAgeRecommendation(videogame.getAgeRecommendation());
                 }
 
                 if (videogame.getDeveloper() != newVideogame.getDeveloper()) {

@@ -1,6 +1,5 @@
-package cat.copernic.grup4.gamedex.Core.Model;
+package cat.copernic.grup4.gamedex.Core.Model
 
-public enum UserType {
-    USER, ADMIN
-
+enum class UserType {
+    USER,ADMIN
 }

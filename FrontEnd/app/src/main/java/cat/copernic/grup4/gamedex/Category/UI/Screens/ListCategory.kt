@@ -22,21 +22,37 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
+import androidx.navigation.NavController
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 
 @Composable
-fun ListCategoryScreen(/*navController: NavController*/) {
+fun ListCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
+
+    val categoryCases = CategoryCases(CategoryRepository())
+    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+
     var searchQuery by remember { mutableStateOf("") }
-    val categories = listOf(
-        "ALL", "ACTION", "ADVENTURE", "SHOOTER", "RPG", "MOBA",
-        "FANTASY", "ARCADE", "VR", "STRATEGY", "FIGHT", "SURVIVAL",
-        "OPEN WORLD", "SIMULATION"
-    )
+    val category by categoryViewModel.category.collectAsState()
+
+    LaunchedEffect(Unit) {
+        categoryViewModel.getAllCategory()
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
-
 
     Column(
         modifier = Modifier
@@ -46,12 +62,13 @@ fun ListCategoryScreen(/*navController: NavController*/) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+            TopBar(navController, profileImageRes = R.drawable.user)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -72,7 +89,7 @@ fun ListCategoryScreen(/*navController: NavController*/) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        CategoriesGrid(categories)
+        CategoriesGrid(category, navController)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -83,9 +100,9 @@ fun ListCategoryScreen(/*navController: NavController*/) {
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomNavBar(onItemSelected = {})
+            BottomSection(navController, userViewModel,0)
         }
-        FloatingAddButton(onClick = {})
+        FloatingAddButton(navController)
     }
 }
 
@@ -119,7 +136,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 }
 
 @Composable
-fun CategoriesGrid(categories: List<String>) {
+fun CategoriesGrid(category: List<Category>, navController: NavController) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -127,8 +144,10 @@ fun CategoriesGrid(categories: List<String>) {
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        categories.forEach { category ->
-            CategoryButton(category, Modifier.fillMaxWidth()) // Ocupa todo el ancho disponible
+        category.forEach { category ->
+            CategoryButton(name = category.nameCategory, modifier = Modifier.clickable {
+                // Puedes agregar una acción al hacer clic en la categoría, como navegar a otra pantalla
+            })
         }
     }
 }
@@ -155,7 +174,7 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FloatingAddButton(onClick: () -> Unit) {
+fun FloatingAddButton(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -164,16 +183,22 @@ fun FloatingAddButton(onClick: () -> Unit) {
         contentAlignment = Alignment.BottomEnd
     ) {
         IconButton(
-            onClick = onClick,
+            onClick = { navController.navigate("add_category") },
             modifier = Modifier
                 .size(56.dp)
-                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
         ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = stringResource(R.string.add_category),
-                modifier = Modifier.size(40.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .size(56.dp)
+                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.add_category),
+                    modifier = Modifier.size(40.dp)
+                )
+            }
         }
     }
 }
@@ -181,5 +206,8 @@ fun FloatingAddButton(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewListCategoryScreen() {
-    ListCategoryScreen()
+    val fakeNavController = rememberNavController()
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ListCategoryScreen(navController = fakeNavController, userViewModel)
 }
