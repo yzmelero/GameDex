@@ -1,6 +1,5 @@
 package cat.copernic.gamedex.entity;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,7 +28,7 @@ public class Videogame {
     private int releaseYear;
     
     @Field(name = "game_photo")
-    private Binary gamePhoto;
+    private byte[] gamePhoto;
 
     @Field(name = "age_recommendation")
     private int ageRecommendation;
