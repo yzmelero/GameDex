@@ -30,4 +30,8 @@ class UserRepository {
         return RetrofitInstance.api.getUser(username);
     }
 
+    suspend fun validateUser(userId: String): Response<User>{
+        return RetrofitInstance.api.validateUser(userId);
+    }
+
 }

@@ -77,7 +77,15 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Button(
+            onClick = { navController.navigate("validate") },
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+        }
 
         // User List
         LazyColumn(

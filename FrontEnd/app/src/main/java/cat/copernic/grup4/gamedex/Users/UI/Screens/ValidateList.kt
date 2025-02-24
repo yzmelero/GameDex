@@ -131,7 +131,9 @@ fun ValidateList(user: User) {
             Spacer(modifier = Modifier.width(24.dp))
             Text(user.username, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /* TODO: Validate user */ }) {
+            IconButton(onClick = {
+                userViewModel.validateUser(user.username)
+            }) {
                 Icon(Icons.Default.ThumbUp, contentDescription = stringResource(R.string.add))
             }
             IconButton(onClick = { /* TODO: Remove user action */ }) {
