@@ -23,19 +23,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
+import androidx.navigation.NavController
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Core.Model.Category
 
 @Composable
-fun ListCategoryScreen(navController: NavController) {
+fun ListCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val categoryCases = CategoryCases(CategoryRepository())
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
@@ -63,7 +68,7 @@ fun ListCategoryScreen(navController: NavController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+            TopBar(navController, profileImageRes = R.drawable.user)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -95,7 +100,7 @@ fun ListCategoryScreen(navController: NavController) {
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomNavBar(onItemSelected = {})
+            BottomSection(navController, userViewModel,0)
         }
         FloatingAddButton(navController)
     }
@@ -202,5 +207,7 @@ fun FloatingAddButton(navController: NavController) {
 @Composable
 fun PreviewListCategoryScreen() {
     val fakeNavController = rememberNavController()
-    ListCategoryScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ListCategoryScreen(navController = fakeNavController, userViewModel)
 }

@@ -1,6 +1,5 @@
 package cat.copernic.gamedex.entity;
 
-import java.time.LocalDate;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -18,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class Videogame {
     
     @Id
-    @Field(name = "game_id")
     private String gameId;
 
     @Field(name = "name_game")
@@ -28,13 +26,13 @@ public class Videogame {
     private String descriptionGame;
 
     @Field(name = "release_year")
-    private LocalDate releaseYear;
+    private int releaseYear;
     
     @Field(name = "game_photo")
     private Binary gamePhoto;
 
-    @Field(name = "age_recomendation")
-    private int ageRecomendation;
+    @Field(name = "age_recommendation")
+    private int ageRecommendation;
 
     private String developer;
 

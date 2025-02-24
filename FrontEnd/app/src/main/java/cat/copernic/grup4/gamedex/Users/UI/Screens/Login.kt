@@ -55,9 +55,6 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
 fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
-    val userRepository = UserRepository()
-    val useCases = UseCases(userRepository) // Aquí has d'obtenir la instància real
-    val factory = UserViewModelFactory(useCases)
 
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
