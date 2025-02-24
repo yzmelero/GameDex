@@ -101,7 +101,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
+            header(navController, userViewModel)
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.list_game),

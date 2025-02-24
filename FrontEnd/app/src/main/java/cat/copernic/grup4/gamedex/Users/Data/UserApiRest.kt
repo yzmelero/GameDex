@@ -31,6 +31,9 @@ interface UserApiRest {
     @GET("user/view/{userId}")
     suspend fun getUser(@Path("userId") userId: String): Response<User>
 
+     @PUT("user/validate/{userId}")
+    suspend fun validateUser(@Path("userId") userId: String): Response<User>
+
 /*
     @Headers("Content-Type: application/json")
     @POST("user/create")

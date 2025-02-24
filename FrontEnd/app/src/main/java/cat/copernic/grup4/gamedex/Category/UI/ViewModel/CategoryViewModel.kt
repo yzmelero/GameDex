@@ -6,7 +6,7 @@ import android.util.Base64
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
-import cat.copernic.grup4.gamedexandroid.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

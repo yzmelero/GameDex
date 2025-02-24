@@ -60,15 +60,12 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     _loginSuccess.value = false
                 }
             }
-            /*if (response.isSuccessful) {
-                val user = response.body()
-                _currentUser.value = user  // Desa l'usuari logejat
-                _loginSuccess.value = true
-            } else {
-                _currentUser.value = null
-                _loginSuccess.value = false
-            }*/
         }
+    }
+
+    fun logoutUser() {
+        _currentUser.value = null
+        _loginSuccess.value = false
     }
 
     init {
@@ -81,7 +78,7 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                 val response = useCases.listInactiveUsers()
                 if (response.isSuccessful) {
                     response.body()?.let { userList ->
-                        _inactiveUsers.value = userList
+                        _inactiveUsers.value = userList.toList()
                     }
                 } else {
                     println("Error en la API: ${response.errorBody()?.string()}")
@@ -156,4 +153,12 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    fun validateUser(userId: String) {
+        viewModelScope.launch {
+            val response = useCases.validateUser(userId)
+            if (response.isSuccessful) {
+                listInactiveUsers()
+            }
+        }
+    }
 }

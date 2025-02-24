@@ -15,7 +15,7 @@ import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 
 @Composable
-fun header(navController: NavController) {
+fun header(navController: NavController, userViewModel: UserViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -23,7 +23,7 @@ fun header(navController: NavController) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopBar(navController ,profileImageRes = R.drawable.coche)
+        TopBar(navController ,profileImageRes = R.drawable.coche, userViewModel)
 
     }
 }

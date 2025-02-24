@@ -68,7 +68,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TopBar(navController, profileImageRes = R.drawable.user)
+            TopBar(navController, profileImageRes = R.drawable.user, userViewModel)
 
             Spacer(modifier = Modifier.height(16.dp))
 

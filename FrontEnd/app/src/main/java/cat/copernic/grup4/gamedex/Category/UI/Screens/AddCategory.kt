@@ -73,7 +73,7 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(navController, profileImageRes = R.drawable.user)
+            TopBar(navController, profileImageRes = R.drawable.user, userViewModel)
 
             Spacer(modifier = Modifier.height(16.dp))
 
