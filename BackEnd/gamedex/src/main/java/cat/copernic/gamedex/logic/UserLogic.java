@@ -31,6 +31,12 @@ public class UserLogic {
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
             }
+            if (user.getUsername().isEmpty() || user.getPassword().isEmpty() ||
+                user.getName().isEmpty() || user.getSurname().isEmpty() ||
+                user.getEmail().isEmpty() || user.getTelephone() == 0 ||
+                user.getBirthDate() == null) {
+                throw new RuntimeException("Empty fields are not allowed");
+            }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
             /*user.setState(false);

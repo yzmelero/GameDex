@@ -39,11 +39,15 @@ import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun AddCategoryScreen(navController: NavController) {
+fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val categoryCases = CategoryCases(CategoryRepository())
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
@@ -134,7 +138,7 @@ fun AddCategoryScreen(navController: NavController) {
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomSection(navController, 0)
+            BottomSection(navController, userViewModel,0)
         }
     }
 
@@ -210,5 +214,7 @@ fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
 @Composable
 fun PreviewAddCategoryScreen() {
     val fakeNavController = rememberNavController()
-    AddCategoryScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    AddCategoryScreen(navController = fakeNavController, userViewModel)
 }

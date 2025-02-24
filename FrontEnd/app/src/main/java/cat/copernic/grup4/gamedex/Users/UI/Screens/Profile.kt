@@ -33,10 +33,7 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun ProfileScreen(navController: NavController) {
-    val useCases = UseCases(UserRepository())
-    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-
+fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
     val username = remember {
         navController.currentBackStackEntry?.arguments?.getString("username")
     } ?: return // Si no hay ID, salir de la función
@@ -117,7 +114,7 @@ fun ProfileScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomSection(navController, 3)
+        BottomSection(navController, userViewModel,3)
     }
 }
 
@@ -142,6 +139,8 @@ fun StatItem(label: String, value: String) {
 @Composable
 fun ProfileScreenPreview() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    ProfileScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ProfileScreen(navController = fakeNavController, userViewModel)
 }
 

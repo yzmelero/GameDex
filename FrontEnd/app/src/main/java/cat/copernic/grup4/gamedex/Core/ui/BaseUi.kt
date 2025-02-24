@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 
 @Composable
 fun header(navController: NavController) {
@@ -27,13 +28,13 @@ fun header(navController: NavController) {
     }
 }
 @Composable
-fun BottomSection(navController: NavController, posicion: Int) {
+fun BottomSection(navController: NavController, userViewModel: UserViewModel, posicion: Int) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        BottomNavBar(navController, selectedItem = posicion)
+        BottomNavBar(navController, userViewModel, selectedItem = posicion)
     }
 }

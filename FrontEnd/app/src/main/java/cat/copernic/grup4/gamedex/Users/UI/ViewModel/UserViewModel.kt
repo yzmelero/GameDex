@@ -35,20 +35,12 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     val loginSuccess: StateFlow<Boolean?> = _loginSuccess
 
     private val _currentUser = MutableStateFlow<User?>(null)
-    val currentUser: StateFlow<User?> = _currentUser
+    val currentUser: StateFlow<User?> get() = _currentUser
 
     fun registerUser(user: User) {
         viewModelScope.launch {
             val response = useCases.registerUser(user)
-            // _registrationSuccess.value = response.isSuccessful
-            if (response.isSuccessful) {
-                val user = response.body()
-                _currentUser.value = user  // Desa l'usuari logejat
-                _loginSuccess.value = true
-            } else {
-                _currentUser.value = null
-                _loginSuccess.value = false
-            }
+            _registrationSuccess.value = response.isSuccessful
         }
     }
 
@@ -56,6 +48,26 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         viewModelScope.launch {
             val response = useCases.loginUser(username, password)
             _loginSuccess.value = response.isSuccessful
+            if (response.isSuccessful) {
+
+                val userResponse = useCases.getUser(username)
+                if (userResponse.isSuccessful) {
+                    val user = userResponse.body()
+                    _currentUser.value = user
+                    _loginSuccess.value = true
+                } else {
+                    _currentUser.value = null
+                    _loginSuccess.value = false
+                }
+            }
+            /*if (response.isSuccessful) {
+                val user = response.body()
+                _currentUser.value = user  // Desa l'usuari logejat
+                _loginSuccess.value = true
+            } else {
+                _currentUser.value = null
+                _loginSuccess.value = false
+            }*/
         }
     }
 

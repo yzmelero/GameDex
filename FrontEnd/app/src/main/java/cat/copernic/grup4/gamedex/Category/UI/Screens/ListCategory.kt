@@ -33,10 +33,14 @@ import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedexandroid.Core.Model.Category
 
 @Composable
-fun ListCategoryScreen(navController: NavController) {
+fun ListCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val categoryCases = CategoryCases(CategoryRepository())
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
@@ -96,7 +100,7 @@ fun ListCategoryScreen(navController: NavController) {
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomSection(navController, 0)
+            BottomSection(navController, userViewModel,0)
         }
         FloatingAddButton(navController)
     }
@@ -203,5 +207,7 @@ fun FloatingAddButton(navController: NavController) {
 @Composable
 fun PreviewListCategoryScreen() {
     val fakeNavController = rememberNavController()
-    ListCategoryScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ListCategoryScreen(navController = fakeNavController, userViewModel)
 }
