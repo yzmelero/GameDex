@@ -43,7 +43,7 @@ import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
-import cat.copernic.grup4.gamedexandroid.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
