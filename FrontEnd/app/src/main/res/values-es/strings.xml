@@ -34,5 +34,8 @@
     <string name="category_added">Categoría Creada</string>
     <string name="category_not_created">Error al crear la categoría</string>
     <string name="error_no_image">Error no hay imagen</string>
+    <string name="list_game">Videogames</string>
+    <string name="gameCreated">Videogame created!</string>
+    <string name="gameErrorCreate">Error creating videogame</string>
     <string name="delete_category">delete_category</string>
 </resources>

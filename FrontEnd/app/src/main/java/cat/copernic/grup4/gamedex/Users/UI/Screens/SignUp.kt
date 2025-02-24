@@ -40,6 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
@@ -49,11 +50,7 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import coil.compose.AsyncImage
 
 @Composable
-fun SignUpScreen(navController: NavController) {
-
-    val useCases = UseCases(UserRepository())
-    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-
+fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -257,7 +254,6 @@ fun SignUpScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
-                        //TODO añadir acción de registro
                         onClick = {
                             val newUser = User(
                                 username = username,
@@ -267,6 +263,8 @@ fun SignUpScreen(navController: NavController) {
                                 email = email,
                                 telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
                                 birthDate = birthDate,
+                                userType = UserType.USER,
+                                state = false,
                                 profilePicture = profilePicture
                             )
                             userViewModel.registerUser(newUser)
@@ -337,5 +335,7 @@ fun uriToBase64(context: Context, uri: Uri): String {
 @Composable
 fun PreviewSignUpScreen() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    SignUpScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    SignUpScreen(navController = fakeNavController, userViewModel)
 }
