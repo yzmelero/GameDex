@@ -14,6 +14,8 @@ import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +40,7 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
 fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: UserViewModel) {
+    val currentUser by userViewModel.currentUser.collectAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,8 +58,8 @@ fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: Us
                 .clip(CircleShape)
                 .background(Color.White, shape = CircleShape)
                 .padding(2.dp)
-                .clickable {//TODO añadir redireccion al perfil
-                    }
+                .clickable {navController.navigate("profile/${currentUser?.username}")
+                }
         )
 
         Text(
@@ -81,6 +84,7 @@ fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: Us
 
 @Composable
 fun TopBarImage(navController: NavController, profileImageRes: ImageBitmap?, userViewModel: UserViewModel) {
+    val currentUser by userViewModel.currentUser.collectAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -99,8 +103,7 @@ fun TopBarImage(navController: NavController, profileImageRes: ImageBitmap?, use
                     .clip(CircleShape)
                     .background(Color.White, shape = CircleShape)
                     .padding(2.dp)
-                    .clickable {//TODO añadir redireccion al perfil
-                    }
+                    .clickable {navController.navigate("profile/${currentUser?.username}")}
             )
         }
 
