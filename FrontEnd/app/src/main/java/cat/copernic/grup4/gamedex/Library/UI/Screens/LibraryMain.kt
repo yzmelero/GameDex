@@ -19,28 +19,36 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.Model.Library
 import cat.copernic.grup4.gamedex.Core.Model.StateType
 import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
-import cat.copernic.grup4.gamedex.videogames.ui.screen.HeaderSection
+
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import coil.compose.AsyncImage
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
+import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 
 
 @Composable
-fun Library(library: List<Library>, onDelete: (Videogame) -> Unit) {
+fun Library(navController: NavController, library: List<Library>, userViewModel: UserViewModel, onDelete: (Videogame) -> Unit) {
+    val users by userViewModel.users.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.background))
             .padding(16.dp)
     ) {
-        HeaderSection()
+        header(navController)
 
         Text(
             text = stringResource(R.string.library),
@@ -63,7 +71,7 @@ fun Library(library: List<Library>, onDelete: (Videogame) -> Unit) {
             Icon(Icons.Default.Add, contentDescription = "Add Videogame")
         }
     }
-    BottomSection()
+    BottomSection(navController, userViewModel,4)
 }
 
 @Composable
@@ -95,17 +103,6 @@ fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
     }
 }
 
-@Composable
-fun BottomSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        BottomNavBar(selectedItem = 4, onItemSelected = {})
-    }
-}
 
 @Preview
 @Composable
