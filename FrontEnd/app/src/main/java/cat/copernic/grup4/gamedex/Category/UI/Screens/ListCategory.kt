@@ -38,6 +38,7 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
 fun ListCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -68,7 +69,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TopBar(navController, profileImageRes = R.drawable.user)
+            header(navController)
 
             Spacer(modifier = Modifier.height(16.dp))
 
