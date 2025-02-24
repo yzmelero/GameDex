@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -158,7 +159,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                             color = Color.Black,
                             style = GameDexTypography.bodyLarge,
                             fontSize = 22.sp,
-                            modifier = Modifier.padding(end = 80.dp, bottom = 4.dp)
+                            modifier = Modifier.padding(end = 100.dp, bottom = 4.dp)
                         )
 
 
@@ -171,15 +172,19 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                             onResult = { uri -> selectedImageUri = uri }
                         )
 
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Row {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.padding(start = 50.dp)
+                        ) {
+                            Row (horizontalArrangement = Arrangement.Center){
                                 Spacer(modifier = Modifier.height(4.dp))
                                 if (selectedImageUri == null) {
                                     Image(
                                         painter = painterResource(R.drawable.eldenring),
                                         contentDescription = stringResource(R.string.cover),
                                         modifier = Modifier
-                                            .size(120.dp)
+                                            .size(height = 170.dp, width = 110.dp)
                                             .clickable {
                                                 imagePickerLauncher
                                                     .launch(
@@ -198,7 +203,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                                         model = selectedImageUri,
                                         contentDescription = stringResource(R.string.cover),
                                         contentScale = ContentScale.Crop,
-                                        modifier = Modifier.size(120.dp)
+                                        modifier = Modifier.size(height = 170.dp, width = 110.dp)
                                     )
                                 }
                                 Icon(
@@ -214,7 +219,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                                                     )
                                                 )
                                         }
-                                        .padding(top = 40.dp)
+                                        .padding(start = 10.dp, top = 100.dp)
                                         .background(
                                             colorResource(R.color.header),
                                             shape = RoundedCornerShape(50)
