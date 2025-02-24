@@ -49,21 +49,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.ui.header
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
-fun AddGamesScreen(navController : NavController) {
+fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
 
@@ -88,7 +95,7 @@ fun AddGamesScreen(navController : NavController) {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderSection()
+            header(navController)
 
             AddContentSection(
                 nameGame, { nameGame = it },
@@ -100,7 +107,7 @@ fun AddGamesScreen(navController : NavController) {
             )
 
                 }
-        BottomSection()
+        BottomSection(navController, userViewModel,1)
     }
     LaunchedEffect(createdGameState) {
         createdGameState?.let { success ->
@@ -114,19 +121,6 @@ fun AddGamesScreen(navController : NavController) {
     }
 }
 
-@Composable
-fun HeaderSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.coche)
-
-    }
-}
 
 @Composable
 fun AddContentSection(
@@ -318,21 +312,11 @@ fun ImagePicker() {
 }
 
 
-@Composable
-fun BottomSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        BottomNavBar(selectedItem = 1, onItemSelected = {})
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddGamesScreen() {
     val fakeNavController = rememberNavController()
-    AddGamesScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    AddGamesScreen(navController = fakeNavController, userViewModel)
 }

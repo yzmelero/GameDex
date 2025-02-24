@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -33,6 +34,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,15 +53,22 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-fun ViewGamesScreen(navController: NavController) {
+fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
     /*
     val gameId = remember {
         // Obté la ID del joc dels paràmetres de navegació
@@ -84,10 +95,10 @@ fun ViewGamesScreen(navController: NavController) {
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderSection()
+            header(navController)
             game?.let { GameCard(it) }
         }
-        BottomSection()
+        BottomSection(navController,userViewModel ,1)
     }
 }
 
@@ -352,8 +363,11 @@ fun CommentItem(username: String, comment: String, rating: String) {
 @Composable
 fun PreviewViewGamesScreen() {
     val fakeNavController = rememberNavController()
-    ViewGamesScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
 
+    ViewGamesScreen(navController = fakeNavController, userViewModel)
+    /*
     val fakeGame = Videogame(
         nameGame = "Nombre prueba",
         releaseYear = "2022",
@@ -365,5 +379,5 @@ fun PreviewViewGamesScreen() {
         gameId = "1"
     )
 
-    GameCard(fakeGame)
+    GameCard(fakeGame)*/
 }
