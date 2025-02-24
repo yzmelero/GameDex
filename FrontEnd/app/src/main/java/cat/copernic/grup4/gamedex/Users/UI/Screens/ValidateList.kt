@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -82,7 +83,7 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
         // User List
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(inactiveUsers) { user ->
-                ValidateList(user)
+                ValidateList(user, navController)
             }
         }
 
@@ -98,7 +99,7 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
 }
 
 @Composable
-fun ValidateList(user: User) {
+fun ValidateList(user: User, navController: NavController) {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
     Card(
@@ -132,12 +133,9 @@ fun ValidateList(user: User) {
             Text(user.username, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = {
-                userViewModel.validateUser(user.username)
+                navController.navigate("ValidateView/${user.username}")
             }) {
-                Icon(Icons.Default.ThumbUp, contentDescription = stringResource(R.string.add))
-            }
-            IconButton(onClick = { /* TODO: Remove user action */ }) {
-                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.remove))
+                Icon(Icons.Default.Info, contentDescription = stringResource(R.string.view_user))
             }
         }
     }
