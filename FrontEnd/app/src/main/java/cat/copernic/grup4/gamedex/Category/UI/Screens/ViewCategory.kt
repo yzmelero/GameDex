@@ -31,16 +31,20 @@ import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Core.Model.Category
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+
 
 @Composable
-fun ViewCategoryScreen(navController: NavController) {
+fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
     val categoryId = remember {
         navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
@@ -66,7 +70,7 @@ fun ViewCategoryScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header
-        TopBar(onLogoutClick = {}, profileImageRes = R.drawable.user)
+        header(navController)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -87,7 +91,7 @@ fun ViewCategoryScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavBar(onItemSelected = {})
+        BottomSection(navController, userViewModel,0)
     }
 }
 
@@ -171,5 +175,7 @@ fun DeleteButton(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewViewCategoryScreen() {
     val fakeNavController = rememberNavController()
-    ViewCategoryScreen(navController = fakeNavController)
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ViewCategoryScreen(navController = fakeNavController, userViewModel)
 }
