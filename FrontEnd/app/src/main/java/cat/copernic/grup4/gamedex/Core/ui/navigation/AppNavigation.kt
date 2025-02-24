@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Category.UI.Screens.AddCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
+import cat.copernic.grup4.gamedex.Library.UI.Screens.AddGameToLibraryScreen
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.Screens.LoginScreen
@@ -37,5 +38,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
+        composable("addToLibrary") {AddGameToLibraryScreen(navController, userViewModel)}
     }
 }
