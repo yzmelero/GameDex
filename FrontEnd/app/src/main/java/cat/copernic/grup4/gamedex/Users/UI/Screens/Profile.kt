@@ -2,9 +2,12 @@ package cat.copernic.grup4.gamedex.Users.UI.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
@@ -31,6 +35,7 @@ import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import coil.compose.rememberImagePainter
 
 @Composable
 fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -38,6 +43,9 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
         navController.currentBackStackEntry?.arguments?.getString("username")
     } ?: return // Si no hay ID, salir de la función
     var user by remember { mutableStateOf<User?>(null) }
+    val loggedUser by userViewModel.currentUser.collectAsState()
+
+
 
     LaunchedEffect(username) { // ✅ Llama a la función suspend en una corrutina
         user = userViewModel.getUser(username)
@@ -61,26 +69,47 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Profile Image
-        currentUser?.let {
-            val imageBitmap = currentUser.profilePicture?.let {
-                userViewModel.base64ToBitmap(it)
-            }
+        Box(modifier = Modifier.size(150.dp)) { // 📌 Contenedor para superponer la imagen y el ícono
+            currentUser?.let {
+                val imageBitmap = currentUser.profilePicture?.let {
+                    userViewModel.base64ToBitmap(it)
+                }
 
-            Column {
-                imageBitmap?.let {
-                    Image(
-                        it, contentDescription = stringResource(R.string.profile_picture),
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(320.dp)
-                            .clip(CircleShape)
+                Column {
+                    imageBitmap?.let {
+                        Image(
+                            it, contentDescription = stringResource(R.string.profile_picture),
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(320.dp)
+                                .clip(CircleShape)
+                        )
+                    }
+                }
+
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // 📌 Icono de edición en la esquina izquierda de la imagen
+            if (currentUser?.username == loggedUser?.username || loggedUser?.userType == UserType.ADMIN){
+                IconButton(
+                    onClick = { //TODO navController.navigate("edit_profile")
+                    },
+                    modifier = Modifier
+                        .size(32.dp)
+                        .align(Alignment.BottomEnd) // 📍 Lo posicionamos en la esquina superior izquierda
+                        .background(Color.White, CircleShape)
+                        .padding(4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = stringResource(R.string.edit_profile),
+                        tint = Color.Black
                     )
                 }
             }
-
         }
-        Spacer(modifier = Modifier.height(10.dp))
+
 
         // Username
         Text(
@@ -115,7 +144,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomSection(navController, userViewModel,3)
+        BottomSection(navController, userViewModel, 3)
     }
 }
 
