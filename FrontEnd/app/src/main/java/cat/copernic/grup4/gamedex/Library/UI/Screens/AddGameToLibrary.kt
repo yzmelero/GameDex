@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
@@ -28,6 +30,8 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -45,20 +49,45 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.StateType
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
+import cat.copernic.grup4.gamedex.Library.Data.LibraryRepository
+import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
+import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModel
+import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModelFactory
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedex.Users.UI.Screens.BottomSection
-import cat.copernic.grup4.gamedex.videogames.ui.screen.ConfirmButton
-import cat.copernic.grup4.gamedex.videogames.ui.screen.HeaderSection
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.Screens.UserListScreen
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun AddGameToLibraryScreen() {
+fun AddGameToLibraryScreen(navController: NavController, userViewModel: UserViewModel) {
+    val users by userViewModel.users.collectAsState()
 
     val context = LocalContext.current
+    val libraryViewModel: LibraryViewModel = ViewModelProvider(
+        context as ViewModelStoreOwner,
+        LibraryViewModelFactory.LibraryViewModelFactory(LibraryUseCase(LibraryRepository()))
+    ).get(LibraryViewModel::class.java)
+
+    val message by libraryViewModel.message.collectAsState()
+
+    LaunchedEffect(message) {
+        message?.let { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            libraryViewModel.clearMessage()
+        }
+    }
     var selectedState by remember { mutableStateOf(context.getString(R.string.select)) }
     val stateOptions = listOf(
         context.getString(R.string.finished),
@@ -85,7 +114,7 @@ fun AddGameToLibraryScreen() {
         ) {
 
             Box(modifier = Modifier.fillMaxWidth()) {
-                HeaderSection()
+                header(navController)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -114,8 +143,21 @@ fun AddGameToLibraryScreen() {
                             .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
                             .padding(12.dp)
                     ) {
-                        Text(text = selectedState)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween // Espai entre text i icona
+                        ) {
+                            Text(text = selectedState)
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown, // Icona desplegable
+                                contentDescription = "Dropdown Icon",
+                                modifier = Modifier.size(24.dp),
+                                tint = Color.Gray
+                            )
+                        }
                     }
+
 
                     DropdownMenu(
                         expanded = expanded,
@@ -200,13 +242,17 @@ fun AddGameToLibraryScreen() {
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            BottomSection(4)
+            BottomSection(navController, userViewModel, 4)
         }
     }
+
 }
 
 @Composable
 @Preview
 fun AddGameToLibraryScreenPreview() {
-    AddGameToLibraryScreen()
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    AddGameToLibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
 }
