@@ -51,10 +51,6 @@ import coil.compose.AsyncImage
 
 @Composable
 fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
-
-    val useCases = UseCases(UserRepository())
-    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }

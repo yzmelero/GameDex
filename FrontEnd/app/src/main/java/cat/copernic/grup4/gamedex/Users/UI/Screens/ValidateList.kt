@@ -46,8 +46,6 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun ValidateListScreen(navController: NavController, userViewModel: UserViewModel) {
-    val useCases = UseCases(UserRepository())
-    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
 
     userViewModel.listInactiveUsers()
     val inactiveUsers by userViewModel.inactiveUsers.collectAsState()

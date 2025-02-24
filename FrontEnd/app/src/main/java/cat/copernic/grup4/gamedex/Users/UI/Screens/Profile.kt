@@ -34,9 +34,6 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
 fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
-    val useCases = UseCases(UserRepository())
-    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-
     val username = remember {
         navController.currentBackStackEntry?.arguments?.getString("username")
     } ?: return // Si no hay ID, salir de la función

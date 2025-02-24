@@ -47,9 +47,6 @@ import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
 fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
-    val useCases = UseCases(UserRepository())
-    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-
     val users by userViewModel.users.collectAsState()
 
     Column(
