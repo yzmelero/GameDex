@@ -2,7 +2,6 @@ package cat.copernic.grup4.gamedex.Core.Model
 
 import androidx.annotation.DrawableRes
 import java.time.LocalDate
-package cat.copernic.grup4.gamedex.Core.Model
 
 data class Videogame (
 
