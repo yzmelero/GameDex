@@ -148,15 +148,15 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
         category.forEach { category ->
             CategoryButton(
                 name = category.nameCategory,
-                modifier = Modifier.clickable { navController.navigate("category/${category.nameCategory}")
-            })
+                modifier = Modifier.clickable { //navController.navigate("category/${category.nameCategory}")
+            }, navController)
         }
     }
 }
 
 
 @Composable
-fun CategoryButton(name: String, modifier: Modifier = Modifier) {
+fun CategoryButton(name: String, modifier: Modifier = Modifier, navController: NavController) {
     Card(
         shape = RoundedCornerShape(6.dp), // Forma rectangular amb mínim d'arrodoniment
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
@@ -164,7 +164,7 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(top = 5.dp)
             .height(50.dp)
-            .clickable { /* Acció de selecció */ }
+            .clickable { navController.navigate("category/${name}")  }
     ) {
         Box(
             contentAlignment = Alignment.Center,
