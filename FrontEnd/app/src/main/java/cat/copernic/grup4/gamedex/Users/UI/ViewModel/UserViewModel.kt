@@ -175,7 +175,8 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                 Log.d("RESET_PASSWORD", "Response code: ${response.code()}, Body: ${response.body()}")
 
                 if (response.isSuccessful) {
-                    _resetMessage.value = response.body()
+                    val responseBody = response.body()
+                    _resetMessage.value = responseBody?.get("message") ?: "Unknown response"
                 } else{
                     _resetMessage.value = "User not found. Please check the username and email."
                 }

@@ -1,6 +1,8 @@
 package cat.copernic.gamedex.apiController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,15 +77,22 @@ public class UserApiController {
     }
 
     @PostMapping("/resetPassword")
-    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+    public ResponseEntity<Map<String,String>> resetPassword(@RequestBody ResetPasswordRequest request) {
         boolean isValidUser = userLogic.userExists(request.getUsername(), request.getEmail());
+        Map<String, String> response = new HashMap<>();
+
         if (isValidUser) {
+
             userLogic.updatePassword(request.getUsername(), request.getEmail());
-            return ResponseEntity.ok(
-                    "A default password has been created. IMPORTANT: Change it as soon as you login. Password: 1234");
+            response.put("message", "A default password has been created. IMPORTANT: Change it as soon as you login. Password: 1234");
+            return ResponseEntity.ok(response);
+
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found. Please check the username and email.");
+
+            response.put("error", "User not found. Please check the username and email.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
         }
+
     }
 }

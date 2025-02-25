@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cat.copernic.gamedex.logic.LibraryLogic;
-import cat.copernic.gamedex.logic.VideogameLogic;
 import cat.copernic.gamedex.entity.Library;
 
 @RestController

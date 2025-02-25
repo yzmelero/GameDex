@@ -36,7 +36,7 @@ interface UserApiRest {
     suspend fun validateUser(@Path("userId") userId: String): Response<User>
 
     @POST("user/resetPassword")
-    suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<String>
+    suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<Map<String,String>>
 
 /*
     @Headers("Content-Type: application/json")
