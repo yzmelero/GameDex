@@ -51,12 +51,13 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                 brush = Brush.verticalGradient(
                     colors = listOf(Color(0xFFDBB2FF), Color(0xFFF7E6FF))
                 )
-            ),
+            )
+            .windowInsetsPadding(WindowInsets.systemBars),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         // Header
-        header(navController)
+        header(navController, userViewModel)
 
         Spacer(modifier = Modifier.height(20.dp))
 

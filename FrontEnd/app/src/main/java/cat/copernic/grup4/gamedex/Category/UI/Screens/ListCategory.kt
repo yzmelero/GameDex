@@ -85,7 +85,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
             SearchBar(searchQuery) { searchQuery = it }
 
@@ -165,6 +165,7 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(top = 5.dp)
             .height(50.dp)
+            .clickable { /* Acció de selecció */ }
     ) {
         Box(
             contentAlignment = Alignment.Center,

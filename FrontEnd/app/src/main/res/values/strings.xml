@@ -56,4 +56,11 @@
     <string name="validate_users">Validate Users</string>
     <string name="view_profile">view profile</string>
     <string name="delete_category">delete_category</string>
+    <string name="delete_user">Delete User</string>
+    <string name="validate_user">Validate User</string>
+    <string name="view_user">View User</string>
+    <string name="loading">Loading...</string>
+    <string name="validated">Validated</string>
+    <string name="state">State: %1$s</string>
+    <string name="user_type">User type: %1$s</string>
 </resources>

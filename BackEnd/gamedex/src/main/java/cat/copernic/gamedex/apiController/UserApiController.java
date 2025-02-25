@@ -64,4 +64,11 @@ public class UserApiController {
     public void deleteUser(@PathVariable String userId) {
         userLogic.deleteUser(userId);
     }
+    
+    @PutMapping("/validate/{userId}")
+    public ResponseEntity<User> validateUser(@PathVariable String userId) {
+        log.info("Validating user: " + userId);
+        User validatedUser = userLogic.validateUser(userId);
+        return ResponseEntity.ok(validatedUser);
+    }
 }

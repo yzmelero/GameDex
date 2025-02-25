@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -56,10 +57,11 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
             .background(
                 color = colorResource(id = R.color.background),
             )
-            .navigationBarsPadding(),
+            .navigationBarsPadding()
+            .windowInsetsPadding(WindowInsets.systemBars),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        header(navController)
+        header(navController, userViewModel)
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = stringResource(R.string.validate_users),
@@ -82,7 +84,7 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
         // User List
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(inactiveUsers) { user ->
-                ValidateList(user)
+                ValidateList(user, navController)
             }
         }
 
@@ -98,7 +100,7 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
 }
 
 @Composable
-fun ValidateList(user: User) {
+fun ValidateList(user: User, navController: NavController) {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
     Card(
@@ -131,11 +133,10 @@ fun ValidateList(user: User) {
             Spacer(modifier = Modifier.width(24.dp))
             Text(user.username, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { /* TODO: Validate user */ }) {
-                Icon(Icons.Default.ThumbUp, contentDescription = stringResource(R.string.add))
-            }
-            IconButton(onClick = { /* TODO: Remove user action */ }) {
-                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.remove))
+            IconButton(onClick = {
+                navController.navigate("ValidateView/${user.username}")
+            }) {
+                Icon(Icons.Default.Info, contentDescription = stringResource(R.string.view_user))
             }
         }
     }

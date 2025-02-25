@@ -31,13 +31,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.Screens.SignUpScreen
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
-fun TopBar(navController: NavController, profileImageRes: Int) {
+fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: UserViewModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,6 +76,7 @@ fun TopBar(navController: NavController, profileImageRes: Int) {
             contentDescription = stringResource(R.string.logout),
             Modifier.size(40.dp)
                 .clickable {
+                    userViewModel.logoutUser()
                     navController.navigate("login")
                 }
         )
@@ -80,6 +86,8 @@ fun TopBar(navController: NavController, profileImageRes: Int) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTopBar() {
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
-    TopBar(navController = fakeNavController, profileImageRes = R.drawable.user)
+    TopBar(navController = fakeNavController, profileImageRes = R.drawable.user, userViewModel = userViewModel)
 }
