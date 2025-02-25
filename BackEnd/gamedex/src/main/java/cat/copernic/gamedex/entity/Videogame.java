@@ -35,9 +35,6 @@ public class Videogame {
 
     private String developer;
 
-    @Field(name = "name_category")
-    private String nameCategory;
-
     @DBRef
     private Category category;
 }

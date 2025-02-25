@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,6 +49,18 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         viewModelScope.launch {
             val response = videogameUseCase.getAllVideogames()
             _videogameGetAll.value = response.body() ?: emptyList()
+        }
+    }
+
+    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    val categories: StateFlow<List<Category>> = _categories
+
+    fun getAllCategories() {
+        viewModelScope.launch {
+            val response = videogameUseCase.getAllCategories()
+            if (response.isSuccessful) {
+                _categories.value = response.body() ?: emptyList()
+            }
         }
     }
 
