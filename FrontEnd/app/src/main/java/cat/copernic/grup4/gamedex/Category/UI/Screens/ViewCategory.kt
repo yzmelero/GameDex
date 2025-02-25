@@ -64,7 +64,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
             .verticalScroll(rememberScrollState()), // Habilita el scroll vertical
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        header(navController)
+        header(navController, userViewModel)
 
         Spacer(modifier = Modifier.height(20.dp))
 

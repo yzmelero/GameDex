@@ -74,7 +74,7 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
+            header(navController, userViewModel)
 
             Spacer(modifier = Modifier.height(16.dp))
 

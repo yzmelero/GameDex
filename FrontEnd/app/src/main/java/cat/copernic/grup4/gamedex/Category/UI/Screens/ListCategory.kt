@@ -70,7 +70,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                header(navController)
+                header(navController, userViewModel)
 
                 Spacer(modifier = Modifier.height(16.dp))
 
