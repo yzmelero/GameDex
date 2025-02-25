@@ -87,7 +87,6 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
     LaunchedEffect(Unit) {
         gameViewModel.getAllVideogames()
-        Log.d("DEBUG", "Lista de videojuegos: ${gameViewModel.allVideogame.value}")
     }
 
     // TODO Botó validar videojocs
@@ -119,7 +118,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
-        AddGameButton(onClick = {navController.navigate("")})
+        AddGameButton(navController)
     }
 }
 
@@ -219,7 +218,6 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                     .align(Alignment.CenterVertically)
             ) {
                 IconButton(onClick = {
-                    // TODO comprobar que funciona
                     navController.navigate("viewGame/${videogame.gameId}")
                 }) {
                     Box(
@@ -230,7 +228,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                     ) {
                         Image(
                             painter = painterResource(R.drawable.eye),
-                            contentDescription = stringResource(R.string.add_game),
+                            contentDescription = stringResource(R.string.view_game),
                             modifier = Modifier
                                 .size(38.dp)
                                 .padding(6.dp)
@@ -243,7 +241,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
 
 }
 @Composable
-fun AddGameButton(onClick: () -> Unit) {
+fun AddGameButton(navController: NavController) {
     // TODO acabar de mirar que funcioni Afegir Videogame
     Box(
         modifier = Modifier
@@ -253,7 +251,7 @@ fun AddGameButton(onClick: () -> Unit) {
         contentAlignment = Alignment.BottomEnd
     ) {
         IconButton(
-            onClick = onClick,
+            onClick = {navController.navigate("addGames")},
             modifier = Modifier
                 .size(56.dp)
                 .background(colorResource(R.color.header), shape = RoundedCornerShape(50))

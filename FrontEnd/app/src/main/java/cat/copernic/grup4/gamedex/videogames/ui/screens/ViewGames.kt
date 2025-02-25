@@ -68,13 +68,13 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
 fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
-    /*
+
     val gameId = remember {
         // Obté la ID del joc dels paràmetres de navegació
         navController.currentBackStackEntry?.arguments?.getString("gameId")
-    } ?: return // Si es null, surt */
+    } ?: return // Si es null, surt
 
-    val gameId = "67b6e13cc37b260466e6342c"
+    //val gameId = "67b6e13cc37b260466e6342c"
 
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
