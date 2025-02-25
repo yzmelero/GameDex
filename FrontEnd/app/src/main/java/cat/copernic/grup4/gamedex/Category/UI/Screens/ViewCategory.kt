@@ -3,8 +3,12 @@ package cat.copernic.grup4.gamedex.Category.UI.Screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -39,10 +43,8 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
     val categoryCases = CategoryCases(CategoryRepository())
     val categoryViewModel: CategoryViewModel =
         viewModel(factory = CategoryViewModelFactory(categoryCases))
-    //val categoryViewModel: CategoryViewModel = viewModel()
-    val categoryId = remember {
-        navController.currentBackStackEntry?.arguments?.getString("categoryId")
-    } ?: return
+
+    val categoryId = navController.currentBackStackEntry?.arguments?.getString("categoryId") ?: return
     var category by remember { mutableStateOf<Category?>(null) }
 
     LaunchedEffect(categoryId) {
@@ -58,74 +60,112 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                 brush = Brush.verticalGradient(
                     colors = listOf(Color(0xFFDBB2FF), Color(0xFFF7E6FF))
                 )
-            ),
+            )
+            .verticalScroll(rememberScrollState()), // Habilita el scroll vertical
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Header
         header(navController)
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Category Name
-        currentCategory?.let {
-            Text(
-                categoryId//it.nameCategory
-                , fontSize = 56.sp,
-                style = GameDexTypography.bodyLarge,
-                color = Color.Black
-            )
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // Category Image
-        currentCategory?.let {
-            val imageBitmap = currentCategory.categoryPhoto?.let {
-                userViewModel.base64ToBitmap(it)
-            }
-
-            Column {
-                imageBitmap?.let {
-                    Image(
-                        it, contentDescription = stringResource(R.string.profile_picture),
-                        contentScale = ContentScale.Crop,
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            ) {
+                Box {
+                    Column(
                         modifier = Modifier
-                            .size(320.dp)
-                            .clip(CircleShape)
-                    )
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        // Nombre de la categoría
+                        currentCategory?.let {
+                            Text(
+                                it.nameCategory,
+                                fontSize = 32.sp,
+                                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                                style = GameDexTypography.bodyLarge,
+                                color = Color.Black
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        // Imagen de la categoría
+                        currentCategory?.let {
+                            val imageBitmap = it.categoryPhoto?.let { userViewModel.base64ToBitmap(it) }
+                            imageBitmap?.let { bitmap ->
+                                Image(
+                                    bitmap,
+                                    contentDescription = stringResource(R.string.profile_picture),
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(200.dp)
+                                        .clip(CircleShape)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        // Descripción
+                        currentCategory?.let {
+                            Text(
+                                it.description,
+                                fontSize = 18.sp,
+                                style = GameDexTypography.bodyLarge,
+                                color = Color.Gray
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        // Botón de Modificar
+                        Button(
+                            onClick = { navController.navigate("list_category") },
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                stringResource(R.string.modify),
+                                color = Color.White,
+                                fontSize = 18.sp,
+                                style = GameDexTypography.bodyLarge
+                            )
+                        }
+                    }
+
+                    // Botón de Eliminar en la esquina superior derecha
+                    IconButton(
+                        onClick = {
+                            //categoryViewModel.deleteCategory(categoryId)
+                            //navController.popBackStack()
+                        },
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(12.dp)
+                            .background(Color.Red, shape = CircleShape)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Eliminar",
+                            tint = Color.White,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                 }
             }
-
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // Category Description
-        currentCategory?.let {
-            Text(
-                it.description, fontSize = 20.sp,
-                style = GameDexTypography.bodyLarge,
-                color = Color.Gray
-            )
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // Modify Button
-        Button(
-            onClick = { navController.navigate("list_category") },
-            shape = RoundedCornerShape(20.dp)
-        ) {
-            Text(
-                stringResource(R.string.modify),
-                color = Color.White, fontSize = 18.sp,
-                style = GameDexTypography.bodyLarge
-            )
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomSection(navController, userViewModel, 3)
+        BottomSection(navController, userViewModel, 0)
     }
 }
 
@@ -137,4 +177,3 @@ fun CategoryScreenPreview() {
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
     ViewCategoryScreen(navController = fakeNavController, userViewModel)
 }
-
