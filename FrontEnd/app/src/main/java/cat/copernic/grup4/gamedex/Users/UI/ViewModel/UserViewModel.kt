@@ -11,10 +11,12 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -36,6 +38,10 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
 
     private val _currentUser = MutableStateFlow<User?>(null)
     val currentUser: StateFlow<User?> get() = _currentUser
+
+    private val repository = UserRepository()
+    private val _resetMessage = MutableStateFlow<String?>(null)
+    val resetMessage: StateFlow<String?> = _resetMessage
 
     fun registerUser(user: User) {
         viewModelScope.launch {
@@ -158,6 +164,25 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             val response = useCases.validateUser(userId)
             if (response.isSuccessful) {
                 listInactiveUsers()
+            }
+        }
+    }
+//TODO STRINGS
+    fun resetPassword(username: String, email: String) {
+        viewModelScope.launch{
+            try{
+                val response = repository.resetPassword(username, email)
+                Log.d("RESET_PASSWORD", "Response code: ${response.code()}, Body: ${response.body()}")
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    _resetMessage.value = responseBody?.get("message") ?: "Unknown response"
+                } else{
+                    _resetMessage.value = "User not found. Please check the username and email."
+                }
+            } catch (e: Exception){
+                Log.e("RESET_PASSWORD", "Error: ${e.message}")
+                _resetMessage.value = "Error connecting to the server."
             }
         }
     }

@@ -166,7 +166,7 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                 }
 
                 TextButton(onClick = {
-                    // Acción de olvidar la contraseña
+                    navController.navigate("resetPassword")
                 }) {
                     Text(
                         text = stringResource(R.string.forgot_password),
