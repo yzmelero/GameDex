@@ -162,12 +162,18 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
-    fun updateUser(user: User) {
+    fun updateUser(updatedUser: User, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            val response = useCases.updateUser(user)
-            if (response.isSuccessful) {
-                listUsers()
-                getUser(user.username)
+            try {
+                val response = useCases.updateUser(updatedUser)
+                if (response.isSuccessful) {
+                    _currentUser.value = updatedUser
+                    onResult(true)
+                } else {
+                    onResult(false)
+                }
+            } catch (e: Exception) {
+                onResult(false)
             }
         }
     }

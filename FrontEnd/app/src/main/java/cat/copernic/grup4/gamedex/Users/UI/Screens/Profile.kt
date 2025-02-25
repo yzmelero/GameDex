@@ -93,7 +93,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
             // 📌 Icono de edición en la esquina izquierda de la imagen
             if (currentUser?.username == loggedUser?.username || loggedUser?.userType == UserType.ADMIN){
                 IconButton(
-                    onClick = { navController.navigate("edit_profile/$username")
+                    onClick = { navController.navigate("edit_profile/${currentUser?.username}")
                     },
                     modifier = Modifier
                         .size(32.dp)
