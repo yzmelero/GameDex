@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
@@ -52,6 +54,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
     }
 
     val currentCategory = category
+    val currentUser = userViewModel.currentUser.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -61,17 +64,17 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                     colors = listOf(Color(0xFFDBB2FF), Color(0xFFF7E6FF))
                 )
             )
-            .verticalScroll(rememberScrollState()), // Habilita el scroll vertical
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         header(navController, userViewModel)
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .padding(16.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -81,10 +84,9 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                     Column(
                         modifier = Modifier
                             .padding(16.dp)
-                            .fillMaxWidth(),
+                            .fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        // Nombre de la categoría
                         currentCategory?.let {
                             Text(
                                 it.nameCategory,
@@ -97,13 +99,12 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        // Imagen de la categoría
                         currentCategory?.let {
                             val imageBitmap = it.categoryPhoto?.let { userViewModel.base64ToBitmap(it) }
                             imageBitmap?.let { bitmap ->
                                 Image(
                                     bitmap,
-                                    contentDescription = stringResource(R.string.profile_picture),
+                                    contentDescription = stringResource(R.string.photo_category),
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier
                                         .size(200.dp)
@@ -114,7 +115,6 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        // Descripción
                         currentCategory?.let {
                             Text(
                                 it.description,
@@ -124,40 +124,41 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.weight(1f))
 
-                        // Botón de Modificar
-                        Button(
-                            onClick = { navController.navigate("list_category") },
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(
-                                stringResource(R.string.modify),
-                                color = Color.White,
-                                fontSize = 18.sp,
-                                style = GameDexTypography.bodyLarge
-                            )
+                        if (currentUser?.userType == UserType.ADMIN) {
+                            Button(
+                                onClick = { navController.navigate("list_category") },
+                                colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    stringResource(R.string.modify),
+                                    fontSize = 18.sp,
+                                    style = GameDexTypography.bodyLarge
+                                )
+                            }
                         }
                     }
 
-                    // Botón de Eliminar en la esquina superior derecha
-                    IconButton(
-                        onClick = {
-                            //categoryViewModel.deleteCategory(categoryId)
-                            //navController.popBackStack()
-                        },
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .padding(12.dp)
-                            .background(Color.Red, shape = CircleShape)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Eliminar",
-                            tint = Color.White,
-                            modifier = Modifier.size(32.dp)
-                        )
+                    if (currentUser?.userType == UserType.ADMIN) {
+                        IconButton(
+                            onClick = {
+                                //categoryViewModel.deleteCategory(categoryId)
+                                //navController.popBackStack()
+                            },
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(12.dp)
+                                .background(Color.Red, shape = CircleShape)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = stringResource(R.string.delete_category),
+                                modifier = Modifier.size(32.dp)
+                            )
+                        }
                     }
                 }
             }

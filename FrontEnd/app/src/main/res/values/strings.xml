@@ -63,4 +63,5 @@
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
+    <string name="photo_category">photo_category</string>
 </resources>

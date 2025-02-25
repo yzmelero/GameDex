@@ -165,7 +165,6 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(top = 5.dp)
             .height(50.dp)
-            .clickable { /* Acció de selecció */ }
     ) {
         Box(
             contentAlignment = Alignment.Center,
