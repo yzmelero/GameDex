@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Library {
 
     @Id
-    @Field(name = "idlibrary")
+    @Field(name = "idLibrary")
     private String idLibrary;
 
     private StateType state;
