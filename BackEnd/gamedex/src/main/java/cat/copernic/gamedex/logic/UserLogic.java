@@ -85,19 +85,19 @@ public class UserLogic {
             } else {
                 User newUser = oldUser.get();
 
-                if (user.getPassword() != newUser.getPassword()) {
+                if ((user.getPassword() != newUser.getPassword()) && !user.getPassword().isEmpty()) {
                     newUser.setPassword(user.getPassword());
                 }
 
-                if (user.getName() != newUser.getName()) {
+                if ((user.getName() != newUser.getName()) && !user.getName().isEmpty()) {
                     newUser.setName(user.getName());
                 }
 
-                if (user.getSurname() != newUser.getSurname()) {
+                if ((user.getSurname() != newUser.getSurname()) && !user.getSurname().isEmpty()) {
                     newUser.setSurname(user.getSurname());
                 }
 
-                if (!user.getEmail().equals(newUser.getEmail())) {
+                if ((!user.getEmail().equals(newUser.getEmail())) && !user.getEmail().isEmpty()) {
                     Optional<User> emailUser = userRepository.findByEmail(user.getEmail());
                     if (emailUser.isPresent() && !emailUser.get().getUsername().equals(user.getUsername())) {
                         throw new RuntimeException("Email already exists");
@@ -105,7 +105,7 @@ public class UserLogic {
                     newUser.setEmail(user.getEmail());
                 }
 
-                if (user.getTelephone() != newUser.getTelephone()) {
+                if ((user.getTelephone() != newUser.getTelephone()) && user.getTelephone() != 0) {
                     Optional<User> telephoneUser = userRepository.findByTelephone(user.getTelephone());
                     if (telephoneUser.isPresent() && !telephoneUser.get().getUsername().equals(user.getUsername())) {
                         throw new RuntimeException("Telephone already exists");
@@ -113,11 +113,11 @@ public class UserLogic {
                     newUser.setTelephone(user.getTelephone());
                 }
 
-                if (user.getBirthDate() != newUser.getBirthDate()) {
+                if ((user.getBirthDate() != newUser.getBirthDate()) && user.getBirthDate() != null) {
                     newUser.setBirthDate(user.getBirthDate());
                 }
 
-                if (user.getProfilePicture() != newUser.getProfilePicture()) {
+                if ((user.getProfilePicture() != newUser.getProfilePicture()) && user.getProfilePicture() != null) {
                     newUser.setProfilePicture(user.getProfilePicture());
                 }
 
