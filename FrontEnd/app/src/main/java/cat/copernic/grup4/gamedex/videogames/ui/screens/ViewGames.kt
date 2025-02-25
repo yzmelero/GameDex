@@ -94,7 +94,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
+            header(navController, userViewModel)
             game?.let { GameCard(it) }
         }
         BottomSection(navController,userViewModel ,1)

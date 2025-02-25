@@ -176,4 +176,20 @@ public class UserLogic {
         }
     }
 
+    public User validateUser(String userId) {
+        try {
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isEmpty()) {
+                throw new RuntimeException("User not found");
+            }
+            User user = userOptional.get();
+            user.setState(true);
+            return userRepository.save(user);
+        }catch (RuntimeException e) {
+            throw e; 
+        }catch (Exception e) {
+            throw new RuntimeException("Unexpected error validating user");
+        }        
+    }
+
 }

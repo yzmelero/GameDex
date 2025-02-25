@@ -18,6 +18,7 @@ import cat.copernic.grup4.gamedex.videogames.ui.screens.ViewGamesScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.UserListScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ValidateList
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ValidateListScreen
+import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
@@ -37,13 +38,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
-        composable("login") {
-            val userRepository = UserRepository() // Inicialitza UserRepository
-            val useCases = UseCases(userRepository) // Passa'l a UseCases
-            val factory = UserViewModelFactory(useCases) // Crea la Factory
-            val viewModel: UserViewModel = viewModel(factory = factory)
-            LoginScreen(navController, viewModel) }
-        //Home screen / Category main screen
-        //composable("category") { ListCategoryScreen(navController)}
+        composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
     }
 }

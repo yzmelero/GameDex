@@ -112,7 +112,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
+            header(navController, userViewModel)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
