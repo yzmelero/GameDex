@@ -192,4 +192,20 @@ public class UserLogic {
         }        
     }
 
+    public boolean userExists(String username, String email) {
+        return userRepository.findByUsernameAndEmail(username, email).isPresent();
+    }
+
+    public boolean updatePassword(String username, String email) {
+        Optional<User> userFound = userRepository.findByUsername(username);
+        User user = userFound.get();
+        if (user != null) {
+            String newPassword = "1234";
+            String hashedPassword = passwordEncoder.encode(newPassword);
+            user.setPassword(hashedPassword);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }
