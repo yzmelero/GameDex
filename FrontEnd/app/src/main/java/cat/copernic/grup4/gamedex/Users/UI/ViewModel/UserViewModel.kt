@@ -161,4 +161,14 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             }
         }
     }
+
+    fun updateUser(user: User) {
+        viewModelScope.launch {
+            val response = useCases.updateUser(user)
+            if (response.isSuccessful) {
+                listUsers()
+                getUser(user.username)
+            }
+        }
+    }
 }

@@ -10,6 +10,7 @@ import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.Screens.EditProfileScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.LoginScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ProfileScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.SignUpScreen
@@ -39,5 +40,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
         composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
+        composable("edit_profile/{username}") { EditProfileScreen(navController, userViewModel) }
     }
 }

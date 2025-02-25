@@ -48,7 +48,7 @@ public class UserApiController {
         return userLogic.getUserById(userId);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{userId}")
     public User updateUser(@RequestBody User user) {
         return userLogic.modifyUser(user);
     }

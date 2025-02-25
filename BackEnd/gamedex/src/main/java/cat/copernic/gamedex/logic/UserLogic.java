@@ -97,11 +97,19 @@ public class UserLogic {
                     newUser.setSurname(user.getSurname());
                 }
 
-                if (user.getEmail() != newUser.getEmail()) {
+                if (!user.getEmail().equals(newUser.getEmail())) {
+                    Optional<User> emailUser = userRepository.findByEmail(user.getEmail());
+                    if (emailUser.isPresent() && !emailUser.get().getUsername().equals(user.getUsername())) {
+                        throw new RuntimeException("Email already exists");
+                    }
                     newUser.setEmail(user.getEmail());
                 }
 
                 if (user.getTelephone() != newUser.getTelephone()) {
+                    Optional<User> telephoneUser = userRepository.findByTelephone(user.getTelephone());
+                    if (telephoneUser.isPresent() && !telephoneUser.get().getUsername().equals(user.getUsername())) {
+                        throw new RuntimeException("Telephone already exists");
+                    }
                     newUser.setTelephone(user.getTelephone());
                 }
 
@@ -113,13 +121,6 @@ public class UserLogic {
                     newUser.setProfilePicture(user.getProfilePicture());
                 }
 
-                if (user.getState() != newUser.getState()) {
-                    newUser.setState(user.getState());
-                }
-
-                if (user.getUserType() != newUser.getUserType()) {
-                    newUser.setUserType(user.getUserType());
-                }
 
                 return userRepository.save(newUser);
             }

@@ -34,4 +34,8 @@ class UserRepository {
         return RetrofitInstance.api.validateUser(userId);
     }
 
+    suspend fun  updateUser(user: User): Response<User>{
+        return RetrofitInstance.api.updateUser(user);
+    }
+
 }
