@@ -14,7 +14,7 @@ interface CategoryApiRest {
     @GET("category/all")
     suspend fun getAllCategory(): Response<List<Category>>
 
-    @GET("category/{categoryId}")
+    @GET("category/get/{categoryId}")
     suspend fun getCategoryById(@Path("categoryId") categoryId: String): Response<Category>
 
 }

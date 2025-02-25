@@ -20,12 +20,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
+import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
+import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
@@ -33,8 +36,10 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
 fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
-
-    val categoryViewModel: CategoryViewModel = viewModel()
+    val categoryCases = CategoryCases(CategoryRepository())
+    val categoryViewModel: CategoryViewModel =
+        viewModel(factory = CategoryViewModelFactory(categoryCases))
+    //val categoryViewModel: CategoryViewModel = viewModel()
     val categoryId = remember {
         navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
@@ -64,7 +69,8 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
         // Category Name
         currentCategory?.let {
             Text(
-                it.nameCategory, fontSize = 56.sp,
+                categoryId//it.nameCategory
+                , fontSize = 56.sp,
                 style = GameDexTypography.bodyLarge,
                 color = Color.Black
             )

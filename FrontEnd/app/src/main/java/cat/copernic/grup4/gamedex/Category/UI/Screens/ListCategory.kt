@@ -44,7 +44,8 @@ import cat.copernic.grup4.gamedex.Core.ui.header
 fun ListCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val categoryCases = CategoryCases(CategoryRepository())
-    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+    val categoryViewModel: CategoryViewModel =
+        viewModel(factory = CategoryViewModelFactory(categoryCases))
 
     var searchQuery by remember { mutableStateOf("") }
     val category by categoryViewModel.category.collectAsState()
@@ -55,53 +56,53 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(R.color.background))
-            .windowInsetsPadding(WindowInsets.systemBars),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .fillMaxSize()
+                .background(colorResource(R.color.background))
+                .windowInsetsPadding(WindowInsets.systemBars),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(R.string.category),
-                fontSize = 24.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-
+            Column(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-            )
+                    .fillMaxWidth()
+                    .navigationBarsPadding(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                header(navController)
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = stringResource(R.string.category),
+                    fontSize = 24.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            SearchBar(searchQuery) { searchQuery = it }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            CategoriesGrid(category, navController)
+
+            Spacer(modifier = Modifier.weight(1f))
+
         }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        SearchBar(searchQuery) { searchQuery = it }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        CategoriesGrid(category, navController)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-    }
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomSection(navController, userViewModel,0)
+            BottomSection(navController, userViewModel, 0)
         }
         FloatingAddButton(navController)
     }
@@ -148,14 +149,15 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
         category.forEach { category ->
             CategoryButton(
                 name = category.nameCategory,
-                modifier = Modifier.clickable {"category/${category.nameCategory}"}, navController)
+                modifier = Modifier.clickable {
+                    navController.navigate("view_category/${category.nameCategory}") })
         }
     }
 }
 
 
 @Composable
-fun CategoryButton(name: String, modifier: Modifier = Modifier, navController: NavController) {
+fun CategoryButton(name: String, modifier: Modifier = Modifier) {
     Card(
         shape = RoundedCornerShape(6.dp), // Forma rectangular amb mínim d'arrodoniment
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
