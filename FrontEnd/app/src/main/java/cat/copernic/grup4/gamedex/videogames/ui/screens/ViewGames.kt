@@ -189,7 +189,7 @@ fun GameCard(videogame : Videogame) {
                             style = GameDexTypography.bodyLarge
                         )
                         Text(
-                            text = ": ${videogame.nameCategory}",
+                            text = ": ${videogame.category}",
                             fontSize = 18.sp,
                             style = GameDexTypography.bodyLarge
                         )

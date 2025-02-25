@@ -158,7 +158,10 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         CategoryDropdown(
                             categories = categories,
                             selectedCategory = selectedCategory,
-                            onCategorySelected = { selectedCategory = it }
+                            onCategorySelected = {
+                                selectedCategory = it
+                                Log.d("AddGamesScreen", "Categoría seleccionada: ${it.nameCategory}")
+                            }
                         )
                         InputField(
                             label = stringResource(R.string.description),
@@ -254,11 +257,13 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                                         releaseYear = releaseYear,
                                         ageRecommendation = ageRecommendation,
                                         developer = developer,
-                                        nameCategory = selectedCategory!!,
+                                        category = selectedCategory!!.nameCategory,
                                         descriptionGame = descriptionGame,
                                         gamePhoto = gamePhoto
                                     )
+                                    Log.d("AddGamesScreen", "Datos del nuevo juego: Name: $nameGame, Year: $releaseYear, Age: $ageRecommendation, Developer: $developer, Category: ${selectedCategory?.nameCategory}, Description: $descriptionGame")
                                     gameViewModel.createVideogame(newGame)
+
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
@@ -333,7 +338,6 @@ fun CategoryDropdown(
 ) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
-    //var selectedText by remember { mutableStateOf(selectedCategory?.nameCategory ?: context.getString(R.string.selectCategory)) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -369,8 +373,6 @@ fun CategoryDropdown(
                     DropdownMenuItem(
                         text = { Text(category.nameCategory) },
                         onClick = {
-                            Log.d("CategoryDropdown", "Categoría seleccionada: ${category.nameCategory}")
-                            //selectedText = category.nameCategory
                             onCategorySelected(category)
                             expanded = false
                         }

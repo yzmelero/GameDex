@@ -205,7 +205,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = videogame.nameCategory.toString(),
+                    text = videogame.category.toString(),
                     fontSize = 26.sp,
                     color = Color.DarkGray,
                     style = GameDexTypography.bodyLarge

@@ -34,7 +34,7 @@ public class Videogame {
 
     private String developer;
 
-    @Field(name = "category")
+    @Field(name = "name_category")
     private String category;
 
 }
