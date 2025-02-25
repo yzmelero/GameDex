@@ -155,20 +155,35 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                     }
 
                     if (currentUser?.userType == UserType.ADMIN) {
+                        var showDialog by remember { mutableStateOf(false) }
+
                         IconButton(
-                            onClick = {
-                                categoryViewModel.deleteCategory(currentCategory?.nameCategory ?: "")
-                                navController.popBackStack()
-                            },
+                            onClick = { showDialog = true },
                             modifier = Modifier
                                 .align(Alignment.TopEnd)
                                 .padding(12.dp)
                                 .background(Color.Red, shape = CircleShape)
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(R.string.delete_category),
-                                modifier = Modifier.size(32.dp)
+                            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_category), tint = Color.White)
+                        }
+
+                        if (showDialog) {
+                            AlertDialog(
+                                onDismissRequest = { showDialog = false },
+                                title = { Text(stringResource(R.string.confirm_delete)) },
+                                text = { Text(stringResource(R.string.delete_question)) },
+                                confirmButton = {
+                                    TextButton(onClick = {
+                                        categoryViewModel.deleteCategory(currentCategory?.nameCategory ?: "")
+                                        showDialog = false
+                                        navController.popBackStack()
+                                    }) {
+                                        Text(stringResource(R.string.delete), color = Color.Red)
+                                    }
+                                },
+                                dismissButton = {
+                                    TextButton(onClick = { showDialog = false }) { Text(stringResource(R.string.cancel)) }
+                                }
                             )
                         }
                     }
