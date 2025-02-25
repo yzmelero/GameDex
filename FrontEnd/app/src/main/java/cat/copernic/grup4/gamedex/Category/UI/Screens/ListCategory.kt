@@ -148,8 +148,7 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
         category.forEach { category ->
             CategoryButton(
                 name = category.nameCategory,
-                modifier = Modifier.clickable { //navController.navigate("category/${category.nameCategory}")
-            }, navController)
+                modifier = Modifier.clickable {"category/${category.nameCategory}"}, navController)
         }
     }
 }
@@ -164,7 +163,6 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier, navController: N
         modifier = modifier
             .padding(top = 5.dp)
             .height(50.dp)
-            .clickable { navController.navigate("category/${name}")  }
     ) {
         Box(
             contentAlignment = Alignment.Center,
