@@ -48,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -77,6 +78,8 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 
 @Composable
 fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel) {
@@ -114,7 +117,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            VideogamesGrid(videogame, navController)
+            VideogamesGrid(videogame, navController, gameViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
@@ -155,7 +158,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 
 
 @Composable
-fun VideogamesGrid(videogame: List<Videogame>, navController: NavController) {
+fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gameViewModel: GameViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -164,13 +167,13 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         videogame.forEach { game ->
-            GameItem(videogame = game, navController = navController)
+            GameItem(videogame = game, navController = navController, gameViewModel = gameViewModel)
         }
     }
 }
 
 @Composable
-fun GameItem(videogame: Videogame, navController: NavController) {
+fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: GameViewModel) {
     Card(
         shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
@@ -184,14 +187,22 @@ fun GameItem(videogame: Videogame, navController: NavController) {
             modifier = Modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(R.drawable.eldenring),
-                contentDescription = videogame.nameGame,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(6.dp)),
-                contentScale = ContentScale.Crop
-            )
+            val imageBitmap = remember(videogame.gamePhoto) {
+                videogame.gamePhoto?.let { base64 ->
+                    gameViewModel.base64ToBitmap(base64)
+                }
+            }
+
+            imageBitmap?.let {
+                Image(
+                    it,
+                    contentDescription = videogame.nameGame,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(6.dp)),
+                    contentScale = ContentScale.Crop
+                )
+            }
             Spacer(modifier = Modifier.padding(8.dp))
             Column(
                 modifier = Modifier.weight(1f)
@@ -204,7 +215,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = videogame.category.toString(),
+                    text = videogame.category,
                     fontSize = 26.sp,
                     color = Color.DarkGray,
                     style = GameDexTypography.bodyLarge
@@ -242,7 +253,6 @@ fun GameItem(videogame: Videogame, navController: NavController) {
 }
 @Composable
 fun AddGameButton(navController: NavController) {
-    // TODO acabar de mirar que funcioni Afegir Videogame
     Box(
         modifier = Modifier
             .fillMaxSize()
