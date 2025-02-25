@@ -2,6 +2,7 @@ package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -243,20 +244,21 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         Spacer(modifier = Modifier.height(20.dp))
                         Button(
                             onClick = {
-                                if (selectedCategory != null) {
+                                if (selectedCategory == null) {
+                                    Toast.makeText(context, "Please select a category", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Log.d("AddGamesScreen", "Categoría seleccionada: ${selectedCategory?.nameCategory}")
                                     val newGame = Videogame(
                                         gameId = "",
                                         nameGame = nameGame,
                                         releaseYear = releaseYear,
                                         ageRecommendation = ageRecommendation,
                                         developer = developer,
-                                        nameCategory = selectedCategory ?: Category("",""),
+                                        nameCategory = selectedCategory!!,
                                         descriptionGame = descriptionGame,
                                         gamePhoto = gamePhoto
                                     )
                                     gameViewModel.createVideogame(newGame)
-                                } else {
-                                    Toast.makeText(context, "Please select a category", Toast.LENGTH_SHORT).show()
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
@@ -331,7 +333,7 @@ fun CategoryDropdown(
 ) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(selectedCategory?.nameCategory ?: context.getString(R.string.selectCategory)) }
+    //var selectedText by remember { mutableStateOf(selectedCategory?.nameCategory ?: context.getString(R.string.selectCategory)) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -349,7 +351,7 @@ fun CategoryDropdown(
             onExpandedChange = { expanded = !expanded }
         ) {
             TextField(
-                value = selectedText,
+                value = selectedCategory?.nameCategory ?: context.getString(R.string.selectCategory),
                 onValueChange = {},
                 readOnly = true,
                 modifier = Modifier
@@ -367,7 +369,8 @@ fun CategoryDropdown(
                     DropdownMenuItem(
                         text = { Text(category.nameCategory) },
                         onClick = {
-                            selectedText = category.nameCategory
+                            Log.d("CategoryDropdown", "Categoría seleccionada: ${category.nameCategory}")
+                            //selectedText = category.nameCategory
                             onCategorySelected(category)
                             expanded = false
                         }
