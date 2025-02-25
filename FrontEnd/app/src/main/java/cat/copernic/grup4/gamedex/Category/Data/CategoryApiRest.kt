@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface CategoryApiRest {
     @POST("category/create")
@@ -12,5 +13,8 @@ interface CategoryApiRest {
 
     @GET("category/all")
     suspend fun getAllCategory(): Response<List<Category>>
+
+    @GET("category/get/{categoryId}")
+    suspend fun getCategoryById(@Path("categoryId") categoryId: String): Response<Category>
 
 }

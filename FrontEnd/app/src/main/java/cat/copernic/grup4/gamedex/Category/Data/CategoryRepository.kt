@@ -9,6 +9,8 @@ class CategoryRepository {
     }
     suspend fun getAllCategory(): Response<List<Category>> {
         return RetrofitInstance.api.getAllCategory()
-
+    }
+    suspend fun getCategoryById(categoryId: String): Response<Category> {
+        return RetrofitInstance.api.getCategoryById(categoryId)
     }
 }
