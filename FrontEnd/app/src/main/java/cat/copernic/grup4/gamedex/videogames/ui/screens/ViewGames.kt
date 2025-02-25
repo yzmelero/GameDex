@@ -51,7 +51,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.R
@@ -98,14 +97,14 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController)
-            game?.let { GameCard(it) }
+            game?.let { GameCard(it,navController) }
         }
         BottomSection(navController,userViewModel ,1)
     }
 }
 
 @Composable
-fun GameCard(videogame : Videogame) {
+fun GameCard(videogame : Videogame, navController: NavController) {
     Column ( modifier = Modifier
         .fillMaxSize()
         .background(colorResource(R.color.background))
@@ -128,6 +127,9 @@ fun GameCard(videogame : Videogame) {
                     contentDescription = stringResource(R.string.addgame_library),
                     modifier = Modifier.size(30.dp)
                         .background(Color.Magenta, shape = RoundedCornerShape(24))
+                        .clickable {
+                            navController.navigate("addToLibrary")
+                        }
                 )
             }
             Row(verticalAlignment = Alignment.Top) {

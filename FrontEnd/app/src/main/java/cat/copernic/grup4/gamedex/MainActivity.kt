@@ -24,8 +24,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            //AppNavigation()
-            AddGameToLibraryScreen()
             val useCases = UseCases(UserRepository())
             val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
             AppNavigation(userViewModel)
