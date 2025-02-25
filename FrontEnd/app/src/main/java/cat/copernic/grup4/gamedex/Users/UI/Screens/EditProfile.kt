@@ -1,12 +1,6 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.navigation.NavController
 import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +8,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 
@@ -32,12 +30,8 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel = viewModel()) {
     val currentUser by userViewModel.currentUser.collectAsState()
     var username by remember { mutableStateOf(currentUser?.username ?: "") }
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+    var profileImageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
-    val imagePickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = { uri -> selectedImageUri = uri }
-    )
 
     Column(
         modifier = Modifier
@@ -51,13 +45,7 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
         Box(
             modifier = Modifier
                 .size(120.dp)
-                .clickable { imagePickerLauncher
-                    .launch(
-                        PickVisualMediaRequest(
-                            ActivityResultContracts
-                                .PickVisualMedia.ImageOnly
-                        )
-                    ) },
+                .clickable { /* TODO: Abrir selector de imágenes */ },
             contentAlignment = Alignment.Center
         ) {
             Image(
