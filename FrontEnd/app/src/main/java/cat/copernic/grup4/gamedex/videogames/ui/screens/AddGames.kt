@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -129,28 +128,29 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         InputField(
-                            label = stringResource(id = R.string.game_name),
+                            label = stringResource(R.string.game_name),
                             value = nameGame
                         ) { nameGame = it }
                         InputField(
-                            label = stringResource(id = R.string.release_year),
+                            label = stringResource(R.string.release_year),
                             value = releaseYear,
                             keyboardType = KeyboardType.Number
                         ) { releaseYear = it }
                         InputField(
-                            label = stringResource(id = R.string.age_recommendation),
+                            label = stringResource(R.string.age_recommendation),
                             value = ageRecommendation
                         ) { ageRecommendation = it }
                         InputField(
-                            label = stringResource(id = R.string.developer),
+                            label = stringResource(R.string.developer),
                             value = developer
                         ) { developer = it }
                         InputField(
-                            label = stringResource(id = R.string.category),
+                            // TODO Fer un desplegable de Category
+                            label = stringResource(R.string.category),
                             value = nameCategory
                         ) { nameCategory = it }
                         InputField(
-                            label = stringResource(id = R.string.description),
+                            label = stringResource(R.string.description),
                             value = descriptionGame
                         ) { descriptionGame = it }
 
