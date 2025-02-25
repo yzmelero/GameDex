@@ -34,6 +34,9 @@ interface UserApiRest {
      @PUT("user/validate/{userId}")
     suspend fun validateUser(@Path("userId") userId: String): Response<User>
 
+    @DELETE("user/delete/{userId}")
+    suspend fun deleteUser(@Path("userId") userId: String): Response<Void>
+
 /*
     @Headers("Content-Type: application/json")
     @POST("user/create")

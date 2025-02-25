@@ -34,4 +34,8 @@ class UserRepository {
         return RetrofitInstance.api.validateUser(userId);
     }
 
+    suspend fun deleteUser(userId: String): Response<Void>{
+        return RetrofitInstance.api.deleteUser(userId);
+    }
+
 }

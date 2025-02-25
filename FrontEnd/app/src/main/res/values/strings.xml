@@ -62,4 +62,8 @@
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
+    <string name="delete_question">do you want to delete?</string>
+    <string name="confirm_delete">confirm delete</string>
+    <string name="delete">delete</string>
+    <string name="cancel">cancel</string>
 </resources>
