@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -77,11 +78,11 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
     //val gameId = "67b6e13cc37b260466e6342c"
 
     val videogameUseCase = VideogameUseCase(VideogameRepository())
-    val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
-    val game by viewModel.gameById.collectAsState()
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+    val game by gameViewModel.gameById.collectAsState()
 
     LaunchedEffect(gameId) {
-        viewModel.videogamesById(gameId)
+        gameViewModel.videogamesById(gameId)
     }
 
     Box(
@@ -95,14 +96,14 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it) }
+            game?.let { GameCard(it, gameViewModel) }
         }
         BottomSection(navController,userViewModel ,1)
     }
 }
 
 @Composable
-fun GameCard(videogame : Videogame) {
+fun GameCard(videogame : Videogame, gameViewModel: GameViewModel) {
     Column ( modifier = Modifier
         .fillMaxSize()
         .background(colorResource(R.color.background))
@@ -129,11 +130,19 @@ fun GameCard(videogame : Videogame) {
                 )
             }
             Row(verticalAlignment = Alignment.Top) {
+                val imageBitmap = remember(videogame.gamePhoto) {
+                    videogame.gamePhoto?.let { base64 ->
+                        gameViewModel.base64ToBitmap(base64)
+                    }
+                }
+
+                imageBitmap?.let {
                 Image(
-                    painter = painterResource(R.drawable.eldenring),
+                    it,
                     contentDescription = stringResource(R.string.cover),
-                    modifier = Modifier.size(180.dp)
+                    modifier = Modifier.size(height = 210.dp, width = 180.dp)
                 )
+            }
                 Column {
                     Text(
                         text = videogame.nameGame,
