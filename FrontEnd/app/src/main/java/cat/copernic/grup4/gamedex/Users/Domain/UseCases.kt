@@ -17,5 +17,7 @@ class UseCases(private val repository: UserRepository) {
     suspend fun getUser(username: String) = repository.getUser(username)
 
     suspend fun validateUser(userId: String) = repository.validateUser(userId)
+
+    suspend fun deleteUser(userId: String) = repository.deleteUser(userId)
 }
 

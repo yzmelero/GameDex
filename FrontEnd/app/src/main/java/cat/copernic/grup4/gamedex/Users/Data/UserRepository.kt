@@ -35,6 +35,10 @@ class UserRepository {
         return RetrofitInstance.api.validateUser(userId);
     }
 
+    suspend fun deleteUser(userId: String): Response<Void>{
+        return RetrofitInstance.api.deleteUser(userId);
+    }
+
     suspend fun resetPassword(username: String, email: String): Response<Map<String,String>>{
         val request = ResetPasswordRequest(username, email)
         return RetrofitInstance.api.resetPassword(request);
