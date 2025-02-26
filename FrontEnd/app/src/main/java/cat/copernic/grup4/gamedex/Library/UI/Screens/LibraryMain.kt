@@ -1,5 +1,5 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
-
+/*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,7 +31,7 @@ import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.videogames.ui.screen.HeaderSection
 import coil.compose.AsyncImage
 
-/*
+
 @Composable
 fun Library(library: List<Library>, onDelete: (Videogame) -> Unit) {
     Column(
