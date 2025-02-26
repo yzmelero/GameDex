@@ -103,22 +103,6 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
             items(users) { user ->
                 UserCard(user, navController)
             }
-
-            // ✅ Botón dentro de LazyColumn, al final de la lista
-            if (currentUser?.userType == UserType.ADMIN) {
-                item {
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Button(
-                        onClick = { navController.navigate("validate") },
-                        shape = RoundedCornerShape(20.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
-                    }
-                }
-            }
         }
     }
     BottomSection(navController, userViewModel, 2)
