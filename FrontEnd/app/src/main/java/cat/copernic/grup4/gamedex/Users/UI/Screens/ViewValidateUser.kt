@@ -42,15 +42,21 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
 fun ViewValidateUserScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -72,8 +78,7 @@ fun ViewValidateUserScreen(navController: NavController, userViewModel: UserView
             .background(
                 color = colorResource(id = R.color.background),
             )
-            .windowInsetsPadding(WindowInsets.systemBars)
-            .navigationBarsPadding(),
+            .windowInsetsPadding(WindowInsets.systemBars),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         header(navController, userViewModel)
@@ -96,14 +101,11 @@ fun ViewValidateUserScreen(navController: NavController, userViewModel: UserView
                     }
                 }
             }
-
-
         }
         user?.let { userData ->
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -189,8 +191,18 @@ fun ViewValidateUserScreen(navController: NavController, userViewModel: UserView
                         }
                     }
                 }
+                BottomSection(navController, userViewModel, 2)
             }
         }
-        BottomSection(navController, userViewModel, 2)
+        Text(text = "hola")
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ViewValidateUserScreenPreview() {
+    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    val useCases = UseCases(UserRepository())
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+    ViewValidateUserScreen(navController = fakeNavController, userViewModel = userViewModel)
 }
