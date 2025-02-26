@@ -42,12 +42,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
 fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
     val users by userViewModel.users.collectAsState()
+    val currentUser by userViewModel.currentUser.collectAsState()
 
     Column(
         modifier = Modifier
@@ -55,11 +57,12 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
             .background(
                 color = colorResource(id = R.color.background),
             )
-            .navigationBarsPadding(),
+            .navigationBarsPadding()
+            .windowInsetsPadding(WindowInsets.systemBars),
 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        header(navController)
+        header(navController, userViewModel)
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             stringResource(R.string.users),
@@ -77,8 +80,21 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        if (currentUser?.userType == UserType.USER) {
+            Spacer(modifier = Modifier.height(10.dp))
+        }
 
+        if (currentUser?.userType == UserType.ADMIN) {
+            Button(
+                onClick = { navController.navigate("validate") },
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+            }
+        }
         // User List
         LazyColumn(
             modifier = Modifier.weight(1f), // ✅ Para que se ajuste al tamaño disponible
@@ -87,23 +103,9 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
             items(users) { user ->
                 UserCard(user, navController)
             }
-
-            // ✅ Botón dentro de LazyColumn, al final de la lista
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(
-                    onClick = { navController.navigate("validate") },
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
-                }
-            }
         }
     }
-    BottomSection(navController, userViewModel,2)
+    BottomSection(navController, userViewModel, 2)
 }
 
 @Composable

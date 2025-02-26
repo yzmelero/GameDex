@@ -1,13 +1,23 @@
 package cat.copernic.grup4.gamedex.videogames.ui.viewmodel
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.util.Base64
 import android.util.Log
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 
 open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewModel() {
 
@@ -39,6 +49,50 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         viewModelScope.launch {
             val response = videogameUseCase.getAllVideogames()
             _videogameGetAll.value = response.body() ?: emptyList()
+        }
+    }
+
+    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    val categories: StateFlow<List<Category>> = _categories
+
+    fun getAllCategories() {
+        viewModelScope.launch {
+            val response = videogameUseCase.getAllCategories()
+            if (response.isSuccessful) {
+                _categories.value = response.body() ?: emptyList()
+            }
+        }
+    }
+
+    fun base64ToBitmap(base64: String): ImageBitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
+            val byteArrayInputStream = ByteArrayInputStream(decodedBytes)
+            val bitmap = BitmapFactory.decodeStream(byteArrayInputStream)
+            bitmap.asImageBitmap()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun uriToBase64(context: Context, uri: Uri): String? {
+        return try {
+            val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+            val byteArrayOutputStream = ByteArrayOutputStream()
+
+            inputStream?.use { stream ->
+                val buffer = ByteArray(1024)
+                var bytesRead: Int
+                while (stream.read(buffer).also { bytesRead = it } != -1) {
+                    byteArrayOutputStream.write(buffer, 0, bytesRead)
+                }
+            }
+
+            val byteArray = byteArrayOutputStream.toByteArray()
+            Base64.encodeToString(byteArray, Base64.DEFAULT) // Convertir a Base64
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

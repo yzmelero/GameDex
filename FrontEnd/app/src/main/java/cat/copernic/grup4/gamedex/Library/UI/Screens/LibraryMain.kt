@@ -1,5 +1,5 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
-
+/*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -109,5 +109,5 @@ fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
 fun LibraryPreview() {
 
 }
-
+*/
 

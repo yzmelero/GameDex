@@ -44,6 +44,7 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.ui.header
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
@@ -73,7 +74,7 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(navController, profileImageRes = R.drawable.user)
+            header(navController, userViewModel)
 
             Spacer(modifier = Modifier.height(16.dp))
 

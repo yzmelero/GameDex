@@ -1,8 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -27,16 +25,13 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -49,25 +44,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.copernic.grup4.gamedex.Category.UI.Screens.FloatingAddButton
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
@@ -87,9 +77,9 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
     LaunchedEffect(Unit) {
         gameViewModel.getAllVideogames()
-        Log.d("DEBUG", "Lista de videojuegos: ${gameViewModel.allVideogame.value}")
     }
 
+    // TODO Botó validar videojocs
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -101,7 +91,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
+            header(navController, userViewModel)
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.list_game),
@@ -114,16 +104,17 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            VideogamesGrid(videogame, navController)
+            VideogamesGrid(videogame, navController, gameViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
-        AddGameButton(onClick = {navController.navigate("")})
+        GameButtons(navController)
     }
 }
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
+    // TODO fer el filtre i la recerca funcional, es provisional
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -154,7 +145,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 
 
 @Composable
-fun VideogamesGrid(videogame: List<Videogame>, navController: NavController) {
+fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gameViewModel: GameViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -163,13 +154,13 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         videogame.forEach { game ->
-            GameItem(videogame = game, navController = navController)
+            GameItem(videogame = game, navController = navController, gameViewModel = gameViewModel)
         }
     }
 }
 
 @Composable
-fun GameItem(videogame: Videogame, navController: NavController) {
+fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: GameViewModel) {
     Card(
         shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
@@ -183,14 +174,22 @@ fun GameItem(videogame: Videogame, navController: NavController) {
             modifier = Modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(R.drawable.eldenring),
-                contentDescription = videogame.nameGame,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(6.dp)),
-                contentScale = ContentScale.Crop
-            )
+            val imageBitmap = remember(videogame.gamePhoto) {
+                videogame.gamePhoto?.let { base64 ->
+                    gameViewModel.base64ToBitmap(base64)
+                }
+            }
+
+            imageBitmap?.let {
+                Image(
+                    it,
+                    contentDescription = videogame.nameGame,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(6.dp)),
+                    contentScale = ContentScale.Crop
+                )
+            }
             Spacer(modifier = Modifier.padding(8.dp))
             Column(
                 modifier = Modifier.weight(1f)
@@ -203,7 +202,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = videogame.nameCategory,
+                    text = videogame.category,
                     fontSize = 26.sp,
                     color = Color.DarkGray,
                     style = GameDexTypography.bodyLarge
@@ -227,7 +226,7 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                     ) {
                         Image(
                             painter = painterResource(R.drawable.eye),
-                            contentDescription = stringResource(R.string.add_game),
+                            contentDescription = stringResource(R.string.view_game),
                             modifier = Modifier
                                 .size(38.dp)
                                 .padding(6.dp)
@@ -236,21 +235,33 @@ fun GameItem(videogame: Videogame, navController: NavController) {
                 }
             }
         }
-
     }
 
 }
 @Composable
-fun AddGameButton(onClick: () -> Unit) {
-    Box(
+fun GameButtons(navController: NavController) {
+    Row(
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
-            .padding(bottom = 100.dp, end = 16.dp),
-        contentAlignment = Alignment.BottomEnd
+            .padding(bottom = 100.dp, start = 16.dp, end = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Bottom
     ) {
         IconButton(
-            onClick = onClick,
+            onClick = {navController.navigate("valideGames")},
+            modifier = Modifier
+                .size(56.dp)
+                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+        ) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = stringResource(R.string.valide_game),
+                modifier = Modifier.size(40.dp)
+            )
+        }
+        IconButton(
+            onClick = {navController.navigate("addGames")},
             modifier = Modifier
                 .size(56.dp)
                 .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
@@ -263,7 +274,6 @@ fun AddGameButton(onClick: () -> Unit) {
         }
     }
 }
-
 
 
 @Preview(showBackground = true)

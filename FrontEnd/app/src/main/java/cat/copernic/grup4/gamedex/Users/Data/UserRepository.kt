@@ -2,6 +2,7 @@ package cat.copernic.grup4.gamedex.Users.Data
 
 import cat.copernic.grup4.gamedex.Core.Model.LoginRequest
 import cat.copernic.grup4.gamedex.Core.Model.LoginResponse
+import cat.copernic.grup4.gamedex.Core.Model.ResetPasswordRequest
 import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Users.Data.RetrofitInstance.api
 import retrofit2.Call
@@ -28,6 +29,19 @@ class UserRepository {
 
     suspend fun getUser(username: String): Response<User>{
         return RetrofitInstance.api.getUser(username);
+    }
+
+    suspend fun validateUser(userId: String): Response<User>{
+        return RetrofitInstance.api.validateUser(userId);
+    }
+
+    suspend fun deleteUser(userId: String): Response<Void>{
+        return RetrofitInstance.api.deleteUser(userId);
+    }
+
+    suspend fun resetPassword(username: String, email: String): Response<Map<String,String>>{
+        val request = ResetPasswordRequest(username, email)
+        return RetrofitInstance.api.resetPassword(request);
     }
 
 }
