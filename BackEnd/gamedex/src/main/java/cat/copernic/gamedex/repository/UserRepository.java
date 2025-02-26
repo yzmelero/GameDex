@@ -19,4 +19,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByTelephone(int telephone);
 
     List<User> findByState(boolean b);
+
+    Optional<User> findByUsernameAndEmail(String username, String email);
 }
