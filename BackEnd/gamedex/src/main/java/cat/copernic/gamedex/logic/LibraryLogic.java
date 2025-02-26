@@ -1,4 +1,3 @@
-
 package cat.copernic.gamedex.logic;
 
 import cat.copernic.gamedex.entity.Library;
@@ -14,20 +13,7 @@ public class LibraryLogic {
     @Autowired
     private LibraryRepository libraryRepository;
 
-    public Library addGameToLibrary(Library library) {
-
-        try {
-            Optional<Library> oldLibrary = libraryRepository.findById(library.getIdLibrary());
-            if (oldLibrary.isPresent()) {
-                throw new RuntimeException("Library already exists");
-            }
-            return libraryRepository.save(library);
-        } catch(RuntimeException e){
-            throw e;
-        } catch(Exception e){
-            throw new RuntimeException("Unexpected error while creating library");
-        }
-    }
+   
     
     public void delete(String idLibrary){
         try{
@@ -45,12 +31,26 @@ public class LibraryLogic {
         
     }
     
+    public Library addGameToLibrary(Library library){
+        Optional<Library> existingGameInLibrary = libraryRepository.findByUserIdAndVideogameId(
+            library.getUser().getUsername(),
+            library.getVideogame().getGameId());
+
+        if(existingGameInLibrary.isPresent()){
+            throw new RuntimeException("Game already in library");
+        }
+        return libraryRepository.save(library);
+    }
+    /*public List<Library> getAllCommentaries(){
     public List<Library> getAllLibraries(){
         try{
+            List<Library> libraries = libraryRepository.findAllByVideogame();
            return libraryRepository.findAllByVideogame();
         }catch(Exception e){
             throw new RuntimeException("Unexpected error while listing libraries");
         }
+            throw new RuntimeException("Unexpected error while listing commentaries");
     }
+    }*/
 }
 

@@ -10,6 +10,11 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registro</string>
     <string name="add_avatar">Añadir avatar</string>
+    <string name="library">Biblioteca</string>
+    <string name="playing">Jugando</string>
+    <string name="wanttoplay">Pendiente</string>
+    <string name="finished">Acabado</string>
+    <string name="dropped">Abandonado</string>
     <string name="add_category">Añadir Categoría</string>
     <string name="category">Categoría</string>
     <string name="name_category">Nombre Categoría</string>
@@ -19,11 +24,16 @@
     <string name="release_year">Año Lanzamiento</string>
     <string name="age_recommendation">Edad Recomendada</string>
     <string name="developer">Creador</string>
-    <string name="game_category">Categoría</string>
     <string name="description">Descripcion</string>
     <string name="cover">Portada</string>
     <string name="login">Iniciar sesión</string>
     <string name="forgot_password">Has olvidado la contraseña?</string>
+    <string name="category_added">Categoría Creada</string>
+    <string name="category_not_created">Error al crear la categoría</string>
+    <string name="error_no_image">Error no hay imagen</string>
+    <string name="list_game">Videogames</string>
+    <string name="gameCreated">Videogame created!</string>
+    <string name="gameErrorCreate">Error creating videogame</string>
     <string name="addgame_library">Add game to library</string>
     <string name="add_comment">Add comment</string>
     <string name="comments">COMMENTS</string>
@@ -31,11 +41,9 @@
     <string name="pegi">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
-    <string name="category_added">Categoría Creada</string>
-    <string name="category_not_created">Error al crear la categoría</string>
-    <string name="error_no_image">Error no hay imagen</string>
-    <string name="list_game">Videogames</string>
-    <string name="gameCreated">Videogame created!</string>
-    <string name="gameErrorCreate">Error creating videogame</string>
     <string name="delete_category">delete_category</string>
+    <string name="select">Selecciona…</string>
+    <string name="review">Reseña</string>
+    <string name="rating">Valoración</string>
+    <string name="comment">Comentario</string>
 </resources>

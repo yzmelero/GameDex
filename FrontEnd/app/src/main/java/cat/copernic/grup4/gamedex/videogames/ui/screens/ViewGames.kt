@@ -53,7 +53,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
@@ -66,6 +65,8 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
+import kotlinx.coroutines.flow.MutableStateFlow
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 
 @Composable
 fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -96,14 +97,14 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it, gameViewModel) }
+            game?.let { GameCard(it, navController, gameViewModel) }
         }
         BottomSection(navController,userViewModel ,1)
     }
 }
 
 @Composable
-fun GameCard(videogame : Videogame, gameViewModel: GameViewModel) {
+fun GameCard(videogame : Videogame, navController: NavController, gameViewModel: GameViewModel) {
     Column ( modifier = Modifier
         .fillMaxSize()
         .background(colorResource(R.color.background))
@@ -127,6 +128,12 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel) {
                     contentDescription = stringResource(R.string.addgame_library),
                     modifier = Modifier.size(30.dp)
                         .background(Color.Magenta, shape = RoundedCornerShape(24))
+                        .clickable {
+                            val gameId = videogame?.gameId
+                                    Log.d("AddGameToLibraryScreen", "Navigating to game with ID: $gameId")
+                            gameId?.let { navController.navigate("addToLibrary/$it") }
+
+                        }
                 )
             }
             Row(verticalAlignment = Alignment.Top) {

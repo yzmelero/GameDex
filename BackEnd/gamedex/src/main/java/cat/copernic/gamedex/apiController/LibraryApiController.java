@@ -17,7 +17,7 @@ import cat.copernic.gamedex.logic.LibraryLogic;
 import cat.copernic.gamedex.entity.Library;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/library")
 @CrossOrigin(origins = "*")
 public class LibraryApiController {
  
