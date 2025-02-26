@@ -21,6 +21,11 @@ import cat.copernic.grup4.gamedex.Users.UI.Screens.ValidateList
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ValidateListScreen
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import cat.copernic.grup4.gamedex.Category.UI.Screens.ViewCategoryScreen
+import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
+import cat.copernic.grup4.gamedex.Users.UI.Screens.ResetPasswordScreen
+import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
+
 
 @Composable
 fun AppNavigation(userViewModel: UserViewModel) {
