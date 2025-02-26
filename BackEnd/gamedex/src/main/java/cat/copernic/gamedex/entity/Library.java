@@ -9,15 +9,15 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "commentary")
+@Document(collection = "library")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Commentary {
+public class Library {
 
     @Id
-    @Field(name = "id_commentary")
-    private String idCommentary;
+    @Field(name = "idLibrary")
+    private String idLibrary;
 
     private StateType state;
 

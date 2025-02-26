@@ -38,12 +38,14 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
 fun ListCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val categoryCases = CategoryCases(CategoryRepository())
-    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+    val categoryViewModel: CategoryViewModel =
+        viewModel(factory = CategoryViewModelFactory(categoryCases))
 
     var searchQuery by remember { mutableStateOf("") }
     val category by categoryViewModel.category.collectAsState()
@@ -54,53 +56,53 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(R.color.background))
-            .windowInsetsPadding(WindowInsets.systemBars),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .fillMaxSize()
+                .background(colorResource(R.color.background))
+                .windowInsetsPadding(WindowInsets.systemBars),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(navController, profileImageRes = R.drawable.user, userViewModel)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(R.string.category),
-                fontSize = 24.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-
+            Column(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-            )
+                    .fillMaxWidth()
+                    .navigationBarsPadding(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                header(navController, userViewModel)
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = stringResource(R.string.category),
+                    fontSize = 24.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                )
+            }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+            SearchBar(searchQuery) { searchQuery = it }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            CategoriesGrid(category, navController)
+
+            Spacer(modifier = Modifier.weight(1f))
+
         }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        SearchBar(searchQuery) { searchQuery = it }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        CategoriesGrid(category, navController)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-    }
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomSection(navController, userViewModel,0)
+            BottomSection(navController, userViewModel, 0)
         }
         FloatingAddButton(navController)
     }
@@ -145,9 +147,10 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         category.forEach { category ->
-            CategoryButton(name = category.nameCategory, modifier = Modifier.clickable {
-                // Puedes agregar una acción al hacer clic en la categoría, como navegar a otra pantalla
-            })
+            CategoryButton(
+                name = category.nameCategory,
+                modifier = Modifier.clickable {
+                    navController.navigate("view_category/${category.nameCategory}") })
         }
     }
 }
@@ -162,7 +165,6 @@ fun CategoryButton(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(top = 5.dp)
             .height(50.dp)
-            .clickable { /* Acció de selecció */ }
     ) {
         Box(
             contentAlignment = Alignment.Center,

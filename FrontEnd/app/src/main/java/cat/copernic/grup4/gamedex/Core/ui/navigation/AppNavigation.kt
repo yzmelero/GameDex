@@ -11,8 +11,10 @@ import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.Screens.EditProfileScreen
+import cat.copernic.grup4.gamedex.Category.UI.Screens.ViewCategoryScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.LoginScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ProfileScreen
+import cat.copernic.grup4.gamedex.Users.UI.Screens.ResetPasswordScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.SignUpScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ListGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ViewGamesScreen
@@ -39,7 +41,12 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
+        composable("view_category/{categoryId}") { ViewCategoryScreen(navController, userViewModel) }
+
+        //Home screen / Category main screen
+        //composable("category") { ListCategoryScreen(navController)}
         composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
         composable("edit_profile/{username}") { EditProfileScreen(navController, userViewModel) }
+        composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
     }
 }
