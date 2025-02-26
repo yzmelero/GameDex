@@ -13,4 +13,7 @@ class CategoryRepository {
     suspend fun getCategoryById(categoryId: String): Response<Category> {
         return RetrofitInstance.api.getCategoryById(categoryId)
     }
+    suspend fun deleteCategory(nameCategory: String): Response<Unit> {
+        return RetrofitInstance.api.deleteCategory(nameCategory)
+    }
 }

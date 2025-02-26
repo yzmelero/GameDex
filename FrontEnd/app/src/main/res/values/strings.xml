@@ -65,5 +65,9 @@
     <string name="user_type">User type: %1$s</string>
     <string name="photo_category">photo_category</string>
     <string name="reset_password">Reset Password</string>
-    <string name="accept">Accept</string>">
+    <string name="accept">Accept</string>
+    <string name="confirm_delete">Confirm Delete</string>
+    <string name="delete_question">Are you sure you want to delete it? This option is not reversible</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>">
 </resources>
