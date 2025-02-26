@@ -2,6 +2,7 @@ package cat.copernic.grup4.gamedex.Users.Data
 
 import cat.copernic.grup4.gamedex.Core.Model.LoginRequest
 import cat.copernic.grup4.gamedex.Core.Model.LoginResponse
+import cat.copernic.grup4.gamedex.Core.Model.ResetPasswordRequest
 import cat.copernic.grup4.gamedex.Core.Model.User
 import retrofit2.Call
 import retrofit2.Response
@@ -33,6 +34,9 @@ interface UserApiRest {
 
      @PUT("user/validate/{userId}")
     suspend fun validateUser(@Path("userId") userId: String): Response<User>
+
+    @POST("user/resetPassword")
+    suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<Map<String,String>>
 
 /*
     @Headers("Content-Type: application/json")

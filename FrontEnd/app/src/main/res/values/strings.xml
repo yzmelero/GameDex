@@ -64,4 +64,6 @@
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
     <string name="photo_category">photo_category</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="accept">Accept</string>">
 </resources>
