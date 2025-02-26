@@ -63,6 +63,17 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    private var allCategories: List<Category> = emptyList()
+
+    fun filterCategories(query: String) {
+        _categoryGetAll.value = if (query.isEmpty()) {
+            allCategories // Si la búsqueda está vacía, mostrar todo
+        } else {
+            allCategories.filter {
+                it.nameCategory.contains(query, ignoreCase = true) // Filtra por nombre
+            }
+        }
+    }
 
     fun base64ToBitmap(base64String: String): Bitmap? {
         return try {
