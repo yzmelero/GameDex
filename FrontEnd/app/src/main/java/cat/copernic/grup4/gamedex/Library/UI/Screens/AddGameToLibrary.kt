@@ -114,7 +114,7 @@ fun AddGameToLibraryScreen(navController: NavController, userViewModel: UserView
         ) {
 
             Box(modifier = Modifier.fillMaxWidth()) {
-                header(navController)
+                header(navController, userViewModel)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -133,7 +133,7 @@ fun AddGameToLibraryScreen(navController: NavController, userViewModel: UserView
                 Column(modifier = Modifier.fillMaxWidth()) {
 
                     // Estat del videojoc
-                    Text(text = context.getString(R.string.state), fontSize = 18.sp)
+                    Text(text = context.getString(R.string.stateGame), fontSize = 18.sp)
 
                     Spacer(modifier = Modifier.height(8.dp))
                     Box(
