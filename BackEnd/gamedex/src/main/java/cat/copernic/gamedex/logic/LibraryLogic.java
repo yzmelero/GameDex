@@ -13,23 +13,9 @@ public class LibraryLogic {
     @Autowired
     private LibraryRepository libraryRepository;
 
-    public Library addGameToLibrary(Library library) {
-
-        try {
-            Optional<Library> oldLibrary = libraryRepository.findById(library.getIdLibrary());
-            if (oldLibrary.isPresent()) {
-                throw new RuntimeException("Library already exists");
-            }
-            return libraryRepository.save(library);
-        } catch(RuntimeException e){
-            throw e;
-        } catch(Exception e){
-            throw new RuntimeException("Unexpected error while creating library");
-        }
-    }
+   
     
     public void delete(String idLibrary){
-    public void deleteLibrary(String idLibrary){
         try{
             Optional<Library> library = libraryRepository.findById(idLibrary);
             if (library.isPresent()) {
