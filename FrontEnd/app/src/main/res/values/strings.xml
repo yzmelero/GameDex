@@ -66,4 +66,5 @@
     <string name="delete">Delete</string>
     <string name="selectCategory">Select a Category</string>
     <string name="view_game">View game</string>
+    <string name="valide_game">Valide game</string>
 </resources>

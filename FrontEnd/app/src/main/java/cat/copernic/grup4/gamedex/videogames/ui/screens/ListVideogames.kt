@@ -1,8 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -27,16 +25,13 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -48,27 +43,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.copernic.grup4.gamedex.Category.UI.Screens.FloatingAddButton
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
@@ -78,8 +67,6 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 
 @Composable
 fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel) {
@@ -121,7 +108,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
-        AddGameButton(navController)
+        GameButtons(navController)
     }
 }
 
@@ -252,14 +239,27 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
 
 }
 @Composable
-fun AddGameButton(navController: NavController) {
-    Box(
+fun GameButtons(navController: NavController) {
+    Row(
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
-            .padding(bottom = 100.dp, end = 16.dp),
-        contentAlignment = Alignment.BottomEnd
+            .padding(bottom = 100.dp, start = 16.dp, end = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Bottom
     ) {
+        IconButton(
+            onClick = {navController.navigate("valideGames")},
+            modifier = Modifier
+                .size(56.dp)
+                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+        ) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = stringResource(R.string.valide_game),
+                modifier = Modifier.size(40.dp)
+            )
+        }
         IconButton(
             onClick = {navController.navigate("addGames")},
             modifier = Modifier
@@ -274,7 +274,6 @@ fun AddGameButton(navController: NavController) {
         }
     }
 }
-
 
 
 @Preview(showBackground = true)
