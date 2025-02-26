@@ -78,7 +78,7 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import java.time.LocalDate
 import java.util.UUID
-
+//TODO Afegir les strings de AddGameToLibraryScreen
 @Composable
 fun AddGameToLibraryScreen(
     navController: NavController,
