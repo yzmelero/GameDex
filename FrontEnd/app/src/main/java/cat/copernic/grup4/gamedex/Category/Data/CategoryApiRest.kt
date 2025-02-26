@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface CategoryApiRest {
@@ -20,5 +21,8 @@ interface CategoryApiRest {
 
     @DELETE("category/delete/{nameCategory}")
     suspend fun deleteCategory(@Path("nameCategory") nameCategory: String): Response<Unit>
+
+    @PUT("category/modify/{nameCategory}")
+    suspend fun modifyCategory(@Path("nameCategory") nameCategory: String, @Body category: Category): Response<Category>
 
 }

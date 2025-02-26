@@ -29,6 +29,9 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     private val _categoryDeleted = MutableStateFlow<Boolean?>(null)
     val categoryDeleted: StateFlow<Boolean?> = _categoryDeleted
 
+    private val _categoryModified = MutableStateFlow<Boolean?>(null)
+    val categoryModified: StateFlow<Boolean?> = _categoryModified
+
     fun addCategory(category: Category) {
         viewModelScope.launch {
             val response = categoryCases.addCategory(category)
@@ -63,6 +66,12 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    fun modifyCategory(nameCategory: String, category: Category) {
+        viewModelScope.launch {
+            val response = categoryCases.modifyCategory(nameCategory, category)
+            _categoryModified.value = response.isSuccessful
+        }
+    }
 
     fun base64ToBitmap(base64String: String): Bitmap? {
         return try {
