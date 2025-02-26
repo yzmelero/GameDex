@@ -41,6 +41,7 @@
     <string name="pegi">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
+    <string name="delete_category">delete_category</string>
     <string name="select">Selecciona…</string>
     <string name="review">Reseña</string>
     <string name="rating">Valoración</string>

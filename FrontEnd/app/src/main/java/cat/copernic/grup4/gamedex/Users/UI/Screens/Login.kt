@@ -15,8 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -36,6 +39,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
@@ -131,8 +136,10 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
 
                 InputField(
                     label = stringResource(id = R.string.password),
-                    value = password
-                ) { password = it }
+                    value = password,
+                    onValueChange = { password = it },
+                    isPassword = true // ✅ Activar la ocultación de contraseña
+                )
 
                 Spacer(modifier = Modifier.height(18.dp))
 
@@ -159,7 +166,7 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                 }
 
                 TextButton(onClick = {
-                    // Acción de olvidar la contraseña
+                    navController.navigate("resetPassword")
                 }) {
                     Text(
                         text = stringResource(R.string.forgot_password),
@@ -191,8 +198,11 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
     fun InputField(
         label: String,
         value: String,
-        onValueChange: (String) -> Unit
+        onValueChange: (String) -> Unit,
+        isPassword: Boolean = false // ✅ Nuevo parámetro para detectar si es un campo de contraseña
     ) {
+        var passwordVisible by remember { mutableStateOf(false) } // ✅ Controla la visibilidad de la contraseña
+
         TextField(
             value = value,
             onValueChange = onValueChange,
@@ -209,7 +219,18 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                 unfocusedLabelColor = Color.Gray,
                 focusedTextColor = Color.Black,
                 unfocusedTextColor = Color.DarkGray
-            )
+            ),
+            visualTransformation = if (isPassword && !passwordVisible) PasswordVisualTransformation() else VisualTransformation.None, // ✅ Oculta la contraseña con asteriscos
+            trailingIcon = { // ✅ Botón para mostrar/ocultar contraseña
+                if (isPassword) {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
+                            contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                        )
+                    }
+                }
+            }
         )
     }
 }

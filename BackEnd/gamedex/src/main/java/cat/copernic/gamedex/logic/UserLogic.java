@@ -176,4 +176,36 @@ public class UserLogic {
         }
     }
 
+    public User validateUser(String userId) {
+        try {
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isEmpty()) {
+                throw new RuntimeException("User not found");
+            }
+            User user = userOptional.get();
+            user.setState(true);
+            return userRepository.save(user);
+        }catch (RuntimeException e) {
+            throw e; 
+        }catch (Exception e) {
+            throw new RuntimeException("Unexpected error validating user");
+        }        
+    }
+
+    public boolean userExists(String username, String email) {
+        return userRepository.findByUsernameAndEmail(username, email).isPresent();
+    }
+
+    public boolean updatePassword(String username, String email) {
+        Optional<User> userFound = userRepository.findByUsername(username);
+        User user = userFound.get();
+        if (user != null) {
+            String newPassword = "1234";
+            String hashedPassword = passwordEncoder.encode(newPassword);
+            user.setPassword(hashedPassword);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }

@@ -46,4 +46,5 @@
     <string name="list_game">Videogames</string>
     <string name="gameCreated">Videogame created!</string>
     <string name="gameErrorCreate">Error creating videogame</string>
+    <string name="delete_category">delete_category</string>
 </resources>

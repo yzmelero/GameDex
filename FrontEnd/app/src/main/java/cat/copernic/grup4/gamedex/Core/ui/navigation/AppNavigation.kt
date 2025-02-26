@@ -38,6 +38,12 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
+        composable("view_category/{categoryId}") { ViewCategoryScreen(navController, userViewModel) }
+
+        //Home screen / Category main screen
+        //composable("category") { ListCategoryScreen(navController)}
+        composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
+        composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
         composable("addToLibrary") {AddGameToLibraryScreen(navController, userViewModel)}
     }
 }

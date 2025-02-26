@@ -1,8 +1,8 @@
-
 package cat.copernic.gamedex.logic;
 
 import cat.copernic.gamedex.entity.Library;
 import cat.copernic.gamedex.repository.LibraryRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class LibraryLogic {
     @Autowired
     private LibraryRepository libraryRepository;
 
-    public Library createLibrary(Library library) {
+    public Library addGameToLibrary(Library library) {
 
         try {
             Optional<Library> oldLibrary = libraryRepository.findById(library.getIdLibrary());
@@ -28,6 +28,7 @@ public class LibraryLogic {
         }
     }
     
+    public void delete(String idLibrary){
     public void deleteLibrary(String idLibrary){
         try{
             Optional<Library> library = libraryRepository.findById(idLibrary);
@@ -46,7 +47,7 @@ public class LibraryLogic {
     
     public Library addGameToLibrary(Library library){
         Optional<Library> existingGameInLibrary = libraryRepository.findByUserIdAndVideogameId(
-            library.getUser().getUsername(), 
+            library.getUser().getUsername(),
             library.getVideogame().getGameId());
 
         if(existingGameInLibrary.isPresent()){
@@ -55,12 +56,15 @@ public class LibraryLogic {
         return libraryRepository.save(library);
     }
     /*public List<Library> getAllCommentaries(){
+    public List<Library> getAllLibraries(){
         try{
             List<Library> libraries = libraryRepository.findAllByVideogame();
            return libraryRepository.findAllByVideogame();
         }catch(Exception e){
-            throw new RuntimeException("Unexpected error while listing commentaries");
+            throw new RuntimeException("Unexpected error while listing libraries");
         }
+            throw new RuntimeException("Unexpected error while listing commentaries");
+    }
     }*/
 }
 

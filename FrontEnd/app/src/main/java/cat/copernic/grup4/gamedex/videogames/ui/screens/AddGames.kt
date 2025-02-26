@@ -94,7 +94,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                 .windowInsetsPadding(WindowInsets.systemBars),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            header(navController)
+            header(navController, userViewModel)
 
             AddContentSection(
                 nameGame, { nameGame = it },
