@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -93,16 +94,11 @@ fun AddGameToLibraryScreen(
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val game by gameViewModel.gameById.collectAsState()
 
-    LaunchedEffect(gameId) {
-        gameViewModel.videogamesById(gameId)
-    }
-
-    Log.d("AddGameToLibraryScreen", "Videogame: $game")
-
     val context = LocalContext.current
 
-    if (game == null){
-        Toast.makeText(context, "Error: Can't load the videogame", Toast.LENGTH_SHORT).show()
+
+    LaunchedEffect(gameId) { Log.d("error", "gameId: ${gameId}")
+        gameViewModel.videogamesById(gameId)
     }
 
     val users by userViewModel.users.collectAsState()
@@ -257,16 +253,15 @@ fun AddGameToLibraryScreen(
                     // Botó de confirmació
                     Button(
                         onClick = {
-                            val user = users.firstOrNull() // Agafar l'user actual
+                            val user = userViewModel.currentUser.value
+
+                            val stateEnum = getStateTypeFromString(selectedState, context)
 
                             //Per a que funcioni l'state en l'objecte Library, necessito passar el valor de String a StateType.
-                            val stateEnum = try {
-                                StateType.valueOf(selectedState)
-                            }catch (e: IllegalArgumentException){
-                                StateType.WANTTOPLAY
-                            }
 
-                            Log.d("AddGameToLibrary", "User: $user, Videogame: $game")
+
+                            Log.d("AddGameToLibrary", "User: $user, /*Videogame: $game*/")
+                            Log.d("AddGameToLibrary", "Llista d'usuaris: $users")
 
                             if (user != null && game != null) {
                                 val newLibraryEntry = Library(
@@ -307,6 +302,16 @@ fun AddGameToLibraryScreen(
         }
     }
 
+}
+
+fun getStateTypeFromString(selectedState: String, context: Context): StateType {
+    return when (selectedState) {
+        context.getString(R.string.finished) -> StateType.FINISHED
+        context.getString(R.string.playing) -> StateType.PLAYING
+        context.getString(R.string.wanttoplay) -> StateType.WANTTOPLAY
+        context.getString(R.string.dropped) -> StateType.DROPPED
+        else -> StateType.WANTTOPLAY // Valor per defecte si no coincideix cap
+    }
 }
 
 @Composable

@@ -31,7 +31,8 @@ public class LibraryApiController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addGameToLibrary(@RequestBody Library library) {
-        log.info("Adding game to library: " + library.toString());
+        System.out.println("Intentando añadir juego con ID: " + library.getVideogame().getGameId() + " para usuario: " + library.getUser().getUsername());
+
         
         try{
             Library newGameToLibrary = libraryLogic.addGameToLibrary(library);
@@ -42,7 +43,7 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();        }
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<Library> getLibrary(@RequestParam String username){
         return libraryLogic.getLibraryByUser(username);
     }

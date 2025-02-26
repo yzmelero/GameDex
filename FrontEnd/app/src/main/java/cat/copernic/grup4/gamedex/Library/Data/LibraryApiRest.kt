@@ -12,7 +12,7 @@ interface LibraryApiRest {
     @POST("library/add")
     suspend fun addGameToLibrary(@Body library: Library): Response<Library>
 
-    @GET("library")
+    @GET("library/get")
     suspend fun getLibrary(@Query("username") username: String): Response<List<Library>>
 
 

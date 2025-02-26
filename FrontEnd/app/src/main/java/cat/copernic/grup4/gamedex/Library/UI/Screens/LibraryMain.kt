@@ -1,9 +1,11 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -19,8 +21,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -54,7 +59,9 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 @Composable
 fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
     val users by userViewModel.users.collectAsState()
-    val username = users.firstOrNull()?.username ?: ""
+    val currentUser = userViewModel.currentUser.collectAsState().value
+    val username = currentUser?.username ?: ""
+
 
     val context = LocalContext.current
 
@@ -63,7 +70,9 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
         LibraryViewModelFactory.LibraryViewModelFactory(LibraryUseCase(LibraryRepository()))
     ).get(LibraryViewModel::class.java)
 
-    libraryViewModel.getLibrary(username)
+    LaunchedEffect(username) {
+        libraryViewModel.getLibrary(username)
+    }
 
     val libraryItems by libraryViewModel.library.collectAsState()
 
@@ -88,7 +97,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
         )
         LazyColumn {
             items(libraryItems) {gameLibrary ->
-                VideogameItem(library = gameLibrary, onDelete = onDelete)
+                VideogameItem(libraryViewModel, library = gameLibrary, onDelete = onDelete)
             }
         }
         FloatingActionButton(
@@ -105,7 +114,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
 }
 
 @Composable
-fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
+fun VideogameItem(libraryViewModel: LibraryViewModel,library: Library, onDelete: (Library) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -114,11 +123,22 @@ fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
-            AsyncImage(
+            val imageBitmap = library.videogame.gamePhoto?.let {
+                libraryViewModel.base64ToBitmap(it)
+            }
+            imageBitmap?.let {
+                Image(
+                    it, contentDescription = "videogame picture",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.size(72.dp)
+                        .clip(CircleShape)
+                )
+            }
+            /*AsyncImage(
                 model = library.videogame.gamePhoto,
                 contentDescription = library.videogame.nameGame,
                 modifier = Modifier.size(64.dp)
-            )
+            )*/
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(text = library.videogame.nameGame, fontWeight = FontWeight.Bold)
