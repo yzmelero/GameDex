@@ -64,14 +64,9 @@
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
     <string name="add_cover">Add cover</string>
-    <string name="delete">Delete</string>
     <string name="selectCategory">Select a Category</string>
     <string name="view_game">View game</string>
     <string name="valide_game">Valide game</string>
-    <string name="delete_question">do you want to delete?</string>
-    <string name="confirm_delete">confirm delete</string>
-    <string name="delete">delete</string>
-    <string name="cancel">cancel</string>
     <string name="photo_category">photo_category</string>
     <string name="reset_password">Reset Password</string>
     <string name="accept">Accept</string>
