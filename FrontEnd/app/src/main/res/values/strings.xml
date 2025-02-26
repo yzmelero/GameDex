@@ -28,9 +28,10 @@
     <string name="back">Back</string>
     <string name="edit">Edit</string>
     <string name="library">Library</string>
-    <string name="completed">Completed</string>
+    <string name="finished">Completed</string>
+    <string name="dropped">Dropped</string>
     <string name="playing">Playing</string>
-    <string name="pending">Pending</string>
+    <string name="wanttoplay">Want to play</string>
     <string name="profile_avatar">Profile Avatar</string>
     <string name="logout">Logout</string>
     <string name="user_created">User Created</string>
@@ -42,6 +43,10 @@
     <string name="pegi" translatable="false">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
+    <string name="select">Select…</string>
+    <string name="review">Review</string>
+    <string name="rating">Rating</string>
+    <string name="comment">Comment</string>">
     <string name="error_loging_in">Error loging in</string>
     <string name="users">Users</string>
     <string name="verify">Verify</string>
@@ -55,6 +60,8 @@
     <string name="gameErrorCreate">Error creating videogame</string>
     <string name="validate_users">Validate Users</string>
     <string name="view_profile">view profile</string>
+    <string name="stateGame">State</string>
+
     <string name="delete_category">delete_category</string>
     <string name="delete_user">Delete User</string>
     <string name="validate_user">Validate User</string>
@@ -63,11 +70,17 @@
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
+    <string name="add_cover">Add cover</string>
+    <string name="selectCategory">Select a Category</string>
+    <string name="view_game">View game</string>
+    <string name="valide_game">Validate game</string>
+    <string name="confirm_delete">confirm delete</string>
+    <string name="delete">delete</string>
     <string name="photo_category">photo_category</string>
     <string name="reset_password">Reset Password</string>
     <string name="accept">Accept</string>
-    <string name="confirm_delete">Confirm Delete</string>
     <string name="delete_question">Are you sure you want to delete it? This option is not reversible</string>
-    <string name="delete">Delete</string>
-    <string name="cancel">Cancel</string>">
+    <string name="Delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="pending">Pending</string>
 </resources>

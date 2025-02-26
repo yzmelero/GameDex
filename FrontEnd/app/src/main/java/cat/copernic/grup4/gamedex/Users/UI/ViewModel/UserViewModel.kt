@@ -39,6 +39,10 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     private val _currentUser = MutableStateFlow<User?>(null)
     val currentUser: StateFlow<User?> get() = _currentUser
 
+    private val _deleteSuccess = MutableStateFlow<Boolean?>(null)
+    val deleteSuccess: StateFlow<Boolean?> = _deleteSuccess
+
+
     private val repository = UserRepository()
     private val _resetMessage = MutableStateFlow<String?>(null)
     val resetMessage: StateFlow<String?> = _resetMessage
@@ -164,6 +168,16 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             val response = useCases.validateUser(userId)
             if (response.isSuccessful) {
                 listInactiveUsers()
+            }
+        }
+    }
+
+    fun deleteUser(userId: String) {
+        viewModelScope.launch {
+            val response = useCases.deleteUser(userId)
+            _deleteSuccess.value = response.isSuccessful
+            if (response.isSuccessful) {
+                listUsers()
             }
         }
     }
