@@ -97,7 +97,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it, gameViewModel) }
+            game?.let { GameCard(it, navController, gameViewModel) }
         }
         BottomSection(navController,userViewModel ,1)
     }
