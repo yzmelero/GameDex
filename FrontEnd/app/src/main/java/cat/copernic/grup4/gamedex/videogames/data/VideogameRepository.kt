@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.data
 
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import retrofit2.Response
 
@@ -12,5 +13,8 @@ class VideogameRepository {
     }
     suspend fun getAllVideogames(): Response<List<Videogame>> {
         return RetrofitInstance.api.getAllVideogames()
+    }
+    suspend fun getAllCategories(): Response<List<Category>> {
+        return RetrofitInstance.api.getAllCategories()
     }
 }

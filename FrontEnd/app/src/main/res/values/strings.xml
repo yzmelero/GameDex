@@ -63,6 +63,11 @@
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
+    <string name="add_cover">Add cover</string>
+    <string name="delete">Delete</string>
+    <string name="selectCategory">Select a Category</string>
+    <string name="view_game">View game</string>
+    <string name="valide_game">Valide game</string>
     <string name="delete_question">do you want to delete?</string>
     <string name="confirm_delete">confirm delete</string>
     <string name="delete">delete</string>
@@ -73,5 +78,5 @@
     <string name="confirm_delete">Confirm Delete</string>
     <string name="delete_question">Are you sure you want to delete it? This option is not reversible</string>
     <string name="delete">Delete</string>
-    <string name="cancel">Cancel</string>">
+    <string name="cancel">Cancel</string>
 </resources>

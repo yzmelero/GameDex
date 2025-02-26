@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.data
 
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import retrofit2.Response
 import retrofit2.http.Body
@@ -17,5 +18,8 @@ interface VideogameApiRest {
 
     @GET("videogame/all")
     suspend fun getAllVideogames(): Response<List<Videogame>>
+
+    @GET("videogame/categories")
+    suspend fun getAllCategories(): Response<List<Category>>
 
 }

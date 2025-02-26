@@ -18,14 +18,24 @@ public class VideogameLogic {
         try {
             // Si gameID és null o está buit, MongoDB genera un ID
             if (videogame.getGameId() == null || videogame.getGameId().isEmpty()) {
-                videogame.setGameId(null);  // Null perque MongoDB generi un ID
-            } else {
-                Optional<Videogame> oldVideogame = videogameRepo.findById(videogame.getGameId());
-                if (oldVideogame.isPresent()) {
-                    throw new RuntimeException("Videogame already exists");
+                videogame.setGameId(null); // Null perque MongoDB generi un ID
+
+                if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty() ||
+                        videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0 ||
+                        videogame.getDeveloper().isEmpty()) {
+                    throw new RuntimeException("Empty fields are not allowed");
+                }
+                if (videogame.getCategory() == null) {
+                    throw new RuntimeException("Category is required");
+                }
+                // Comprobar si existeix un videojoc amb el mateix nom
+                Optional<Videogame> existingGame = videogameRepo.findByNameGame(videogame.getNameGame());
+                if (existingGame.isPresent()) {
+                    throw new RuntimeException("Videogame with this name already exists");
                 }
             }
-            return videogameRepo.save(videogame);  // MongoDB genera ID si és null
+            return videogameRepo.save(videogame); // MongoDB genera ID si és null
+
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -66,8 +76,8 @@ public class VideogameLogic {
                     newVideogame.setDeveloper(videogame.getDeveloper());
                 }
 
-                if (videogame.getNameCategory() != newVideogame.getNameCategory()) {
-                    newVideogame.setNameCategory(videogame.getNameCategory());
+                if (videogame.getCategory() != newVideogame.getCategory()) {
+                    newVideogame.setCategory(videogame.getCategory());
                 }
 
                 return videogameRepo.save(newVideogame);
@@ -80,7 +90,7 @@ public class VideogameLogic {
         }
     }
 
-    public void deleteVideogame (String gameId) {
+    public void deleteVideogame(String gameId) {
         try {
             Optional<Videogame> videogame = videogameRepo.findById(gameId);
             if (videogame.isEmpty()) {

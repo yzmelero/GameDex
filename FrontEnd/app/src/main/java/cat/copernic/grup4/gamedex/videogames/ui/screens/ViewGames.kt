@@ -28,6 +28,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,6 +56,7 @@ import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
+import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
@@ -63,28 +66,24 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
-    /*val gameId = remember {
+
+    val gameId = remember {
+        // Obté la ID del joc dels paràmetres de navegació
         navController.currentBackStackEntry?.arguments?.getString("gameId")
-    } ?: return // Si no hay ID, salir de la función
-*/
-    val gameId = "67b6e13cc37b260466e6342c"
-    // Aquí puedes obtener el videojuego del ViewModel o repositorio
-    Text(text = "Mostrando detalles del juego con ID: $gameId")
+    } ?: return // Si es null, surt
+
+    //val gameId = "67b6e13cc37b260466e6342c"
 
     val videogameUseCase = VideogameUseCase(VideogameRepository())
-    val viewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+    val game by gameViewModel.gameById.collectAsState()
 
     LaunchedEffect(gameId) {
-        Log.d("ViewGamesScreen", "Fetching game with ID: $gameId")
-        viewModel.videogamesById(gameId)
+        gameViewModel.videogamesById(gameId)
     }
-
-    val game by viewModel.gameById.collectAsState()
-    Log.d("ViewGamesScreen", "Current game: $game")
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -97,14 +96,14 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it) }
+            game?.let { GameCard(it, gameViewModel) }
         }
         BottomSection(navController,userViewModel ,1)
     }
 }
 
 @Composable
-fun GameCard(videogame : Videogame) {
+fun GameCard(videogame : Videogame, gameViewModel: GameViewModel) {
     Column ( modifier = Modifier
         .fillMaxSize()
         .background(colorResource(R.color.background))
@@ -123,6 +122,7 @@ fun GameCard(videogame : Videogame) {
                 contentAlignment = Alignment.TopEnd
             ) {
                 Icon(
+                    // TODO Afegir a la llibreria
                     imageVector = Icons.Default.FavoriteBorder,
                     contentDescription = stringResource(R.string.addgame_library),
                     modifier = Modifier.size(30.dp)
@@ -130,73 +130,92 @@ fun GameCard(videogame : Videogame) {
                 )
             }
             Row(verticalAlignment = Alignment.Top) {
+                val imageBitmap = remember(videogame.gamePhoto) {
+                    videogame.gamePhoto?.let { base64 ->
+                        gameViewModel.base64ToBitmap(base64)
+                    }
+                }
+
+                imageBitmap?.let {
                 Image(
-                    painter = painterResource(R.drawable.eldenring),
+                    it,
                     contentDescription = stringResource(R.string.cover),
-                    modifier = Modifier.size(180.dp)
+                    modifier = Modifier.size(height = 210.dp, width = 180.dp)
                 )
+            }
                 Column {
                     Text(
                         text = videogame.nameGame,
-                        fontSize = 22.sp, fontWeight = FontWeight.Bold
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        style = GameDexTypography.bodyLarge
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = "⭐ 7.85 ⭐",
-                        fontSize = 20.sp,
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
-                        color = colorResource(R.color.yellowdark)
+                        color = colorResource(R.color.yellowdark),
+                        style = GameDexTypography.bodyLarge
                     )
                     Spacer(modifier = Modifier.height(18.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.pegi),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.ageRecommendation}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.year),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.releaseYear}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.category),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
-                            text = ": ${videogame.nameCategory}",
-                            fontSize = 14.sp
+                            text = ": ${videogame.category}",
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.by_developer),
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = colorResource(R.color.purple_700)
+                            color = colorResource(R.color.purple_700),
+                            style = GameDexTypography.bodyLarge
                         )
                         Text(
                             text = ": ${videogame.developer}",
-                            fontSize = 14.sp
+                            fontSize = 18.sp,
+                            style = GameDexTypography.bodyLarge
                         )
                     }
                 }
@@ -205,25 +224,31 @@ fun GameCard(videogame : Videogame) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
                     text = stringResource(R.string.description) + ":",
-                    fontSize = 14.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = colorResource(R.color.purple_700)
+                    color = colorResource(R.color.purple_700),
+                    style = GameDexTypography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = videogame.descriptionGame,
-                    fontSize = 14.sp
+                    fontSize = 18.sp,
+                    style = GameDexTypography.bodyLarge
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
             Button(
-                onClick = { /* Acción de Modificar */ },
+                onClick = { /* TODO navigació a pantalla modificar (a fer) */ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
             ) {
-                Text(stringResource(R.string.modify))
+                Text(
+                    stringResource(R.string.modify),
+                    fontSize = 20.sp,
+                    style = GameDexTypography.bodyLarge
+                )
             }
         }
         Box(
@@ -232,12 +257,18 @@ fun GameCard(videogame : Videogame) {
                 .padding(bottom = 12.dp, end = 12.dp),
             contentAlignment = Alignment.BottomEnd
         ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = stringResource(R.string.addgame_library),
-                modifier = Modifier.size(30.dp)
-                    .background(Color.Red, shape = RoundedCornerShape(50))
-            )
+            IconButton(
+                onClick = { videogame.gameId }
+            ) {
+                Icon(
+                    // TODO Funció d'eliminar videojoc
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.delete),
+                    modifier = Modifier.size(30.dp)
+                        .background(Color.Red, shape = RoundedCornerShape(50))
+                )
+            }
+
         }
     }
     CommentsSection()
@@ -247,25 +278,26 @@ fun GameCard(videogame : Videogame) {
 
 @Composable
 fun CommentsSection() {
+    // TODO Fer tota la part dels comentaris ben feta
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.padding(16.dp)
             .padding(bottom = 80.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(R.string.comments),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 28.sp,
+                    style = GameDexTypography.bodyLarge
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     Icons.Default.Add,
                     contentDescription = stringResource(R.string.add_comment),
                     Modifier
-                        .clickable { /* Acción para elegir imagen */ }
+                        .clickable { /* TODO Mostrar imatge */ }
                         .background(Color.Magenta, shape = RoundedCornerShape(50))
                         .clip(RoundedCornerShape(50))
                         .size(30.dp)
@@ -290,9 +322,17 @@ fun CommentItem(username: String, comment: String, rating: String) {
             .padding(8.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = username, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = username,
+                fontSize = 24.sp,
+                style = GameDexTypography.bodyLarge
+            )
             Spacer(modifier = Modifier.height(6.dp))
-            Text(text = comment)
+            Text(
+                text = comment,
+                fontSize = 18.sp,
+                style = GameDexTypography.bodyLarge
+            )
         }
         Box(
             modifier = Modifier

@@ -23,6 +23,7 @@ import cat.copernic.grup4.gamedex.Users.UI.Screens.ValidateListScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import cat.copernic.grup4.gamedex.videogames.ui.screens.AddGamesScreen
 
 @Composable
 fun AppNavigation(userViewModel: UserViewModel) {
@@ -39,6 +40,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("validate") { ValidateListScreen(navController, userViewModel) }
         composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
+        composable("addGames") { AddGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
         composable("view_category/{categoryId}") { ViewCategoryScreen(navController, userViewModel) }
 
