@@ -12,6 +12,6 @@ data class Videogame (
     val gamePhoto: String? = null,
     val ageRecommendation: String,
     val developer: String,
-    val nameCategory: String
+    val category: String
 
 )

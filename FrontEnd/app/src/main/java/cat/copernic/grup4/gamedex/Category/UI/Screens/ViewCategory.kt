@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Category.UI.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,6 +53,16 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
     LaunchedEffect(categoryId) {
         category = categoryViewModel.getCategoryById(categoryId)
+    }
+
+    val context = LocalContext.current
+    val categoryDeleted by categoryViewModel.categoryDeleted.collectAsState()
+
+    LaunchedEffect(categoryDeleted) {
+        if (categoryDeleted == true) {
+            Toast.makeText(context, "Categoria eliminada correctament!", Toast.LENGTH_SHORT).show()
+            navController.popBackStack()
+        }
     }
 
     val currentCategory = category
@@ -143,20 +155,35 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                     }
 
                     if (currentUser?.userType == UserType.ADMIN) {
+                        var showDialog by remember { mutableStateOf(false) }
+
                         IconButton(
-                            onClick = {
-                                //categoryViewModel.deleteCategory(categoryId)
-                                //navController.popBackStack()
-                            },
+                            onClick = { showDialog = true },
                             modifier = Modifier
                                 .align(Alignment.TopEnd)
                                 .padding(12.dp)
                                 .background(Color.Red, shape = CircleShape)
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(R.string.delete_category),
-                                modifier = Modifier.size(32.dp)
+                            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_category), tint = Color.White)
+                        }
+
+                        if (showDialog) {
+                            AlertDialog(
+                                onDismissRequest = { showDialog = false },
+                                title = { Text(stringResource(R.string.confirm_delete)) },
+                                text = { Text(stringResource(R.string.delete_question)) },
+                                confirmButton = {
+                                    TextButton(onClick = {
+                                        categoryViewModel.deleteCategory(currentCategory?.nameCategory ?: "")
+                                        showDialog = false
+                                        navController.popBackStack()
+                                    }) {
+                                        Text(stringResource(R.string.delete), color = Color.Red)
+                                    }
+                                },
+                                dismissButton = {
+                                    TextButton(onClick = { showDialog = false }) { Text(stringResource(R.string.cancel)) }
+                                }
                             )
                         }
                     }

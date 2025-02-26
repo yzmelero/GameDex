@@ -65,8 +65,10 @@ public class UserApiController {
     }
 
     @DeleteMapping("/delete/{userId}")
-    public void deleteUser(@PathVariable String userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
+        log.info("Deleting user: " + userId);
         userLogic.deleteUser(userId);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/validate/{userId}")
