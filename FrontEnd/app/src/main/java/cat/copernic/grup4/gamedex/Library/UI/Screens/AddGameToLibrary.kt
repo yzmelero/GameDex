@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -54,7 +55,9 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.Library
 import cat.copernic.grup4.gamedex.Core.Model.StateType
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
@@ -69,12 +72,41 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.Screens.UserListScreen
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
+import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
+import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
+import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
+import java.time.LocalDate
+import java.util.UUID
 
 @Composable
-fun AddGameToLibraryScreen(navController: NavController, userViewModel: UserViewModel) {
-    val users by userViewModel.users.collectAsState()
+fun AddGameToLibraryScreen(
+    navController: NavController,
+    userViewModel: UserViewModel
+) {
+    val gameId = remember {
+        // Obté la ID del joc dels paràmetres de navegació
+        navController.currentBackStackEntry?.arguments?.getString("gameId")
+    } ?: return // Si es null, surt
+
+    val videogameUseCase = VideogameUseCase(VideogameRepository())
+    val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
+    val game by gameViewModel.gameById.collectAsState()
+
+    LaunchedEffect(gameId) {
+        gameViewModel.videogamesById(gameId)
+    }
+
+    Log.d("AddGameToLibraryScreen", "Videogame: $game")
 
     val context = LocalContext.current
+
+    if (game == null){
+        Toast.makeText(context, "Error: Can't load the videogame", Toast.LENGTH_SHORT).show()
+    }
+
+    val users by userViewModel.users.collectAsState()
+
     val libraryViewModel: LibraryViewModel = ViewModelProvider(
         context as ViewModelStoreOwner,
         LibraryViewModelFactory.LibraryViewModelFactory(LibraryUseCase(LibraryRepository()))
@@ -224,7 +256,36 @@ fun AddGameToLibraryScreen(navController: NavController, userViewModel: UserView
 
                     // Botó de confirmació
                     Button(
-                        onClick = { /* Afegir ressenya */ },
+                        onClick = {
+                            val user = users.firstOrNull() // Agafar l'user actual
+
+                            //Per a que funcioni l'state en l'objecte Library, necessito passar el valor de String a StateType.
+                            val stateEnum = try {
+                                StateType.valueOf(selectedState)
+                            }catch (e: IllegalArgumentException){
+                                StateType.WANTTOPLAY
+                            }
+
+                            Log.d("AddGameToLibrary", "User: $user, Videogame: $game")
+
+                            if (user != null && game != null) {
+                                val newLibraryEntry = Library(
+                                    idLibrary = UUID.randomUUID().toString(),
+                                    user = user,
+                                    videogame = game!!,
+                                    state = stateEnum,
+                                    description = comment,
+                                    rating = rating,
+                                    publishedDate = LocalDate.now().toString()
+                                )
+                                libraryViewModel.addGameToLibrary(newLibraryEntry)
+                                //TODO Canviar ruta per a que porti a la biblioteca
+                                navController.popBackStack()
+                                Log.d("AddGameToLibrary", "Pop back stack")
+
+                            }
+                        },
+
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -254,5 +315,17 @@ fun AddGameToLibraryScreenPreview() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
+
+    val fakeGame = Videogame(
+        nameGame = "Nombre prueba",
+        releaseYear = "2022",
+        category = "Categoria",
+        developer = "FromSoftware",
+        ageRecommendation = "18",
+        descriptionGame = "Lorem ipsum dolor sit amet consectetur adipiscing elit odio aptent cubilia, laoreet cursus pharetra vulputate pellentesque integer nec fermentum sociis id, feugiat class torquent vel egestas primis mus sed fusce. Interdum condimentum mauris sed ridiculus duis justo phasellus, lobortis feugiat augue ultricies cum ultrices arcu ullamcorper, curabitur in cras auctor morbi sapien. Consequat penatibus litora tristique dis rutrum nec venenatis aliquam, lectus aptent laoreet fames condimentum augue varius gravida metus, montes platea duis conubia justo quis lobortis.",
+        gamePhoto = "",
+        gameId = "1"
+    )
+
     AddGameToLibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
 }

@@ -129,7 +129,10 @@ fun GameCard(videogame : Videogame, navController: NavController, gameViewModel:
                     modifier = Modifier.size(30.dp)
                         .background(Color.Magenta, shape = RoundedCornerShape(24))
                         .clickable {
-                            navController.navigate("addToLibrary")
+                            val gameId = videogame?.gameId
+                                    Log.d("AddGameToLibraryScreen", "Navigating to game with ID: $gameId")
+                            gameId?.let { navController.navigate("addToLibrary/$it") }
+
                         }
                 )
             }

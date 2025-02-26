@@ -51,6 +51,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         //composable("category") { ListCategoryScreen(navController)}
         composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
         composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
-        composable("addToLibrary") {AddGameToLibraryScreen(navController, userViewModel)}
+        composable("addToLibrary/{gameId}") {AddGameToLibraryScreen(navController, userViewModel)}
     }
 }
