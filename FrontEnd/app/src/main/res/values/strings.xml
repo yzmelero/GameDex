@@ -31,7 +31,7 @@
     <string name="finished">Completed</string>
     <string name="dropped">Dropped</string>
     <string name="playing">Playing</string>
-    <string name="wanttoplay">Pending</string>
+    <string name="wanttoplay">Want to play</string>
     <string name="profile_avatar">Profile Avatar</string>
     <string name="logout">Logout</string>
     <string name="user_created">User Created</string>
@@ -71,19 +71,16 @@
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
     <string name="add_cover">Add cover</string>
-    <string name="delete">Delete</string>
     <string name="selectCategory">Select a Category</string>
     <string name="view_game">View game</string>
-    <string name="valide_game">Valide game</string>
-    <string name="delete_question">do you want to delete?</string>
+    <string name="valide_game">Validate game</string>
     <string name="confirm_delete">confirm delete</string>
     <string name="delete">delete</string>
-    <string name="cancel">cancel</string>
     <string name="photo_category">photo_category</string>
     <string name="reset_password">Reset Password</string>
     <string name="accept">Accept</string>
-    <string name="confirm_delete">Confirm Delete</string>
     <string name="delete_question">Are you sure you want to delete it? This option is not reversible</string>
-    <string name="delete">Delete</string>
+    <string name="Delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="pending">Pending</string>
 </resources>
