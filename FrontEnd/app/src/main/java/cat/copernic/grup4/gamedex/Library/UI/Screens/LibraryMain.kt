@@ -1,5 +1,5 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
-/*
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,10 +21,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Library
 import cat.copernic.grup4.gamedex.Core.Model.StateType
 import cat.copernic.grup4.gamedex.Core.Model.User
@@ -36,11 +41,36 @@ import coil.compose.AsyncImage
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
+import cat.copernic.grup4.gamedex.Library.Data.LibraryRepository
+import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
+import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModel
+import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModelFactory
+import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.Users.Domain.UseCases
+import cat.copernic.grup4.gamedex.Users.UI.Screens.UserListScreen
+import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 
 @Composable
-fun Library(navController: NavController, library: List<Library>, userViewModel: UserViewModel, onDelete: (Videogame) -> Unit) {
+fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
     val users by userViewModel.users.collectAsState()
+    val username = users.firstOrNull()?.username ?: ""
+
+    val context = LocalContext.current
+
+    val libraryViewModel: LibraryViewModel = ViewModelProvider(
+        context as ViewModelStoreOwner,
+        LibraryViewModelFactory.LibraryViewModelFactory(LibraryUseCase(LibraryRepository()))
+    ).get(LibraryViewModel::class.java)
+
+    libraryViewModel.getLibrary(username)
+
+    val libraryItems by libraryViewModel.library.collectAsState()
+
+    val onDelete: (Library) -> Unit = { libraryToDelete ->
+        // Afegeix la lògica per eliminar el joc de la biblioteca
+        // Ex: libraryViewModel.deleteGame(libraryToDelete)
+    }
 
     Column(
         modifier = Modifier
@@ -48,7 +78,7 @@ fun Library(navController: NavController, library: List<Library>, userViewModel:
             .background(colorResource(id = R.color.background))
             .padding(16.dp)
     ) {
-        header(navController)
+        header(navController, userViewModel)
 
         Text(
             text = stringResource(R.string.library),
@@ -57,8 +87,8 @@ fun Library(navController: NavController, library: List<Library>, userViewModel:
             modifier = Modifier.padding(bottom = 16.dp)
         )
         LazyColumn {
-            items(library) { library ->
-                VideogameItem(library, onDelete)
+            items(libraryItems) {gameLibrary ->
+                VideogameItem(library = gameLibrary, onDelete = onDelete)
             }
         }
         FloatingActionButton(
@@ -92,7 +122,7 @@ fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(text = library.videogame.nameGame, fontWeight = FontWeight.Bold)
-                Text(text = library.videogame.nameCategory, fontSize = 14.sp, color = Color.Gray)
+                Text(text = library.videogame.category, fontSize = 14.sp, color = Color.Gray)
                 Text(text = library.state.name, fontSize = 14.sp)
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -106,8 +136,15 @@ fun VideogameItem(library: Library, onDelete: (Library) -> Unit) {
 
 @Preview
 @Composable
-fun LibraryPreview() {
+fun LibraryScreenPreview() {
+    val fakeNavController = rememberNavController()
+    val fakeUserRepository = UserRepository()
+    val useCases = UseCases(fakeUserRepository)
 
+    // Crea un fake ViewModel amb dades falses per la vista prèvia
+    val userViewModel =
+        UserViewModel(useCases) // Assegura't que UserViewModel té un constructor per defecte o crea'n un per la vista prèvia
+
+    LibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
 }
-*/
 

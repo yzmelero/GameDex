@@ -11,6 +11,9 @@ import kotlinx.coroutines.launch
 //TODO Afegir Strings
 class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel() {
 
+    private val _library = MutableStateFlow<List<Library>>(emptyList())
+    val library: StateFlow<List<Library>> = _library
+
     private val _message = MutableStateFlow<String?>(null)
     val message: StateFlow<String?> = _message
 
@@ -34,4 +37,16 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
         _message.value = null
 
     }
+
+    fun getLibrary(username: String) {
+        viewModelScope.launch {
+            val response = libraryUseCase.getLibrary(username) // Aquesta funció ha de retornar la llista de biblioteques des de la base de dades
+            if (response.isSuccessful) {
+                _library.value = response.body() ?: emptyList()
+            } else {
+                _message.value = "Error retrieving library"
+            }
+        }
+    }
+
 }

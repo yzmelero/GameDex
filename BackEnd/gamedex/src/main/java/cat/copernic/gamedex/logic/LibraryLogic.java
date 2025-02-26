@@ -13,6 +13,9 @@ public class LibraryLogic {
     @Autowired
     private LibraryRepository libraryRepository;
 
+    public List<Library> getLibraryByUser(String username){
+       return libraryRepository.findByUserUsername(username);
+    }
    
     
     public void delete(String idLibrary){

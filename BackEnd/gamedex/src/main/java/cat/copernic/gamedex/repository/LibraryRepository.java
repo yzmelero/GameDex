@@ -15,4 +15,5 @@ public interface LibraryRepository extends MongoRepository<Library, String> {
     Optional<Library> findByUserIdAndVideogameId(@Param("username") String username,
             @Param("gameId") String gameId);
 
+    List<Library> findByUserUsername(String username);
 }
