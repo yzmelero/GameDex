@@ -37,7 +37,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,7 +69,6 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
-import cat.copernic.grup4.gamedex.Core.Model.Videogame
 
 @Composable
 fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -138,7 +139,7 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel, userViewModel:
                     modifier = Modifier.size(30.dp)
                         .background(Color.Magenta, shape = RoundedCornerShape(24))
                         .clickable {
-                            val gameId = videogame?.gameId
+                            val gameId = videogame.gameId
                             Log.d("AddGameToLibraryScreen", "Navigating to game with ID: $gameId")
                             gameId?.let { navController.navigate("addToLibrary/$it") }
 
