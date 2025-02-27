@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -10,11 +11,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -75,7 +79,10 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import java.time.LocalDate
 import java.util.UUID
+
 //TODO Afegir les strings de AddGameToLibraryScreen
+
+
 @Composable
 fun AddGameToLibraryScreen(
     navController: NavController,
@@ -90,18 +97,16 @@ fun AddGameToLibraryScreen(
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val game by gameViewModel.gameById.collectAsState()
 
-    LaunchedEffect(gameId) {
-        gameViewModel.videogamesById(gameId)
-    }
-
-    Log.d("AddGameToLibraryScreen", "Videogame: $game")
-
     val context = LocalContext.current
 
-    if (game == null){
-        Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
-    }
 
+    LaunchedEffect(gameId) {
+        Log.d("error", "gameId: ${gameId}")
+        gameViewModel.videogamesById(gameId)
+        if (game == null) {
+            Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
+        }
+    }
     val users by userViewModel.users.collectAsState()
 
     val libraryViewModel: LibraryViewModel = ViewModelProvider(
@@ -138,6 +143,7 @@ fun AddGameToLibraryScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -156,7 +162,10 @@ fun AddGameToLibraryScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
-                    .background(colorResource(id = R.color.boxbackground), RoundedCornerShape(8.dp))
+                    .background(
+                        colorResource(id = R.color.boxbackground),
+                        RoundedCornerShape(8.dp)
+                    )
                     .padding(16.dp)
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -219,7 +228,10 @@ fun AddGameToLibraryScreen(
                         (1..10).forEach { index ->
                             Icon(
                                 imageVector = if (index <= rating.toInt()) Icons.Filled.Star else Icons.Outlined.Star,
-                                contentDescription = context.getString(R.string.star_index, index),
+                                contentDescription = context.getString(
+                                    R.string.star_index,
+                                    index
+                                ),
                                 tint = if (index <= rating.toInt()) Color.Yellow else Color.Gray,
                                 modifier = Modifier
                                     .size(28.dp)
@@ -254,16 +266,15 @@ fun AddGameToLibraryScreen(
                     // Botó de confirmació
                     Button(
                         onClick = {
-                            val user = users.firstOrNull() // Agafar l'user actual
+                            val user = userViewModel.currentUser.value
+
+                            val stateEnum = getStateTypeFromString(selectedState, context)
 
                             //Per a que funcioni l'state en l'objecte Library, necessito passar el valor de String a StateType.
-                            val stateEnum = try {
-                                StateType.valueOf(selectedState)
-                            }catch (e: IllegalArgumentException){
-                                StateType.WANTTOPLAY
-                            }
 
-                            Log.d("AddGameToLibrary", "User: $user, Videogame: $game")
+
+                            Log.d("AddGameToLibrary", "User: $user, /*Videogame: $game*/")
+                            Log.d("AddGameToLibrary", "Llista d'usuaris: $users")
 
                             if (user != null && game != null) {
                                 val newLibraryEntry = Library(
@@ -275,7 +286,7 @@ fun AddGameToLibraryScreen(
                                     rating = rating,
                                     publishedDate = LocalDate.now().toString()
                                 )
-                                libraryViewModel.addGameToLibrary(newLibraryEntry)
+                                libraryViewModel.addGameToLibrary(newLibraryEntry, context)
                                 //TODO Canviar ruta per a que porti a la biblioteca
                                 navController.popBackStack()
                                 Log.d("AddGameToLibrary", "Pop back stack")
@@ -305,6 +316,17 @@ fun AddGameToLibraryScreen(
     }
 
 }
+
+fun getStateTypeFromString(selectedState: String, context: Context): StateType {
+    return when (selectedState) {
+        context.getString(R.string.finished) -> StateType.FINISHED
+        context.getString(R.string.playing) -> StateType.PLAYING
+        context.getString(R.string.wanttoplay) -> StateType.WANTTOPLAY
+        context.getString(R.string.dropped) -> StateType.DROPPED
+        else -> StateType.WANTTOPLAY // Valor per defecte si no coincideix cap
+    }
+}
+
 
 @Composable
 @Preview

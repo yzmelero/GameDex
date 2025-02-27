@@ -36,7 +36,7 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
             "listvideogames",
             "userList/",
             "profile/${currentUser?.username}",
-            "library"
+            "libraryScreen"
         )
 
         icons.forEachIndexed { index, iconRes ->

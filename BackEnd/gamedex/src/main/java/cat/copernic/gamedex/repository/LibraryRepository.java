@@ -11,8 +11,9 @@ public interface LibraryRepository extends MongoRepository<Library, String> {
 
     public List<Library> findAllByVideogame();
 
-    @Query("SELECT l FROM Library l WHERE l.user.username = :username AND l.videogame.gameId = :gameId")
-    Optional<Library> findByUserIdAndVideogameId(@Param("username") String username,
-            @Param("gameId") String gameId);
+    @Query("{ 'user.username' : :#{#username}, 'videogame.gameId' : :#{#gameId} }")
+    Optional<Library> findByUserAndVideogame(@Param("username") String username,
+                                             @Param("gameId") String gameId);
 
+    List<Library> findByUserUsername(String username);
 }

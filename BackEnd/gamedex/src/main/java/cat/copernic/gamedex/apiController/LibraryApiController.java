@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cat.copernic.gamedex.logic.LibraryLogic;
@@ -24,11 +26,13 @@ public class LibraryApiController {
     @Autowired
     private LibraryLogic libraryLogic;
 
+
     Logger log = LoggerFactory.getLogger(LibraryApiController.class);
 
     @PostMapping("/add")
     public ResponseEntity<?> addGameToLibrary(@RequestBody Library library) {
-        log.info("Adding game to library: " + library.toString());
+        System.out.println("Intentando añadir juego con ID: " + library.getVideogame().getGameId() + " para usuario: " + library.getUser().getUsername());
+
         
         try{
             Library newGameToLibrary = libraryLogic.addGameToLibrary(library);
@@ -37,5 +41,10 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already in library");
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();        }
+    }
+
+    @GetMapping("/get")
+    public List<Library> getLibrary(@RequestParam String username){
+        return libraryLogic.getLibraryByUser(username);
     }
 }
