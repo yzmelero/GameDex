@@ -30,6 +30,9 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     private val _inactiveUsers = MutableStateFlow<List<User>>(emptyList())
     val inactiveUsers: StateFlow<List<User>> = _inactiveUsers
 
+    var _updateSuccess = MutableStateFlow<Boolean?>(null)
+    val updateSuccess: StateFlow<Boolean?> = _updateSuccess
+
     private val _loginSuccess = MutableStateFlow<Boolean?>(null)
     val loginSuccess: StateFlow<Boolean?> = _loginSuccess
 
@@ -165,6 +168,16 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             val response = useCases.validateUser(userId)
             if (response.isSuccessful) {
                 listInactiveUsers()
+            }
+        }
+    }
+
+    fun updateUser(updatedUser: User) {
+        viewModelScope.launch {
+            val response = useCases.updateUser(updatedUser)
+            _updateSuccess.value = response.isSuccessful
+            if(_currentUser.value?.username == updatedUser.username){
+                _currentUser.value = updatedUser
             }
         }
     }

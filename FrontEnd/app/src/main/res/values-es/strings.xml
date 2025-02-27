@@ -67,6 +67,7 @@
     <string name="validated">Validado</string>
     <string name="state">Estado: %1$s</string>
     <string name="user_type">Tipo de usuario: %1$s</string>
+    <string name="save_changes">Guardar cambios</string>
     <string name="add_cover">Añadir portada</string>
     <string name="selectCategory">Selecciona una categoría</string>
     <string name="view_game">Ver videojuego</string>
@@ -93,5 +94,8 @@
     <string name="showPassword">Mostrar la contraseña</string>
     <string name="userNotFound">Usuario no encontrado. Por favor, revisa el nombre de usuario y el email.</string>
     <string name="addAdmin">Añadir un admin</string>
-    <string name="search_user">Buscar un admin</string>
+    <string name="search_user">Buscar un usuario</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="user_updated">Usuario actualizado</string>
+    <string name="error_updating_user">Error actualizando usuario, porfavor revisa los campos</string>
 </resources>

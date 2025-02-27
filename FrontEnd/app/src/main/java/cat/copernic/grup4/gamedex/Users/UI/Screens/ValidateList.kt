@@ -69,13 +69,6 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
         )
         Spacer(modifier = Modifier.height(10.dp))
 
-        // Search Bar
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            placeholder = { Text(R.string.search.toString()) },
-            modifier = Modifier.fillMaxWidth(0.8f)
-        )
 
         Spacer(modifier = Modifier.height(10.dp))
 

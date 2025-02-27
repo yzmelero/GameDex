@@ -32,14 +32,15 @@ public class GamedexApplication {
 		userLogic = context.getBean(UserLogic.class);
 
 		
-		User user = new User("user", "user", "usuari", "apellido", "user@gmail.com", 12345678,
+		User user = new User("user", "user", "usuari", "apellido", "user@gmail.com", 
+				876543224,
 				LocalDate.of(1990, 1, 1), null, true, UserType.USER);
 		if (userRepository.findById(user.getUsername()).isPresent()) {
 		}else
 		userLogic.createUser(user);
 
 		// Crear administrador de ejemplo
-		User admin = new User("admin", "admin", "admin", "apellido", "admin@gmail.com", 87654321,
+		User admin = new User("admin", "admin", "admin", "apellido", "admin@gmail.com", 876543221,
 				LocalDate.of(1985, 1, 1), null, true, UserType.ADMIN);
 		if (userRepository.findById(admin.getUsername()).isEmpty()) {
 			userLogic.createUser(admin);
