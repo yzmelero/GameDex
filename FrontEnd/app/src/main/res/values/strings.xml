@@ -85,4 +85,5 @@
     <string name="pending">Pending</string>
     <string name="imageSelect">Image select</string>
     <string name="search">Search</string>
+    <string name="succDelCat">Successful deletion of category</string>
 </resources>

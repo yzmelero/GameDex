@@ -60,7 +60,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
     LaunchedEffect(categoryDeleted) {
         if (categoryDeleted == true) {
-            Toast.makeText(context, "Categoria eliminada correctament!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.succDelCat, Toast.LENGTH_SHORT).show()
             navController.popBackStack()
         }
     }
