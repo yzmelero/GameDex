@@ -80,6 +80,7 @@
     <string name="cancel">Cancelar</string>
     <string name="pending">Pendiente</string>
     <string name="imageSelect">Selección de imagen</string>
+    <string name="register_an_admin">Registrar un admin</string>
     <string name="search">Buscar...</string>
     <string name="succDelCat">La categoría se ha borrado exitosamente.</string>
     <string name="unkViewModel">Clase ViewModel desconocida.</string>
@@ -91,4 +92,6 @@
     <string name="hidePassword">Esconder la contraseña</string>
     <string name="showPassword">Mostrar la contraseña</string>
     <string name="userNotFound">Usuario no encontrado. Por favor, revisa el nombre de usuario y el email.</string>
+    <string name="addAdmin">Añadir un admin</string>
+    <string name="search_user">Buscar un admin</string>
 </resources>

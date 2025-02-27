@@ -80,6 +80,7 @@
     <string name="cancel">Cancel·lar</string>
     <string name="pending">Pendent</string>
     <string name="imageSelect">Selecció d\'imatge</string>
+    <string name="register_an_admin">Registrar un admin</string>
     <string name="search">Cerca...</string>
     <string name="succDelCat">La categoria s\'ha esborrat exitosament.</string>
     <string name="unkViewModel">Classe ViewModel desconeguda.</string>
@@ -91,4 +92,6 @@
     <string name="hidePassword">Amagar la contrasenya</string>
     <string name="showPassword">Mostrar la contrasenya</string>
     <string name="userNotFound">Usuari no trobat. Si us plau, comprova el nom d\'usuari i l\'email.</string>
+    <string name="addAdmin">Afegir un admin</string>
+    <string name="search_user">Cercar un admin</string>
 </resources>

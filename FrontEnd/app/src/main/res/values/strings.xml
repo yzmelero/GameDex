@@ -100,6 +100,5 @@
     <string name="game_category">Category</string>
     <string name="addAdmin">Add admin</string>
     <string name="register_an_admin">Register an Admin</string>
-    <string name="search">Search</string>
     <string name="search_user">Search user</string>
 </resources>
