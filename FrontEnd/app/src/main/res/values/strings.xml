@@ -84,4 +84,5 @@
     <string name="cancel">Cancel</string>
     <string name="pending">Pending</string>
     <string name="addAdmin">Add admin</string>
+    <string name="register_an_admin">Register an Admin</string>
 </resources>

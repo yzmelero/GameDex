@@ -11,9 +11,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -69,8 +71,9 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(R.color.background))
-            .padding(bottom = 14.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .windowInsetsPadding(WindowInsets.systemBars),
+        horizontalAlignment = Alignment.CenterHorizontally,
+
     ) {
 
         header(navController, userViewModel)
@@ -79,13 +82,13 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f), // Para que ocupe el espacio restante
+                .verticalScroll(rememberScrollState()), // Para que ocupe el espacio restante
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = stringResource(id = R.string.sign_up),
+                text = stringResource(R.string.register_an_admin),
                 fontSize = 40.sp,
                 style = GameDexTypography.bodyLarge,
                 color = Color.Black
@@ -144,8 +147,6 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                     )
 
 
-
-
                     //AVATARSECTION
                     var selectedImageUri by remember {
                         mutableStateOf<Uri?>(null)
@@ -177,7 +178,8 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                                 )
                             } else {
                                 profilePicture =
-                                    userViewModel.uriToBase64(context, selectedImageUri!!).toString()
+                                    userViewModel.uriToBase64(context, selectedImageUri!!)
+                                        .toString()
                                 AsyncImage(
                                     model = selectedImageUri,
                                     contentDescription = "Avatar",
@@ -201,14 +203,15 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                                             )
                                     }
                                     .padding(top = 40.dp)
-                                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                                    .background(
+                                        colorResource(R.color.header),
+                                        shape = RoundedCornerShape(50)
+                                    )
                                     .clip(RoundedCornerShape(50))
                                     .size(40.dp)
                             )
                         }
                     }
-
-
 
                     Spacer(modifier = Modifier.height(4.dp))
 
@@ -242,7 +245,6 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                     }
                 }
             }
-            BottomSection(navController, userViewModel, 3)
         }
     }
     LaunchedEffect(registrationState) {
