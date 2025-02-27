@@ -169,7 +169,7 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel, userViewModel:
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "⭐ 7.85 ⭐",
+                        text = ("⭐ " + 7.85 + " ⭐"),
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = colorResource(R.color.yellowdark),
@@ -416,11 +416,11 @@ fun PreviewViewGamesScreen() {
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
 
     ViewGamesScreen(navController = fakeNavController, userViewModel)
-    /*
-    val fakeGame = Videogame(
+
+    /*val fakeGame = Videogame(
         nameGame = "Nombre prueba",
         releaseYear = "2022",
-        nameCategory = "Categoria",
+        category = "Categoria",
         developer = "FromSoftware",
         ageRecommendation = "18",
         descriptionGame = "Lorem ipsum dolor sit amet consectetur adipiscing elit odio aptent cubilia, laoreet cursus pharetra vulputate pellentesque integer nec fermentum sociis id, feugiat class torquent vel egestas primis mus sed fusce. Interdum condimentum mauris sed ridiculus duis justo phasellus, lobortis feugiat augue ultricies cum ultrices arcu ullamcorper, curabitur in cras auctor morbi sapien. Consequat penatibus litora tristique dis rutrum nec venenatis aliquam, lectus aptent laoreet fames condimentum augue varius gravida metus, montes platea duis conubia justo quis lobortis.",
