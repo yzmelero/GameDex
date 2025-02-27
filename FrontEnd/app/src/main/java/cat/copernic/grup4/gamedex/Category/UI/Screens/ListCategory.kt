@@ -36,6 +36,7 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
@@ -48,6 +49,9 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
     val query = remember { navController.currentBackStackEntry?.arguments?.getString("query") } ?: return
     var searchQuery by remember { mutableStateOf("") }
     val category by categoryViewModel.category.collectAsState()
+
+    val currentUser by userViewModel.currentUser.collectAsState()
+    val isAdmin = currentUser?.userType == UserType.ADMIN
 
     LaunchedEffect(query) {
         if (query.isEmpty()) {
@@ -109,7 +113,10 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
         ) {
             BottomSection(navController, userViewModel, 0)
         }
-        FloatingAddButton(navController)
+
+        if (isAdmin) {
+            FloatingAddButton(navController)
+        }
     }
 }
 
@@ -165,7 +172,7 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
 @Composable
 fun CategoryButton(name: String, modifier: Modifier = Modifier) {
     Card(
-        shape = RoundedCornerShape(6.dp), // Forma rectangular amb mínim d'arrodoniment
+        shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Ombra afegida
         modifier = modifier
