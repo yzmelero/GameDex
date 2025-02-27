@@ -38,7 +38,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("signup") { SignUpScreen(navController, userViewModel) }
         composable("list_category") { ListCategoryScreen(navController, userViewModel) }
         composable("add_category") { AddCategoryScreen(navController, userViewModel) }
-        composable("userList") { UserListScreen(navController, userViewModel) }
+        composable("userList/{username}") { UserListScreen(navController, userViewModel) }
         composable("profile/{username}") { ProfileScreen(navController, userViewModel) }
         composable("validate") { ValidateListScreen(navController, userViewModel) }
         composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
