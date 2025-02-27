@@ -63,4 +63,11 @@ public class CategoryApiController {
         Category category = categoryLogic.getCategoryById(categoryId);
         return ResponseEntity.ok(category);
     }
+
+    @GetMapping("/search/{query}")
+    public ResponseEntity<List<Category>> searchCategories(@PathVariable String query) {
+    log.info("Searching categories with query: " + query);
+    List<Category> categories = categoryLogic.searchCategories(query);
+    return ResponseEntity.ok(categories);
+}
 }
