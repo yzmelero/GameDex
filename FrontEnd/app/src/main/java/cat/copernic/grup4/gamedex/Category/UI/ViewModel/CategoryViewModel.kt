@@ -110,5 +110,4 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
             null
         }
     }
-
 }
