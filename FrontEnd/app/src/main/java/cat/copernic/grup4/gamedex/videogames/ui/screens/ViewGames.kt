@@ -69,6 +69,8 @@ import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
+import kotlinx.coroutines.flow.MutableStateFlow
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
 
 @Composable
 fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -138,6 +140,12 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel, userViewModel:
                     contentDescription = stringResource(R.string.addgame_library),
                     modifier = Modifier.size(30.dp)
                         .background(Color.Magenta, shape = RoundedCornerShape(24))
+                        .clickable {
+                            val gameId = videogame?.gameId
+                                    Log.d("AddGameToLibraryScreen", "Navigating to game with ID: $gameId")
+                            gameId?.let { navController.navigate("addToLibrary/$it") }
+
+                        }
                 )
             }
             Row(verticalAlignment = Alignment.Top) {
