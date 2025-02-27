@@ -36,8 +36,6 @@ import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
@@ -179,6 +177,7 @@ fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (S
 
 @Composable
 fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -192,7 +191,7 @@ fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
         }
         Image(
             painter = painter,
-            contentDescription = "Image select",
+            contentDescription = context.getString(R.string.imageSelect),
             modifier = Modifier.fillMaxSize()
         )
         IconButton(

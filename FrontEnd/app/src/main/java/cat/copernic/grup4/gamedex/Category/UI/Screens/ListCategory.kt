@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -30,8 +31,6 @@ import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import androidx.navigation.NavController
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
-import cat.copernic.grup4.gamedex.Core.ui.theme.TopBar
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
@@ -110,6 +109,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
+    val context = LocalContext.current
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -130,7 +130,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
             )
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search",
+                contentDescription = context.getString(R.string.search),
                 tint = Color.Gray
             )
         }
