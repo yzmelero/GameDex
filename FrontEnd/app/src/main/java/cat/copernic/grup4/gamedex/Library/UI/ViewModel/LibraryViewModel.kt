@@ -13,6 +13,7 @@ import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
 import cat.copernic.grup4.gamedex.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.ByteArrayInputStream
 
@@ -28,6 +29,9 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
 
     private val _libraryState = MutableStateFlow<Boolean?>(null)
     val libraryState: StateFlow<Boolean?> = _libraryState
+
+    private val _comments = MutableStateFlow<List<Library>>(emptyList())
+    val comments: StateFlow<List<Library>> = _comments
 
     fun addGameToLibrary(library: Library, context: Context) {
         viewModelScope.launch {
@@ -68,6 +72,21 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
             bitmap.asImageBitmap()
         } catch (e: Exception) {
             null
+        }
+    }
+
+    fun getCommentsByGame(gameId: String) {
+        viewModelScope.launch {
+            try {
+                val response = libraryUseCase.getCommentsFromLibrary(gameId)
+                if (response.isSuccessful){
+                    response.body()?.let{
+                        commentList -> _comments.value = commentList
+                    }
+                }
+            } catch (e: Exception) {
+                _message.value = "Error retrieving library"
+            }
         }
     }
 }
