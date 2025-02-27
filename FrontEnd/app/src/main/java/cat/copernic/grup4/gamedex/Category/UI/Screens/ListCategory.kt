@@ -93,7 +93,11 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            CategoriesGrid(category, navController)
+            val filteredCategories = category.filter {
+                it.nameCategory.contains(searchQuery, ignoreCase = true)
+            }
+
+            CategoriesGrid(filteredCategories, navController)
 
             Spacer(modifier = Modifier.weight(1f))
 
