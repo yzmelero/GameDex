@@ -78,8 +78,6 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
         navController.currentBackStackEntry?.arguments?.getString("gameId")
     } ?: return // Si es null, surt
 
-    //val gameId = "67b6e13cc37b260466e6342c"
-
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val game by gameViewModel.gameById.collectAsState()
@@ -294,7 +292,7 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel, userViewModel:
                                     gameViewModel.deleteVideogame(it)
                                     showDialog = false
                                     navController.popBackStack()
-                                } ?: Log.e("DELETE_GAME", "Error: gameId is null or empty")
+                                }
                             }) {
                                 Text(stringResource(R.string.delete), color = Color.Red)
                             }
@@ -310,7 +308,6 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel, userViewModel:
         }
     }
     CommentsSection()
-
     }
 }
 
