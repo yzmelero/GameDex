@@ -69,15 +69,11 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 
 @Composable
-fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel) {
+fun ListInactiveGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
-    val videogame by gameViewModel.allVideogame.collectAsState()
-    var searchQuery by remember { mutableStateOf("") }
-
-    LaunchedEffect(Unit) {
-        gameViewModel.getAllVideogames()
-    }
+    gameViewModel.getAllInactiveVideogames()
+    val videogame by gameViewModel.allInactiveVideogame.collectAsState()
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -92,57 +88,20 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
             header(navController, userViewModel)
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = stringResource(R.string.list_game),
+                text = stringResource(R.string.inactive_games),
                 fontSize = 50.sp,
                 color = Color.Black,
                 style = GameDexTypography.bodyLarge
             )
             Spacer(modifier = Modifier.height(10.dp))
-            SearchBar(searchQuery) { searchQuery = it }
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            VideogamesGrid(videogame, navController, gameViewModel)
-
+            VideogamesList(videogame, navController, gameViewModel)
         }
         BottomSection(navController, userViewModel,1)
-        GameButtons(navController)
     }
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
-    // TODO fer el filtre i la recerca funcional, es provisional
-    Card(
-        shape = RoundedCornerShape(50.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .padding(top = 16.dp)
-            .fillMaxWidth()
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-        ) {
-            BasicTextField(
-                value = query,
-                onValueChange = onQueryChange,
-                textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
-                modifier = Modifier.weight(1f)
-            )
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = R.string.search.toString(),
-                tint = Color.Gray
-            )
-        }
-    }
-}
-
-
-@Composable
-fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gameViewModel: GameViewModel) {
+fun VideogamesList(videogame: List<Videogame>, navController: NavController, gameViewModel: GameViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -151,13 +110,13 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gam
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         videogame.forEach { game ->
-            GameItem(videogame = game, navController = navController, gameViewModel = gameViewModel)
+            GameItems(videogame = game, navController = navController, gameViewModel = gameViewModel)
         }
     }
 }
 
 @Composable
-fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: GameViewModel) {
+fun GameItems(videogame: Videogame, navController: NavController, gameViewModel: GameViewModel) {
     Card(
         shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
@@ -214,6 +173,7 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
             ) {
                 IconButton(onClick = {
                     navController.navigate("viewGame/${videogame.gameId}")
+                    // TODO Navegar a Validar Videojoc (a fer)
                 }) {
                     Box(
                         modifier = Modifier
@@ -235,49 +195,13 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
     }
 
 }
-@Composable
-fun GameButtons(navController: NavController) {
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .navigationBarsPadding()
-            .padding(bottom = 100.dp, start = 16.dp, end = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Bottom
-    ) {
-        IconButton(
-            onClick = {navController.navigate("listInactiveGames")},
-            modifier = Modifier
-                .size(56.dp)
-                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
-        ) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = stringResource(R.string.valide_game),
-                modifier = Modifier.size(40.dp)
-            )
-        }
-        IconButton(
-            onClick = {navController.navigate("addGames")},
-            modifier = Modifier
-                .size(56.dp)
-                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = stringResource(R.string.add_game),
-                modifier = Modifier.size(40.dp)
-            )
-        }
-    }
-}
 
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewListGamesScreen() {
+fun PreviewListInactiveGamesScreen() {
     val fakeNavController = rememberNavController()
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-    ListGamesScreen(navController = fakeNavController, userViewModel)
+    ListInactiveGamesScreen(navController = fakeNavController, userViewModel)
 }

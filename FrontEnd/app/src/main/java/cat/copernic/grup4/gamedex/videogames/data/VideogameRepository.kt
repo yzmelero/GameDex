@@ -14,6 +14,9 @@ class VideogameRepository {
     suspend fun getAllVideogames(): Response<List<Videogame>> {
         return RetrofitInstance.api.getAllVideogames()
     }
+    suspend fun getAllInactiveVideogames(): Response<List<Videogame>> {
+        return RetrofitInstance.api.getAllInactiveVideogames()
+    }
     suspend fun getAllCategories(): Response<List<Category>> {
         return RetrofitInstance.api.getAllCategories()
     }

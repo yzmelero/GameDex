@@ -2,7 +2,6 @@ package cat.copernic.gamedex.logic;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cat.copernic.gamedex.entity.Videogame;
@@ -33,6 +32,7 @@ public class VideogameLogic {
                 if (existingGame.isPresent()) {
                     throw new RuntimeException("Videogame with this name already exists");
                 }
+                videogame.setState(false);
             }
             return videogameRepo.save(videogame); // MongoDB genera ID si és null
 
@@ -113,6 +113,16 @@ public class VideogameLogic {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error getting all videogames");
+        }
+    }
+
+     public List<Videogame> getInactiveVideogames() {
+        try {
+            return videogameRepo.findByState(false);
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting inactive videogames");
         }
     }
 

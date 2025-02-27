@@ -101,4 +101,5 @@
     <string name="register_an_admin">Register an Admin</string>
     <string name="search_user">Search user</string>
     <string name="modify_game">Modify Game</string>
+    <string name="inactive_games">Validate Games</string>
 </resources>

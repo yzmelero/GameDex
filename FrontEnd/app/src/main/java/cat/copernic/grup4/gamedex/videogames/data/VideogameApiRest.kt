@@ -20,6 +20,9 @@ interface VideogameApiRest {
     @GET("videogame/all")
     suspend fun getAllVideogames(): Response<List<Videogame>>
 
+    @GET("videogame/all/inactive")
+    suspend fun getAllInactiveVideogames(): Response<List<Videogame>>
+
     @GET("videogame/categories")
     suspend fun getAllCategories(): Response<List<Category>>
 

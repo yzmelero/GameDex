@@ -30,6 +30,9 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     private val _videogameGetAll = MutableStateFlow<List<Videogame>>(emptyList())
     open val allVideogame: StateFlow<List<Videogame>> = _videogameGetAll
 
+    private val _videogameGetAllInactive = MutableStateFlow<List<Videogame>>(emptyList())
+    open val allInactiveVideogame: StateFlow<List<Videogame>> = _videogameGetAllInactive
+
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
     val categories: StateFlow<List<Category>> = _categories
 
@@ -54,6 +57,13 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         viewModelScope.launch {
             val response = videogameUseCase.getAllVideogames()
             _videogameGetAll.value = response.body() ?: emptyList()
+        }
+    }
+
+    fun getAllInactiveVideogames() {
+        viewModelScope.launch {
+            val response = videogameUseCase.getAllInactiveVideogames()
+            _videogameGetAllInactive.value = response.body() ?: emptyList()
         }
     }
 

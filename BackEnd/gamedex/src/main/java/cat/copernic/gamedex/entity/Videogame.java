@@ -37,4 +37,7 @@ public class Videogame {
     @Field(name = "name_category")
     private String category;
 
+    // 0 for non validated games, 1 for validated games
+    private Boolean state;
+
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import cat.copernic.gamedex.entity.Category;
 import cat.copernic.gamedex.entity.Videogame;
 import cat.copernic.gamedex.logic.CategoryLogic;
@@ -63,6 +62,13 @@ public class VideogameApiController {
     public ResponseEntity <List<Videogame>> getAllVideogames() {
         log.info("Getting all videogames");
         List<Videogame> videogames = videogameLogic.getAllVideogames();
+        return ResponseEntity.ok(videogames);
+    }
+
+    @GetMapping("/all/inactive")
+    public ResponseEntity <List<Videogame>> getInactiveVideogames() {
+        log.info("Getting inactive users");
+        List<Videogame> videogames = videogameLogic.getInactiveVideogames();
         return ResponseEntity.ok(videogames);
     }
 
