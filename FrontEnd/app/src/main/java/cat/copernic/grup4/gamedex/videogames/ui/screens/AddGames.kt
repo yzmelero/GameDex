@@ -248,7 +248,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         Button(
                             onClick = {
                                 if (selectedCategory == null) {
-                                    Toast.makeText(context, "Please select a category", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, R.string.selectCategory, Toast.LENGTH_SHORT).show()
                                 } else {
                                     Log.d("AddGamesScreen", "Categoría seleccionada: ${selectedCategory?.nameCategory}")
                                     val newGame = Videogame(
