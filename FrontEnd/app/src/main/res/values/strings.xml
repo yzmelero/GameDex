@@ -92,4 +92,8 @@
     <string name="star_index">Star %d</string>
     <string name="succGameToLib">Game added to library</string>
     <string name="errorAddGameToLib">Error adding game to library</string>
+    <string name="succDelGame">Game deleted</string>
+    <string name="hidePassword">Hide password</string>
+    <string name="showPassword">Show password</string>"
+
 </resources>
