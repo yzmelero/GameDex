@@ -120,10 +120,10 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                         _users.value = userList
                     }
                 } else {
-                    println("Error en la API: ${response.errorBody()?.string()}")
+                    println("API Error: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                println("Error al obtener usuarios: ${e.message}")
+                println("Error obtaining users: ${e.message}")
             }
         }
     }
@@ -194,6 +194,23 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             } catch (e: Exception){
                 Log.e("RESET_PASSWORD", "Error: ${e.message}")
                 _resetMessage.value = R.string.errorConnServer.toString()
+            }
+        }
+    }
+
+    fun getAllUsersByUserId(userId: String) {
+        viewModelScope.launch {
+            try {
+                val response = useCases.getAllUsersByUserId(userId)
+                if (response.isSuccessful) {
+                    response.body()?.let { userList ->
+                        _users.value = userList
+                    }
+                } else {
+                    println("API Error: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                println("Error obtaining users: ${e.message}")
             }
         }
     }

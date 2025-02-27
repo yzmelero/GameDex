@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -20,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +39,9 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -50,6 +55,18 @@ import cat.copernic.grup4.gamedex.Core.ui.header
 fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
     val users by userViewModel.users.collectAsState()
     val currentUser by userViewModel.currentUser.collectAsState()
+
+    val username = remember {
+        navController.currentBackStackEntry?.arguments?.getString("username")
+    } ?: return // Si no hay ID, salir de la función
+
+    LaunchedEffect(username){
+        if(username.isNotBlank() && username.isNotEmpty()) {
+            userViewModel.getAllUsersByUserId(username)
+        }else{
+            userViewModel.listUsers()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -73,26 +90,47 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
         Spacer(modifier = Modifier.height(10.dp))
 
         // Search Bar
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            placeholder = { Text(R.string.search.toString()) },
-            modifier = Modifier.fillMaxWidth(0.8f)
-        )
+        var searchQuery by remember { mutableStateOf("") }
+        Row {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                placeholder = { Text(stringResource(R.string.search) + "...") },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
+            IconButton(
+                onClick = { navController.navigate("userList/$searchQuery") },
+                modifier = Modifier
+                .background(Color.LightGray, shape = CircleShape)
+            ) {
+                Icon(
+                    Icons.Default.Search,
+                    contentDescription = stringResource(R.string.search_user)
+                )
+            }
+        }
+
 
         if (currentUser?.userType == UserType.USER) {
             Spacer(modifier = Modifier.height(10.dp))
         }
 
         if (currentUser?.userType == UserType.ADMIN) {
-            Button(
-                onClick = { navController.navigate("validate") },
-                shape = RoundedCornerShape(20.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+            Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+                Button(
+                    onClick = { navController.navigate("validate") },
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.padding(end = 5.dp)
+                ) {
+                    Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+                }
+                Button(
+                    onClick = { navController.navigate("add_admin") },
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.padding(start = 5.dp)
+                ) {
+                    Text(stringResource(R.string.addAdmin), color = Color.White, fontSize = 18.sp)
+                }
             }
         }
         // User List
@@ -144,9 +182,6 @@ fun UserCard(user: User, navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { navController.navigate("profile/${user.username}") }) {
                 Icon(Icons.Default.Info, contentDescription = stringResource(R.string.view_profile))
-            }
-            IconButton(onClick = { /* TODO: Remove user action */ }) {
-                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.remove))
             }
         }
     }
