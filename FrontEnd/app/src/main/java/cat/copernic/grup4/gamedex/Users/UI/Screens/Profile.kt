@@ -6,7 +6,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -53,7 +52,6 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
         user = userViewModel.getUser(username)
     }
     val currentUser = user
-    val loggedUser by userViewModel.currentUser.collectAsState()
 
 
     Column(
@@ -75,7 +73,8 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
         Box {
 
             if (loggedUser?.userType == UserType.ADMIN
-                && loggedUser?.username != currentUser?.username) {
+                && loggedUser?.username != currentUser?.username
+            ) {
                 var showDialog by remember { mutableStateOf(false) }
 
                 IconButton(
@@ -113,62 +112,65 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                     )
                 }
             }
-            Box(modifier = Modifier.size(150.dp)) { // 📌 Contenedor para superponer la imagen y el ícono
-                currentUser?.let {
-                    val imageBitmap = currentUser.profilePicture?.let {
-                        userViewModel.base64ToBitmap(it)
+            currentUser?.let {
+                val imageBitmap = currentUser.profilePicture?.let {
+                    userViewModel.base64ToBitmap(it)
+                }
+
+                Column {
+                    imageBitmap?.let {
+                        Image(
+                            it, contentDescription = stringResource(R.string.profile_picture),
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(320.dp)
+                                .clip(CircleShape)
+                        )
                     }
 
-                    Column {
-                        imageBitmap?.let {
-                            Image(
-                                it, contentDescription = stringResource(R.string.profile_picture),
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .size(320.dp)
-                                    .clip(CircleShape)
-                            )
-                        }
-                    }
-        }
+                }
 
 
-    }
-    Spacer(modifier = Modifier.height(10.dp))
+            }
+            Spacer(modifier = Modifier.height(10.dp))
 
 // Username
-    Text(
-        username, fontSize = 56.sp,
-        style = GameDexTypography.bodyLarge,
-        color = Color.Black
-    )
+            Text(
+                username, fontSize = 56.sp,
+                style = GameDexTypography.bodyLarge,
+                color = Color.Black
+            )
 
-    Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
 // Stats Section
-    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-        //TODO: hacer un count con los datos de cada categoria para los numeros
-            StatItem(stringResource(R.string.finished), "85")
-        StatItem(stringResource(R.string.playing), "8")
-            StatItem(stringResource(R.string.wanttoplay), "20")
-    }
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                //TODO: hacer un count con los datos de cada categoria para los numeros
+                StatItem(stringResource(R.string.finished), "85")
+                StatItem(stringResource(R.string.playing), "8")
+                StatItem(stringResource(R.string.wanttoplay), "20")
+            }
 
-    Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
 // Library Button
-    Button(
-        onClick = { /* TODO: Hacer el navigation a la library */ },
-        shape = RoundedCornerShape(20.dp)
-    ) {
-        Text(
-            stringResource(R.string.library),
-            color = Color.White, fontSize = 18.sp,
-            style = GameDexTypography.bodyLarge
-        )
-    }
+            Button(
+                onClick = { /* TODO: Hacer el navigation a la library */ },
+                shape = RoundedCornerShape(20.dp)
+            ) {
+                Text(
+                    stringResource(R.string.library),
+                    color = Color.White, fontSize = 18.sp,
+                    style = GameDexTypography.bodyLarge
+                )
+            }
 
 
-    BottomSection(navController, userViewModel,  3)
+            BottomSection(navController, userViewModel, 3)
+        }
     }
 }
 

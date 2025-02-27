@@ -89,4 +89,6 @@
     <string name="register_an_admin">Register an Admin</string>
     <string name="search">Search</string>
     <string name="search_user">Search user</string>
+    <string name="user_updated">User updated</string>
+    <string name="error_updating_user">Error updating user, please check the information</string>
 </resources>
