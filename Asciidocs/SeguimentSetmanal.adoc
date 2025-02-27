@@ -63,6 +63,7 @@ Enllaç al Trello grupal de gamedex: https://trello.com/invite/b/67935061f9febf9
 
 ** Estructura navegation frontend (3 hores)
 
+
 ===== [aqua]#8.1.1.4. Mario#
 
 ** Registre Usuari backend i pantalla(3 hores) 
@@ -577,16 +578,15 @@ Aquest sprint la principal incidència que hem trobat ha sigut que no podíem tr
 
 ** Eliminar Category (2 hores)
 
-** Filtre Category en la Llista (4 hores i no esta acabada)
+** Filtre Category en la Llista (4 hores i no està acabada)
 
 Modificar Category:
 
-** Implementació de la Logica al BackEnd (1 hora)
+** Implementació de la Lògica al BackEnd (1 hora)
 
 ** Implementació de Retrofit, APIrest i ViewModel (1 hora)
 
-** UI Pantalla Modify (4 hores) i no em surt res no se com fer aquesta part i he avançat una mica a casa i tampoc, no se com fer aquesta part.
-
+** UI Pantalla Modify (4 hores) i no em surt res, no sé com fer aquesta part i he avançat una mica a casa i tampoc, no sé com fer aquesta part.
 **Tasques realitzades:**
 
 En aquest Sprint el que he fet ha sigut acabar la part de ViewCatgory i acabar el que hem faltat, però he tingut molts problemes a l’hora de crear la pantalla del ViewCategory, no sabia com fer-la i em donava molts problemes per la part de mostrar la informació d’una categoria i tan sols em mostrava la pantalla buida i vaig intentar de tot, però va ser una cosa molt absurda que va ser l’URL, ja que no estava igual que en el BackEnd i vaig modificar de tot. També vaig fer la part d’eliminar categoria i vaig fer que el botó tan sols la pugui veure l’administrador i no vaig tenir cap problema el vaig posar dintre d’un if amb un currentuser i no tenia cap complicació.
@@ -660,14 +660,20 @@ Ja de cara al següent projecte, el que hauria de fer seria plantejar-me molt mi
 ===== [aqua]#8.3.4.3. Anna#
 **Hores dedicades:**
 
-He dedicat unes 33 hores aquest Sprint. A més de les tasques realitzades llistades al Release notes, també he dedicat 3 hores a les feines de FOL i una hora a organització. FALTA EL JUEVES!
+He dedicat unes 35 hores aquest Sprint. A més de les tasques realitzades llistades al Release notes, també he dedicat 3 hores a les feines de FOL i una hora a organització. FALTA EL JUEVES!
 
 **Tasques realitzades:**
 
-Correcció de strings i traducció (1 hora i mitja)
-Afegir videojoc a la biblioteca (13 hores)
-Recuperar contrasenya (9 hores)
-Consultar biblioteca personal (5 hores)
+** Correcció de strings i traducció (1 hora i mitja)
+
+** Afegir videojoc a la biblioteca (13 hores)
+
+** Recuperar contrasenya (9 hores)
+
+** Consultar biblioteca personal (5 hores)
+
+** Llistar comentaris sense filtrar (3 hores)
+
 
 **Aspectes positius del treball realitzat:**
 
