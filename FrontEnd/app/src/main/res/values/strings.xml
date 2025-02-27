@@ -90,5 +90,6 @@
     <string name="cantLoadGame">Error: Can\'t load the videogame</string>
     <string name="dropdownIcon">Dropdown icon for select videogame state</string>
     <string name="star_index">Star %d</string>
-
+    <string name="succGameToLib">Game added to library</string>
+    <string name="errorAddGameToLib">Error adding game to library</string>
 </resources>
