@@ -1,21 +1,18 @@
 package cat.copernic.grup4.gamedex.Users.UI.ViewModel
 
 
-import android.content.ContentResolver
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
-import android.widget.ImageView
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -123,10 +120,10 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                         _users.value = userList
                     }
                 } else {
-                    println("Error en la API: ${response.errorBody()?.string()}")
+                    println("API Error: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                println("Error al obtener usuarios: ${e.message}")
+                println("Error obtaining users: ${e.message}")
             }
         }
     }
@@ -192,11 +189,28 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     val responseBody = response.body()
                     _resetMessage.value = responseBody?.get("message") ?: "Unknown response"
                 } else{
-                    _resetMessage.value = "User not found. Please check the username and email."
+                    _resetMessage.value = R.string.userNotFound.toString()
                 }
             } catch (e: Exception){
                 Log.e("RESET_PASSWORD", "Error: ${e.message}")
-                _resetMessage.value = "Error connecting to the server."
+                _resetMessage.value = R.string.errorConnServer.toString()
+            }
+        }
+    }
+
+    fun getAllUsersByUserId(userId: String) {
+        viewModelScope.launch {
+            try {
+                val response = useCases.getAllUsersByUserId(userId)
+                if (response.isSuccessful) {
+                    response.body()?.let { userList ->
+                        _users.value = userList
+                    }
+                } else {
+                    println("API Error: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                println("Error obtaining users: ${e.message}")
             }
         }
     }
