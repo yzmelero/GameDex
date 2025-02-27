@@ -53,7 +53,11 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
     }
 
     LaunchedEffect(searchQuery) {
-        categoryViewModel.filterCategories(searchQuery) // Filtra cada vez que cambia el query
+        if (searchQuery.isEmpty()) {
+            categoryViewModel.getAllCategory()
+        } else {
+            categoryViewModel.filterCategories(searchQuery)
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -89,7 +93,9 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
         Spacer(modifier = Modifier.height(10.dp))
 
-            SearchBar(searchQuery) { searchQuery = it }
+            SearchBar(searchQuery) { newQuery ->
+                searchQuery = newQuery
+            }
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -126,7 +132,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
         ) {
             BasicTextField(
                 value = query,
-                onValueChange = onQueryChange,
+                onValueChange = { onQueryChange(it) },
                 textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
                 modifier = Modifier.weight(1f)
             )
