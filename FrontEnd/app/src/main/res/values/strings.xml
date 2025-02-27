@@ -70,6 +70,8 @@
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
     <string name="user_type">User type: %1$s</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save_changes">save changes</string>
     <string name="add_cover">Add cover</string>
     <string name="selectCategory">Select a Category</string>
     <string name="view_game">View game</string>
@@ -100,5 +102,7 @@
     <string name="addAdmin">Add admin</string>
     <string name="register_an_admin">Register an Admin</string>
     <string name="search_user">Search user</string>
+    <string name="user_updated">User updated</string>
+    <string name="error_updating_user">Error updating user, please check the information</string>
     <string name="modify_game">Modify Game</string>
 </resources>

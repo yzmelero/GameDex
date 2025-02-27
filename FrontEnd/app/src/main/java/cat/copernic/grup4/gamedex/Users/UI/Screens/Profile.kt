@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -64,10 +66,30 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
         header(navController, userViewModel)
 
         Spacer(modifier = Modifier.height(20.dp))
-        Box {
+        Box(modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 80.dp)
+            .defaultMinSize(200.dp)) {
+            if (loggedUser?.userType == UserType.ADMIN
+                || loggedUser?.username == currentUser?.username
+            ) {
+                IconButton(
+                    onClick = { navController.navigate("editProfile/${currentUser?.username}") },
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .padding(12.dp)
+                        .background(Color.Gray, shape = CircleShape)
+                ) {
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = stringResource(R.string.edit_profile),
+                        tint = Color.White
+                    )
+                }
+            }
 
             if (loggedUser?.userType == UserType.ADMIN
-                && loggedUser?.username != currentUser?.username) {
+                && loggedUser?.username != currentUser?.username
+            ) {
                 var showDialog by remember { mutableStateOf(false) }
 
                 IconButton(
@@ -110,58 +132,70 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                 val imageBitmap = currentUser.profilePicture?.let {
                     userViewModel.base64ToBitmap(it)
                 }
-
-                Column {
-                    imageBitmap?.let {
+                if (imageBitmap == null) {
+                    Column(modifier = Modifier.align(Alignment.Center)) {
                         Image(
-                            it, contentDescription = stringResource(R.string.profile_picture),
+                            painter = painterResource(id = R.drawable.user),
+                            contentDescription = stringResource(R.string.profile_picture),
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
-                                .size(320.dp)
+                                .size(120.dp)
                                 .clip(CircleShape)
                         )
                     }
+                }else {
+                    Column(modifier = Modifier.align(Alignment.Center)) {
+                        imageBitmap.let {
+                            Image(
+                                it, contentDescription = stringResource(R.string.profile_picture),
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(152.dp)
+                                    .clip(CircleShape)
+                            )
+                        }
+                    }
                 }
+            }
+
+
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+
+// Username
+        Text(
+            username, fontSize = 56.sp,
+            style = GameDexTypography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+// Stats Section
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+            //TODO: hacer un count con los datos de cada categoria para los numeros
+            StatItem(stringResource(R.string.finished), "85")
+            StatItem(stringResource(R.string.playing), "8")
+            StatItem(stringResource(R.string.wanttoplay), "20")
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+// Library Button
+        Button(
+            onClick = { /* TODO: Hacer el navigation a la library */ },
+            shape = RoundedCornerShape(20.dp)
+        ) {
+            Text(
+                stringResource(R.string.library),
+                color = Color.White, fontSize = 18.sp,
+                style = GameDexTypography.bodyLarge
+            )
         }
 
 
+        BottomSection(navController, userViewModel, 3)
     }
-    Spacer(modifier = Modifier.height(10.dp))
-
-// Username
-    Text(
-        username, fontSize = 56.sp,
-        style = GameDexTypography.bodyLarge,
-        color = Color.Black
-    )
-
-    Spacer(modifier = Modifier.height(20.dp))
-
-// Stats Section
-    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-        //TODO: hacer un count con los datos de cada categoria para los numeros
-            StatItem(stringResource(R.string.finished), "85")
-        StatItem(stringResource(R.string.playing), "8")
-            StatItem(stringResource(R.string.wanttoplay), "20")
-    }
-
-    Spacer(modifier = Modifier.height(20.dp))
-
-// Library Button
-    Button(
-        onClick = { /* TODO: Hacer el navigation a la library */ },
-        shape = RoundedCornerShape(20.dp)
-    ) {
-        Text(
-            stringResource(R.string.library),
-            color = Color.White, fontSize = 18.sp,
-            style = GameDexTypography.bodyLarge
-        )
-    }
-
-
-    BottomSection(navController, userViewModel, 3)
-}
 }
 
 
