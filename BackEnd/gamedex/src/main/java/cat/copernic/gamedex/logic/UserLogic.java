@@ -25,6 +25,18 @@ public class UserLogic {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    public void validations(User user){
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        if (!user.getEmail().matches(emailRegex)) {
+            throw new RuntimeException("Invalid email format");
+        }
+        String phoneRegex = "^[0-9]{9}$";
+        if (!String.valueOf(user.getTelephone()).matches(phoneRegex)) {
+            throw new RuntimeException("Invalid telephone format");
+        }
+    }
+
     public User createUser(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
@@ -48,6 +60,7 @@ public class UserLogic {
             if (userRepository.findByTelephone(user.getTelephone()).isPresent()) {
                 throw new RuntimeException("Telephone already exists");   
             }
+            validations(user);
 
             return userRepository.save(user);
         } catch (RuntimeException e) {
@@ -120,6 +133,9 @@ public class UserLogic {
                 if (user.getUserType() != newUser.getUserType()) {
                     newUser.setUserType(user.getUserType());
                 }
+
+            validations(user);
+
 
                 return userRepository.save(newUser);
             }
