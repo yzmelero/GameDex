@@ -65,6 +65,7 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
     var telephone by remember { mutableStateOf("") }
     var birthDate by remember { mutableStateOf("") }
     var profilePicture by remember { mutableStateOf("") }
+    var oldProfilePicture by remember { mutableStateOf("") }
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     var userType by remember { mutableStateOf<UserType>(UserType.USER) }
     var state by remember { mutableStateOf(false) }
@@ -91,8 +92,7 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
             email = it.email
             telephone = it.telephone.toString()
             birthDate = it.birthDate
-            profilePicture = it.profilePicture ?: ""
-            selectedImageUri = it.profilePicture?.let { uriString -> Uri.parse(uriString) }
+            oldProfilePicture = it.profilePicture ?: ""
             userType = it.userType
             state = it.state
         }
@@ -149,7 +149,8 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                         isPassword = true
                     ) { password = it }
                     InputFieldEdit(
-                        label = stringResource(id = R.string.name), value = name) {
+                        label = stringResource(id = R.string.name), value = name
+                    ) {
                         name = it
                     }
                     InputFieldEdit(
@@ -177,34 +178,53 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Row {
-                            if (selectedImageUri == null) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.user),
-                                    contentDescription = "Avatar",
-                                    modifier = Modifier
-                                        .size(120.dp)
-                                        .clip(RoundedCornerShape(50))
-                                        .clickable {
-                                            imagePickerLauncher.launch(
-                                                PickVisualMediaRequest(
-                                                    ActivityResultContracts
-                                                        .PickVisualMedia.ImageOnly
-                                                )
-                                            )
-                                        }
-                                )
+                            if (((oldProfilePicture.isNotEmpty() && oldProfilePicture.isNotBlank()) &&
+                                (profilePicture.isBlank()) && profilePicture.isEmpty()) || profilePicture != oldProfilePicture) {
+
+                                val imageBitmap = userViewModel.base64ToBitmap(oldProfilePicture)
+
+                                Column {
+                                    imageBitmap?.let {
+                                        Image(
+                                            it,
+                                            contentDescription = stringResource(R.string.profile_picture),
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier.size(72.dp)
+                                                .clip(CircleShape)
+                                        )
+                                    }
+                                }
                             } else {
-                                profilePicture =
-                                    userViewModel.uriToBase64(context, selectedImageUri!!)
-                                        .toString()
-                                AsyncImage(
-                                    model = selectedImageUri,
-                                    contentDescription = "Avatar",
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier
-                                        .size(120.dp)
-                                        .clip(CircleShape)
-                                )
+                                if (selectedImageUri == null) {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.user),
+                                        contentDescription = "Avatar",
+                                        modifier = Modifier
+                                            .size(120.dp)
+                                            .clip(RoundedCornerShape(50))
+                                            .clickable {
+                                                imagePickerLauncher.launch(
+                                                    PickVisualMediaRequest(
+                                                        ActivityResultContracts
+                                                            .PickVisualMedia.ImageOnly
+                                                    )
+                                                )
+                                            }
+                                    )
+                                } else {
+                                    profilePicture =
+                                        userViewModel.uriToBase64(context, selectedImageUri!!)
+                                            .toString()
+                                    oldProfilePicture = profilePicture
+                                    AsyncImage(
+                                        model = selectedImageUri,
+                                        contentDescription = "Avatar",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .size(120.dp)
+                                            .clip(CircleShape)
+                                    )
+                                }
                             }
                             Icon(
                                 Icons.Default.Add,
@@ -245,7 +265,7 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                                 birthDate = birthDate,
                                 userType = userType,
                                 state = state,
-                                profilePicture = profilePicture
+                                profilePicture = oldProfilePicture
                             )
                             Log.d("UserViewModel", "Updating user: $updatedUser")
                             userViewModel.updateUser(updatedUser)
@@ -292,7 +312,7 @@ fun InputFieldEdit(
         Text(text = label, color = Color.Black, fontSize = 14.sp)
         TextField(
             value = value,
-            placeholder = {Text(text = "Leave empty if you dont want to modify this field")},
+            placeholder = { Text(text = "Leave empty if you dont want to modify this field") },
             onValueChange = onValueChange,
             visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
@@ -300,7 +320,7 @@ fun InputFieldEdit(
                 .fillMaxWidth()
                 .background(Color.LightGray),
 
-        )
+            )
         Spacer(modifier = Modifier.height(6.dp))
     }
 }
