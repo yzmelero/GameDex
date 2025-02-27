@@ -34,7 +34,7 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
         val destinations = listOf(
             "list_category",
             "listvideogames",
-            "userList",
+            "userList/",
             "profile/${currentUser?.username}",
             "libraryScreen"
         )

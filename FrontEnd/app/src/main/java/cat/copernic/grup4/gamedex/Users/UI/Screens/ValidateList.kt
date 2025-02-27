@@ -12,9 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -75,7 +73,7 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
         OutlinedTextField(
             value = "",
             onValueChange = {},
-            placeholder = { Text("Search...") },
+            placeholder = { Text(R.string.search.toString()) },
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 

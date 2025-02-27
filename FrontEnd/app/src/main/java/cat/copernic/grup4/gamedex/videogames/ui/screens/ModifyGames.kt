@@ -81,7 +81,7 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import coil.compose.AsyncImage
 
 @Composable
-fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) {
+fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val categories by gameViewModel.categories.collectAsState()
@@ -124,7 +124,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
             ) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = stringResource(R.string.add_game),
+                    text = stringResource(R.string.modify_game),
                     fontSize = 50.sp,
                     color = Color.Black,
                     style = GameDexTypography.bodyLarge
@@ -248,7 +248,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         Button(
                             onClick = {
                                 if (selectedCategory == null) {
-                                    Toast.makeText(context, R.string.selectCategory, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Please select a category", Toast.LENGTH_SHORT).show()
                                 } else {
                                     Log.d("AddGamesScreen", "Categoría seleccionada: ${selectedCategory?.nameCategory}")
                                     val newGame = Videogame(
@@ -302,91 +302,9 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
     }
 }
 
-@Composable
-fun InputField(
-    label: String,
-    value: String,
-    keyboardType: KeyboardType = KeyboardType.Text,
-    onValueChange: (String) -> Unit
-) {
-    Column {
-        Text(
-            text = label,
-            color = Color.Black,
-            //style = GameDexTypography.bodyLarge,
-            fontSize = 14.sp
-        )
-        TextField(
-            value = value,
-            onValueChange = onValueChange,
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(Color.LightGray)
-        )
-        Spacer(modifier = Modifier.height(6.dp))
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CategoryDropdown(
-    categories: List<Category>,
-    selectedCategory: Category?,
-    onCategorySelected: (Category) -> Unit
-) {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = stringResource(R.string.category),
-            color = Color.Black,
-            //style = GameDexTypography.bodyLarge,
-            fontSize = 14.sp
-        )
-
-        // Dropdown amb el valor seleccionat
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded }
-        ) {
-            TextField(
-                value = selectedCategory?.nameCategory ?: context.getString(R.string.selectCategory),
-                onValueChange = {},
-                readOnly = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .menuAnchor()
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color.LightGray),
-                trailingIcon = { TrailingIcon(expanded = expanded) }
-            )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                categories.forEach { category ->
-                    DropdownMenuItem(
-                        text = { Text(category.nameCategory) },
-                        onClick = {
-                            onCategorySelected(category)
-                            expanded = false
-                        }
-                    )
-                }
-            }
-        }
-    }
-    Spacer(modifier = Modifier.height(6.dp))
-}
-
 @Preview(showBackground = true)
 @Composable
-fun PreviewAddGamesScreen() {
+fun PreviewModifyGamesScreen() {
     val fakeNavController = rememberNavController()
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))

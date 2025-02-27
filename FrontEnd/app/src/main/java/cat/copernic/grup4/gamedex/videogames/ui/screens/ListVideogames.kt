@@ -135,13 +135,12 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
             )
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search",
+                contentDescription = R.string.search.toString(),
                 tint = Color.Gray
             )
         }
     }
 }
-
 
 
 @Composable

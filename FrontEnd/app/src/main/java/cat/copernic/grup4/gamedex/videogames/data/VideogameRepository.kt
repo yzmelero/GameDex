@@ -17,4 +17,7 @@ class VideogameRepository {
     suspend fun getAllCategories(): Response<List<Category>> {
         return RetrofitInstance.api.getAllCategories()
     }
+    suspend fun deleteVideogame(gameId: String): Response<Void> {
+        return RetrofitInstance.api.deleteVideogame(gameId)
+    }
 }

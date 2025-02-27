@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -61,7 +60,6 @@ import cat.copernic.grup4.gamedex.Core.Model.StateType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.Library.Data.LibraryRepository
 import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
@@ -70,7 +68,6 @@ import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModelFactory
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
-import cat.copernic.grup4.gamedex.Users.UI.Screens.UserListScreen
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
@@ -99,6 +96,8 @@ fun AddGameToLibraryScreen(
 
     LaunchedEffect(gameId) { Log.d("error", "gameId: ${gameId}")
         gameViewModel.videogamesById(gameId)
+    if (game == null){
+        Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
     }
 
     val users by userViewModel.users.collectAsState()
@@ -179,7 +178,7 @@ fun AddGameToLibraryScreen(
                             Text(text = selectedState)
                             Icon(
                                 imageVector = Icons.Default.ArrowDropDown, // Icona desplegable
-                                contentDescription = "Dropdown Icon",
+                                contentDescription = context.getString(R.string.dropdownIcon),
                                 modifier = Modifier.size(24.dp),
                                 tint = Color.Gray
                             )
@@ -218,7 +217,7 @@ fun AddGameToLibraryScreen(
                         (1..10).forEach { index ->
                             Icon(
                                 imageVector = if (index <= rating.toInt()) Icons.Filled.Star else Icons.Outlined.Star,
-                                contentDescription = "Star $index",
+                                contentDescription = context.getString(R.string.star_index, index),
                                 tint = if (index <= rating.toInt()) Color.Yellow else Color.Gray,
                                 modifier = Modifier
                                     .size(28.dp)
