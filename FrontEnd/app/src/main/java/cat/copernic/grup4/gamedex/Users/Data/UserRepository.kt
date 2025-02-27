@@ -48,4 +48,8 @@ class UserRepository {
         return RetrofitInstance.api.resetPassword(request);
     }
 
+    suspend fun getAllUsersByUserId(userId: String): Response<List<User>> {
+        return RetrofitInstance.api.getAllUsersByUserId(userId)
+    }
+
 }

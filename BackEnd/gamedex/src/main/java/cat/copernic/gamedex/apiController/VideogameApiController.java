@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cat.copernic.gamedex.entity.Category;
 import cat.copernic.gamedex.entity.Videogame;
+import cat.copernic.gamedex.logic.CategoryLogic;
 import cat.copernic.gamedex.logic.VideogameLogic;
 
 @RestController
@@ -28,6 +30,9 @@ public class VideogameApiController {
 
     @Autowired
     private VideogameLogic videogameLogic;
+
+    @Autowired
+    private CategoryLogic categoryLogic;
 
     @PostMapping("/create")
     public ResponseEntity <Videogame> createVideogame(@RequestBody Videogame videogame) {
@@ -62,5 +67,12 @@ public class VideogameApiController {
         log.info("Getting videogame by id: " + gameId);
         Videogame videogame = videogameLogic.getVideogameById(gameId);
         return ResponseEntity.ok(videogame);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getAllCategories() {
+        log.info("Getting all categories");
+        List<Category> categories = categoryLogic.getAllCategory();
+        return ResponseEntity.ok(categories);
     }
 }

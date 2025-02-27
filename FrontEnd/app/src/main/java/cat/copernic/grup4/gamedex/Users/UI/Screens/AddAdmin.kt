@@ -43,6 +43,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Core.Model.UserType
+import cat.copernic.grup4.gamedex.Core.ui.BottomSection
+import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
@@ -52,7 +54,7 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import coil.compose.AsyncImage
 
 @Composable
-fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
+fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -69,52 +71,12 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(R.color.background))
-            .padding(bottom = 14.dp)
             .windowInsetsPadding(WindowInsets.systemBars),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+
     ) {
-        // Columna para el título "GDEX"
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(colorResource(R.color.header)) // Fondo más oscuro
-                .padding(12.dp), // Añadido padding
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp, end = 56.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Icono a la izquierda
-                FloatingActionButton(
-                    onClick = { navController.popBackStack() },
-                    modifier = Modifier.size(40.dp).padding(top = 12.dp),
-                    containerColor = colorResource(R.color.header)
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = Color.Black,
-                        modifier = Modifier.size(32.dp)
-                    )
-                }
 
-                // Título centrado en la pantalla
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "GDEX",
-                        style = GameDexTypography.headlineMedium.copy(fontSize = 48.sp),
-                        color = Color.White
-                    )
-                }
-            }
-
-        }
+        header(navController, userViewModel)
 
         // Columna para el resto del contenido
         Column(
@@ -126,7 +88,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = stringResource(id = R.string.sign_up),
+                text = stringResource(R.string.register_an_admin),
                 fontSize = 40.sp,
                 style = GameDexTypography.bodyLarge,
                 color = Color.Black
@@ -185,8 +147,6 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                     )
 
 
-
-
                     //AVATARSECTION
                     var selectedImageUri by remember {
                         mutableStateOf<Uri?>(null)
@@ -201,7 +161,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                         Row() {
                             if (selectedImageUri == null) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.user),
+                                    painter = painterResource(id = R.drawable.coche),
                                     contentDescription = "Avatar",
                                     modifier = Modifier
                                         .size(120.dp)
@@ -218,7 +178,8 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                                 )
                             } else {
                                 profilePicture =
-                                    userViewModel.uriToBase64(context, selectedImageUri!!).toString()
+                                    userViewModel.uriToBase64(context, selectedImageUri!!)
+                                        .toString()
                                 AsyncImage(
                                     model = selectedImageUri,
                                     contentDescription = "Avatar",
@@ -242,14 +203,15 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                                             )
                                     }
                                     .padding(top = 40.dp)
-                                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+                                    .background(
+                                        colorResource(R.color.header),
+                                        shape = RoundedCornerShape(50)
+                                    )
                                     .clip(RoundedCornerShape(50))
                                     .size(40.dp)
                             )
                         }
                     }
-
-
 
                     Spacer(modifier = Modifier.height(4.dp))
 
@@ -266,8 +228,8 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                                 email = email,
                                 telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
                                 birthDate = birthDate,
-                                userType = UserType.USER,
-                                state = false,
+                                userType = UserType.ADMIN,
+                                state = true,
                                 profilePicture = profilePicture
                             )
                             userViewModel.registerUser(newUser)
@@ -290,7 +252,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
             if (success) {
                 Toast.makeText(context, context.getString(R.string.user_created), Toast.LENGTH_LONG)
                     .show()
-                navController.navigate("login")
+                navController.navigate("userList/")
             } else {
                 Toast.makeText(
                     context,
@@ -302,43 +264,12 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
 
 }
 
-@Composable
-fun InputField(
-    label: String,
-    value: String,
-    isPassword: Boolean = false,
-    keyboardType: KeyboardType = KeyboardType.Text,
-    onValueChange: (String) -> Unit
-) {
-    Column {
-        Text(text = label, color = Color.Black, fontSize = 14.sp)
-        TextField(
-            value = value,
-            onValueChange = onValueChange,
-            visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(Color.LightGray)
-        )
-        Spacer(modifier = Modifier.height(6.dp))
-    }
-}
-
-fun uriToBase64(context: Context, uri: Uri): String {
-    val inputStream = context.contentResolver.openInputStream(uri) ?: return ""
-    val bytes = inputStream.readBytes()
-    return Base64.encodeToString(bytes, Base64.DEFAULT) // ✅ Convertimos la imagen a Base64
-}
-
-
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewSignUpScreen() {
+fun PreviewAddAdminScreen() {
     val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-    SignUpScreen(navController = fakeNavController, userViewModel)
+    AddAdminScreen(navController = fakeNavController, userViewModel)
 }

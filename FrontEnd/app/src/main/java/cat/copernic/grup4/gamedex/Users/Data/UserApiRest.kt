@@ -44,6 +44,9 @@ interface UserApiRest {
     @POST("user/resetPassword")
     suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<Map<String,String>>
 
+    @GET("user/all/{userId}")
+    suspend fun getAllUsersByUserId(@Path("userId") userId: String): Response<List<User>>
+
 /*
     @Headers("Content-Type: application/json")
     @POST("user/create")

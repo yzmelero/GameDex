@@ -21,5 +21,7 @@ class UseCases(private val repository: UserRepository) {
     suspend fun  updateUser(user: User) = repository.updateUser(user)
 
     suspend fun deleteUser(userId: String) = repository.deleteUser(userId)
+
+    suspend fun getAllUsersByUserId(userId: String) = repository.getAllUsersByUserId(userId)
 }
 

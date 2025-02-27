@@ -148,9 +148,9 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 // Stats Section
     Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
         //TODO: hacer un count con los datos de cada categoria para los numeros
-        StatItem(stringResource(R.string.completed), "85")
+            StatItem(stringResource(R.string.finished), "85")
         StatItem(stringResource(R.string.playing), "8")
-        StatItem(stringResource(R.string.pending), "20")
+            StatItem(stringResource(R.string.wanttoplay), "20")
     }
 
     Spacer(modifier = Modifier.height(20.dp))

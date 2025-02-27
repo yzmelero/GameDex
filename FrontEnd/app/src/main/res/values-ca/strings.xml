@@ -10,6 +10,11 @@
     <string name="confirm">Confirmar</string>
     <string name="sign_up">Registre</string>
     <string name="add_avatar">Afegir avatar</string>
+    <string name="library">Biblioteca</string>
+    <string name="playing">Jugant</string>
+    <string name="wanttoplay">Pendent</string>
+    <string name="finished">Acabat</string>
+    <string name="dropped">Abandonat</string>
     <string name="add_category">Afegir Categoria</string>
     <string name="category">Categoria</string>
     <string name="name_category">Nom Categoria</string>
@@ -31,6 +36,10 @@
     <string name="pegi">PEGI</string>
     <string name="by_developer">By</string>
     <string name="year">Year</string>
+    <string name="select">Selecciona…</string>
+    <string name="review">Ressenya</string>
+    <string name="rating">Valoració</string>
+    <string name="comment">Comentari</string>
     <string name="category_added">Category Creada</string>
     <string name="category_not_created">Error en crear la categoria</string>
     <string name="error_no_image">Error no hi ha imatge</string>
