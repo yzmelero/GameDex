@@ -47,6 +47,7 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         viewModelScope.launch {
             val response = videogameUseCase.videogamesById(gameId)
             _getVideogame.value = response.body()
+
         }
     }
 
