@@ -176,6 +176,9 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         viewModelScope.launch {
             val response = useCases.updateUser(updatedUser)
             _updateSuccess.value = response.isSuccessful
+            if(_currentUser.value?.username == updatedUser.username){
+                _currentUser.value = updatedUser
+            }
         }
     }
 

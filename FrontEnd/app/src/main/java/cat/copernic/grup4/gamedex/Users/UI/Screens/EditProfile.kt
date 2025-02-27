@@ -75,10 +75,6 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
     DisposableEffect(Unit) {
         onDispose {
             userViewModel._updateSuccess.value = null
-            if (loggedUser?.username == username) {
-                userViewModel.logoutUser()
-            }
-            userViewModel.loginUser(username, password)
         }
     }
     val incomingUser = remember {
