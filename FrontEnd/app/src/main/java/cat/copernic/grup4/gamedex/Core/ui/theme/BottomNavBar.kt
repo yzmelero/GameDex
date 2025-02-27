@@ -32,7 +32,7 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
             R.drawable.gamepad, R.drawable.users_alt,
             R.drawable.user, R.drawable.book_open_cover)
         val destinations = listOf(
-            "list_category",
+            "list_category/",
             "listvideogames",
             "userList",
             "profile/${currentUser?.username}",

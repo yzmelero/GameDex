@@ -45,12 +45,12 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
     val categoryViewModel: CategoryViewModel =
         viewModel(factory = CategoryViewModelFactory(categoryCases))
 
-    val query = remember { navController.currentBackStackEntry?.arguments?.getString("query") } ?: return
+    val query = remember { navController.currentBackStackEntry?.arguments?.getString("nameCategory") } ?: return
     var searchQuery by remember { mutableStateOf("") }
     val category by categoryViewModel.category.collectAsState()
 
     LaunchedEffect(query) {
-        if (query.isEmpty()) {
+        if (query.isEmpty() || query.isBlank()){
             categoryViewModel.getAllCategory()
         } else {
             categoryViewModel.filterCategories(query)
