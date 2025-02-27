@@ -76,7 +76,10 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import java.time.LocalDate
 import java.util.UUID
+
 //TODO Afegir les strings de AddGameToLibraryScreen
+
+
 @Composable
 fun AddGameToLibraryScreen(
     navController: NavController,
@@ -94,12 +97,13 @@ fun AddGameToLibraryScreen(
     val context = LocalContext.current
 
 
-    LaunchedEffect(gameId) { Log.d("error", "gameId: ${gameId}")
+    LaunchedEffect(gameId) {
+        Log.d("error", "gameId: ${gameId}")
         gameViewModel.videogamesById(gameId)
-    if (game == null){
-        Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
+        if (game == null) {
+            Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
+        }
     }
-
     val users by userViewModel.users.collectAsState()
 
     val libraryViewModel: LibraryViewModel = ViewModelProvider(
@@ -154,7 +158,10 @@ fun AddGameToLibraryScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
-                    .background(colorResource(id = R.color.boxbackground), RoundedCornerShape(8.dp))
+                    .background(
+                        colorResource(id = R.color.boxbackground),
+                        RoundedCornerShape(8.dp)
+                    )
                     .padding(16.dp)
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -217,7 +224,10 @@ fun AddGameToLibraryScreen(
                         (1..10).forEach { index ->
                             Icon(
                                 imageVector = if (index <= rating.toInt()) Icons.Filled.Star else Icons.Outlined.Star,
-                                contentDescription = context.getString(R.string.star_index, index),
+                                contentDescription = context.getString(
+                                    R.string.star_index,
+                                    index
+                                ),
                                 tint = if (index <= rating.toInt()) Color.Yellow else Color.Gray,
                                 modifier = Modifier
                                     .size(28.dp)
@@ -272,7 +282,7 @@ fun AddGameToLibraryScreen(
                                     rating = rating,
                                     publishedDate = LocalDate.now().toString()
                                 )
-                                libraryViewModel.addGameToLibrary(newLibraryEntry)
+                                libraryViewModel.addGameToLibrary(newLibraryEntry, context)
                                 //TODO Canviar ruta per a que porti a la biblioteca
                                 navController.popBackStack()
                                 Log.d("AddGameToLibrary", "Pop back stack")
@@ -312,6 +322,7 @@ fun getStateTypeFromString(selectedState: String, context: Context): StateType {
         else -> StateType.WANTTOPLAY // Valor per defecte si no coincideix cap
     }
 }
+
 
 @Composable
 @Preview

@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Library.UI.ViewModel
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
@@ -28,15 +29,15 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     private val _libraryState = MutableStateFlow<Boolean?>(null)
     val libraryState: StateFlow<Boolean?> = _libraryState
 
-    fun addGameToLibrary(library: Library) {
+    fun addGameToLibrary(library: Library, context: Context) {
         viewModelScope.launch {
             val response = libraryUseCase.addGameToLibrary(library)
             if (response.isSuccessful) {
                 _libraryState.value = true
-                _message.value = R.string.succGameToLib.toString()
+                _message.value = context.getString(R.string.succGameToLib)
             } else {
                 _libraryState.value = false
-                _message.value = R.string.errorAddGameToLib.toString()
+                _message.value = context.getString(R.string.errorAddGameToLib)
                 Log.e("LibraryRepository", "Failed to add game: ${response.code()}")
             }
         }

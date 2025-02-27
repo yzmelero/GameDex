@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -85,7 +87,6 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.background))
-            .padding(16.dp)
     ) {
         header(navController, userViewModel)
 
@@ -93,13 +94,16 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
             text = stringResource(R.string.library),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
         )
         LazyColumn {
-            items(libraryItems) {gameLibrary ->
+            items(libraryItems) { gameLibrary ->
                 VideogameItem(libraryViewModel, library = gameLibrary, onDelete = onDelete)
             }
         }
+
         FloatingActionButton(
             onClick = { },//TODO Navegar a pantalla de afegir joc
             modifier = Modifier
@@ -110,11 +114,15 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
             Icon(Icons.Default.Add, contentDescription = "Add Videogame")
         }
     }
-    BottomSection(navController, userViewModel,4)
+    BottomSection(navController, userViewModel, 4)
 }
 
 @Composable
-fun VideogameItem(libraryViewModel: LibraryViewModel,library: Library, onDelete: (Library) -> Unit) {
+fun VideogameItem(
+    libraryViewModel: LibraryViewModel,
+    library: Library,
+    onDelete: (Library) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -130,7 +138,8 @@ fun VideogameItem(libraryViewModel: LibraryViewModel,library: Library, onDelete:
                 Image(
                     it, contentDescription = "videogame picture",
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.size(72.dp)
+                    modifier = Modifier
+                        .size(72.dp)
                         .clip(CircleShape)
                 )
             }
