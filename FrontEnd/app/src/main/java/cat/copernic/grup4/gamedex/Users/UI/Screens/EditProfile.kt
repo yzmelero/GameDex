@@ -178,53 +178,37 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Row {
-                            if (((oldProfilePicture.isNotEmpty() && oldProfilePicture.isNotBlank()) &&
-                                (profilePicture.isBlank()) && profilePicture.isEmpty()) || profilePicture != oldProfilePicture) {
-
+                            if (selectedImageUri == null && oldProfilePicture.isNotEmpty()) {
                                 val imageBitmap = userViewModel.base64ToBitmap(oldProfilePicture)
-
-                                Column {
-                                    imageBitmap?.let {
-                                        Image(
-                                            it,
-                                            contentDescription = stringResource(R.string.profile_picture),
-                                            contentScale = ContentScale.Crop,
-                                            modifier = Modifier.size(72.dp)
-                                                .clip(CircleShape)
-                                        )
-                                    }
-                                }
-                            } else {
-                                if (selectedImageUri == null) {
+                                imageBitmap?.let {
                                     Image(
-                                        painter = painterResource(id = R.drawable.user),
-                                        contentDescription = "Avatar",
-                                        modifier = Modifier
-                                            .size(120.dp)
-                                            .clip(RoundedCornerShape(50))
-                                            .clickable {
-                                                imagePickerLauncher.launch(
-                                                    PickVisualMediaRequest(
-                                                        ActivityResultContracts
-                                                            .PickVisualMedia.ImageOnly
-                                                    )
-                                                )
-                                            }
-                                    )
-                                } else {
-                                    profilePicture =
-                                        userViewModel.uriToBase64(context, selectedImageUri!!)
-                                            .toString()
-                                    oldProfilePicture = profilePicture
-                                    AsyncImage(
-                                        model = selectedImageUri,
-                                        contentDescription = "Avatar",
+                                        bitmap = it,
+                                        contentDescription = stringResource(R.string.profile_picture),
                                         contentScale = ContentScale.Crop,
                                         modifier = Modifier
                                             .size(120.dp)
                                             .clip(CircleShape)
                                     )
                                 }
+                            } else if (selectedImageUri != null) {
+                                profilePicture = userViewModel.uriToBase64(context, selectedImageUri!!).toString()
+                                oldProfilePicture = profilePicture
+                                AsyncImage(
+                                    model = selectedImageUri,
+                                    contentDescription = stringResource(R.string.profile_picture),
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(CircleShape)
+                                )
+                            } else {
+                                Image(
+                                    painter = painterResource(id = R.drawable.user),
+                                    contentDescription = stringResource(R.string.profile_picture),
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(CircleShape)
+                                )
                             }
                             Icon(
                                 Icons.Default.Add,
