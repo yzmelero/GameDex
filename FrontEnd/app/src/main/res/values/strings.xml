@@ -82,7 +82,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="accept">Accept</string>
     <string name="delete_question">Are you sure you want to delete it? This option is not reversible</string>
-    <string name="Delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="pending">Pending</string>
     <string name="imageSelect">Image select</string>
@@ -105,4 +104,5 @@
     <string name="search_user">Search user</string>
     <string name="user_updated">User updated</string>
     <string name="error_updating_user">Error updating user, please check the information</string>
+    <string name="modify_game">Modify Game</string>
 </resources>

@@ -24,6 +24,7 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ViewCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
+import cat.copernic.grup4.gamedex.Library.UI.Screens.LibraryScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.AddAdminScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ResetPasswordScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
@@ -55,5 +56,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("editProfile/{username}") { EditProfileScreen(navController, userViewModel) }
         composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
         composable("addToLibrary/{gameId}") {AddGameToLibraryScreen(navController, userViewModel)}
+        composable("libraryScreen") {LibraryScreen(navController,userViewModel)}
     }
 }

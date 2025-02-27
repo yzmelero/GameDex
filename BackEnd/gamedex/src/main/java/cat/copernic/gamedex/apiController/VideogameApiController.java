@@ -50,7 +50,11 @@ public class VideogameApiController {
 
     @DeleteMapping("/delete/{gameId}")
     public ResponseEntity <Void> deleteVideogame(@PathVariable String gameId) {
-        log.info("Deleting videogame by id: " + gameId);
+        log.info("Delete videogame with ID: " + gameId);
+        if (gameId == null || gameId.isBlank()) {
+            log.error("Error: gameId is null or empty!");
+            return ResponseEntity.badRequest().build();
+        }
         videogameLogic.deleteVideogame(gameId);
         return ResponseEntity.ok().build();
     }

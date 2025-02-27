@@ -30,6 +30,11 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     private val _videogameGetAll = MutableStateFlow<List<Videogame>>(emptyList())
     open val allVideogame: StateFlow<List<Videogame>> = _videogameGetAll
 
+    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    val categories: StateFlow<List<Category>> = _categories
+
+    private val _videogameDeleted = MutableStateFlow<Boolean?>(null)
+    val videogameDeleted: StateFlow<Boolean?> = _videogameDeleted
 
     fun createVideogame(videogame: Videogame) {
         viewModelScope.launch {
@@ -42,6 +47,7 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         viewModelScope.launch {
             val response = videogameUseCase.videogamesById(gameId)
             _getVideogame.value = response.body()
+
         }
     }
 
@@ -52,15 +58,19 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
-    private val _categories = MutableStateFlow<List<Category>>(emptyList())
-    val categories: StateFlow<List<Category>> = _categories
-
     fun getAllCategories() {
         viewModelScope.launch {
             val response = videogameUseCase.getAllCategories()
             if (response.isSuccessful) {
                 _categories.value = response.body() ?: emptyList()
             }
+        }
+    }
+
+    fun deleteVideogame(gameId: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.deleteVideogame(gameId)
+            _videogameDeleted.value = response.isSuccessful
         }
     }
 

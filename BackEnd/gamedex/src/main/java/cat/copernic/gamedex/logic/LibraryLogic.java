@@ -4,6 +4,8 @@ import cat.copernic.gamedex.entity.Library;
 import cat.copernic.gamedex.repository.LibraryRepository;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,10 @@ public class LibraryLogic {
     @Autowired
     private LibraryRepository libraryRepository;
 
+    public List<Library> getLibraryByUser(String username){
+       return libraryRepository.findByUserUsername(username);
+    }
+    Logger log = LoggerFactory.getLogger(LibraryLogic.class);
    
     
     public void delete(String idLibrary){
@@ -32,25 +38,21 @@ public class LibraryLogic {
     }
     
     public Library addGameToLibrary(Library library){
-        Optional<Library> existingGameInLibrary = libraryRepository.findByUserIdAndVideogameId(
+        System.out.println("Usuari rebut en backend: " + library.getUser().getUsername());
+        Optional<Library> existingGamesInLibrary = libraryRepository.findByUserAndVideogame(
             library.getUser().getUsername(),
-            library.getVideogame().getGameId());
-
-        if(existingGameInLibrary.isPresent()){
+            library.getVideogame().getGameId()
+        );
+        System.out.println("Username: " + library.getUser().getUsername());
+        System.out.println("Game ID: " + library.getVideogame().getGameId());
+    
+        // Si ja existeix almenys un registre, bloquegem l'addició
+        if (!existingGamesInLibrary.isEmpty()) {
             throw new RuntimeException("Game already in library");
         }
         return libraryRepository.save(library);
     }
-    /*public List<Library> getAllCommentaries(){
-    public List<Library> getAllLibraries(){
-        try{
-            List<Library> libraries = libraryRepository.findAllByVideogame();
-           return libraryRepository.findAllByVideogame();
-        }catch(Exception e){
-            throw new RuntimeException("Unexpected error while listing libraries");
-        }
-            throw new RuntimeException("Unexpected error while listing commentaries");
-    }
-    }*/
+   
+    
 }
 
