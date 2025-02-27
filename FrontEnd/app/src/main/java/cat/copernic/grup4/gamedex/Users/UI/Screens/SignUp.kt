@@ -92,7 +92,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                 ) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = R.string.back.toString(),
                         tint = Color.Black,
                         modifier = Modifier.size(32.dp)
                     )
