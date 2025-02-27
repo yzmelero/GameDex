@@ -566,6 +566,8 @@ Aquesta setmana no trobo moltes coses a millorar, ja que he fet molta feina indi
 
 ==== [aqua]#8.3.3. Incidències#
 
+Aquest sprint la principal incidència que hem trobat ha sigut que no podíem treballar adequadament com que dos membres de l'equip tenen ordinadors que no suporten bé l’android Studio i, per tant, això ens ha endarrerit molt.
+
 ==== [aqua]#8.3.4. Analisis final#
 
 ===== [aqua]#8.3.4.1. Hector#
