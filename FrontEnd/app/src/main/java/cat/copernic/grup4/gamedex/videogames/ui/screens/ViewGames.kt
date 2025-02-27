@@ -1,6 +1,7 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -23,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -30,6 +32,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -41,9 +44,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
@@ -80,6 +83,15 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val game by gameViewModel.gameById.collectAsState()
+    val context = LocalContext.current
+    val videogameDeleted by gameViewModel.videogameDeleted.collectAsState()
+
+    LaunchedEffect(videogameDeleted) {
+        if (videogameDeleted == true) {
+            Toast.makeText(context, "Videogame deleted succesfully!", Toast.LENGTH_SHORT).show()
+            navController.navigate("listvideogames")
+        }
+    }
 
     LaunchedEffect(gameId) {
         gameViewModel.videogamesById(gameId)
@@ -96,14 +108,15 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it, gameViewModel) }
+            game?.let { GameCard(it, gameViewModel, userViewModel, navController) }
         }
         BottomSection(navController,userViewModel ,1)
     }
 }
 
 @Composable
-fun GameCard(videogame : Videogame, gameViewModel: GameViewModel) {
+fun GameCard(videogame : Videogame, gameViewModel: GameViewModel, userViewModel: UserViewModel, navController: NavController) {
+    val currentUser = userViewModel.currentUser.collectAsState().value
     Column ( modifier = Modifier
         .fillMaxSize()
         .background(colorResource(R.color.background))
@@ -257,18 +270,43 @@ fun GameCard(videogame : Videogame, gameViewModel: GameViewModel) {
                 .padding(bottom = 12.dp, end = 12.dp),
             contentAlignment = Alignment.BottomEnd
         ) {
-            IconButton(
-                onClick = { videogame.gameId }
-            ) {
-                Icon(
-                    // TODO Funció d'eliminar videojoc
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = stringResource(R.string.delete),
-                    modifier = Modifier.size(30.dp)
-                        .background(Color.Red, shape = RoundedCornerShape(50))
-                )
-            }
+            if (currentUser?.userType == UserType.ADMIN) {
+                var showDialog by remember { mutableStateOf(false) }
 
+                IconButton(
+                    onClick = { showDialog = true}
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.delete),
+                        modifier = Modifier.size(30.dp)
+                            .background(Color.Red, shape = RoundedCornerShape(50))
+                    )
+                }
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog = false },
+                        title = { Text(stringResource(R.string.confirm_delete)) },
+                        text = { Text(stringResource(R.string.delete_question)) },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                videogame.gameId?.let {
+                                    gameViewModel.deleteVideogame(it)
+                                    showDialog = false
+                                    navController.popBackStack()
+                                } ?: Log.e("DELETE_GAME", "Error: gameId is null or empty")
+                            }) {
+                                Text(stringResource(R.string.delete), color = Color.Red)
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = {
+                                showDialog = false
+                            }) { Text(stringResource(R.string.cancel)) }
+                        }
+                    )
+                }
+            }
         }
     }
     CommentsSection()
