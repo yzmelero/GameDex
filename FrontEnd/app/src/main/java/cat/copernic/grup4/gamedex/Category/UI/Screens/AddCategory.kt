@@ -179,6 +179,7 @@ fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (S
 
 @Composable
 fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -192,7 +193,7 @@ fun ImageUploadSection(imageUri: Uri?, onImageClick: () -> Unit) {
         }
         Image(
             painter = painter,
-            contentDescription = "Image select",
+            contentDescription = context.getString(R.string.imageSelect),
             modifier = Modifier.fillMaxSize()
         )
         IconButton(
