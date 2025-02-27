@@ -2,6 +2,8 @@ package cat.copernic.gamedex.logic;
 
 import cat.copernic.gamedex.entity.Library;
 import cat.copernic.gamedex.repository.LibraryRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.LoggerFactory;
@@ -53,6 +55,8 @@ public class LibraryLogic {
         return libraryRepository.save(library);
     }
    
-    
+    public List<Library> getLibraryByGame(String gameId) {
+        return libraryRepository.findByVideogameGameId(gameId);
+    }
 }
 

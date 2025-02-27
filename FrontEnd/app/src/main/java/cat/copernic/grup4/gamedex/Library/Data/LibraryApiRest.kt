@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface LibraryApiRest {
@@ -15,5 +16,7 @@ interface LibraryApiRest {
     @GET("library/get")
     suspend fun getLibrary(@Query("username") username: String): Response<List<Library>>
 
+    @GET("library/comments/{gameId}")
+    suspend fun getCommentsForVideogame(@Path("gameId") gameId: String): Response<List<Library>>
 
 }

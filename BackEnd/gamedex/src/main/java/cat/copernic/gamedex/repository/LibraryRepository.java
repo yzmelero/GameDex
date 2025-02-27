@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
+@Repository
 public interface LibraryRepository extends MongoRepository<Library, String> {
 
     public List<Library> findAllByVideogame();
@@ -15,5 +18,7 @@ public interface LibraryRepository extends MongoRepository<Library, String> {
     Optional<Library> findByUserAndVideogame(@Param("username") String username,
                                              @Param("gameId") String gameId);
 
-    List<Library> findByUserUsername(String username);
+    public List<Library> findByUserUsername(String username);
+
+    List<Library> findByVideogameGameId(String gameId);
 }
