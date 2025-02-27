@@ -84,7 +84,7 @@
     <string name="cancel">Cancel</string>
     <string name="pending">Pending</string>
     <string name="imageSelect">Image select</string>
-    <string name="search">Search</string>
+    <string name="search">Search…</string>
     <string name="succDelCat">Successful deletion of category</string>
     <string name="unkViewModel">Unknown ViewModel class</string>
     <string name="cantLoadGame">Error: Can\'t load the videogame</string>

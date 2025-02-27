@@ -76,7 +76,7 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
         OutlinedTextField(
             value = "",
             onValueChange = {},
-            placeholder = { Text("Search...") },
+            placeholder = { Text(R.string.search.toString()) },
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
