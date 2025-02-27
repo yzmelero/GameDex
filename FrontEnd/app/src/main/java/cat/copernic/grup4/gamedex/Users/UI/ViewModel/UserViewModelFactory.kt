@@ -10,6 +10,6 @@ class UserViewModelFactory(private val useCases: UseCases) : ViewModelProvider.F
             @Suppress("UNCHECKED_CAST")
             return UserViewModel(useCases) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException(R.string.unkViewModel.toString())
     }
 }
