@@ -101,4 +101,6 @@
     <string name="addAdmin">Add admin</string>
     <string name="register_an_admin">Register an Admin</string>
     <string name="search_user">Search user</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="category_updated">Category Updated</string>
 </resources>
