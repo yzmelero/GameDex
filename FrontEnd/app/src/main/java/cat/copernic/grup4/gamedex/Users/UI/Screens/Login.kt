@@ -1,6 +1,5 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -43,20 +41,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.copernic.grup4.gamedex.R
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.copernic.grup4.gamedex.Core.Model.LoginRequest
-import cat.copernic.grup4.gamedex.Core.Model.LoginState
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
-import cat.copernic.grup4.gamedex.Users.Data.RetrofitInstance
-import cat.copernic.grup4.gamedex.Users.Data.UserApiRest
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
-import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
 @Composable
 fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -226,7 +217,7 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
                         Icon(
                             painter = painterResource(if (passwordVisible) R.drawable.eye else R.drawable.eye),
-                            contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                            contentDescription = if (passwordVisible) R.string.hidePassword.toString() else R.string.showPassword.toString(),
                         )
                     }
                 }
