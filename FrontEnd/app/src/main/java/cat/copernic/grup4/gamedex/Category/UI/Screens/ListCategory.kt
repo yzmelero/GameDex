@@ -45,18 +45,15 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
     val categoryViewModel: CategoryViewModel =
         viewModel(factory = CategoryViewModelFactory(categoryCases))
 
+    val query = remember { navController.currentBackStackEntry?.arguments?.getString("query") } ?: return
     var searchQuery by remember { mutableStateOf("") }
     val category by categoryViewModel.category.collectAsState()
 
-    LaunchedEffect(Unit) {
-        categoryViewModel.getAllCategory()
-    }
-
-    LaunchedEffect(searchQuery) {
-        if (searchQuery.isEmpty()) {
+    LaunchedEffect(query) {
+        if (query.isEmpty()) {
             categoryViewModel.getAllCategory()
         } else {
-            categoryViewModel.filterCategories(searchQuery)
+            categoryViewModel.filterCategories(query)
         }
     }
 
@@ -93,7 +90,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
         Spacer(modifier = Modifier.height(10.dp))
 
-            SearchBar(searchQuery) { newQuery ->
+            SearchBar(searchQuery, navController) { newQuery ->
                 searchQuery = newQuery
             }
 
@@ -117,7 +114,7 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
+fun SearchBar(query: String, navController: NavController, onQueryChange: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -137,6 +134,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
                 modifier = Modifier.weight(1f)
             )
             Icon(
+                modifier = Modifier.clickable { navController.navigate("list_category/$query") },
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 tint = Color.Gray

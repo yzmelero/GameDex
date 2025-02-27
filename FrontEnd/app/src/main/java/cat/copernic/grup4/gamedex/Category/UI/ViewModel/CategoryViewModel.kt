@@ -30,9 +30,6 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     private val _categoryDeleted = MutableStateFlow<Boolean?>(null)
     val categoryDeleted: StateFlow<Boolean?> = _categoryDeleted
 
-    private val _categoryFiltered = MutableStateFlow<List<Category>>(emptyList())
-    val categoryFiltered: StateFlow<List<Category>> = _categoryFiltered
-
     fun addCategory(category: Category) {
         viewModelScope.launch {
             val response = categoryCases.addCategory(category)
@@ -69,11 +66,17 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
 
     fun filterCategories(query: String) {
         viewModelScope.launch {
-            val response = categoryCases.filterCategories(query)
-            if (response.isSuccessful) {
-                _categoryFiltered.value = response.body() ?: emptyList()
-            } else {
-                Log.e("CategoryViewModel", "Error filtering categories: ${response.errorBody()}")
+            try {
+                val response = categoryCases.filterCategories(query)
+                if (response.isSuccessful) {
+                    response.body()?.let { filteredList ->
+                        _categoryGetAll.value = filteredList
+                    }
+                } else {
+                    Log.e("CategoryViewModel", "API Error: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("CategoryViewModel", "Error filtering categories: ${e.message}")
             }
         }
     }
