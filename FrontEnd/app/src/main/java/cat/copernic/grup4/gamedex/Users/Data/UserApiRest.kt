@@ -32,7 +32,7 @@ interface UserApiRest {
     @GET("user/view/{userId}")
     suspend fun getUser(@Path("userId") userId: String): Response<User>
 
-     @PUT("user/validate/{userId}")
+    @PUT("user/validate/{userId}")
     suspend fun validateUser(@Path("userId") userId: String): Response<User>
 
     @DELETE("user/delete/{userId}")
@@ -40,6 +40,9 @@ interface UserApiRest {
 
     @POST("user/resetPassword")
     suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<Map<String,String>>
+
+    @GET("user/all/{userId}")
+    suspend fun getAllUsersByUserId(@Path("userId") userId: String): Response<List<User>>
 
 /*
     @Headers("Content-Type: application/json")
