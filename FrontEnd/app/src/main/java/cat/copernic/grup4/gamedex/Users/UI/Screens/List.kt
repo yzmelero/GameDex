@@ -85,14 +85,21 @@ fun UserListScreen(navController: NavController, userViewModel: UserViewModel) {
         }
 
         if (currentUser?.userType == UserType.ADMIN) {
-            Button(
-                onClick = { navController.navigate("validate") },
-                shape = RoundedCornerShape(20.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+            Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+                Button(
+                    onClick = { navController.navigate("validate") },
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.padding(end = 5.dp)
+                ) {
+                    Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
+                }
+                Button(
+                    onClick = { navController.navigate("add_admin") },
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.padding(start = 5.dp)
+                ) {
+                    Text(stringResource(R.string.addAdmin), color = Color.White, fontSize = 18.sp)
+                }
             }
         }
         // User List
@@ -144,9 +151,6 @@ fun UserCard(user: User, navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { navController.navigate("profile/${user.username}") }) {
                 Icon(Icons.Default.Info, contentDescription = stringResource(R.string.view_profile))
-            }
-            IconButton(onClick = { /* TODO: Remove user action */ }) {
-                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.remove))
             }
         }
     }

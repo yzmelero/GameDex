@@ -46,7 +46,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("addGames") { AddGamesScreen(navController, userViewModel) }
         composable("category") { ListCategoryScreen(navController, userViewModel)}
         composable("view_category/{categoryId}") { ViewCategoryScreen(navController, userViewModel) }
-
+        composable("add_admin") {AddCategoryScreen(navController, userViewModel)}
         //Home screen / Category main screen
         //composable("category") { ListCategoryScreen(navController)}
         composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
