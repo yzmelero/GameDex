@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -87,18 +88,27 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.background))
-    ) {
+            .windowInsetsPadding(WindowInsets.systemBars),
+        ) {
         header(navController, userViewModel)
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = stringResource(R.string.library),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         )
-        LazyColumn {
+        LazyColumn (
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(vertical = 8.dp)
+        ){
             items(libraryItems) { gameLibrary ->
                 VideogameItem(libraryViewModel, library = gameLibrary, onDelete = onDelete)
             }
