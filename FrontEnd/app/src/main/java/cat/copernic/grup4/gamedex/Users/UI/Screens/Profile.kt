@@ -2,13 +2,12 @@ package cat.copernic.grup4.gamedex.Users.UI.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +34,6 @@ import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
-import coil.compose.rememberImagePainter
 
 @Composable
 fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -43,14 +41,12 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
         navController.currentBackStackEntry?.arguments?.getString("username")
     } ?: return // Si no hay ID, salir de la función
     var user by remember { mutableStateOf<User?>(null) }
-    val loggedUser by userViewModel.currentUser.collectAsState()
-
-
 
     LaunchedEffect(username) { // ✅ Llama a la función suspend en una corrutina
         user = userViewModel.getUser(username)
     }
     val currentUser = user
+    val loggedUser by userViewModel.currentUser.collectAsState()
 
 
     Column(
@@ -70,10 +66,25 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
         Spacer(modifier = Modifier.height(20.dp))
         Box {
+            if(loggedUser?.userType == UserType.ADMIN
+                || loggedUser?.username == currentUser?.username){
+                IconButton(
+                    onClick = {navController.navigate("editProfile/${currentUser?.username}")},
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .padding(12.dp)
+                        .background(Color.Gray, shape = CircleShape)
+                ) {
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = stringResource(R.string.edit_profile),
+                        tint = Color.White
+                    )
+                }
+            }
 
             if (loggedUser?.userType == UserType.ADMIN
-                && loggedUser?.username != currentUser?.username
-            ) {
+                && loggedUser?.username != currentUser?.username) {
                 var showDialog by remember { mutableStateOf(false) }
 
                 IconButton(
@@ -111,6 +122,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                     )
                 }
             }
+            // Profile Image
             currentUser?.let {
                 val imageBitmap = currentUser.profilePicture?.let {
                     userViewModel.base64ToBitmap(it)
@@ -126,50 +138,46 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                                 .clip(CircleShape)
                         )
                     }
-
                 }
-
-
             }
-            Spacer(modifier = Modifier.height(10.dp))
+
+
+        }
+        Spacer(modifier = Modifier.height(10.dp))
 
 // Username
-            Text(
-                username, fontSize = 56.sp,
-                style = GameDexTypography.bodyLarge,
-                color = Color.Black
-            )
+        Text(
+            username, fontSize = 56.sp,
+            style = GameDexTypography.bodyLarge,
+            color = Color.Black
+        )
 
-            Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
 // Stats Section
-            Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                //TODO: hacer un count con los datos de cada categoria para los numeros
-                StatItem(stringResource(R.string.finished), "85")
-                StatItem(stringResource(R.string.playing), "8")
-                StatItem(stringResource(R.string.wanttoplay), "20")
-            }
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+            //TODO: hacer un count con los datos de cada categoria para los numeros
+            StatItem(stringResource(R.string.finished), "85")
+            StatItem(stringResource(R.string.playing), "8")
+            StatItem(stringResource(R.string.wanttoplay), "20")
+        }
 
-            Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
 // Library Button
-            Button(
-                onClick = { /* TODO: Hacer el navigation a la library */ },
-                shape = RoundedCornerShape(20.dp)
-            ) {
-                Text(
-                    stringResource(R.string.library),
-                    color = Color.White, fontSize = 18.sp,
-                    style = GameDexTypography.bodyLarge
-                )
-            }
-
-
-            BottomSection(navController, userViewModel, 3)
+        Button(
+            onClick = { /* TODO: Hacer el navigation a la library */ },
+            shape = RoundedCornerShape(20.dp)
+        ) {
+            Text(
+                stringResource(R.string.library),
+                color = Color.White, fontSize = 18.sp,
+                style = GameDexTypography.bodyLarge
+            )
         }
+
+
+        BottomSection(navController, userViewModel, 3)
     }
 }
 

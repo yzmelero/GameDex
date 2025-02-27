@@ -82,7 +82,8 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState()), // Para que ocupe el espacio restante
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 100.dp), // Para que ocupe el espacio restante
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(10.dp))
@@ -161,7 +162,7 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                         Row() {
                             if (selectedImageUri == null) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.coche),
+                                    painter = painterResource(id = R.drawable.user),
                                     contentDescription = "Avatar",
                                     modifier = Modifier
                                         .size(120.dp)
@@ -261,7 +262,7 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
             }
         }
     }
-
+    BottomSection(navController, userViewModel, 3)
 }
 
 

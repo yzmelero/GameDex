@@ -3,6 +3,7 @@ package cat.copernic.grup4.gamedex.Users.UI.Screens
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -15,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -53,6 +55,8 @@ import coil.compose.AsyncImage
 
 @Composable
 fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel) {
+    //TODO arreglar imagenes
+    //TODO arreglar contraseña
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -64,7 +68,12 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     var userType by remember { mutableStateOf<UserType>(UserType.USER) }
     var state by remember { mutableStateOf(false) }
-
+    DisposableEffect(Unit) {
+        onDispose {
+            userViewModel._updateSuccess.value = null
+            userViewModel.loginUser(username, password)
+        }
+    }
     val incomingUser = remember {
         navController.currentBackStackEntry?.arguments?.getString("username")
     } ?: return // Si no hay ID, salir de la función
@@ -77,7 +86,6 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
         val user = userViewModel.getUser(incomingUser)
         user?.let {
             username = it.username
-            password = it.password
             name = it.name
             surname = it.surname
             email = it.email
@@ -109,7 +117,8 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState()), // Para que ocupe el espacio restante
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 100.dp), // Para que ocupe el espacio restante
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(10.dp))
@@ -135,15 +144,12 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     InputFieldEdit(
-                        label = stringResource(id = R.string.username),
-                        value = username
-                    ) { username = it }
-                    InputFieldEdit(
                         label = stringResource(id = R.string.password),
                         value = password,
                         isPassword = true
                     ) { password = it }
-                    InputFieldEdit(label = stringResource(id = R.string.name), value = name) {
+                    InputFieldEdit(
+                        label = stringResource(id = R.string.name), value = name) {
                         name = it
                     }
                     InputFieldEdit(
@@ -173,7 +179,7 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                         Row {
                             if (selectedImageUri == null) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.coche),
+                                    painter = painterResource(id = R.drawable.user),
                                     contentDescription = "Avatar",
                                     modifier = Modifier
                                         .size(120.dp)
@@ -181,13 +187,16 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                                         .clickable {
                                             imagePickerLauncher.launch(
                                                 PickVisualMediaRequest(
-                                                    ActivityResultContracts.PickVisualMedia.ImageOnly
+                                                    ActivityResultContracts
+                                                        .PickVisualMedia.ImageOnly
                                                 )
                                             )
                                         }
                                 )
                             } else {
-                                profilePicture = userViewModel.uriToBase64(context, selectedImageUri!!).toString()
+                                profilePicture =
+                                    userViewModel.uriToBase64(context, selectedImageUri!!)
+                                        .toString()
                                 AsyncImage(
                                     model = selectedImageUri,
                                     contentDescription = "Avatar",
@@ -238,10 +247,8 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                                 state = state,
                                 profilePicture = profilePicture
                             )
+                            Log.d("UserViewModel", "Updating user: $updatedUser")
                             userViewModel.updateUser(updatedUser)
-                            if(updateSuccess == true){
-                                navController.navigate("profile/${updatedUser.username}")
-                            }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                     ) {
@@ -254,13 +261,13 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                 }
             }
         }
-        BottomSection(navController, userViewModel, 3)
     }
     LaunchedEffect(updateSuccess) {
         updateSuccess?.let { success ->
             if (success) {
                 Toast.makeText(context, context.getString(R.string.user_updated), Toast.LENGTH_LONG)
                     .show()
+                navController.navigate("profile/${incomingUser}")
             } else {
                 Toast.makeText(
                     context,
@@ -268,7 +275,9 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                 ).show()
             }
         }
+
     }
+    BottomSection(navController, userViewModel, 3)
 }
 
 @Composable
@@ -283,12 +292,14 @@ fun InputFieldEdit(
         Text(text = label, color = Color.Black, fontSize = 14.sp)
         TextField(
             value = value,
+            placeholder = {Text(text = "Leave empty if you dont want to modify this field")},
             onValueChange = onValueChange,
             visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.LightGray)
+                .background(Color.LightGray),
+
         )
         Spacer(modifier = Modifier.height(6.dp))
     }

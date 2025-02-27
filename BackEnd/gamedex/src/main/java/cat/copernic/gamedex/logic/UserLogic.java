@@ -98,8 +98,9 @@ public class UserLogic {
             } else {
                 User newUser = oldUser.get();
 
-                if ((user.getPassword() != newUser.getPassword()) && !user.getPassword().isEmpty()) {
-                    newUser.setPassword(user.getPassword());
+                if ((user.getPassword() != newUser.getPassword()) && !user.getPassword().isEmpty() && !user.getPassword().isBlank() ) {
+                    newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+
                 }
 
                 if ((user.getName() != newUser.getName()) && !user.getName().isEmpty()) {
@@ -135,7 +136,7 @@ public class UserLogic {
                 }
 
 
-            validations(user);
+                validations(user);
 
 
                 return userRepository.save(newUser);

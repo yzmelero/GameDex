@@ -52,7 +52,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
         //Home screen / Category main screen
         //composable("category") { ListCategoryScreen(navController)}
         composable("ValidateView/{username}") { ViewValidateUserScreen(navController, userViewModel)}
-        composable("edit_profile/{username}") { EditProfileScreen(navController, userViewModel) }
+        composable("editProfile/{username}") { EditProfileScreen(navController, userViewModel) }
         composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
         composable("addToLibrary/{gameId}") {AddGameToLibraryScreen(navController, userViewModel)}
     }
