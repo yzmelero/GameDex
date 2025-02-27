@@ -69,9 +69,15 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     var userType by remember { mutableStateOf<UserType>(UserType.USER) }
     var state by remember { mutableStateOf(false) }
+
+    val loggedUser by userViewModel.currentUser.collectAsState()
+
     DisposableEffect(Unit) {
         onDispose {
             userViewModel._updateSuccess.value = null
+            if (loggedUser?.username == username) {
+                userViewModel.logoutUser()
+            }
             userViewModel.loginUser(username, password)
         }
     }
@@ -191,7 +197,9 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                                     )
                                 }
                             } else if (selectedImageUri != null) {
-                                profilePicture = userViewModel.uriToBase64(context, selectedImageUri!!).toString()
+                                profilePicture =
+                                    userViewModel.uriToBase64(context, selectedImageUri!!)
+                                        .toString()
                                 oldProfilePicture = profilePicture
                                 AsyncImage(
                                     model = selectedImageUri,
@@ -205,6 +213,7 @@ fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel
                                 Image(
                                     painter = painterResource(id = R.drawable.user),
                                     contentDescription = stringResource(R.string.profile_picture),
+                                    contentScale = ContentScale.Crop,
                                     modifier = Modifier
                                         .size(120.dp)
                                         .clip(CircleShape)

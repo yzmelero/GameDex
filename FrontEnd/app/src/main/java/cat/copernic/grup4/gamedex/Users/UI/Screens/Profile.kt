@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -65,11 +66,14 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
         header(navController, userViewModel)
 
         Spacer(modifier = Modifier.height(20.dp))
-        Box {
-            if(loggedUser?.userType == UserType.ADMIN
-                || loggedUser?.username == currentUser?.username){
+        Box(modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 80.dp)
+            .defaultMinSize(200.dp)) {
+            if (loggedUser?.userType == UserType.ADMIN
+                || loggedUser?.username == currentUser?.username
+            ) {
                 IconButton(
-                    onClick = {navController.navigate("editProfile/${currentUser?.username}")},
+                    onClick = { navController.navigate("editProfile/${currentUser?.username}") },
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .padding(12.dp)
@@ -84,7 +88,8 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
             }
 
             if (loggedUser?.userType == UserType.ADMIN
-                && loggedUser?.username != currentUser?.username) {
+                && loggedUser?.username != currentUser?.username
+            ) {
                 var showDialog by remember { mutableStateOf(false) }
 
                 IconButton(
@@ -127,16 +132,28 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
                 val imageBitmap = currentUser.profilePicture?.let {
                     userViewModel.base64ToBitmap(it)
                 }
-
-                Column {
-                    imageBitmap?.let {
+                if (imageBitmap == null) {
+                    Column(modifier = Modifier.align(Alignment.Center)) {
                         Image(
-                            it, contentDescription = stringResource(R.string.profile_picture),
+                            painter = painterResource(id = R.drawable.user),
+                            contentDescription = stringResource(R.string.profile_picture),
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
-                                .size(320.dp)
+                                .size(120.dp)
                                 .clip(CircleShape)
                         )
+                    }
+                }else {
+                    Column(modifier = Modifier.align(Alignment.Center)) {
+                        imageBitmap.let {
+                            Image(
+                                it, contentDescription = stringResource(R.string.profile_picture),
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(152.dp)
+                                    .clip(CircleShape)
+                            )
+                        }
                     }
                 }
             }
