@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Core.Model.Library
 import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
+import cat.copernic.grup4.gamedex.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,10 +23,10 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
             val response = libraryUseCase.addGameToLibrary(library)
             _message.value = if (response.isSuccessful) {
                 _libraryState.value = true
-                "Game added to library"
+                R.string.succGameToLib.toString()
             } else {
                 _libraryState.value = false
-                "Error adding game to library"
+                R.string.errorAddGameToLib.toString()
             }
         }
 
