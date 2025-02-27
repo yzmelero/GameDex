@@ -87,4 +87,8 @@
     <string name="search">Search</string>
     <string name="succDelCat">Successful deletion of category</string>
     <string name="unkViewModel">Unknown ViewModel class</string>
+    <string name="cantLoadGame">Error: Can\'t load the videogame</string>
+    <string name="dropdownIcon">Dropdown icon for select videogame state</string>
+    <string name="star_index">Star %d</string>
+
 </resources>
