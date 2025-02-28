@@ -4,7 +4,11 @@ import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import retrofit2.Response
 
+// Actua com intermediari entre la capa de domini i la de dades
+// Facilita la gestió de les dades i permet la comunicació amb la API REST sense haver de modificar la capa de domini
 class VideogameRepository {
+    // Crida a la API REST per crear, obtenir i eliminar jocs...
+
     suspend fun createVideogame(videogame: Videogame): Response<Videogame> {
         return RetrofitInstance.api.createVideogame(videogame)
     }

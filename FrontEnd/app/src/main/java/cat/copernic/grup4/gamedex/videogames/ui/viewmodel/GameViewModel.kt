@@ -19,8 +19,10 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
+// ViewModel que conté la lògica de la vista de jocs
 open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewModel() {
 
+    // Emmagatzema si s'ha creat un joc o no
     private val _videogameCreated = MutableStateFlow<Boolean?>(null)
     val videogameCreated: StateFlow<Boolean?> = _videogameCreated
 
