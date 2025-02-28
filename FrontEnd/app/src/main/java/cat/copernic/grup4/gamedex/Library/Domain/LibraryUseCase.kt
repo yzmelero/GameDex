@@ -11,4 +11,11 @@ class LibraryUseCase(private val repository: LibraryRepository) {
         return repository.addGameToLibrary(library)
     }
 
+    suspend fun getLibrary(username: String): Response<List<Library>> {
+        return repository.getLibrary(username) // Aquesta funció farà la crida a la base de dades
+    }
+
+    suspend fun getCommentsFromLibrary(gameId: String): Response<List<Library>> {
+        return repository.getCommentsForVideogame(gameId)
+    }
 }

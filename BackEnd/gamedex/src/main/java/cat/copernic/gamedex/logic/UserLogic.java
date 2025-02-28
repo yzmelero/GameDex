@@ -16,7 +16,7 @@ import cat.copernic.gamedex.repository.UserRepository;
 
 @Service
 public class UserLogic {
-    
+
     Logger log = LoggerFactory.getLogger(UserApiController.class);
 
     @Autowired
@@ -25,7 +25,7 @@ public class UserLogic {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public void validations(User user){
+    public void validations(User user) {
 
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         if (!user.getEmail().matches(emailRegex)) {
@@ -43,22 +43,23 @@ public class UserLogic {
             if (oldUser.isPresent()) {
                 throw new RuntimeException("User already exists");
             }
-            if (user.getUsername().isEmpty() || user.getPassword().isEmpty() ||
-                user.getName().isEmpty() || user.getSurname().isEmpty() ||
-                user.getEmail().isEmpty() || user.getTelephone() == 0 ||
-                user.getBirthDate() == null) {
+            if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || user.getName().isEmpty()
+                    || user.getSurname().isEmpty() || user.getEmail().isEmpty() || user.getTelephone() == 0
+                    || user.getBirthDate() == null) {
                 throw new RuntimeException("Empty fields are not allowed");
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            //Estas dos lineas hacen que el usuario creado por defecto sea un usuario normal y no un admin y que este desactivado.
-            /*user.setState(false);
-            user.setUserType(UserType.USER);*/
+            // Estas dos lineas hacen que el usuario creado por defecto sea un usuario
+            // normal y no un admin y que este desactivado.
+            /*
+             * user.setState(false); user.setUserType(UserType.USER);
+             */
 
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 throw new RuntimeException("Email already exists");
             }
             if (userRepository.findByTelephone(user.getTelephone()).isPresent()) {
-                throw new RuntimeException("Telephone already exists");   
+                throw new RuntimeException("Telephone already exists");
             }
             validations(user);
 
@@ -70,25 +71,19 @@ public class UserLogic {
         }
     }
 
-    /*public User createAdmin(User user) {
-        try {
-            Optional<User> oldUser = userRepository.findById(user.getUsername());
-            if (oldUser.isPresent()) {
-                throw new RuntimeException("User already exists");
-            }
-
-            // Estas dos lineas hacen que el usuario creado por defecto sea un usuario
-            // normal y no un admin y que este desactivado.
-            user.setState(true);
-            user.setUserType(UserType.ADMIN);
-
-            return userRepository.save(user);
-        } catch (RuntimeException e) {
-            throw e; // Re-throw the original RuntimeException
-        } catch (Exception e) {
-            throw new RuntimeException("Unexpected error creating user");
-        }
-    }*/
+    /*
+     * public User createAdmin(User user) { try { Optional<User> oldUser =
+     * userRepository.findById(user.getUsername()); if (oldUser.isPresent()) { throw
+     * new RuntimeException("User already exists"); }
+     * 
+     * // Estas dos lineas hacen que el usuario creado por defecto sea un usuario //
+     * normal y no un admin y que este desactivado. user.setState(true);
+     * user.setUserType(UserType.ADMIN);
+     * 
+     * return userRepository.save(user); } catch (RuntimeException e) { throw e; //
+     * Re-throw the original RuntimeException } catch (Exception e) { throw new
+     * RuntimeException("Unexpected error creating user"); } }
+     */
 
     public User modifyUser(User user) {
         try {
@@ -98,44 +93,47 @@ public class UserLogic {
             } else {
                 User newUser = oldUser.get();
 
-                if (user.getPassword() != newUser.getPassword()) {
-                    newUser.setPassword(user.getPassword());
+                if ((user.getPassword() != newUser.getPassword()) && !user.getPassword().isEmpty()
+                        && !user.getPassword().isBlank()) {
+                    newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+
                 }
 
-                if (user.getName() != newUser.getName()) {
+                if ((user.getName() != newUser.getName()) && !user.getName().isEmpty()) {
                     newUser.setName(user.getName());
                 }
 
-                if (user.getSurname() != newUser.getSurname()) {
+                if ((user.getSurname() != newUser.getSurname()) && !user.getSurname().isEmpty()) {
                     newUser.setSurname(user.getSurname());
                 }
 
-                if (user.getEmail() != newUser.getEmail()) {
+                if ((!user.getEmail().equals(newUser.getEmail())) && !user.getEmail().isEmpty()) {
+                    Optional<User> emailUser = userRepository.findByEmail(user.getEmail());
+                    if (emailUser.isPresent() && !emailUser.get().getUsername().equals(user.getUsername())) {
+                        throw new RuntimeException("Email already exists");
+                    }
                     newUser.setEmail(user.getEmail());
                 }
 
-                if (user.getTelephone() != newUser.getTelephone()) {
+                if ((user.getTelephone() != newUser.getTelephone()) && user.getTelephone() != 0) {
+                    Optional<User> telephoneUser = userRepository.findByTelephone(user.getTelephone());
+                    if (telephoneUser.isPresent() && !telephoneUser.get().getUsername().equals(user.getUsername())) {
+                        throw new RuntimeException("Telephone already exists");
+                    }
                     newUser.setTelephone(user.getTelephone());
                 }
 
-                if (user.getBirthDate() != newUser.getBirthDate()) {
+                if ((user.getBirthDate() != newUser.getBirthDate()) && user.getBirthDate() != null) {
                     newUser.setBirthDate(user.getBirthDate());
                 }
 
-                if (user.getProfilePicture() != newUser.getProfilePicture()) {
-                    newUser.setProfilePicture(user.getProfilePicture());
+                if (user.getProfilePicture() != null) {
+                    if (user.getProfilePicture() != newUser.getProfilePicture()) {
+                        newUser.setProfilePicture(user.getProfilePicture());
+                    }
                 }
 
-                if (user.getState() != newUser.getState()) {
-                    newUser.setState(user.getState());
-                }
-
-                if (user.getUserType() != newUser.getUserType()) {
-                    newUser.setUserType(user.getUserType());
-                }
-
-            validations(user);
-
+                validations(user);
 
                 return userRepository.save(newUser);
             }
@@ -201,11 +199,11 @@ public class UserLogic {
             User user = userOptional.get();
             user.setState(true);
             return userRepository.save(user);
-        }catch (RuntimeException e) {
-            throw e; 
-        }catch (Exception e) {
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
             throw new RuntimeException("Unexpected error validating user");
-        }        
+        }
     }
 
     public boolean userExists(String username, String email) {
