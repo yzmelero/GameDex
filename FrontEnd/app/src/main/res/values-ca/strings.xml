@@ -67,6 +67,7 @@
     <string name="validated">Validat</string>
     <string name="state">Estat: %1$s</string>
     <string name="user_type">Tipus d\'usuari: %1$s</string>
+    <string name="save_changes">Desar canvis</string>
     <string name="add_cover">Afegir portada</string>
     <string name="selectCategory">Selecciona una categoria</string>
     <string name="view_game">Veure videojoc</string>
@@ -93,5 +94,8 @@
     <string name="showPassword">Mostrar la contrasenya</string>
     <string name="userNotFound">Usuari no trobat. Si us plau, comprova el nom d\'usuari i l\'email.</string>
     <string name="addAdmin">Afegir un admin</string>
-    <string name="search_user">Cercar un admin</string>
+    <string name="search_user">Cercar un usuari</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="user_updated">Usuari actualitzat</string>
+    <string name="error_updating_user">Error actualitzant usuari, revisa els camps si us plau</string>
 </resources>

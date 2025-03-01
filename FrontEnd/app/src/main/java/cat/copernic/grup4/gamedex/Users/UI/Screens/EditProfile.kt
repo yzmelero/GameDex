@@ -3,6 +3,7 @@ package cat.copernic.grup4.gamedex.Users.UI.Screens
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -15,14 +16,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +54,9 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import coil.compose.AsyncImage
 
 @Composable
-fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
+fun EditProfileScreen(navController: NavController, userViewModel: UserViewModel) {
+    //TODO arreglar imagenes
+    //TODO arreglar contraseña
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -63,9 +65,45 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
     var telephone by remember { mutableStateOf("") }
     var birthDate by remember { mutableStateOf("") }
     var profilePicture by remember { mutableStateOf("") }
+    var oldProfilePicture by remember { mutableStateOf("") }
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+    var userType by remember { mutableStateOf<UserType>(UserType.USER) }
+    var state by remember { mutableStateOf(false) }
+
+    val loggedUser by userViewModel.currentUser.collectAsState()
+
+    DisposableEffect(Unit) {
+        onDispose {
+            userViewModel._updateSuccess.value = null
+        }
+    }
+    val incomingUser = remember {
+        navController.currentBackStackEntry?.arguments?.getString("username")
+    } ?: return // Si no hay ID, salir de la función
 
     val context = LocalContext.current
-    val registrationState by userViewModel.registrationSuccess.collectAsState()
+    val updateSuccess by userViewModel.updateSuccess.collectAsState()
+
+
+    LaunchedEffect(incomingUser) {
+        val user = userViewModel.getUser(incomingUser)
+        user?.let {
+            username = it.username
+            name = it.name
+            surname = it.surname
+            email = it.email
+            telephone = it.telephone.toString()
+            birthDate = it.birthDate
+            oldProfilePicture = it.profilePicture ?: ""
+            userType = it.userType
+            state = it.state
+        }
+    }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> selectedImageUri = uri }
+    )
 
     Column(
         modifier = Modifier
@@ -73,7 +111,6 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
             .background(colorResource(R.color.background))
             .windowInsetsPadding(WindowInsets.systemBars),
         horizontalAlignment = Alignment.CenterHorizontally,
-
     ) {
 
         header(navController, userViewModel)
@@ -89,7 +126,7 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = stringResource(R.string.register_an_admin),
+                text = stringResource(R.string.edit_profile),
                 fontSize = 40.sp,
                 style = GameDexTypography.bodyLarge,
                 color = Color.Black
@@ -101,42 +138,36 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .fillMaxWidth(),
-
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-
-
-                ) {
+            ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    InputField(
-                        label = stringResource(id = R.string.username),
-                        value = username
-
-                    ) { username = it }
-                    InputField(
+                    InputFieldEdit(
                         label = stringResource(id = R.string.password),
                         value = password,
                         isPassword = true
                     ) { password = it }
-                    InputField(label = stringResource(id = R.string.name), value = name) {
+                    InputFieldEdit(
+                        label = stringResource(id = R.string.name), value = name
+                    ) {
                         name = it
                     }
-                    InputField(
+                    InputFieldEdit(
                         label = stringResource(id = R.string.surname),
                         value = surname
                     ) { surname = it }
-                    InputField(label = stringResource(id = R.string.email), value = email) {
+                    InputFieldEdit(label = stringResource(id = R.string.email), value = email) {
                         email = it
                     }
-                    InputField(
+                    InputFieldEdit(
                         label = stringResource(id = R.string.telephone),
                         value = telephone,
                         keyboardType = KeyboardType.Number
                     ) { telephone = it }
-                    InputField(
+                    InputFieldEdit(
                         label = stringResource(id = R.string.birthdate),
                         value = birthDate
                     ) { birthDate = it }
@@ -147,43 +178,37 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                         color = Color.Black
                     )
 
-
-                    //AVATARSECTION
-                    var selectedImageUri by remember {
-                        mutableStateOf<Uri?>(null)
-                    }
-
-                    val imagePickerLauncher = rememberLauncherForActivityResult(
-                        contract = ActivityResultContracts.PickVisualMedia(),
-                        onResult = { uri -> selectedImageUri = uri }
-                    )
-
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Row() {
-                            if (selectedImageUri == null) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.user),
-                                    contentDescription = "Avatar",
-                                    modifier = Modifier
-                                        .size(120.dp)
-                                        .clip(RoundedCornerShape(50))
-                                        .clickable {
-                                            imagePickerLauncher
-                                                .launch(
-                                                    PickVisualMediaRequest(
-                                                        ActivityResultContracts
-                                                            .PickVisualMedia.ImageOnly
-                                                    )
-                                                )
-                                        }
-                                )
-                            } else {
+                        Row {
+                            if (selectedImageUri == null && oldProfilePicture.isNotEmpty()) {
+                                val imageBitmap = userViewModel.base64ToBitmap(oldProfilePicture)
+                                imageBitmap?.let {
+                                    Image(
+                                        bitmap = it,
+                                        contentDescription = stringResource(R.string.profile_picture),
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .size(120.dp)
+                                            .clip(CircleShape)
+                                    )
+                                }
+                            } else if (selectedImageUri != null) {
                                 profilePicture =
                                     userViewModel.uriToBase64(context, selectedImageUri!!)
                                         .toString()
+                                oldProfilePicture = profilePicture
                                 AsyncImage(
                                     model = selectedImageUri,
-                                    contentDescription = "Avatar",
+                                    contentDescription = stringResource(R.string.profile_picture),
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(CircleShape)
+                                )
+                            } else {
+                                Image(
+                                    painter = painterResource(id = R.drawable.user),
+                                    contentDescription = stringResource(R.string.profile_picture),
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier
                                         .size(120.dp)
@@ -195,13 +220,11 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                                 contentDescription = stringResource(R.string.add_avatar),
                                 modifier = Modifier
                                     .clickable {
-                                        imagePickerLauncher
-                                            .launch(
-                                                PickVisualMediaRequest(
-                                                    ActivityResultContracts
-                                                        .PickVisualMedia.ImageOnly
-                                                )
+                                        imagePickerLauncher.launch(
+                                            PickVisualMediaRequest(
+                                                ActivityResultContracts.PickVisualMedia.ImageOnly
                                             )
+                                        )
                                     }
                                     .padding(top = 40.dp)
                                     .background(
@@ -221,23 +244,23 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp)),
                         onClick = {
-                            val newUser = User(
+                            val updatedUser = User(
                                 username = username,
                                 password = password,
                                 name = name,
                                 surname = surname,
                                 email = email,
-                                telephone = telephone.toIntOrNull() ?: 0, // Convertir telèfon a Int
+                                telephone = telephone.toIntOrNull() ?: 0,
                                 birthDate = birthDate,
-                                userType = UserType.ADMIN,
-                                state = true,
-                                profilePicture = profilePicture
+                                userType = userType,
+                                state = state,
+                                profilePicture = oldProfilePicture
                             )
-                            userViewModel.registerUser(newUser)
+                            Log.d("UserViewModel", "Updating user: $updatedUser")
+                            userViewModel.updateUser(updatedUser)
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-
-                        ) {
+                    ) {
                         Text(
                             text = stringResource(id = R.string.confirm),
                             color = Color.White,
@@ -248,29 +271,54 @@ fun AddAdminScreen(navController: NavController, userViewModel: UserViewModel) {
             }
         }
     }
-    LaunchedEffect(registrationState) {
-        registrationState?.let { success ->
+    LaunchedEffect(updateSuccess) {
+        updateSuccess?.let { success ->
             if (success) {
-                Toast.makeText(context, context.getString(R.string.user_created), Toast.LENGTH_LONG)
+                Toast.makeText(context, context.getString(R.string.user_updated), Toast.LENGTH_LONG)
                     .show()
-                navController.navigate("userList/")
+                navController.navigate("profile/${incomingUser}")
             } else {
                 Toast.makeText(
                     context,
-                    context.getString(R.string.error_creating_user), Toast.LENGTH_LONG
+                    context.getString(R.string.error_updating_user), Toast.LENGTH_LONG
                 ).show()
             }
         }
+
     }
     BottomSection(navController, userViewModel, 3)
 }
 
+@Composable
+fun InputFieldEdit(
+    label: String,
+    value: String,
+    isPassword: Boolean = false,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    onValueChange: (String) -> Unit
+) {
+    Column {
+        Text(text = label, color = Color.Black, fontSize = 14.sp)
+        TextField(
+            value = value,
+            placeholder = { Text(text = "Leave empty if you dont want to modify this field") },
+            onValueChange = onValueChange,
+            visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray),
+
+            )
+        Spacer(modifier = Modifier.height(6.dp))
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewAddAdminScreen() {
-    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+fun PreviewEditProfileScreen() {
+    val fakeNavController = rememberNavController() // Crear un NavController falso para la preview
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-    AddAdminScreen(navController = fakeNavController, userViewModel)
+    EditProfileScreen(navController = fakeNavController, userViewModel)
 }

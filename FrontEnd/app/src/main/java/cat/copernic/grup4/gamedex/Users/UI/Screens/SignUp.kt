@@ -201,7 +201,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                         Row() {
                             if (selectedImageUri == null) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.coche),
+                                    painter = painterResource(id = R.drawable.user),
                                     contentDescription = "Avatar",
                                     modifier = Modifier
                                         .size(120.dp)

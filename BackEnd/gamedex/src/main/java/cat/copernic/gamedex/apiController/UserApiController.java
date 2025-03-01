@@ -52,9 +52,11 @@ public class UserApiController {
         return userLogic.getUserById(userId);
     }
 
-    @PutMapping("/update")
-    public User updateUser(@RequestBody User user) {
-        return userLogic.modifyUser(user);
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User updateduser = userLogic.modifyUser(user);
+        return ResponseEntity.ok(updateduser);
+
     }
 
     @PostMapping("/create")

@@ -103,9 +103,6 @@ include::./Asciidocs/FOL.adoc[]
 //include per al Video Promocional
 include::./Asciidocs/VideoPromocional.adoc[]
 
-//include per a la presentació
-include::./Asciidocs/Presentacio.adoc[]
-
 //include per als Portfolis
 include::./Asciidocs/Portfolis.adoc[]
 
