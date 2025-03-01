@@ -1,6 +1,5 @@
 package cat.copernic.grup4.gamedex.Categories.UI.Screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,7 +23,6 @@ import cat.copernic.grup4.gamedex.Category.Data.CategoryRepository
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
-import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.R
