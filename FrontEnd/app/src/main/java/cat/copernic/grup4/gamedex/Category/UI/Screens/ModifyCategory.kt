@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Categories.UI.Screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,6 +26,7 @@ import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModel
 import cat.copernic.grup4.gamedex.Category.UI.ViewModel.CategoryViewModelFactory
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
+import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 
@@ -77,15 +79,12 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
         ) {
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Muestra el nombre de la categoría como un título (no editable)
             Text(
-                text = name,  // Aquí muestra el nombre de la categoría
+                text = stringResource(R.string.modify_category),
                 fontSize = 40.sp,
                 color = Color.Black,
-                style = MaterialTheme.typography.headlineLarge // Puedes cambiar el estilo según lo que desees
+                style = GameDexTypography.bodyLarge
             )
-
-            Spacer(modifier = Modifier.height(20.dp))
 
             Card(
                 modifier = Modifier
@@ -98,8 +97,16 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // El campo de nombre ya no es editable, así que no lo necesitas aquí
-                    // InputFieldEdit(label = stringResource(R.string.name), value = name) { name = it }
+                    Text(
+                        text = name,
+                        fontSize = 24.sp,
+                        color = Color.Black,
+                        style = GameDexTypography.bodyLarge
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     InputFieldEdit(label = stringResource(R.string.description), value = description) { description = it }
 
@@ -108,8 +115,9 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
+                            Log.d("ModifyCategory", "Button clicked")
+
                             val updatedCategory = category?.copy(
-                                nameCategory = name,
                                 description = description
                             )
 
