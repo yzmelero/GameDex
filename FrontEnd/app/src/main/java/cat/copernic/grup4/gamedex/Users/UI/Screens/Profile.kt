@@ -37,6 +37,8 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
+//TODO El botó de Library ha de portar a Library
+
 @Composable
 fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
     val username = remember {
@@ -197,7 +199,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
 // Library Button
         Button(
-            onClick = { /* TODO: Hacer el navigation a la library */ },
+            onClick = { navController.navigate("libraryScreen") },
             shape = RoundedCornerShape(20.dp)
         ) {
             Text(
