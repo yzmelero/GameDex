@@ -77,6 +77,7 @@
     <string name="reset_password">Restableix la contrasenya</string>
     <string name="accept">Acceptar</string>
     <string name="delete_question">Estàs segur que vols esborrar? Aquesta opció no és reversible.</string>
+    <string name="modify_game">Modificar joc</string>
     <string name="Delete">Esborrar</string>
     <string name="cancel">Cancel·lar</string>
     <string name="pending">Pendent</string>

@@ -59,5 +59,8 @@ public class LibraryLogic {
        }
    }
 
-}
 
+    public int countByCategory(String username, String state){
+        return libraryRepository.countByUserUsernameAndState(username, state);
+    }
+}
