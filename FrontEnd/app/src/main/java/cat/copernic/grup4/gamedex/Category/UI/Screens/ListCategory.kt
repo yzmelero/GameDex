@@ -143,7 +143,7 @@ fun SearchBar(query: String, navController: NavController, onQueryChange: (Strin
             Icon(
                 modifier = Modifier.clickable { navController.navigate("list_category/$query") },
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search",
+                contentDescription = stringResource(R.string.search),
                 tint = Color.Gray
             )
         }

@@ -60,6 +60,7 @@
     <string name="validate_users">Validar usuarios</string>
     <string name="view_profile">Ver perfil</string>
     <string name="stateGame">Estado</string>
+    <string name="delete_category">Borrar categoria</string>
     <string name="delete_user">Borrar usuario</string>
     <string name="validate_user">Validar usuario</string>
     <string name="view_user">Ver usuario</string>
@@ -74,6 +75,7 @@
     <string name="valide_game">Validar videojuego</string>
     <string name="confirm_delete">Confirmar la eliminación</string>
     <string name="delete">Borrar</string>
+    <string name="photo_category">Foto de la categoria</string>
     <string name="reset_password">Restablece la contraseña</string>
     <string name="accept">Aceptar</string>
     <string name="delete_question">Estás seguro de que quieres borrarlo? Esta opción no es reversible.</string>
@@ -81,6 +83,7 @@
     <string name="Delete">Borrar</string>
     <string name="cancel">Cancelar</string>
     <string name="pending">Pendiente</string>
+    <string name="all_fields_required">Error, tienes que completar todos los campos</string>
     <string name="imageSelect">Selección de imagen</string>
     <string name="register_an_admin">Registrar un admin</string>
     <string name="search">Buscar...</string>
@@ -99,4 +102,10 @@
     <string name="edit_profile">Editar perfil</string>
     <string name="user_updated">Usuario actualizado</string>
     <string name="error_updating_user">Error actualizando usuario, porfavor revisa los campos</string>
+    <string name="videogames">Videojuegos</string>
+    <string name="profile">Perfil</string>
+    <string name="gamePicture">Foto del videojuego</string>
+    <string name="deleteGame">Borrar videojuego</string>
+    <string name="please_select_a_category">Porfavor, selecciona una categoria</string>
+    <string name="videogame_deleted_succesfully">Videojuego borrado correctamente</string>
 </resources>

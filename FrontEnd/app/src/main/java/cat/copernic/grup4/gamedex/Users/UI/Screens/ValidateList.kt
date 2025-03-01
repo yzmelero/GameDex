@@ -80,12 +80,6 @@ fun ValidateListScreen(navController: NavController, userViewModel: UserViewMode
         }
 
         Spacer(modifier = Modifier.height(10.dp))
-        Button(
-            onClick = { /* TODO: Go to Verify user screen */ },
-            shape = RoundedCornerShape(20.dp),
-        ) {
-            Text(stringResource(R.string.verify), color = Color.White, fontSize = 18.sp)
-        }
     }
     BottomSection(navController, userViewModel,2)
 }
@@ -113,7 +107,7 @@ fun ValidateList(user: User, navController: NavController) {
             Column {
                 imageBitmap?.let {
                     Image(
-                        it, contentDescription = null,
+                        it, contentDescription = stringResource(R.string.profile_picture),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.size(72.dp)
                             .clip(CircleShape)

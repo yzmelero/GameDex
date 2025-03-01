@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -31,6 +32,7 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
         val icons = listOf(R.drawable.apps,
             R.drawable.gamepad, R.drawable.users_alt,
             R.drawable.user, R.drawable.book_open_cover)
+
         val destinations = listOf(
             "list_category/",
             "listvideogames",
@@ -38,13 +40,19 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
             "profile/${currentUser?.username}",
             "libraryScreen"
         )
-
+        val descriptions = listOf(
+            R.string.category,
+            R.string.videogames,
+            R.string.users,
+            R.string.profile,
+            R.string.library
+        )
         icons.forEachIndexed { index, iconRes ->
             NavigationBarItem(
                 icon = {
                     Image(
                         painter = painterResource(id = iconRes),
-                        contentDescription = null,
+                        contentDescription = stringResource(id = descriptions[index]),
                         modifier = Modifier.size(24.dp))
                 },
                 selected = selectedItem == index,

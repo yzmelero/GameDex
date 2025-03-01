@@ -62,10 +62,10 @@
     <string name="view_profile">view profile</string>
     <string name="stateGame">State</string>
 
-    <string name="delete_category" translatable="false">delete_category</string>
+    <string name="delete_category">delete_category</string>
     <string name="delete_user">Delete User</string>
     <string name="validate_user">Validate User</string>
-    <string name="view_user" translatable="false">View User</string>
+    <string name="view_user">View User</string>
     <string name="loading">Loading…</string>
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
@@ -78,13 +78,13 @@
     <string name="valide_game">Validate game</string>
     <string name="confirm_delete">confirm delete</string>
     <string name="delete">delete</string>
-    <string name="photo_category" translatable="false">photo_category</string>
+    <string name="photo_category">photo_category</string>
     <string name="reset_password">Reset Password</string>
     <string name="accept">Accept</string>
     <string name="delete_question">Are you sure you want to delete it? This option is not reversible</string>
     <string name="cancel">Cancel</string>
     <string name="pending">Pending</string>
-    <string name="all_fields_required">Error, you have to complet all Fields</string>
+    <string name="all_fields_required">Error, you have to fill in all Fields</string>
     <string name="imageSelect">Image select</string>
     <string name="search">Search…</string>
     <string name="succDelCat">Successful deletion of category</string>
@@ -107,4 +107,10 @@
     <string name="error_updating_user">Error updating user, please check the information</string>
     <string name="modify_game">Modify Game</string>
     <string name="Delete">Delete</string>
+    <string name="videogames">videogames</string>
+    <string name="profile">Profile</string>
+    <string name="gamePicture">Videogame Picture</string>
+    <string name="deleteGame">Delete videogame</string>
+    <string name="please_select_a_category">Please select a category</string>
+    <string name="videogame_deleted_succesfully">Videogame deleted succesfully!</string>
 </resources>

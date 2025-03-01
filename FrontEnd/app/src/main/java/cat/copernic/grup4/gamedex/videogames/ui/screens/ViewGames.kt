@@ -102,7 +102,8 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
 
     LaunchedEffect(videogameDeleted) {
         if (videogameDeleted == true) {
-            Toast.makeText(context, "Videogame deleted succesfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.videogame_deleted_succesfully), Toast.LENGTH_SHORT).show()
             navController.navigate("listvideogames")
         }
     }
