@@ -111,7 +111,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
                 .padding(16.dp),
             containerColor = colorResource(id = R.color.buttons)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Videogame")
+            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.addgame_library))
         }
     }
     BottomSection(navController, userViewModel, 4)
@@ -136,7 +136,7 @@ fun VideogameItem(
             }
             imageBitmap?.let {
                 Image(
-                    it, contentDescription = "videogame picture",
+                    it, contentDescription = stringResource(R.string.gamePicture),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(72.dp)
@@ -165,7 +165,7 @@ fun VideogameItem(
             ) {
                 Icon(
                     Icons.Default.Delete,
-                    contentDescription = "Delete Game",
+                    contentDescription = stringResource(R.string.deleteGame),
                     tint = Color.White
                 )
             }

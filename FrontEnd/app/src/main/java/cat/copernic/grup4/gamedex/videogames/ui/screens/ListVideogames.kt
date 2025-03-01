@@ -167,7 +167,7 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
         modifier = Modifier
             .padding(top = 5.dp)
             .fillMaxWidth()
-            .clickable { /* TODO Acción de selección */ }
+            .clickable { navController.navigate("viewGame/${videogame.gameId}") }
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
