@@ -37,8 +37,6 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
-//TODO El botó de Library ha de portar a Library
-
 @Composable
 fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
     val username = remember {

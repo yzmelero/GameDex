@@ -319,13 +319,13 @@ fun GameCard(
 
             }
         }
-        CommentsSection(videogame.gameId.toString(), comment)
+        CommentsSection(videogame.gameId.toString(), comment, navController)
 
     }
 }
 
 @Composable
-fun CommentsSection(gameId: String, comment: List<Library>) {
+fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController) {
 
 
     // TODO Fer tota la part dels comentaris ben feta
@@ -348,7 +348,12 @@ fun CommentsSection(gameId: String, comment: List<Library>) {
                     Icons.Default.Add,
                     contentDescription = stringResource(R.string.add_comment),
                     Modifier
-                        .clickable { /* TODO Mostrar imatge */ }
+                        .clickable {
+                            Log.d(
+                                "AddGameToLibraryScreen",
+                                "Navigating to game with ID: $gameId"
+                            )
+                            gameId?.let { navController.navigate("addToLibrary/$it") } }
                         .background(Color.Magenta, shape = RoundedCornerShape(50))
                         .clip(RoundedCornerShape(50))
                         .size(30.dp)
@@ -419,6 +424,7 @@ fun CommentItem(username: String, comment: String, rating: String) {
                         .size(30.dp)
                         .clip(RoundedCornerShape(50))
                         .background(Color.Red)
+                        .clickable {  }
                 )
             }
         }
