@@ -21,4 +21,8 @@ class LibraryRepository {
     suspend fun deleteVideogameFromLibrary(gameId: String, username: String): Response<Void> {
         return RetrofitInstance.api.deleteVideogameFromLibrary(gameId, username)
     }
+
+    suspend fun getAverageRating(gameId: String): Response<Double>{
+        return RetrofitInstance.api.getAverageRating(gameId)
+    }
 }

@@ -21,4 +21,7 @@ class LibraryUseCase(private val repository: LibraryRepository) {
 
     suspend fun deleteVideogameFromLibrary(gameId: String, username: String) = repository.deleteVideogameFromLibrary(gameId, username)
 
+    suspend fun getAverageRating(gameId: String): Response<Double> {
+        return repository.getAverageRating(gameId)
+    }
 }
