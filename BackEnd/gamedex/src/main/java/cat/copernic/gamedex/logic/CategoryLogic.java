@@ -62,6 +62,8 @@ public class CategoryLogic {
                 }
     
                 return categoryRepository.save(newCategory);
+                System.out.println("Modified Category: " + savedCategory);
+                return savedCategory;
             }
         } catch (RuntimeException e) {
             throw e;

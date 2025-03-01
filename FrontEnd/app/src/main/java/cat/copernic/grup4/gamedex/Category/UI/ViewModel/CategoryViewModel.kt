@@ -68,10 +68,14 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
 
     fun modifyCategory(modifyCategory: Category) {
         viewModelScope.launch {
+            // Llamada al caso de uso que hace la modificación
             val response = categoryCases.modifyCategory(modifyCategory)
+            // Verifica si la respuesta fue exitosa
             _categoryModified.value = response.isSuccessful
-            if (_categoryGetById.value?.nameCategory == modifyCategory.nameCategory) {
-                    _categoryGetById.value = modifyCategory
+
+            if (response.isSuccessful) {
+                // Actualiza la categoría en el estado, si se modificó correctamente
+                _categoryGetById.value = modifyCategory
             }
         }
     }
