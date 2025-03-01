@@ -172,8 +172,7 @@ fun GameItems(videogame: Videogame, navController: NavController, gameViewModel:
                     .align(Alignment.CenterVertically)
             ) {
                 IconButton(onClick = {
-                    navController.navigate("viewGame/${videogame.gameId}")
-                    // TODO Navegar a Validar Videojoc (a fer)
+                    navController.navigate("validateGame/${videogame.gameId}")
                 }) {
                     Box(
                         modifier = Modifier

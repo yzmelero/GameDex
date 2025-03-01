@@ -122,7 +122,7 @@ public class VideogameLogic {
     // Retorna tots els videojocs de la base de dades
     public List<Videogame> getAllVideogames() {
         try {
-            return videogameRepo.findAll();
+            return videogameRepo.findByState(true);
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {

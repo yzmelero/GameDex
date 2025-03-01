@@ -102,4 +102,7 @@
     <string name="search_user">Search user</string>
     <string name="modify_game">Modify Game</string>
     <string name="inactive_games">Validate Games</string>
+    <string name="verify_game">Verify Game</string>
+    <string name="validate_game">Validate Game</string>
+    <string name="delete_game">Delete Game</string>
 </resources>
