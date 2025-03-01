@@ -81,6 +81,7 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     fun getCommentsByGame(gameId: String) {
         viewModelScope.launch {
             try {
+                _comments.value = emptyList()
                 val response = libraryUseCase.getCommentsFromLibrary(gameId)
                 if (response.isSuccessful){
                     response.body()?.let{
