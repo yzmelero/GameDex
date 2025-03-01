@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
@@ -68,13 +69,36 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
 
     fun modifyCategory(modifyCategory: Category) {
         viewModelScope.launch {
-            val response = categoryCases.modifyCategory(modifyCategory)
-            _categoryModified.value = response.isSuccessful
-            if (_categoryGetById.value?.nameCategory == modifyCategory.nameCategory) {
-                    _categoryGetById.value = modifyCategory
+            try {
+                Log.d("ViewModel", "Modifying category: $modifyCategory")
+
+                val response = categoryCases.modifyCategory(modifyCategory)
+
+                Log.d("ViewModel", "Response received: ${response?.code()} - ${response?.message()}")
+
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        Log.d("ViewModel", "Category modified successfully!")
+                        _categoryModified.value = true
+
+                        if (_categoryGetById.value?.nameCategory == modifyCategory.nameCategory) {
+                            _categoryGetById.value = modifyCategory
+                        }
+                    } else {
+                        Log.e("ViewModel", "Error modifying category: ${response.errorBody()?.string()}")
+                        _categoryModified.value = false
+                    }
+                } else {
+                    Log.e("ViewModel", "Response is null, possible network error.")
+                    _categoryModified.value = false
+                }
+            } catch (e: Exception) {
+                Log.e("ViewModel", "Exception while modifying category: ${e.message}", e)
+                _categoryModified.value = false
             }
         }
     }
+
 
     fun base64ToBitmap(base64String: String): Bitmap? {
         return try {
