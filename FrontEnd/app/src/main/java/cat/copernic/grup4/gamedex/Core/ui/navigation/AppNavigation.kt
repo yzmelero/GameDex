@@ -58,6 +58,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
         composable("addToLibrary/{gameId}") {AddGameToLibraryScreen(navController, userViewModel)}
         composable("libraryScreen") {LibraryScreen(navController,userViewModel)}
-        composable("modify_category/{nameCategory}") { ModifyCategoryScreen(navController, userViewModel) }
+        composable("modify_category/{categoryId}") { ModifyCategoryScreen(navController, userViewModel) }
     }
 }

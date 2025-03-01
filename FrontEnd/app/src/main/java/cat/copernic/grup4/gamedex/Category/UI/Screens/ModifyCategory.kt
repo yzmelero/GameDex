@@ -36,8 +36,8 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
     val context = LocalContext.current
 
-    val nameCategory = remember {
-        navController.currentBackStackEntry?.arguments?.getString("nameCategory")
+    val categoryId = remember {
+        navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
 
     val category by categoryViewModel.categoryGetById.collectAsState()
@@ -46,8 +46,8 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
-    LaunchedEffect(nameCategory) {
-        categoryViewModel.getCategoryById(nameCategory)?.let {
+    LaunchedEffect(categoryId) {
+        categoryViewModel.getCategoryById(categoryId)?.let {
             name = it.nameCategory
             description = it.description
         }
