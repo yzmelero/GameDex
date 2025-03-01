@@ -53,6 +53,7 @@ public class CategoryLogic {
     
                 if (category.getDescription() != null && 
                     !category.getDescription().equals(newCategory.getDescription())) {
+                    log.info("Updating description from: " + newCategory.getDescription() + " to: " + category.getDescription());
                     newCategory.setDescription(category.getDescription());
                 }
     

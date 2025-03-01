@@ -43,7 +43,7 @@ public class CategoryApiController {
         return ResponseEntity.ok("Category deleted successfully");
     }
 
-    @PutMapping("/modify/{nameCategory}")
+    @PutMapping("/modify")
     public ResponseEntity<Category> modifyCategory(@RequestBody Category category) {
         log.info("Modifying category: " + category.toString());
         Category updatedCategory = categoryLogic.modifyCategory(category);
