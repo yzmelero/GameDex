@@ -12,6 +12,8 @@ import cat.copernic.gamedex.repository.CategoryRepository;
 @Service
 public class CategoryLogic {
 
+    Logger log = LoggerFactory.getLogger(UserApiController.class);
+
     @Autowired
     private CategoryRepository categoryRepository;
 
