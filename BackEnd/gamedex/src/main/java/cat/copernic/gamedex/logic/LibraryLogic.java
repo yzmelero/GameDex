@@ -23,22 +23,6 @@ public class LibraryLogic {
     Logger log = LoggerFactory.getLogger(LibraryLogic.class);
    
     
-    public void delete(String idLibrary){
-        try{
-            Optional<Library> library = libraryRepository.findById(idLibrary);
-            if (library.isPresent()) {
-                libraryRepository.deleteById(idLibrary);
-            }else{
-                throw new RuntimeException("Library not found");
-            } 
-        } catch(RuntimeException e){
-            throw e;
-        } catch(Exception e){
-            throw new RuntimeException("Unexpected error while deleting library");
-        }
-        
-    }
-    
     public Library addGameToLibrary(Library library){
         System.out.println("Usuari rebut en backend: " + library.getUser().getUsername());
         Optional<Library> existingGamesInLibrary = libraryRepository.findByUserAndVideogame(
@@ -57,7 +41,24 @@ public class LibraryLogic {
    
     public List<Library> getLibraryByGame(String gameId) {
         return libraryRepository.findByVideogameGameId(gameId);
-    }
+ 
+   }
+
+   public void deleteGameFromLibrary(String gameId, String username) {
+       try {
+           Optional<Library> library = libraryRepository.findByUserAndVideogame(gameId, username);
+           if (library.isEmpty()) {
+               throw new RuntimeException("Game not found in library");
+           }
+           log.info("LibraryLogic gameId: " + gameId);
+           libraryRepository.delete(library.get());
+       } catch (RuntimeException e) {
+           throw e; // Re-throw the original RuntimeException
+       } catch (Exception e) {
+           throw new RuntimeException("Unexpected error deleting game from library");
+       }
+   }
+
 
     public int countByCategory(String username, String state){
         return libraryRepository.countByUserUsernameAndState(username, state);
