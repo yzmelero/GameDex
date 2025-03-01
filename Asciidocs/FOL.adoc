@@ -1,9 +1,137 @@
 :hardbreaks:
 
-== [aqua]#11. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE#
+== [aqua]#11. FOL#
+
+
+=== [aqua]#11.1. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE#
 
 Com a persones joves, ens envoltem contínuament d’estímuls dins del nostre àmbit d’oci que tot i que no som conscients de manera activa, ens perjudiquen com a societat. És el cas de comunitats i jocs poc inclusius que no sols no estan pensats perquè jugui tothom sinó que inciten a marginar a col·lectius. És per això que nosaltres volem incloure en la nostra idea d’aplicació, una biblioteca de videojocs, espais segurs on les desigualtats no tenen cabuda, seguint com a exemple, l’objectiu de desenvolupament sostenible número 10: reducció de les desigualtats. 
 
 La nostra idea és que quan un usuari iniciï l’aplicació i aparegui en la pàgina principal, trobarà un llistat de categories, on a part de les típiques etiquetes com poden ser “aventures”, “acció”, “shooters”, també trobarà algunes més inclusives com ara “educatius”, “accessibles”, “cultural i històric” o “diversitat”. 
 
 Dins la categoria d’educatius, ens agradaria incloure videojocs que puguin aportar valors tant ètics com acadèmics en els infants i joves. Pel que fa als videojocs accessibles, creiem que és important afegir experiencies per a persones amb discapacitats físiques o cognitives. En cultural i històric hi hauria videojocs que explorin la història i les cultures d’arreu del món des d’un punt de vista objectiu i fidel al lloc corresponent. I finalment en la categoria de diversitat, afegiríem videojocs que destaquen per la inclusió, ja sigui en una creació de personatges amb moltes possibilitats de personalització, en videojocs que explorin cultures diferents des del respecte, etc.
+
+
+=== [aqua]#11.2. SUBVENCIONS I AJUTS PER AL NOSTRE PROJECTE#
+En la nostra tasca anterior, vam decidir que consideràvem prou important i adient per al nostre projecte l'addició de l’Objectiu de 
+Desenvolupament Sostenible número 10 “reducció de les desigualtats”. 
+Després de la recerca i, tenint en compte la nostra situació geogràfica, hem conclòs en què podríem beneficiar-nos (o sol·licitar) la següent subvenció:
+
+La **“Convocatòria General de Subvencions de l’Ajuntament de Barcelona 2025”**, la qual dona suport a projectes que fomenten la cohesió social, la inclusió i la diversitat.  El nostre projecte promou espais de jocs inclusius i accessibles apropant els videojocs a tothom.
+
+Tot i això, hem vist algunes subvencions que creiem que de cara a un futur, podríem adaptar el nostre projecte per a ser aptes a obtenir-les. 
+
+Una idea que hem tingut és poder apropar la nostra aplicació a un públic més jove, adolescents, tot i que ara mateix tenim una categoria de videojocs educacionals, hem pensat en algun tipus de mode per a menors d’edat, on puguem garantir un espai segur per a aquests usuaris, d’aquesta manera podríem fer jornades de conscienciació a escoles o a espais socials. La nostra aplicació té un espai de socialització, reduint la ràtio d’edats podem assegurar un àmbit de conversació més inclusiu.  Això ens podria fer aptes per a les **“Subvencions per a l'enfortiment de l'economia social i solidària i per a la intercooperació en l'estratègia #ESSBCN2030 - ENFORTIM L'ESS 2024”**.
+
+=== [aqua]#11.3. IDENTITAT DIGITAL#
+
+
+==== [aqua]#11.3.1. ANNA#
+
+
+===== [aqua]#11.3.1.1. COMPARTIR#
+
+** Linkedin ( poc )
+
+** Instagram ( mitjà )
+
+** Pinterest ( molt )
+
+** GitHub ( poc )
+
+** GitLab ( molt )
+
+** YouTube ( molt )
+
+** TikTok ( molt )
+
+** Discord ( molt )
+
+** Telegram ( molt )
+
+** WhatsApp ( poc )
+
+===== [aqua]#11.3.1.2. INFORMATIVES#
+
+** ChatGPT ( molt )
+
+** Google ( molt )
+
+** YouTube ( mitjà )
+
+** TikTok ( molt )
+
+** Wikipèdia ( molt poc )
+
+** W3Schools ( molt poc )
+
+===== [aqua]#11.3.1.3. REFLEXIÓ#
+
+** StackOverflow ( poc )
+
+** Notion ( poc )
+
+** Trello ( mitjà )
+
+** Reddit ( molt )
+
+** Youtube ( molt )
+
+==== [aqua]#11.3.2. MARIO#
+
+
+===== [aqua]#11.3.2.1. COMPARTIR#
+
+** Linkedin ( mitjà )
+
+** Instagram ( poc )
+
+** GitHub ( mitjà )
+
+** GitLab ( molt )
+
+** YouTube ( molt )
+
+** TikTok ( molt )
+
+** Twitter ( molt )
+
+** Discord ( molt )
+
+** Telegram ( poc )
+
+** WhatsApp ( mitjà )
+
+===== [aqua]#11.3.2.2. INFORMATIVES#
+
+** ChatGPT ( molt )
+
+** Google ( molt )
+
+** YouTube ( molt )
+
+** Twitch ( poc )
+
+** TikTok ( molt )
+
+** Wikipèdia ( mitjà )
+
+** W3Schools ( molt poc )
+
+** StackOverflow ( mitjà )
+
+===== [aqua]#11.3.2.3. REFLEXIÓ#
+
+** StackOverflow ( mitjà )
+
+** Notion ( poc )
+
+** Trello ( poc )
+
+** Reddit ( mitjà )
+
+** Youtube ( molt )
+
+** Twitch ( mitjà )
+
+
