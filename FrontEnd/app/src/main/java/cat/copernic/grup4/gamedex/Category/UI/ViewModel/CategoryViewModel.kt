@@ -29,7 +29,7 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     private val _categoryDeleted = MutableStateFlow<Boolean?>(null)
     val categoryDeleted: StateFlow<Boolean?> = _categoryDeleted
 
-    private val _categoryModified = MutableStateFlow<Boolean?>(null)
+    val _categoryModified = MutableStateFlow<Boolean?>(null)
     val categoryModified: StateFlow<Boolean?> = _categoryModified
 
     fun addCategory(category: Category) {
