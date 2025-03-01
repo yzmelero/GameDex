@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Categories.UI.Screens.ModifyCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.AddCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
@@ -57,5 +58,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
         composable("addToLibrary/{gameId}") {AddGameToLibraryScreen(navController, userViewModel)}
         composable("libraryScreen") {LibraryScreen(navController,userViewModel)}
+        composable("modify_category/{nameCategory}") { ModifyCategoryScreen(navController, userViewModel) }
     }
 }

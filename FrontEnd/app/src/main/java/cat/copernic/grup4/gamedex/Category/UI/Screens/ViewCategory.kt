@@ -140,7 +140,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
                         if (currentUser?.userType == UserType.ADMIN) {
                             Button(
-                                onClick = { navController.navigate("list_category") },
+                                onClick = { navController.navigate("/modify_category/${currentCategory?.nameCategory}") },
                                 colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.fillMaxWidth()
