@@ -66,10 +66,13 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
-    fun modifyCategory(nameCategory: String, category: Category) {
+    fun modifyCategory(modifyCategory: Category) {
         viewModelScope.launch {
-            val response = categoryCases.modifyCategory(nameCategory, category)
+            val response = categoryCases.modifyCategory(modifyCategory)
             _categoryModified.value = response.isSuccessful
+            if (_categoryGetById.value?.nameCategory == modifyCategory.nameCategory) {
+                    _categoryGetById.value = modifyCategory
+            }
         }
     }
 

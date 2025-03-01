@@ -22,7 +22,7 @@ interface CategoryApiRest {
     @DELETE("category/delete/{nameCategory}")
     suspend fun deleteCategory(@Path("nameCategory") nameCategory: String): Response<Unit>
 
-    @PUT("category/modify/{nameCategory}")
-    suspend fun modifyCategory(@Path("nameCategory") nameCategory: String, @Body category: Category): Response<Category>
+    @PUT("category/update/{nameCategory}")
+    suspend fun modifyCategory(@Body category: Category): Response<Category>
 
 }
