@@ -33,6 +33,9 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     private val _comments = MutableStateFlow<List<Library>>(emptyList())
     val comments: StateFlow<List<Library>> = _comments
 
+    private val _deleteSuccess = MutableStateFlow<Boolean?>(null)
+    val deleteSuccess: StateFlow<Boolean?> = _deleteSuccess
+
     fun addGameToLibrary(library: Library, context: Context) {
         viewModelScope.launch {
             val response = libraryUseCase.addGameToLibrary(library)
@@ -86,6 +89,24 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
                 }
             } catch (e: Exception) {
                 _message.value = "Error retrieving library"
+            }
+        }
+    }
+    //TODO Strings
+    fun deleteVideogameFromLibrary(gameId: String, username: String){
+        viewModelScope.launch {
+            try {
+                Log.d("LibraryViewModel", "Deleting gameId: $gameId for user: $username")
+                val response = libraryUseCase.deleteVideogameFromLibrary(gameId, username)
+                if (response.isSuccessful){
+                    Log.d("LibraryViewModel", "Deletion successful. Refreshing library")
+                    getLibrary(username)
+                }else{
+                    Log.e("LibraryViewModel", "Failed to delete. Response code: ${response.code()}")
+                }
+            } catch (e: Exception){
+                Log.e("LibraryViewModel", "Error deleting the videogame: ${e.message}")
+                _message.value = "Error deleting the videogame from the library."
             }
         }
     }
