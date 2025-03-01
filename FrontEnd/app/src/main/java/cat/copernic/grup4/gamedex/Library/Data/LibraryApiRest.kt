@@ -22,4 +22,7 @@ interface LibraryApiRest {
 
     @DELETE("library/delete/{gameId}/{username}")
     suspend fun deleteVideogameFromLibrary(@Path("gameId") gameId: String, @Path("username") username: String): Response<Void>
+
+    @GET("library/averagerating/{gameId}")
+    suspend fun getAverageRating(@Path("gameId") gameId: String): Response<Double>
 }

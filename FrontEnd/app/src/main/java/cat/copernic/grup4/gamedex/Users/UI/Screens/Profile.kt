@@ -197,7 +197,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
 // Library Button
         Button(
-            onClick = { /* TODO: Hacer el navigation a la library */ },
+            onClick = { navController.navigate("libraryScreen") },
             shape = RoundedCornerShape(20.dp)
         ) {
             Text(

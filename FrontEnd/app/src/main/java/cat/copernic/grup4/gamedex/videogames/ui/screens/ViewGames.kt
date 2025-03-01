@@ -98,6 +98,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
 
     val comment by libraryViewModel.comments.collectAsState()
 
+    val rating by libraryViewModel.rating.collectAsState()
 
     LaunchedEffect(videogameDeleted) {
         if (videogameDeleted == true) {
@@ -109,8 +110,9 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
     LaunchedEffect(gameId) {
         gameViewModel.videogamesById(gameId)
         libraryViewModel.getCommentsByGame(gameId)
-
+        libraryViewModel.getAverageRating(gameId)
     }
+
 
     Box(
         modifier = Modifier
@@ -124,7 +126,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it, gameViewModel, userViewModel, navController, comment) }
+            game?.let { GameCard(it, gameViewModel, userViewModel, navController, comment, rating) }
         }
         BottomSection(navController, userViewModel, 1)
     }
@@ -136,7 +138,8 @@ fun GameCard(
     gameViewModel: GameViewModel,
     userViewModel: UserViewModel,
     navController: NavController,
-    comment: List<Library>
+    comment: List<Library>,
+    rating: Double?
 ) {
     val currentUser = userViewModel.currentUser.collectAsState().value
     Column(
@@ -199,7 +202,7 @@ fun GameCard(
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = ("⭐ " + 7.85 + " ⭐"),
+                            text = ("⭐ ${rating ?: "N/A"} ⭐"),
                             fontSize = 26.sp,
                             fontWeight = FontWeight.Bold,
                             color = colorResource(R.color.yellowdark),
@@ -319,13 +322,13 @@ fun GameCard(
 
             }
         }
-        CommentsSection(videogame.gameId.toString(), comment)
+        CommentsSection(videogame.gameId.toString(), comment, navController)
 
     }
 }
 
 @Composable
-fun CommentsSection(gameId: String, comment: List<Library>) {
+fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController) {
 
 
     // TODO Fer tota la part dels comentaris ben feta
@@ -348,7 +351,13 @@ fun CommentsSection(gameId: String, comment: List<Library>) {
                     Icons.Default.Add,
                     contentDescription = stringResource(R.string.add_comment),
                     Modifier
-                        .clickable { /* TODO Mostrar imatge */ }
+                        .clickable {
+                            Log.d(
+                                "AddGameToLibraryScreen",
+                                "Navigating to game with ID: $gameId"
+                            )
+                            gameId?.let { navController.navigate("addToLibrary/$it") }
+                        }
                         .background(Color.Magenta, shape = RoundedCornerShape(50))
                         .clip(RoundedCornerShape(50))
                         .size(30.dp)
@@ -419,6 +428,7 @@ fun CommentItem(username: String, comment: String, rating: String) {
                         .size(30.dp)
                         .clip(RoundedCornerShape(50))
                         .background(Color.Red)
+                        .clickable { }
                 )
             }
         }

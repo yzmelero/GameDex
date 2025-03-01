@@ -75,8 +75,13 @@ public class LibraryApiController {
         }
     }
 
-
-
+    @GetMapping("/averagerating/{gameId}")
+    public ResponseEntity<Double> getAverageRating(@PathVariable String gameId) {
+        log.info("Rebent petició per a la mitjana de puntuacions del videojoc " + gameId);
+        Double rating = libraryLogic.getAverageRating(gameId);
+        log.info("Mitjana de puntuacions: " + rating);
+        return ResponseEntity.ok(rating);
+    }
 
     //mario
     @GetMapping("/count/{username}/{category}")
@@ -87,4 +92,6 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 }
