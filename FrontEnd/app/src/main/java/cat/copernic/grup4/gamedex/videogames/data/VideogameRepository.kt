@@ -27,4 +27,7 @@ class VideogameRepository {
     suspend fun deleteVideogame(gameId: String): Response<Void> {
         return RetrofitInstance.api.deleteVideogame(gameId)
     }
+    suspend fun validateVideogame(gameId: String): Response<Videogame> {
+        return RetrofitInstance.api.validateVideogame(gameId)
+    }
 }

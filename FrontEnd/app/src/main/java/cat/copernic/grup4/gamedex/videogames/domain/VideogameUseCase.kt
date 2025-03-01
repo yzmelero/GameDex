@@ -14,4 +14,5 @@ class VideogameUseCase (private val repository: VideogameRepository) {
     suspend fun getAllInactiveVideogames() = repository.getAllInactiveVideogames()
     suspend fun getAllCategories(): Response<List<Category>> = repository.getAllCategories()
     suspend fun deleteVideogame(gameId: String) = repository.deleteVideogame(gameId)
+    suspend fun validateVideogame(gameId: String) = repository.validateVideogame(gameId)
 }

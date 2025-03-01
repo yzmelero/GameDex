@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 // Interfície que conté les crides a la API REST per comunicar-se amb el backend
@@ -34,4 +35,7 @@ interface VideogameApiRest {
     @DELETE("videogame/delete/{gameId}")
     suspend fun deleteVideogame(@Path("gameId") gameId: String): Response<Void>
     // Es void perquè no retorna res, només elimina el joc amb la ID gameId i conté el codi de resposta HTTP
+
+    @PUT("videogame/validate/{gameId}")
+    suspend fun validateVideogame(@Path("gameId") gameId: String): Response<Videogame>
 }

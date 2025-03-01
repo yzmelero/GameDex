@@ -244,7 +244,8 @@ fun AcceptGame(videogame : Videogame, gameViewModel: GameViewModel, userViewMode
         ) {
             Button(
                 onClick = {
-                    // TODO Validar
+                    videogame.gameId?.let { gameViewModel.validateVideogame(it) }
+                    navController.popBackStack()
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
             ) {

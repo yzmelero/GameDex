@@ -157,4 +157,22 @@ public class VideogameLogic {
             throw new RuntimeException("Unexpected error getting the videogame");
         }
     }
+
+    public Videogame validateVideogame (String gameId) {
+        try {
+            // Comprova si el videojoc existeix
+            Optional<Videogame> videogame = videogameRepo.findById(gameId);
+            if (videogame.isEmpty()) {
+                throw new RuntimeException("Videogame not found");
+            } else {
+                Videogame newVideogame = videogame.get();
+                newVideogame.setState(true);
+                return videogameRepo.save(newVideogame);
+            }
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error validating the videogame");
+        }
+    }
 }

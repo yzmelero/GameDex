@@ -116,4 +116,13 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             null
         }
     }
+    
+    fun validateVideogame(gameId: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.validateVideogame(gameId)
+            if (response.isSuccessful) {
+                getAllInactiveVideogames()
+            }
+        }
+    }
 }
