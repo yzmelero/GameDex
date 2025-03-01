@@ -98,4 +98,12 @@ public class VideogameApiController {
         // Retorna l'OK amb la llista de categories
         return ResponseEntity.ok(categories);
     }
+
+    @PutMapping("/validate/{gameId}") // Defineix una ruta PUT per a validar un videojoc
+    public ResponseEntity <Videogame> validateVideogame(@PathVariable String gameId) {
+        log.info("Validating videogame with ID: " + gameId);
+        Videogame videogame = videogameLogic.validateVideogame(gameId);
+        // Retorna l'OK amb el videojoc validat
+        return ResponseEntity.ok(videogame);
+    }
 }

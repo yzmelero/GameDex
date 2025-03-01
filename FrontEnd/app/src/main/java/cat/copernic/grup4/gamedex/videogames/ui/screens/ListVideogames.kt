@@ -54,6 +54,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
@@ -106,7 +108,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
-        GameButtons(navController)
+        GameButtons(navController, userViewModel)
     }
 }
 
@@ -236,7 +238,9 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
 
 }
 @Composable
-fun GameButtons(navController: NavController) {
+fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
+    val currentUser by userViewModel.currentUser.collectAsState()
+    val isAdmin = currentUser?.userType == UserType.ADMIN
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -245,6 +249,7 @@ fun GameButtons(navController: NavController) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Bottom
     ) {
+        if (isAdmin) {
         IconButton(
             onClick = {navController.navigate("listInactiveGames")},
             modifier = Modifier
@@ -257,6 +262,7 @@ fun GameButtons(navController: NavController) {
                 modifier = Modifier.size(40.dp)
             )
         }
+            }
         IconButton(
             onClick = {navController.navigate("addGames")},
             modifier = Modifier
