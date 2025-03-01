@@ -238,7 +238,8 @@ fun AcceptGame(videogame : Videogame, gameViewModel: GameViewModel, userViewMode
             }
         }
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .padding(bottom = 12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
@@ -247,15 +248,13 @@ fun AcceptGame(videogame : Videogame, gameViewModel: GameViewModel, userViewMode
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
             ) {
-                Text(stringResource(R.string.validate_game), color = Color.White)
+                Text(stringResource(R.string.validate_game), color = Color.Black)
             }
+            Spacer(modifier = Modifier.width(12.dp))
             var showDialog by remember { mutableStateOf(false) }
             Button(
                 onClick = { showDialog = true },
-                modifier = Modifier
-                    .background(Color.Red, shape = CircleShape),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
-
             ) {
                 Text(stringResource(R.string.delete_game), color = Color.White)
             }
