@@ -8,4 +8,5 @@ class CategoryCases(private val repository: CategoryRepository) {
     suspend fun getAllCategory() = repository.getAllCategory()
     suspend fun getCategoryById(categoryId: String) = repository.getCategoryById(categoryId)
     suspend fun deleteCategory(nameCategory: String) = repository.deleteCategory(nameCategory)
+    suspend fun filterCategories(query: String) = repository.filterCategories(query)
 }

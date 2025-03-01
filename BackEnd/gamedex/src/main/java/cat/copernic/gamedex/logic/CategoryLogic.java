@@ -94,4 +94,9 @@ public class CategoryLogic {
             throw new RuntimeException("Unexpected error getting the category", e);
         }
     }
+
+    public List<Category> searchCategories(String query) {
+        return categoryRepository.findByNameCategoryContaining(query);
+    }
+    
 }
