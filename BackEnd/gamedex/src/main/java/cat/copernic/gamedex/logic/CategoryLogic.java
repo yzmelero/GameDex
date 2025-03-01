@@ -12,8 +12,6 @@ import cat.copernic.gamedex.repository.CategoryRepository;
 @Service
 public class CategoryLogic {
 
-    Logger log = LoggerFactory.getLogger(UserApiController.class);
-
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -55,7 +53,6 @@ public class CategoryLogic {
     
                 if (category.getDescription() != null && 
                     !category.getDescription().equals(newCategory.getDescription())) {
-                    log.info("Updating description from: " + newCategory.getDescription() + " to: " + category.getDescription());
                     newCategory.setDescription(category.getDescription());
                 }
     

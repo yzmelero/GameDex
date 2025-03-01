@@ -24,7 +24,7 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     val category: StateFlow<List<Category>> = _categoryGetAll
 
     private val _categoryGetById = MutableStateFlow<Category?>(null)
-    val categoryGetById: StateFlow<Category?> = _categoryGetById
+    val categoryGetById: StateFlow<Category?> get() = _categoryGetById
 
     private val _categoryDeleted = MutableStateFlow<Boolean?>(null)
     val categoryDeleted: StateFlow<Boolean?> = _categoryDeleted
