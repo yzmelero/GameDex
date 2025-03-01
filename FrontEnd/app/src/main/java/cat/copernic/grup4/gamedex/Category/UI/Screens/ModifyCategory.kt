@@ -1,6 +1,5 @@
 package cat.copernic.grup4.gamedex.Categories.UI.Screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -48,22 +47,13 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
-    // Cargar datos de la categoría
     LaunchedEffect(categoryId) {
-        Log.d("ModifyCategoryScreen", "Fetching category with ID: $categoryId")
-        categoryViewModel.getCategoryById(categoryId)
-    }
-
-    // Observamos cuando cambia la categoría y actualizamos los valores
-    LaunchedEffect(category) {
-        category?.let {
+        categoryViewModel.getCategoryById(categoryId)?.let {
             name = it.nameCategory
             description = it.description
-            Log.d("ModifyCategoryScreen", "Loaded category: $it")
         }
     }
 
-    // Restablecer el estado de actualización cuando salimos de la pantalla
     DisposableEffect(Unit) {
         onDispose {
             categoryViewModel._categoryModified.value = null
@@ -115,6 +105,8 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    Spacer(modifier = Modifier.height(20.dp))
+
                     InputFieldEdit(label = stringResource(R.string.description), value = description) { description = it }
 
                     Spacer(modifier = Modifier.height(4.dp))
@@ -122,15 +114,12 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            Log.d("ModifyCategoryScreen", "Button clicked with description: $description")
+                            val updatedCategory = category?.copy(
+                                description = description
+                            )
 
-                            val updatedCategory = category?.copy(description = description)
-
-                            if (updatedCategory != null) {
-                                Log.d("ModifyCategoryScreen", "Updating category: $updatedCategory")
-                                categoryViewModel.modifyCategory(updatedCategory)
-                            } else {
-                                Log.e("ModifyCategoryScreen", "Error: category is null!")
+                            updatedCategory?.let {
+                                categoryViewModel.modifyCategory(it)
                             }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
@@ -154,7 +143,6 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     context.getString(R.string.category_updated),
                     Toast.LENGTH_LONG
                 ).show()
-                Log.d("ModifyCategoryScreen", "Category updated successfully!")
                 navController.navigate("categories")
             } else {
                 Toast.makeText(
@@ -162,14 +150,12 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     context.getString(R.string.error_updating_category),
                     Toast.LENGTH_LONG
                 ).show()
-                Log.e("ModifyCategoryScreen", "Failed to update category!")
             }
         }
     }
 
     BottomSection(navController, userViewModel, 0)
 }
-
 
 @Composable
 fun InputFieldEdit(
