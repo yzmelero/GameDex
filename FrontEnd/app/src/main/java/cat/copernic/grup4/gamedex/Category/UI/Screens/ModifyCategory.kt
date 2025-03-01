@@ -76,12 +76,17 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(10.dp))
+
+            // Muestra el nombre de la categoría como un título (no editable)
             Text(
-                text = stringResource(R.string.modify_category),
+                text = name,  // Aquí muestra el nombre de la categoría
                 fontSize = 40.sp,
-                color = Color.Black
+                color = Color.Black,
+                style = MaterialTheme.typography.headlineLarge // Puedes cambiar el estilo según lo que desees
             )
+
             Spacer(modifier = Modifier.height(20.dp))
+
             Card(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -93,7 +98,9 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     modifier = Modifier.padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    InputFieldEdit(label = stringResource(R.string.name), value = name) { name = it }
+                    // El campo de nombre ya no es editable, así que no lo necesitas aquí
+                    // InputFieldEdit(label = stringResource(R.string.name), value = name) { name = it }
+
                     InputFieldEdit(label = stringResource(R.string.description), value = description) { description = it }
 
                     Spacer(modifier = Modifier.height(4.dp))
