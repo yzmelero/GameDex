@@ -58,5 +58,8 @@ public class LibraryLogic {
     public List<Library> getLibraryByGame(String gameId) {
         return libraryRepository.findByVideogameGameId(gameId);
     }
-}
 
+    public int countByCategory(String username, String state){
+        return libraryRepository.countByUserUsernameAndState(username, state);
+    }
+}

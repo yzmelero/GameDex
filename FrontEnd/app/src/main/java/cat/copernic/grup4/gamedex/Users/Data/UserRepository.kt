@@ -52,4 +52,8 @@ class UserRepository {
         return RetrofitInstance.api.getAllUsersByUserId(userId)
     }
 
+    suspend fun countByUserAndState(userId: String, state: String): Response<Int>{
+        return RetrofitInstance.api.countByUserAndState(userId, state)
+    }
+
 }

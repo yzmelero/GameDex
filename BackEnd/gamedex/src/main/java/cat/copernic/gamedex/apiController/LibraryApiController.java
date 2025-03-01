@@ -57,4 +57,16 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Error intern
         }
     }
+
+
+
+    //mario
+    @GetMapping("/count/{username}/{category}")
+    public ResponseEntity<?> countByCategory(@PathVariable String username, @PathVariable String category) {
+        try {
+            return ResponseEntity.ok(libraryLogic.countByCategory(username, category));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

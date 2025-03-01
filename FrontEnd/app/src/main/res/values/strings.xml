@@ -28,7 +28,7 @@
     <string name="back">Back</string>
     <string name="edit">Edit</string>
     <string name="library">Library</string>
-    <string name="finished">Completed</string>
+    <string name="finished">Finished</string>
     <string name="dropped">Dropped</string>
     <string name="playing">Playing</string>
     <string name="wanttoplay">Want to play</string>
@@ -65,7 +65,7 @@
     <string name="delete_category" translatable="false">delete_category</string>
     <string name="delete_user">Delete User</string>
     <string name="validate_user">Validate User</string>
-    <string name="view_user">View User</string>
+    <string name="view_user" translatable="false">View User</string>
     <string name="loading">Loading…</string>
     <string name="validated">Validated</string>
     <string name="state">State: %1$s</string>
@@ -106,4 +106,5 @@
     <string name="user_updated">User updated</string>
     <string name="error_updating_user">Error updating user, please check the information</string>
     <string name="modify_game">Modify Game</string>
+    <string name="Delete">Delete</string>
 </resources>

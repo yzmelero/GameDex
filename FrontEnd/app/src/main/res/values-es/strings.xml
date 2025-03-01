@@ -77,6 +77,7 @@
     <string name="reset_password">Restablece la contraseña</string>
     <string name="accept">Aceptar</string>
     <string name="delete_question">Estás seguro de que quieres borrarlo? Esta opción no es reversible.</string>
+    <string name="modify_game">Modificar Juego</string>
     <string name="Delete">Borrar</string>
     <string name="cancel">Cancelar</string>
     <string name="pending">Pendiente</string>

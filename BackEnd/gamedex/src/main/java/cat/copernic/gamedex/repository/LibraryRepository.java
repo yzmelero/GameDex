@@ -21,4 +21,7 @@ public interface LibraryRepository extends MongoRepository<Library, String> {
     public List<Library> findByUserUsername(String username);
 
     List<Library> findByVideogameGameId(String gameId);
+
+    int countByUserUsernameAndState(String username, String state);
+
 }

@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Users.UI.Screens
 
+import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -45,7 +46,16 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
     LaunchedEffect(username) { // ✅ Llama a la función suspend en una corrutina
         user = userViewModel.getUser(username)
+        userViewModel.countByUserAndState(username, "COMPLETED")
+        userViewModel.countByUserAndState(username, "WANTTOPLAY")
+        userViewModel.countByUserAndState(username, "PLAYING")
+        userViewModel.countByUserAndState(username, "DROPPED")
     }
+    val finished by userViewModel.finished.collectAsState()
+    val playing by userViewModel.playing.collectAsState()
+    val wantToPlay by userViewModel.wantToPlay.collectAsState()
+    val dropped by userViewModel.dropped.collectAsState()
+
     val currentUser = user
     val loggedUser by userViewModel.currentUser.collectAsState()
 
@@ -173,12 +183,16 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
 // Stats Section
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-            //TODO: hacer un count con los datos de cada categoria para los numeros
-            StatItem(stringResource(R.string.finished), "85")
-            StatItem(stringResource(R.string.playing), "8")
-            StatItem(stringResource(R.string.wanttoplay), "20")
+            StatItem(stringResource(R.string.finished), finished)
+            StatItem(stringResource(R.string.playing),playing)
         }
 
+        Spacer(modifier = Modifier.padding(12.dp))
+
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+            StatItem(stringResource(R.string.wanttoplay), wantToPlay)
+            StatItem(stringResource(R.string.dropped), dropped)
+        }
         Spacer(modifier = Modifier.height(20.dp))
 
 // Library Button
@@ -200,7 +214,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
 
 @Composable
-fun StatItem(label: String, value: String) {
+fun StatItem(label: String, value: Int) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             label, fontSize = 32.sp,
@@ -208,7 +222,7 @@ fun StatItem(label: String, value: String) {
             color = Color.Black
         )
         Text(
-            value, fontSize = 28.sp,
+            value.toString(), fontSize = 28.sp,
             style = GameDexTypography.bodyLarge,
             color = Color.Gray
         )
