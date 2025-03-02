@@ -133,7 +133,7 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     fun videogamesByCategory(categoryId: String) {
         viewModelScope.launch {
             val response = videogameUseCase.videogamesByCategory(categoryId)
-            _videogameGetAll.value = response.body() ?: emptyList()
+            _videogameByCategory.value = response.body() ?: emptyList()
         }
     }
 

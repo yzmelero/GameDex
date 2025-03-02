@@ -82,11 +82,15 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
-    val videogame by gameViewModel.allVideogame.collectAsState()
     val categories by gameViewModel.categories.collectAsState()
-
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+    val videogame by if (selectedCategory == null) {
+        gameViewModel.allVideogame.collectAsState()
+    } else {
+        gameViewModel.videogameByCategory.collectAsState()
+    }
 
     LaunchedEffect(Unit) {
         gameViewModel.getAllVideogames()
@@ -116,7 +120,14 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
             CategoryFilter(
                 categories = categories,
                 selectedCategory = selectedCategory,
-                onCategorySelected = { selectedCategory = it }
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    if (category != null) {
+                        gameViewModel.videogamesByCategory(category.nameCategory)
+                    } else {
+                        gameViewModel.getAllVideogames()
+                    }
+                }
             )
             Spacer(modifier = Modifier.height(10.dp))
             VideogamesGrid(videogame,selectedCategory, searchQuery, navController, gameViewModel)
@@ -223,8 +234,7 @@ fun CategoryFilter(
 @Composable
 fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, searchQuery: String, navController: NavController, gameViewModel: GameViewModel) {
     val filteredGames = videogame.filter { game ->
-        (selectedCategory == null || game.category == selectedCategory.nameCategory) &&
-                (searchQuery.isBlank() || game.nameGame.contains(searchQuery, ignoreCase = true))
+        searchQuery.isBlank() || game.nameGame.contains(searchQuery, ignoreCase = true)
     }
     Column(
         modifier = Modifier
