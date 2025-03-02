@@ -41,7 +41,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
     NavHost(navController = navController, startDestination = "login") {
         composable("login") {LoginScreen(navController, userViewModel) }
         composable("signup") { SignUpScreen(navController, userViewModel) }
-        composable("list_category") { ListCategoryScreen(navController, userViewModel) }
+        composable("list_category/{nameCategory}") { ListCategoryScreen(navController, userViewModel) }
         composable("add_category") { AddCategoryScreen(navController, userViewModel) }
         composable("userList/{username}") { UserListScreen(navController, userViewModel) }
         composable("profile/{username}") { ProfileScreen(navController, userViewModel) }
@@ -49,7 +49,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listVideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("addGames") { AddGamesScreen(navController, userViewModel) }
-        composable("category") { ListCategoryScreen(navController, userViewModel)}
         composable("view_category/{categoryId}") { ViewCategoryScreen(navController, userViewModel) }
         composable("add_admin") { AddAdminScreen(navController, userViewModel) }
         //Home screen / Category main screen

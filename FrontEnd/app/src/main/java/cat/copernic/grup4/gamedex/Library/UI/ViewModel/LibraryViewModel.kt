@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import java.io.ByteArrayInputStream
 
 //TODO Afegir Strings
@@ -32,6 +33,12 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
 
     private val _comments = MutableStateFlow<List<Library>>(emptyList())
     val comments: StateFlow<List<Library>> = _comments
+
+    private val _deleteSuccess = MutableStateFlow<Boolean?>(null)
+    val deleteSuccess: StateFlow<Boolean?> = _deleteSuccess
+
+    private val _rating = MutableStateFlow<Double?>(null)
+    val rating: StateFlow<Double?> = _rating
 
     fun addGameToLibrary(library: Library, context: Context) {
         viewModelScope.launch {
@@ -78,6 +85,7 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     fun getCommentsByGame(gameId: String) {
         viewModelScope.launch {
             try {
+                _comments.value = emptyList()
                 val response = libraryUseCase.getCommentsFromLibrary(gameId)
                 if (response.isSuccessful){
                     response.body()?.let{
@@ -86,6 +94,40 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
                 }
             } catch (e: Exception) {
                 _message.value = "Error retrieving library"
+            }
+        }
+    }
+    //TODO Strings
+    fun deleteVideogameFromLibrary(gameId: String, username: String){
+        viewModelScope.launch {
+            try {
+                Log.d("LibraryViewModel", "Deleting gameId: $gameId for user: $username")
+                val response = libraryUseCase.deleteVideogameFromLibrary(gameId, username)
+                if (response.isSuccessful){
+                    Log.d("LibraryViewModel", "Deletion successful. Refreshing library")
+                    getLibrary(username)
+                }else{
+                    Log.e("LibraryViewModel", "Failed to delete. Response code: ${response.code()}")
+                }
+            } catch (e: Exception){
+                Log.e("LibraryViewModel", "Error deleting the videogame: ${e.message}")
+                _message.value = "Error deleting the videogame from the library."
+            }
+        }
+    }
+
+    fun getAverageRating(gameId: String) {
+        viewModelScope.launch {
+            try {
+                val response: Response<Double> = libraryUseCase.getAverageRating(gameId)
+                Log.d("LibraryViewModel", "Response code: ${response.code()} - Body: ${response.body()}")
+                if (response.isSuccessful){
+                    _rating.value = response.body() /*?: 0.0*/
+                }else{
+                    _message.value = "Error: ${response.code()}"
+                }
+            }catch (e: Exception){
+                _message.value = "Couldn't retrieve the rating."
             }
         }
     }

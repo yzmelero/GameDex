@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,4 +58,40 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Error intern
         }
     }
+
+    @DeleteMapping("/delete/{gameId}/{username}")
+    public ResponseEntity<Void> deleteGameFromLibrary(@PathVariable String gameId, @PathVariable String username) {
+        System.out.println("Intentant eliminar el joc " + gameId + " de l'usuari " + username);
+        try {
+            libraryLogic.deleteGameFromLibrary(gameId, username);
+            log.info("Joc eliminat correctament.");
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException e) {
+            log.error("Joc no trobat a la llibreria");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            log.error("Error eliminant joc de la llibreria: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/averagerating/{gameId}")
+    public ResponseEntity<Double> getAverageRating(@PathVariable String gameId) {
+        log.info("Rebent petició per a la mitjana de puntuacions del videojoc " + gameId);
+        Double rating = libraryLogic.getAverageRating(gameId);
+        log.info("Mitjana de puntuacions: " + rating);
+        return ResponseEntity.ok(rating);
+    }
+
+    //mario
+    @GetMapping("/count/{username}/{category}")
+    public ResponseEntity<?> countByCategory(@PathVariable String username, @PathVariable String category) {
+        try {
+            return ResponseEntity.ok(libraryLogic.countByCategory(username, category));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 }

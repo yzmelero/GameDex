@@ -49,7 +49,8 @@ import coil.compose.rememberAsyncImagePainter
 fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val categoryCases = CategoryCases(CategoryRepository())
-    val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModelFactory(categoryCases))
+    val categoryViewModel: CategoryViewModel =
+        viewModel(factory = CategoryViewModelFactory(categoryCases))
 
     var categoryName by remember { mutableStateOf("") }
     var categoryDescription by remember { mutableStateOf("") }
@@ -98,11 +99,22 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Spacer(modifier = Modifier.height(20.dp))
-                    TextField(label = stringResource(R.string.name_category), text = categoryName) { categoryName = it }
+                    TextField(
+                        label = stringResource(R.string.name_category),
+                        text = categoryName
+                    ) { categoryName = it }
                     Spacer(modifier = Modifier.height(20.dp))
-                    TextField(label = stringResource(R.string.description), text = categoryDescription, height = 180.dp) { categoryDescription = it }
+                    TextField(
+                        label = stringResource(R.string.description),
+                        text = categoryDescription,
+                        height = 180.dp
+                    ) { categoryDescription = it }
                     Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(R.string.image_category), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(
+                        stringResource(R.string.image_category),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
                     Spacer(modifier = Modifier.height(20.dp))
                     ImageUploadSection(imageUri) { imagePickerLauncher.launch("image/*") }
                 }
@@ -116,17 +128,30 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp)),
                     onClick = {
+                        if (categoryName.isEmpty() || categoryDescription.isEmpty() || imageUri == null) {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.all_fields_required),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
                             val newCategory = Category(
                                 nameCategory = categoryName,
                                 description = categoryDescription,
-                                categoryPhoto = categoryViewModel.uriToBase64(context, imageUri!!).toString()
+                                categoryPhoto = categoryViewModel.uriToBase64(context, imageUri!!)
+                                    .toString()
                             )
                             categoryViewModel.addCategory(newCategory)
-                        },
+                        }
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
 
                     ) {
-                    Text(text = stringResource(id = R.string.confirm), color = Color.White,  fontWeight = FontWeight.Bold)
+                    Text(
+                        text = stringResource(id = R.string.confirm),
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
@@ -137,19 +162,27 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            BottomSection(navController, userViewModel,0)
+            BottomSection(navController, userViewModel, 0)
         }
     }
 
     LaunchedEffect(categoryAdded) {
         categoryAdded?.let { success ->
             if (success) {
-                Toast.makeText(context, context.getString(R.string.category_added), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.category_added),
+                    Toast.LENGTH_LONG
+                ).show()
                 navController.navigate("list_category") {
                     popUpTo("add_category") { inclusive = true }
                 }
             } else {
-                Toast.makeText(context, context.getString(R.string.category_not_created), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.category_not_created),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -160,12 +193,14 @@ fun TextField(label: String, text: String, height: Dp = 80.dp, onTextChanged: (S
     TextField(
         value = text,
         onValueChange = onTextChanged,
-        label = { Text(
-            label,
-            modifier = Modifier
-                .padding(bottom = 10.dp),
-            fontSize = 16.sp,
-        ) },
+        label = {
+            Text(
+                label,
+                modifier = Modifier
+                    .padding(bottom = 10.dp),
+                fontSize = 16.sp,
+            )
+        },
         textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
         modifier = Modifier
             .fillMaxWidth()

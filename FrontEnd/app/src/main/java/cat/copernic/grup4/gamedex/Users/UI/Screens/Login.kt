@@ -60,7 +60,7 @@ fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
 
     LaunchedEffect(loginSuccess) {
         if (loginSuccess == true) {
-            navController.navigate("list_category")  // Si el login és correcte, naveguem
+            navController.navigate("list_category/")  // Si el login és correcte, naveguem
         }
     }
 

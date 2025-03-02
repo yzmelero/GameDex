@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
@@ -63,6 +64,22 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    fun filterCategories(query: String) {
+        viewModelScope.launch {
+            try {
+                val response = categoryCases.filterCategories(query)
+                if (response.isSuccessful) {
+                    response.body()?.let { filteredList ->
+                        _categoryGetAll.value = filteredList
+                    }
+                } else {
+                    Log.e("CategoryViewModel", "API Error: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("CategoryViewModel", "Error filtering categories: ${e.message}")
+            }
+        }
+    }
 
     fun base64ToBitmap(base64String: String): Bitmap? {
         return try {
@@ -93,5 +110,4 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
             null
         }
     }
-
 }
