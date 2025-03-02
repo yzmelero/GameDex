@@ -152,7 +152,7 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gam
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        videogame.forEach { game ->
+        videogame.sortedBy { it.nameGame }.forEach { game ->
             GameItem(videogame = game, navController = navController, gameViewModel = gameViewModel)
         }
     }
