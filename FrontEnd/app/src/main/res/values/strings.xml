@@ -117,4 +117,5 @@
     <string name="verify_game">Verify Game</string>
     <string name="validate_game">Validate Game</string>
     <string name="delete_game">Delete Game</string>
+    <string name="modifycomment">Modify comment</string>
 </resources>

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.FloatingActionButton
@@ -200,12 +201,12 @@ fun VideogameItem(
             IconButton(
                 onClick = { navController.navigate("addToLibrary/{gameId}") },
                 modifier = Modifier
-                    .background(Color.Red, shape = CircleShape)
+                    .background(colorResource(id = R.color.buttons), shape = CircleShape)
                     .size(28.dp) //Ajustar la mida del botó d'eliminar
             ) {
                 Icon(
-                    Icons.Default.Delete,
-                    contentDescription = stringResource(R.string.deleteGame),
+                    Icons.Default.Edit,
+                    contentDescription = stringResource(R.string.modifycomment),
                     tint = Color.White
                 )
             }
