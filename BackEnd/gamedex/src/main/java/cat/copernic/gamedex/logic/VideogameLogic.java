@@ -7,30 +7,37 @@ import org.springframework.stereotype.Service;
 import cat.copernic.gamedex.entity.Videogame;
 import cat.copernic.gamedex.repository.VideogameRepository;
 
+/**
+ * Lògica de negoci per gestionar els videojocs.
+ */
 @Service
 public class VideogameLogic {
 
     @Autowired
     private VideogameRepository videogameRepo;
 
-    // Rep un objecte Videogame i el guarda a la base de dades
+    /**
+     * Crea un nou videojoc.
+     *
+     * @param videogame El videojoc a crear.
+     * @return El videojoc creat.
+     */
     public Videogame createVideogame(Videogame videogame) {
         try {
-            // Si gameID és null o está buit, MongoDB genera un ID
+            // Si gameID és null o està buit, MongoDB genera un ID
             if (videogame.getGameId() == null || videogame.getGameId().isEmpty()) {
-                videogame.setGameId(null); // Null perque MongoDB generi un ID
+                videogame.setGameId(null); // Null perquè MongoDB generi un ID
 
                 // Valida que no hi hagi camps buits
-                if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty() ||
-                        videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0 ||
-                        videogame.getDeveloper().isEmpty()) {
+                if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty()
+                        || videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0
+                        || videogame.getDeveloper().isEmpty()) {
                     throw new RuntimeException("Empty fields are not allowed");
                 }
                 if (videogame.getCategory() == null) {
                     throw new RuntimeException("Category is required");
                 }
-                // Comprobar si existeix un videojoc amb el mateix nom
-                // Optional evita els null
+                // Comprova si existeix un videojoc amb el mateix nom
                 Optional<Videogame> existingGame = videogameRepo.findByNameGame(videogame.getNameGame());
                 if (existingGame.isPresent()) {
                     throw new RuntimeException("Videogame with this name already exists");
@@ -41,15 +48,20 @@ public class VideogameLogic {
             return videogameRepo.save(videogame); // Guarda el joc a MongoDB, genera ID si és null
 
         } catch (RuntimeException e) {
-            throw e; // Si hi ha una exepció personalitzada, la llança
+            throw e; // Si hi ha una excepció personalitzada, la llança
         } catch (Exception e) {
-            // Si hi ha una exepció genèrica, llança una exepció amb un missatge personalitzat
+            // Si hi ha una excepció genèrica, llança una excepció amb un missatge
+            // personalitzat
             throw new RuntimeException("Unexpected error creating videogame");
         }
-
     }
 
-    // Rep un objecte Videogame i el modifica a la base de dades
+    /**
+     * Modifica un videojoc existent.
+     *
+     * @param videogame El videojoc amb les dades actualitzades.
+     * @return El videojoc modificat.
+     */
     public Videogame modifyVideogame(Videogame videogame) {
         try {
             // Comprova si el videojoc existeix
@@ -89,37 +101,42 @@ public class VideogameLogic {
                     newVideogame.setCategory(videogame.getCategory());
                 }
 
-                // Guarda el videojoc modificat la base de dades
+                // Guarda el videojoc modificat a la base de dades
                 return videogameRepo.save(newVideogame);
-
             }
         } catch (RuntimeException e) {
-            throw e; 
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying videogame");
         }
     }
 
-    // Rep un ID de videojoc i l'elimina de la base de dades
+    /**
+     * Elimina un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc a eliminar.
+     */
     public void deleteVideogame(String gameId) {
         try {
             // Comprova si el videojoc existeix
             Optional<Videogame> videogame = videogameRepo.findById(gameId);
             if (videogame.isEmpty()) {
-                throw new RuntimeException("Videogame is not found");
+                throw new RuntimeException("Videogame not found");
             }
             // Elimina el videojoc de la base de dades
             videogameRepo.deleteById(gameId);
-
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Unexpecting error deleting videogame");
+            throw new RuntimeException("Unexpected error deleting videogame");
         }
-
     }
 
-    // Retorna tots els videojocs de la base de dades
+    /**
+     * Obté tots els videojocs.
+     *
+     * @return Una llista de tots els videojocs.
+     */
     public List<Videogame> getAllVideogames() {
         try {
             return videogameRepo.findByState(true);
@@ -130,8 +147,12 @@ public class VideogameLogic {
         }
     }
 
-    // Retorna tots els videojocs no validats de la base de dades
-     public List<Videogame> getInactiveVideogames() {
+    /**
+     * Obté tots els videojocs no validats.
+     *
+     * @return Una llista de tots els videojocs no validats.
+     */
+    public List<Videogame> getInactiveVideogames() {
         try {
             return videogameRepo.findByState(false);
         } catch (RuntimeException e) {
@@ -141,7 +162,12 @@ public class VideogameLogic {
         }
     }
 
-    // Rep un ID de videojoc i retorna el videojoc de la base de dades
+    /**
+     * Obté un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return El videojoc amb l'ID especificat.
+     */
     public Videogame getVideogameById(String gameId) {
         try {
             // Comprova si el videojoc existeix
@@ -158,7 +184,13 @@ public class VideogameLogic {
         }
     }
 
-    public Videogame validateVideogame (String gameId) {
+    /**
+     * Valida un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc a validar.
+     * @return El videojoc validat.
+     */
+    public Videogame validateVideogame(String gameId) {
         try {
             // Comprova si el videojoc existeix
             Optional<Videogame> videogame = videogameRepo.findById(gameId);

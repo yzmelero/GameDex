@@ -13,36 +13,57 @@ import org.springframework.web.bind.annotation.*;
 import cat.copernic.gamedex.logic.LibraryLogic;
 import cat.copernic.gamedex.entity.Library;
 
+/**
+ * Controlador REST per gestionar la biblioteca de videojocs.
+ */
 @RestController
 @RequestMapping("/api/library")
 @CrossOrigin(origins = "*")
 public class LibraryApiController {
- 
+
     @Autowired
     private LibraryLogic libraryLogic;
 
-
     Logger log = LoggerFactory.getLogger(LibraryApiController.class);
 
+    /**
+     * Afegeix un joc a la biblioteca d'un usuari.
+     *
+     * @param library La biblioteca que conté el joc i l'usuari.
+     * @return La biblioteca actualitzada amb el nou joc.
+     */
     @PostMapping("/add")
     public ResponseEntity<?> addGameToLibrary(@RequestBody Library library) {
-        System.out.println("Intentando añadir juego con ID: " + library.getVideogame().getGameId() + " para usuario: " + library.getUser().getUsername());
+        System.out.println("Intentant afegir joc amb ID: " + library.getVideogame().getGameId() + " per a l'usuari: "
+                + library.getUser().getUsername());
 
-        
-        try{
+        try {
             Library newGameToLibrary = libraryLogic.addGameToLibrary(library);
             return ResponseEntity.status(HttpStatus.CREATED).body(newGameToLibrary);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already in library");
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();        }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
+    /**
+     * Obté la biblioteca d'un usuari.
+     *
+     * @param username El nom d'usuari.
+     * @return La biblioteca de l'usuari.
+     */
     @GetMapping("/get")
-    public List<Library> getLibrary(@RequestParam String username){
+    public List<Library> getLibrary(@RequestParam String username) {
         return libraryLogic.getLibraryByUser(username);
     }
 
+    /**
+     * Obté els comentaris d'un joc específic.
+     *
+     * @param gameId L'ID del joc.
+     * @return Una llista de biblioteques que contenen comentaris sobre el joc.
+     */
     @GetMapping("/comments/{gameId}")
     public ResponseEntity<List<Library>> getCommentsByGame(@PathVariable String gameId) {
         log.info("Rebent consulta per gameId: " + gameId);
@@ -59,6 +80,13 @@ public class LibraryApiController {
         }
     }
 
+    /**
+     * Elimina un joc de la biblioteca d'un usuari.
+     *
+     * @param gameId   L'ID del joc.
+     * @param username El nom d'usuari.
+     * @return Una resposta sense contingut si l'eliminació és correcta.
+     */
     @DeleteMapping("/delete/{gameId}/{username}")
     public ResponseEntity<Void> deleteGameFromLibrary(@PathVariable String gameId, @PathVariable String username) {
         System.out.println("Intentant eliminar el joc " + gameId + " de l'usuari " + username);
@@ -75,6 +103,12 @@ public class LibraryApiController {
         }
     }
 
+    /**
+     * Obté la mitjana de puntuacions d'un joc.
+     *
+     * @param gameId L'ID del joc.
+     * @return La mitjana de puntuacions del joc.
+     */
     @GetMapping("/averagerating/{gameId}")
     public ResponseEntity<Double> getAverageRating(@PathVariable String gameId) {
         log.info("Rebent petició per a la mitjana de puntuacions del videojoc " + gameId);
@@ -83,7 +117,13 @@ public class LibraryApiController {
         return ResponseEntity.ok(rating);
     }
 
-    //mario
+    /**
+     * Compta el nombre de jocs en una categoria específica per a un usuari.
+     *
+     * @param username El nom d'usuari.
+     * @param category La categoria dels jocs.
+     * @return El nombre de jocs en la categoria especificada.
+     */
     @GetMapping("/count/{username}/{category}")
     public ResponseEntity<?> countByCategory(@PathVariable String username, @PathVariable String category) {
         try {
@@ -92,6 +132,4 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-
 }

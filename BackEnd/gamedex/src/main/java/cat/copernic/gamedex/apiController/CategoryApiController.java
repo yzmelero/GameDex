@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import cat.copernic.gamedex.entity.Category;
 import cat.copernic.gamedex.logic.CategoryLogic;
 
+/**
+ * Controlador REST per gestionar les categories.
+ */
 @RestController
 @RequestMapping("/api/category")
 @CrossOrigin(origins = "*")
@@ -29,6 +32,12 @@ public class CategoryApiController {
     @Autowired
     private CategoryLogic categoryLogic;
 
+    /**
+     * Crea una nova categoria.
+     *
+     * @param category La categoria a crear.
+     * @return La categoria creada.
+     */
     @PostMapping("/create")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
         log.info("Creating category: " + category.toString());
@@ -36,6 +45,12 @@ public class CategoryApiController {
         return ResponseEntity.ok(newCategory);
     }
 
+    /**
+     * Elimina una categoria pel seu nom.
+     *
+     * @param nameCategory El nom de la categoria a eliminar.
+     * @return Un missatge indicant que la categoria s'ha eliminat correctament.
+     */
     @DeleteMapping("/delete/{nameCategory}")
     public ResponseEntity<String> deleteCategory(@PathVariable String nameCategory) {
         log.info("Deleting category: " + nameCategory);
@@ -43,6 +58,12 @@ public class CategoryApiController {
         return ResponseEntity.ok("Category deleted successfully");
     }
 
+    /**
+     * Modifica una categoria existent.
+     *
+     * @param category La categoria amb les modificacions.
+     * @return La categoria modificada.
+     */
     @PutMapping("/modify")
     public ResponseEntity<Category> modifyCategory(@RequestBody Category category) {
         log.info("Modifying category: " + category.toString());
@@ -50,6 +71,11 @@ public class CategoryApiController {
         return ResponseEntity.ok(updatedCategory);
     }
 
+    /**
+     * Obté totes les categories.
+     *
+     * @return Una llista de totes les categories.
+     */
     @GetMapping("/all")
     public ResponseEntity<List<Category>> getAllCategories() {
         log.info("Fetching all categories");
@@ -57,6 +83,12 @@ public class CategoryApiController {
         return ResponseEntity.ok(categories);
     }
 
+    /**
+     * Obté una categoria pel seu ID.
+     *
+     * @param categoryId L'ID de la categoria a obtenir.
+     * @return La categoria amb l'ID especificat.
+     */
     @GetMapping("/get/{categoryId}")
     public ResponseEntity<Category> getCategoryById(@PathVariable String categoryId) {
         log.info("Fetching category with ID: " + categoryId);
@@ -64,6 +96,12 @@ public class CategoryApiController {
         return ResponseEntity.ok(category);
     }
 
+    /**
+     * Cerca categories basades en una consulta.
+     *
+     * @param query La consulta de cerca.
+     * @return Una llista de categories que coincideixen amb la consulta.
+     */
     @GetMapping("/filter/{query}")
     public ResponseEntity<List<Category>> searchCategories(@PathVariable String query) {
         log.info("Searching categories with query: " + query);

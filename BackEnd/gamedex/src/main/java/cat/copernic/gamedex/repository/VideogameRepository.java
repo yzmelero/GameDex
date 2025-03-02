@@ -7,13 +7,27 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import cat.copernic.gamedex.entity.Videogame;
 
+/**
+ * Repositori per gestionar les operacions de la base de dades per als
+ * videojocs.
+ */
 @Repository
-// Interfície que hereta de MongoRepository, que permet interactuar amb la base de dades
 public interface VideogameRepository extends MongoRepository<Videogame, String> {
-    
-    // Mètodes per buscar videojocs per nom i per estat
-    Optional<Videogame> findByNameGame(String nameGame);
-    // Mètode per buscar videojocs per estat
-    List<Videogame> findByState(boolean state);
 
+    /**
+     * Cerca un videojoc pel seu nom.
+     *
+     * @param nameGame El nom del videojoc.
+     * @return Un videojoc que coincideix amb el nom especificat.
+     */
+    Optional<Videogame> findByNameGame(String nameGame);
+
+    /**
+     * Cerca videojocs pel seu estat.
+     *
+     * @param state L'estat dels videojocs (true per a actius, false per a
+     *              inactius).
+     * @return Una llista de videojocs que coincideixen amb l'estat especificat.
+     */
+    List<Videogame> findByState(boolean state);
 }
