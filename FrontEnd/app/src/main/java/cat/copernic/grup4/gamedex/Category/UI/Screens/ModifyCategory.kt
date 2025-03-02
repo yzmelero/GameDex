@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.Categories.UI.Screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -48,14 +49,21 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     var description by remember { mutableStateOf("") }
 
     LaunchedEffect(categoryId) {
-        categoryViewModel.getCategoryById(categoryId)?.let {
+        Log.d("ModifyCategoryScreen", "Fetching category with ID: $categoryId")
+        categoryViewModel.getCategoryById(categoryId)
+    }
+
+    LaunchedEffect(category) {
+        category?.let {
+            Log.d("ModifyCategoryScreen", "Loaded category: ${it.nameCategory}, ${it.description}")
             name = it.nameCategory
             description = it.description
-        }
+        } ?: Log.d("ModifyCategoryScreen", "Category is null")
     }
 
     DisposableEffect(Unit) {
         onDispose {
+            Log.d("ModifyCategoryScreen", "Resetting categoryModified state")
             categoryViewModel._categoryModified.value = null
         }
     }
@@ -105,21 +113,25 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    InputFieldEdit(label = stringResource(R.string.description), value = description) { description = it }
+                    InputFieldEdit(label = stringResource(R.string.description), value = description) {
+                        description = it
+                        Log.d("ModifyCategoryScreen", "Updated description: $description")
+                    }
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            val updatedCategory = category?.copy(
-                                description = description
-                            )
+                            Log.d("ModifyCategoryScreen", "Modify button clicked")
 
-                            updatedCategory?.let {
-                                categoryViewModel.modifyCategory(it)
+                            val updatedCategory = category?.copy(description = description)
+
+                            if (updatedCategory != null) {
+                                Log.d("ModifyCategoryScreen", "Updating category: ${updatedCategory.nameCategory}")
+                                categoryViewModel.modifyCategory(updatedCategory)
+                            } else {
+                                Log.d("ModifyCategoryScreen", "Error: Category is null, cannot update")
                             }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
@@ -138,6 +150,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     LaunchedEffect(updateSuccess) {
         updateSuccess?.let { success ->
             if (success) {
+                Log.d("ModifyCategoryScreen", "Category updated successfully")
                 Toast.makeText(
                     context,
                     context.getString(R.string.category_updated),
@@ -145,6 +158,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                 ).show()
                 navController.navigate("categories")
             } else {
+                Log.d("ModifyCategoryScreen", "Error updating category")
                 Toast.makeText(
                     context,
                     context.getString(R.string.error_updating_category),
