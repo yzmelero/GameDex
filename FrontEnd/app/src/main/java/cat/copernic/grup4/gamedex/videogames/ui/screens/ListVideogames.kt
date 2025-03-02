@@ -116,13 +116,10 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
             CategoryFilter(
                 categories = categories,
                 selectedCategory = selectedCategory,
-                onCategorySelected = {
-                    selectedCategory = it
-                    Log.d("ListGamesScreen", "Categoría seleccionada: ${it.nameCategory}")
-                }
+                onCategorySelected = { selectedCategory = it }
             )
             Spacer(modifier = Modifier.height(10.dp))
-            VideogamesGrid(videogame, navController, gameViewModel)
+            VideogamesGrid(videogame,selectedCategory, navController, gameViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
@@ -165,7 +162,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
 fun CategoryFilter(
     categories: List<Category>,
     selectedCategory: Category?,
-    onCategorySelected: (Category) -> Unit
+    onCategorySelected: (Category?) -> Unit
 ) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
@@ -175,17 +172,16 @@ fun CategoryFilter(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 16.dp)
+            .padding(top = 12.dp)
             .fillMaxWidth()
             .clickable { expanded = !expanded }
     ) {
-        // Dropdown amb el valor seleccionat
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = { expanded = !expanded }
         ) {
             TextField(
-                value = selectedCategory?.nameCategory ?: context.getString(R.string.selectCategory),
+                value = selectedCategory?.nameCategory ?: context.getString(R.string.all_games),
                 onValueChange = {},
                 readOnly = true,
                 modifier = Modifier
@@ -199,6 +195,13 @@ fun CategoryFilter(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
+                DropdownMenuItem(
+                    text = { Text(context.getString(R.string.all_games)) },
+                    onClick = {
+                        onCategorySelected(null)
+                        expanded = false
+                    }
+                )
                 categories.forEach { category ->
                     DropdownMenuItem(
                         text = { Text(category.nameCategory) },
@@ -215,7 +218,12 @@ fun CategoryFilter(
 }
 
 @Composable
-fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gameViewModel: GameViewModel) {
+fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, navController: NavController, gameViewModel: GameViewModel) {
+    val filteredGames = if (selectedCategory == null) {
+        videogame
+    } else {
+        videogame.filter { it.category == selectedCategory.nameCategory }
+    }
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -223,7 +231,7 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gam
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        videogame.sortedBy { it.nameGame }.forEach { game ->
+        filteredGames.sortedBy { it.nameGame }.forEach { game ->
             GameItem(videogame = game, navController = navController, gameViewModel = gameViewModel)
         }
     }

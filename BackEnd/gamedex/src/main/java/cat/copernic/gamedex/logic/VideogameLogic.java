@@ -175,4 +175,14 @@ public class VideogameLogic {
             throw new RuntimeException("Unexpected error validating the videogame");
         }
     }
+
+    public List<Videogame> getVideogameByCategory(String categoryId) {
+        try {
+            return videogameRepo.findByCategory(categoryId);
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting videogames by category");
+        }
+    }
 }

@@ -126,4 +126,14 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             }
         }
     }
+
+    private val _videogameByCategory = MutableStateFlow<List<Videogame>>(emptyList())
+    val videogameByCategory: StateFlow<List<Videogame>> = _videogameByCategory
+    
+    fun videogamesByCategory(categoryId: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.videogamesByCategory(categoryId)
+            _videogameGetAll.value = response.body() ?: emptyList()
+        }
+    }
 }

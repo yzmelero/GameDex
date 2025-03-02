@@ -30,4 +30,7 @@ class VideogameRepository {
     suspend fun validateVideogame(gameId: String): Response<Videogame> {
         return RetrofitInstance.api.validateVideogame(gameId)
     }
+    suspend fun videogamesByCategory(categoryId: String): Response<List<Videogame>> {
+        return RetrofitInstance.api.videogamesByCategory(categoryId)
+    }
 }
