@@ -1,28 +1,59 @@
 package cat.copernic.grup4.gamedex.Category.Data
 
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import cat.copernic.grup4.gamedex.Core.Model.Category
+import retrofit2.Response
 
-object RetrofitInstance {
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+/**
+ * Repositori per gestionar les operacions de la API REST de categories.
+ */
+class CategoryRepository {
+
+    /**
+     * Afegeix una nova categoria.
+     *
+     * @param category La categoria a afegir.
+     * @return La resposta de la API amb la categoria afegida.
+     */
+    suspend fun addCategory(category: Category): Response<Category> {
+        return RetrofitInstance.api.addCategory(category)
     }
 
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
-
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/api/") // Canvia per l'IP del teu backend
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
+    /**
+     * Obté totes les categories.
+     *
+     * @return La resposta de la API amb la llista de categories.
+     */
+    suspend fun getAllCategory(): Response<List<Category>> {
+        return RetrofitInstance.api.getAllCategory()
     }
 
-    val api: CategoryApiRest by lazy {
-        retrofit.create(CategoryApiRest::class.java)
+    /**
+     * Obté una categoria pel seu ID.
+     *
+     * @param categoryId L'ID de la categoria.
+     * @return La resposta de la API amb la categoria obtinguda.
+     */
+    suspend fun getCategoryById(categoryId: String): Response<Category> {
+        return RetrofitInstance.api.getCategoryById(categoryId)
+    }
+
+    /**
+     * Elimina una categoria pel seu nom.
+     *
+     * @param nameCategory El nom de la categoria a eliminar.
+     * @return La resposta de la API.
+     */
+    suspend fun deleteCategory(nameCategory: String): Response<Unit> {
+        return RetrofitInstance.api.deleteCategory(nameCategory)
+    }
+
+    /**
+     * Filtra categories basades en una consulta.
+     *
+     * @param query La consulta de cerca.
+     * @return La resposta de la API amb la llista de categories filtrades.
+     */
+    suspend fun filterCategories(query: String): Response<List<Category>> {
+        return RetrofitInstance.api.filterCategories(query)
     }
 }

@@ -16,6 +16,11 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
+/**
+ * ViewModel per gestionar les operacions de categories.
+ *
+ * @param categoryCases Els casos d'ús per a les operacions de categories.
+ */
 class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() {
 
     private val _categoryAdded = MutableStateFlow<Boolean?>(null)
@@ -30,13 +35,21 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     private val _categoryDeleted = MutableStateFlow<Boolean?>(null)
     val categoryDeleted: StateFlow<Boolean?> = _categoryDeleted
 
+    /**
+     * Afegeix una nova categoria.
+     *
+     * @param category La categoria a afegir.
+     */
     fun addCategory(category: Category) {
         viewModelScope.launch {
             val response = categoryCases.addCategory(category)
             _categoryAdded.value = response.isSuccessful
         }
     }
-    
+
+    /**
+     * Obté totes les categories.
+     */
     fun getAllCategory() {
         viewModelScope.launch {
             val response = categoryCases.getAllCategory()
@@ -44,6 +57,12 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    /**
+     * Obté una categoria pel seu ID.
+     *
+     * @param categoryId L'ID de la categoria.
+     * @return La categoria obtinguda o null si no es troba.
+     */
     suspend fun getCategoryById(categoryId: String): Category? {
         return try {
             val response = categoryCases.getCategoryById(categoryId)
@@ -57,6 +76,11 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    /**
+     * Elimina una categoria pel seu nom.
+     *
+     * @param nameCategory El nom de la categoria a eliminar.
+     */
     fun deleteCategory(nameCategory: String) {
         viewModelScope.launch {
             val response = categoryCases.deleteCategory(nameCategory)
@@ -64,6 +88,11 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    /**
+     * Filtra categories basades en una consulta.
+     *
+     * @param query La consulta de cerca.
+     */
     fun filterCategories(query: String) {
         viewModelScope.launch {
             try {
@@ -81,6 +110,12 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    /**
+     * Converteix una cadena Base64 a un Bitmap.
+     *
+     * @param base64String La cadena Base64 a convertir.
+     * @return El Bitmap resultant o null si hi ha un error.
+     */
     fun base64ToBitmap(base64String: String): Bitmap? {
         return try {
             val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
@@ -90,6 +125,13 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
+    /**
+     * Converteix un URI a una cadena Base64.
+     *
+     * @param context El context.
+     * @param uri     El URI a convertir.
+     * @return La cadena Base64 resultant o null si hi ha un error.
+     */
     fun uriToBase64(context: Context, uri: Uri): String? {
         return try {
             val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
