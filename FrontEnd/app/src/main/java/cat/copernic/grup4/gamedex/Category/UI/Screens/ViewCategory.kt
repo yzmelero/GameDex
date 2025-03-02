@@ -112,7 +112,9 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                         Spacer(modifier = Modifier.height(20.dp))
 
                         currentCategory?.let {
-                            val imageBitmap = it.categoryPhoto?.let { userViewModel.base64ToBitmap(it) }
+                            val imageBitmap = currentCategory.categoryPhoto?.let {
+                                userViewModel.base64ToBitmap(it)
+                            }
                             imageBitmap?.let { bitmap ->
                                 Image(
                                     bitmap,

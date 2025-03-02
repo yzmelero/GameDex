@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cat.copernic.grup4.gamedex.Category.Domain.CategoryCases
@@ -13,6 +15,7 @@ import cat.copernic.grup4.gamedex.Core.Model.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -100,11 +103,13 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     }
 
 
-    fun base64ToBitmap(base64String: String): Bitmap? {
+    fun base64ToBitmap(base64: String): ImageBitmap? {
         return try {
-            val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-        } catch (e: IllegalArgumentException) {
+            val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
+            val byteArrayInputStream = ByteArrayInputStream(decodedBytes)
+            val bitmap = BitmapFactory.decodeStream(byteArrayInputStream)
+            bitmap.asImageBitmap()
+        } catch (e: Exception) {
             null
         }
     }

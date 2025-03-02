@@ -1,19 +1,32 @@
 package cat.copernic.grup4.gamedex.Categories.UI.Screens
 
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -29,7 +42,9 @@ import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
 import cat.copernic.grup4.gamedex.Core.ui.theme.GameDexTypography
 import cat.copernic.grup4.gamedex.R
+import cat.copernic.grup4.gamedex.Users.UI.Screens.InputFieldEdit
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
+import coil.compose.AsyncImage
 
 @Composable
 fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -46,8 +61,11 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     val category by categoryViewModel.categoryGetById.collectAsState()
     val updateSuccess by categoryViewModel.categoryModified.collectAsState()
 
-    var name by remember { mutableStateOf("") }
+    var nameCategory by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    var categoryPhoto by remember { mutableStateOf("") }
+    var oldCategoryPhoto by remember { mutableStateOf("") }
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
     DisposableEffect(Unit) {
         onDispose {
@@ -58,10 +76,16 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     LaunchedEffect(categoryId) {
         val category = categoryViewModel.getCategoryById(categoryId)
         category?.let {
-            name = it.nameCategory
+            nameCategory = it.nameCategory
             description = it.description
+            oldCategoryPhoto = it.categoryPhoto ?: ""
         }
     }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> selectedImageUri = uri }
+    )
 
     Column(
         modifier = Modifier
@@ -100,7 +124,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = name,
+                        text = nameCategory,
                         fontSize = 24.sp,
                         color = Color.Black,
                         style = GameDexTypography.bodyLarge
@@ -110,7 +134,71 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    InputFieldEdit(label = stringResource(R.string.description), value = description) { description = it }
+                    InputFieldEdit(
+                        label = stringResource(R.string.description),
+                        value = description
+                    ) { description = it }
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Row {
+                            if (selectedImageUri == null && oldCategoryPhoto.isNotEmpty()) {
+                                val imageBitmap = categoryViewModel.base64ToBitmap(oldCategoryPhoto)
+                                imageBitmap?.let {
+                                    Image(
+                                        bitmap = it,
+                                        contentDescription = stringResource(R.string.category_photo),
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .size(120.dp)
+                                            .clip(CircleShape)
+                                    )
+                                }
+                            } else if (selectedImageUri != null) {
+                                categoryPhoto =
+                                    categoryViewModel.uriToBase64(context, selectedImageUri!!)
+                                        .toString()
+                                oldCategoryPhoto = categoryPhoto
+                                AsyncImage(
+                                    model = selectedImageUri,
+                                    contentDescription = stringResource(R.string.category_photo),
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(CircleShape)
+                                )
+                            } else {
+                                Image(
+                                    painter = painterResource(id = R.drawable.user),
+                                    contentDescription = stringResource(R.string.category_photo),
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(120.dp)
+                                        .clip(CircleShape)
+                                )
+                            }
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = stringResource(R.string.add_photo),
+                                modifier = Modifier
+                                    .clickable {
+                                        imagePickerLauncher.launch(
+                                            PickVisualMediaRequest(
+                                                ActivityResultContracts.PickVisualMedia.ImageOnly
+                                            )
+                                        )
+                                    }
+                                    .padding(top = 40.dp)
+                                    .background(
+                                        colorResource(R.color.header),
+                                        shape = RoundedCornerShape(50)
+                                    )
+                                    .clip(RoundedCornerShape(50))
+                                    .size(40.dp)
+                            )
+                        }
+                    }
 
                     Spacer(modifier = Modifier.height(4.dp))
 
@@ -118,8 +206,9 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             val updatedCategory = Category(
-                                nameCategory = name,
-                                description = description
+                                nameCategory = nameCategory,
+                                description = description,
+                                categoryPhoto = oldCategoryPhoto
                             )
                                 categoryViewModel.modifyCategory(updatedCategory)
                         },
