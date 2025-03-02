@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface CategoryApiRest {
@@ -23,5 +24,8 @@ interface CategoryApiRest {
 
     @GET("category/filter/{query}")
     suspend fun filterCategories(@Path("query") query: String): Response<List<Category>>
+
+    @PUT("category/modify/{nameCategory}")
+    suspend fun modifyCategory(@Body category: Category): Response<Category>
 
 }

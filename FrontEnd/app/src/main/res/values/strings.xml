@@ -117,4 +117,10 @@
     <string name="verify_game">Verify Game</string>
     <string name="validate_game">Validate Game</string>
     <string name="delete_game">Delete Game</string>
+    <string name="category_updated">Category Updated</string>
+    <string name="modify_category">Modify Category</string>
+    <string name="error_updating_category">Error Updating Category</string>
+    <string name="leave_empty">Leave Empty</string>
+    <string name="category_photo">Category Photo</string>
+    <string name="add_photo">Add Photo</string>
 </resources>

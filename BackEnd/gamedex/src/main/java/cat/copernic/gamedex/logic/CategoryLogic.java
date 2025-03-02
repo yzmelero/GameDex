@@ -72,7 +72,7 @@ public class CategoryLogic {
 
     public List<Category> getAllCategory() {
         try {
-            return categoryRepository.findAll();
+            return categoryRepository.findAllByOrderByNameCategoryAsc();
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
