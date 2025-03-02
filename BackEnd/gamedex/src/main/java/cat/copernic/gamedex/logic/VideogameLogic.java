@@ -23,7 +23,7 @@ public class VideogameLogic {
                 // Valida que no hi hagi camps buits
                 if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty() ||
                         videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0 ||
-                        videogame.getDeveloper().isEmpty()) {
+                        videogame.getDeveloper().isEmpty() || videogame.getGamePhoto() == null) {
                     throw new RuntimeException("Empty fields are not allowed");
                 }
                 if (videogame.getCategory() == null) {
