@@ -86,7 +86,14 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val categories by gameViewModel.categories.collectAsState()
 
-    // TODO Moure variables al ViewModel
+    val gameId = remember {
+        // Obté la ID del joc dels paràmetres de navegació
+        navController.currentBackStackEntry?.arguments?.getString("gameId")
+    } ?: return // Si es null, surt
+    
+    val context = LocalContext.current
+    val createdGameState by gameViewModel.videogameCreated.collectAsState()
+
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
@@ -94,9 +101,8 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
     var descriptionGame by remember { mutableStateOf("") }
     var gamePhoto by remember { mutableStateOf("") }
-
-    val context = LocalContext.current
-    val createdGameState by gameViewModel.videogameCreated.collectAsState()
+    var oldGamePhoto by remember { mutableStateOf("") }
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
     LaunchedEffect(Unit) {
         gameViewModel.getAllCategories()

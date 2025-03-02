@@ -288,7 +288,7 @@ fun GameCard(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
-                    onClick = { /* TODO navigació a pantalla modificar (a fer) */ },
+                    onClick = { navController.navigate("updateVideogame/${videogame.gameId}") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                     modifier = Modifier
                         .fillMaxWidth()

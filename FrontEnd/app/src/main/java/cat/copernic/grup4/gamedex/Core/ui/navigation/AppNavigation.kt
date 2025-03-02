@@ -62,5 +62,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listInactiveGames") { ListInactiveGamesScreen(navController, userViewModel) }
         composable("validateGame/{gameId}") { ValidateGamesScreen(navController, userViewModel) }
         composable("modify_category/{categoryId}") { ModifyCategoryScreen(navController, userViewModel) }
+        composable("updateVideogame/{gameId}") { ModifyGamesScreen(navController, userViewModel) }
     }
 }
