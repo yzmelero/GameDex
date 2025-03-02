@@ -1,11 +1,9 @@
 package cat.copernic.grup4.gamedex.Category.UI.ViewModel
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Base64
-import android.util.Log
 import android.util.Log
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -88,7 +86,6 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
-    fun base64ToBitmap(base64String: String): Bitmap? {
     fun modifyCategory(modifyCategory: Category) {
         viewModelScope.launch {
             try {
