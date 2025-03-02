@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class Category {
 
     @Id
-    @Field(name = "name_category")
     private String nameCategory;
 
     private String description;
