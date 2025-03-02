@@ -1,5 +1,7 @@
 package cat.copernic.grup4.gamedex.Library.UI.Screens
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -101,7 +103,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             items(libraryItems) { gameLibrary ->
-                VideogameItem(libraryViewModel, library = gameLibrary, username = username, navController)
+                VideogameItem(libraryViewModel, library = gameLibrary, username = username, navController, context)
             }
         }
 
@@ -123,7 +125,8 @@ fun VideogameItem(
     libraryViewModel: LibraryViewModel,
     library: Library,
     username: String,
-    navController: NavController
+    navController: NavController,
+    context: Context
 ) {
     Card(
         modifier = Modifier
@@ -199,7 +202,9 @@ fun VideogameItem(
                     })
             }
             IconButton(
-                onClick = { navController.navigate("addToLibrary/{gameId}") },
+                onClick = { library.videogame.gameId?.let { gameId ->
+                    navController.navigate("addToLibrary/$gameId")
+                } ?: Log.e("LibraryScreen", "Error: gameId és nul") },
                 modifier = Modifier
                     .background(colorResource(id = R.color.buttons), shape = CircleShape)
                     .size(28.dp) //Ajustar la mida del botó d'eliminar

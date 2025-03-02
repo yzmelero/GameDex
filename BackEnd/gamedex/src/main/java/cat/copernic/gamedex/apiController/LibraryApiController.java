@@ -9,7 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Optional;
 import cat.copernic.gamedex.logic.LibraryLogic;
 import cat.copernic.gamedex.entity.Library;
 
@@ -17,29 +17,29 @@ import cat.copernic.gamedex.entity.Library;
 @RequestMapping("/api/library")
 @CrossOrigin(origins = "*")
 public class LibraryApiController {
- 
+
     @Autowired
     private LibraryLogic libraryLogic;
-
 
     Logger log = LoggerFactory.getLogger(LibraryApiController.class);
 
     @PostMapping("/add")
     public ResponseEntity<?> addGameToLibrary(@RequestBody Library library) {
-        System.out.println("Intentando añadir juego con ID: " + library.getVideogame().getGameId() + " para usuario: " + library.getUser().getUsername());
+        System.out.println("Intentando añadir juego con ID: " + library.getVideogame().getGameId() + " para usuario: "
+                + library.getUser().getUsername());
 
-        
-        try{
+        try {
             Library newGameToLibrary = libraryLogic.addGameToLibrary(library);
             return ResponseEntity.status(HttpStatus.CREATED).body(newGameToLibrary);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Game already in library");
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();        }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @GetMapping("/get")
-    public List<Library> getLibrary(@RequestParam String username){
+    public List<Library> getLibrary(@RequestParam String username) {
         return libraryLogic.getLibraryByUser(username);
     }
 
@@ -83,7 +83,36 @@ public class LibraryApiController {
         return ResponseEntity.ok(rating);
     }
 
-    //mario
+    @GetMapping("/verify/{gameId}/{username}")
+    public ResponseEntity<Library> getLibraryEntry(@PathVariable String gameId, @PathVariable String username) {
+
+        log.info("Rebent petició per a la llibreria de l'usuari " + username + " pel videojoc " + gameId);
+
+        Optional<Library> libraryEntry = libraryLogic.getLibraryEntry(gameId, username);
+
+        if (libraryEntry.isPresent()) {
+            log.info("Entrada trobada: " + libraryEntry.get());
+            return ResponseEntity.ok(libraryEntry.get());
+        } else {
+            log.warn("Entrada no trobada per aquest usuari i joc");
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Library> updateGameInLibrary(@RequestBody Library library) {
+        log.info("📩 Rebuda petició d'actualització per Library ID: " + library.getIdLibrary());
+        try {
+            Library updatedLibrary = libraryLogic.updateGameInLibrary(library);
+            log.info("Entrada actualitzada correctament: " + updatedLibrary);
+            return ResponseEntity.ok(updatedLibrary);
+        } catch (Exception e) {
+            log.error("❌ Error actualitzant la biblioteca: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // mario
     @GetMapping("/count/{username}/{category}")
     public ResponseEntity<?> countByCategory(@PathVariable String username, @PathVariable String category) {
         try {
@@ -92,6 +121,5 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
 }

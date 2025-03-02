@@ -27,5 +27,4 @@ public interface LibraryRepository extends MongoRepository<Library, String> {
 
     int countByUserUsernameAndState(String username, String state);
 
-   
 }

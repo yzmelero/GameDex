@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -25,4 +26,10 @@ interface LibraryApiRest {
 
     @GET("library/averagerating/{gameId}")
     suspend fun getAverageRating(@Path("gameId") gameId: String): Response<Double>
+
+    @GET("library/verify/{gameId}/{username}")
+    suspend fun getLibraryEntry(@Path("gameId") gameId: String, @Path("username") username: String): Response<Library>
+
+    @PUT("library/update")
+    suspend fun updateGameInLibrary(@Body library: Library): Response<Library>
 }

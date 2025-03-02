@@ -25,4 +25,12 @@ class LibraryRepository {
     suspend fun getAverageRating(gameId: String): Response<Double>{
         return RetrofitInstance.api.getAverageRating(gameId)
     }
+
+    suspend fun getLibraryEntry(gameId: String, username: String): Response<Library>{
+        return RetrofitInstance.api.getLibraryEntry(gameId,username)
+    }
+
+    suspend fun updateGameInLibrary(library: Library): Response<Library> {
+        return RetrofitInstance.api.updateGameInLibrary(library)
+    }
 }

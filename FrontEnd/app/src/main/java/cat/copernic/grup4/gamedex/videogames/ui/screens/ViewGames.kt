@@ -110,8 +110,8 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
 
     LaunchedEffect(gameId) {
         gameViewModel.videogamesById(gameId)
-        libraryViewModel.getCommentsByGame(gameId)
-        libraryViewModel.getAverageRating(gameId)
+        libraryViewModel.getCommentsByGame(gameId, context)
+        libraryViewModel.getAverageRating(gameId, context)
     }
 
 

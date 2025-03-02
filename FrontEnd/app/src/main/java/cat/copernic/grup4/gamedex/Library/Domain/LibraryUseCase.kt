@@ -24,4 +24,12 @@ class LibraryUseCase(private val repository: LibraryRepository) {
     suspend fun getAverageRating(gameId: String): Response<Double> {
         return repository.getAverageRating(gameId)
     }
+
+    suspend fun getLibraryEntry(gameId: String, username: String): Response<Library> {
+        return repository.getLibraryEntry(gameId, username)
+    }
+
+    suspend fun updateGameInLibrary(library: Library): Response<Library> {
+        return repository.updateGameInLibrary(library)
+    }
 }

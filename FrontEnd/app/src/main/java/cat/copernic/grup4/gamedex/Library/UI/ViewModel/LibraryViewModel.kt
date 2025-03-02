@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.copernic.grup4.gamedex.Core.Model.Library
 import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
 import cat.copernic.grup4.gamedex.R
@@ -40,6 +41,9 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     private val _rating = MutableStateFlow<Double?>(null)
     val rating: StateFlow<Double?> = _rating
 
+    private val _existingLibraryEntry = MutableStateFlow<Library?>(null)
+    val existingLibraryEntry: StateFlow<Library?> = _existingLibraryEntry
+
     fun addGameToLibrary(library: Library, context: Context) {
         viewModelScope.launch {
             val response = libraryUseCase.addGameToLibrary(library)
@@ -54,6 +58,7 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
         }
 
     }
+
     fun clearMessage() {
         _message.value = null
 
@@ -62,11 +67,12 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     fun getLibrary(username: String) {
         viewModelScope.launch {
             _library.value = emptyList() //Força natejar la pantalla abans de càrregar la següent
-            val response = libraryUseCase.getLibrary(username) // Aquesta funció ha de retornar la llista de biblioteques des de la base de dades
+            val response =
+                libraryUseCase.getLibrary(username) // Aquesta funció ha de retornar la llista de biblioteques des de la base de dades
             if (response.isSuccessful) {
                 _library.value = response.body() ?: emptyList()
             } else {
-                _message.value = "Error retrieving library"
+                _message.value = "Error retrieving the library"
             }
         }
     }
@@ -82,52 +88,99 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
         }
     }
 
-    fun getCommentsByGame(gameId: String) {
+    fun getCommentsByGame(gameId: String, context: Context) {
         viewModelScope.launch {
             try {
                 _comments.value = emptyList()
                 val response = libraryUseCase.getCommentsFromLibrary(gameId)
-                if (response.isSuccessful){
-                    response.body()?.let{
-                        commentList -> _comments.value = commentList
+                if (response.isSuccessful) {
+                    response.body()?.let { commentList ->
+                        _comments.value = commentList
                     }
                 }
             } catch (e: Exception) {
-                _message.value = "Error retrieving library"
-            }
-        }
-    }
-    //TODO Strings
-    fun deleteVideogameFromLibrary(gameId: String, username: String){
-        viewModelScope.launch {
-            try {
-                Log.d("LibraryViewModel", "Deleting gameId: $gameId for user: $username")
-                val response = libraryUseCase.deleteVideogameFromLibrary(gameId, username)
-                if (response.isSuccessful){
-                    Log.d("LibraryViewModel", "Deletion successful. Refreshing library")
-                    getLibrary(username)
-                }else{
-                    Log.e("LibraryViewModel", "Failed to delete. Response code: ${response.code()}")
-                }
-            } catch (e: Exception){
-                Log.e("LibraryViewModel", "Error deleting the videogame: ${e.message}")
-                _message.value = "Error deleting the videogame from the library."
+                _message.value = context.getString(R.string.error_retrieving_library)
             }
         }
     }
 
-    fun getAverageRating(gameId: String) {
+    //TODO Strings
+    fun deleteVideogameFromLibrary(gameId: String, username: String) {
+        viewModelScope.launch {
+            try {
+                Log.d("LibraryViewModel", "Deleting gameId: $gameId for user: $username")
+                val response = libraryUseCase.deleteVideogameFromLibrary(gameId, username)
+                if (response.isSuccessful) {
+                    Log.d("LibraryViewModel", "Deletion successful. Refreshing library")
+                    getLibrary(username)
+                } else {
+                    Log.e("LibraryViewModel", "Failed to delete. Response code: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("LibraryViewModel", "Error deleting the videogame: ${e.message}")
+                _message.value = "Error deleting the game from the library."
+            }
+        }
+    }
+
+    fun getAverageRating(gameId: String, context: Context) {
         viewModelScope.launch {
             try {
                 val response: Response<Double> = libraryUseCase.getAverageRating(gameId)
-                Log.d("LibraryViewModel", "Response code: ${response.code()} - Body: ${response.body()}")
-                if (response.isSuccessful){
+                Log.d(
+                    "LibraryViewModel",
+                    "Response code: ${response.code()} - Body: ${response.body()}"
+                )
+                if (response.isSuccessful) {
                     _rating.value = response.body() /*?: 0.0*/
-                }else{
+                } else {
                     _message.value = "Error: ${response.code()}"
                 }
-            }catch (e: Exception){
-                _message.value = "Couldn't retrieve the rating."
+            } catch (e: Exception) {
+                _message.value = context.getString(R.string.errorretrievingrating)
+            }
+        }
+    }
+
+    //Mètode per a comprovar si ja hi ha una entrada per a un videojoc i un usuari concrets.
+    fun checkLibraryEntry(gameId: String, username: String, context: Context) {
+        viewModelScope.launch {
+            try {
+                Log.d("LibraryViewModel", "Checking entry for gameId: $gameId, username: $username")
+                val response = libraryUseCase.getLibraryEntry(gameId, username)
+                if (response.isSuccessful) {
+                    _existingLibraryEntry.value = response.body()
+                    Log.d("LibraryViewModel", "Library entry found: ${_existingLibraryEntry.value}")
+                } else {
+                    _existingLibraryEntry.value = null
+                    Log.d("LibraryViewModel", "Library entry not found")
+                }
+            } catch (e: Exception) {
+                _message.value = context.getString(R.string.errorcheckinglibraryentry)
+                Log.e("LibraryViewModel", "Error checking library entry: ${e.message}")
+            }
+        }
+    }
+
+    fun updateGameInLibrary(library: Library, context: Context) {
+        viewModelScope.launch {
+            try {
+                Log.d("LibraryViewModel", "Enviant update per Library ID: ${library.idLibrary}")
+                val result = libraryUseCase.updateGameInLibrary(library)
+
+                if (result.isSuccessful) {
+                    _message.value = context.getString(R.string.commentmodifiedsuccessfully)
+                    Log.d("LibraryViewModel", "Actualització correcta: ${result.body()}")
+                } else {
+                    _message.value = context.getString(R.string.errorupdatingcomment)
+                    Log.e(
+                        "LibraryViewModel",
+                        "Error a la resposta del servidor: ${result.code()}"
+                    )
+                }
+            } catch (e: Exception) {
+                _message.value = context.getString(R.string.errorupdatingcomment, e.message)
+                Log.e("LibraryViewModel", "❌ Excepció actualitzant el joc: ${e.message}")
             }
         }
     }

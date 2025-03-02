@@ -118,4 +118,10 @@
     <string name="validate_game">Validate Game</string>
     <string name="delete_game">Delete Game</string>
     <string name="modifycomment">Modify comment</string>
+    <string name="commentmodifiedsuccessfully">Comment modified successfully</string>
+    <string name="errorupdatingcomment">Error while updating the game: %1$s</string>
+    <string name="errorcheckinglibraryentry">Error checking library entry.</string>
+    <string name="errorretrievingrating">Couldn\'t retrieve the rating.</string>
+    <string name="errordeletinglibrary">Error deleting the videogame from the library.</string>
+    <string name="error_retrieving_library">Error retrieving library</string>
 </resources>
