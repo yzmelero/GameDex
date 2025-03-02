@@ -41,6 +41,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -92,7 +93,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
     } ?: return // Si es null, surt
     
     val context = LocalContext.current
-    val createdGameState by gameViewModel.videogameCreated.collectAsState()
+    val createdGameState by gameViewModel.videogameUpdated.collectAsState()
 
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
@@ -104,9 +105,29 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
     var oldGamePhoto by remember { mutableStateOf("") }
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
-    LaunchedEffect(Unit) {
-        gameViewModel.getAllCategories()
+    DisposableEffect(Unit) {
+        onDispose {
+            gameViewModel._videogameUpdated.value = null
+        }
     }
+
+    LaunchedEffect(gameId) {
+        val game = gameViewModel.videogamesById(gameId)
+        game.let {
+            nameGame = it.nameGame
+            releaseYear = it.releaseYear
+            ageRecommendation = it.ageRecommendation
+            developer = it.developer
+            selectedCategory = categories.find { it.nameCategory == it.category }
+            descriptionGame = it.descriptionGame
+            oldGamePhoto = it.gamePhoto ?: ""
+        }
+    }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> selectedImageUri = uri }
+    )
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -144,6 +165,13 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                         modifier = Modifier.padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Text(
+                            text = nameGame,
+                            fontSize = 40.sp,
+                            color = Color.Black,
+                            style = GameDexTypography.bodyLarge
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
                         InputField(
                             label = stringResource(R.string.game_name),
                             value = nameGame
@@ -300,7 +328,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
             createdGameState?.let { success ->
                 if (success) {
                     Toast.makeText(context, R.string.gameCreated, Toast.LENGTH_LONG).show()
-                    navController.navigate("listvideogames")
+                    navController.navigate("listVideogames")
                 } else {
                     Toast.makeText(context, R.string.gameErrorCreate, Toast.LENGTH_LONG).show()
                 }
