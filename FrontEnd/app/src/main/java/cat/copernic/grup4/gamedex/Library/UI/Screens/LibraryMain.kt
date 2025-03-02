@@ -100,7 +100,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             items(libraryItems) { gameLibrary ->
-                VideogameItem(libraryViewModel, library = gameLibrary, username = username)
+                VideogameItem(libraryViewModel, library = gameLibrary, username = username, navController)
             }
         }
 
@@ -122,6 +122,7 @@ fun VideogameItem(
     libraryViewModel: LibraryViewModel,
     library: Library,
     username: String,
+    navController: NavController
 ) {
     Card(
         modifier = Modifier
@@ -162,6 +163,7 @@ fun VideogameItem(
                 onClick = { showDialog = true },
                 modifier = Modifier
                     .background(Color.Red, shape = CircleShape)
+                    .size(28.dp) //Ajustar la mida del botó d'eliminar
             ) {
                 Icon(
                     Icons.Default.Delete,
@@ -194,6 +196,18 @@ fun VideogameItem(
                         }) { Text(stringResource(R.string.cancel)) }
 
                     })
+            }
+            IconButton(
+                onClick = { navController.navigate("addToLibrary/{gameId}") },
+                modifier = Modifier
+                    .background(Color.Red, shape = CircleShape)
+                    .size(28.dp) //Ajustar la mida del botó d'eliminar
+            ) {
+                Icon(
+                    Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.deleteGame),
+                    tint = Color.White
+                )
             }
         }
     }

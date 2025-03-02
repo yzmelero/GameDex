@@ -288,8 +288,7 @@ fun AddGameToLibraryScreen(
                                     publishedDate = LocalDate.now().toString()
                                 )
                                 libraryViewModel.addGameToLibrary(newLibraryEntry, context)
-                                //TODO Canviar ruta per a que porti a la biblioteca
-                                navController.popBackStack()
+                                navController.navigate("libraryScreen")
                                 Log.d("AddGameToLibrary", "Pop back stack")
 
                             }
