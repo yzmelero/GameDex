@@ -114,4 +114,12 @@ public class VideogameApiController {
         // Retorna l'OK amb la llista de videojocs per categoria
         return ResponseEntity.ok(videogames);
     }
+
+    @GetMapping("/byName/{nameGame}") // Defineix una ruta GET per a obtenir tots els videojocs per nom
+    public ResponseEntity <List<Videogame>> getVideogamesByName(@PathVariable String nameGame) {
+        log.info("Getting videogames by name: " + nameGame);
+        List<Videogame> videogames = videogameLogic.searchVideogamesByName(nameGame);
+        // Retorna l'OK amb la llista de videojocs per nom
+        return ResponseEntity.ok(videogames);
+    }
 }

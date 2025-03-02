@@ -41,4 +41,7 @@ interface VideogameApiRest {
 
     @GET("videogame/byCategory/{categoryId}")
     suspend fun videogamesByCategory(@Path("categoryId") categoryId: String): Response<List<Videogame>>
+
+    @GET("videogame/byName/{nameGame}")
+    suspend fun videogamesByName(@Path("nameGame") nameGame: String): Response<List<Videogame>>
 }

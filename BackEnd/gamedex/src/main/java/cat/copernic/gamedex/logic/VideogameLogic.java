@@ -185,4 +185,14 @@ public class VideogameLogic {
             throw new RuntimeException("Unexpected error getting videogames by category");
         }
     }
+
+    public List<Videogame> searchVideogamesByName(String nameGame) {
+        try {
+            return videogameRepo.findByNameGameContaining(nameGame);
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error getting videogames by name");
+        }
+    }
 }

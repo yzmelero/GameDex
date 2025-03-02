@@ -112,14 +112,14 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
                 style = GameDexTypography.bodyLarge
             )
             Spacer(modifier = Modifier.height(10.dp))
-            SearchBar(searchQuery) { searchQuery = it }
+            SearchBar(searchQuery, { searchQuery = it }, gameViewModel)
             CategoryFilter(
                 categories = categories,
                 selectedCategory = selectedCategory,
                 onCategorySelected = { selectedCategory = it }
             )
             Spacer(modifier = Modifier.height(10.dp))
-            VideogamesGrid(videogame,selectedCategory, navController, gameViewModel)
+            VideogamesGrid(videogame,selectedCategory, searchQuery, navController, gameViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
@@ -128,7 +128,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
+fun SearchBar(query: String, onQueryChange: (String) -> Unit, gameViewModel: GameViewModel) {
     // TODO fer el filtre i la recerca funcional, es provisional
     Card(
         shape = RoundedCornerShape(50.dp),
@@ -144,7 +144,10 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
         ) {
             BasicTextField(
                 value = query,
-                onValueChange = onQueryChange,
+                onValueChange = { newQuery ->
+                    onQueryChange(newQuery)
+                    gameViewModel.searchVideogames(newQuery) // 🔍 Buscar juegos
+                },
                 textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
                 modifier = Modifier.weight(1f)
             )
@@ -218,11 +221,10 @@ fun CategoryFilter(
 }
 
 @Composable
-fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, navController: NavController, gameViewModel: GameViewModel) {
-    val filteredGames = if (selectedCategory == null) {
-        videogame
-    } else {
-        videogame.filter { it.category == selectedCategory.nameCategory }
+fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, searchQuery: String, navController: NavController, gameViewModel: GameViewModel) {
+    val filteredGames = videogame.filter { game ->
+        (selectedCategory == null || game.category == selectedCategory.nameCategory) &&
+                (searchQuery.isBlank() || game.nameGame.contains(searchQuery, ignoreCase = true))
     }
     Column(
         modifier = Modifier

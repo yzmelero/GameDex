@@ -33,4 +33,7 @@ class VideogameRepository {
     suspend fun videogamesByCategory(categoryId: String): Response<List<Videogame>> {
         return RetrofitInstance.api.videogamesByCategory(categoryId)
     }
+    suspend fun videogamesByName(nameGame: String): Response<List<Videogame>> {
+        return RetrofitInstance.api.videogamesByName(nameGame)
+    }
 }

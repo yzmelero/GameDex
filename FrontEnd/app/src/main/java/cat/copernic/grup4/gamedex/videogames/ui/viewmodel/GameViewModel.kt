@@ -136,4 +136,14 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             _videogameGetAll.value = response.body() ?: emptyList()
         }
     }
+
+    private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
+    val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
+
+    fun searchVideogames(nameGame: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.videogamesByName(nameGame)
+            _videogameByName.value = response.body() ?: emptyList()
+        }
+    }
 }
