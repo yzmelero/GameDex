@@ -130,7 +130,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
                 }
             )
             Spacer(modifier = Modifier.height(10.dp))
-            VideogamesGrid(videogame,selectedCategory, searchQuery, navController, gameViewModel)
+            VideogamesGrid(videogame, selectedCategory, searchQuery, navController, gameViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
@@ -140,7 +140,6 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 
 @Composable
 fun SearchBar(query: String, onQueryChange: (String) -> Unit, gameViewModel: GameViewModel) {
-    // TODO fer el filtre i la recerca funcional, es provisional
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -157,7 +156,7 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit, gameViewModel: Gam
                 value = query,
                 onValueChange = { newQuery ->
                     onQueryChange(newQuery)
-                    gameViewModel.searchVideogames(newQuery) // 🔍 Buscar juegos
+                    gameViewModel.searchVideogames(newQuery)
                 },
                 textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
                 modifier = Modifier.weight(1f)
