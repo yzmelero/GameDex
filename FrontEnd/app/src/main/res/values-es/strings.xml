@@ -108,4 +108,15 @@
     <string name="deleteGame">Borrar videojuego</string>
     <string name="please_select_a_category">Porfavor, selecciona una categoria</string>
     <string name="videogame_deleted_succesfully">Videojuego borrado correctamente</string>
+    <string name="inactive_games">Validar juegos</string>
+    <string name="verify_game">Verificar juegos</string>
+    <string name="validate_game">Validar juegos</string>
+    <string name="delete_game">Borrar juegos</string>
+    <string name="modifycomment">Modificar comentario</string>
+    <string name="commentmodifiedsuccessfully">Comentario modificado correctamente</string>
+    <string name="errorupdatingcomment">Error mientras se actualizaba el videojuego</string>
+    <string name="errorcheckinglibraryentry">Error buscando la entrada de la biblioteca.</string>
+    <string name="errorretrievingrating">No se ha podido obtener el rating.</string>
+    <string name="errordeletinglibrary">Error borrando el videojuego de la biblioteca.</string>
+    <string name="error_retrieving_library">Error recuperando la biblioteca.</string>
 </resources>

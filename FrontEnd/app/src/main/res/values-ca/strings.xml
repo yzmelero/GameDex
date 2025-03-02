@@ -108,4 +108,15 @@
     <string name="deleteGame">Esborrar videojoc</string>
     <string name="please_select_a_category">Si us plau, selecciona una categoria</string>
     <string name="videogame_deleted_succesfully">Videojoc esborrat correctament</string>
+    <string name="inactive_games">Validar jocs</string>
+    <string name="verify_game">Verificar joc</string>
+    <string name="validate_game">Validar jocs</string>
+    <string name="delete_game">Esborrar joc</string>
+    <string name="modifycomment">Modificar comentari</string>
+    <string name="commentmodifiedsuccessfully">Comentari modificat correctament</string>
+    <string name="errorupdatingcomment">Error mentre s\'actualitzava el videojoc</string>
+    <string name="errorcheckinglibraryentry">Error buscant l\'entrada de la biblioteca.</string>
+    <string name="errorretrievingrating">No s\'ha pogut obtenir el rating.</string>
+    <string name="errordeletinglibrary">Error esborrant el videojoc de la biblioteca.</string>
+    <string name="error_retrieving_library">Error recuperant la biblioteca.</string>
 </resources>
