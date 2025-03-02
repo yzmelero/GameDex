@@ -112,6 +112,8 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                 style = GameDexTypography.bodyLarge
             )
 
+            Spacer(modifier = Modifier.height(20.dp))
+
             Card(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -125,7 +127,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                 ) {
                     Text(
                         text = nameCategory,
-                        fontSize = 24.sp,
+                        fontSize = 40.sp,
                         color = Color.Black,
                         style = GameDexTypography.bodyLarge
                     )
@@ -211,6 +213,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                                 categoryPhoto = oldCategoryPhoto
                             )
                                 categoryViewModel.modifyCategory(updatedCategory)
+                                navController.popBackStack()
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                     ) {
@@ -233,7 +236,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     context.getString(R.string.category_updated),
                     Toast.LENGTH_LONG
                 ).show()
-                navController.navigate("modify_category/${categoryId}")
+                navController.popBackStack()
             } else {
                 Toast.makeText(
                     context,

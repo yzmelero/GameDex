@@ -7,5 +7,5 @@ import cat.copernic.gamedex.entity.Category;
 
 @Repository
 public interface CategoryRepository extends MongoRepository <Category, String> {
-    
+    List<Category> findAllByOrderByNameCategoryAsc();
 }

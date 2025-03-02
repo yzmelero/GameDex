@@ -166,7 +166,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                                 .padding(12.dp)
                                 .background(Color.Red, shape = CircleShape)
                         ) {
-                            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_category), tint = Color.White)
+                            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_category))
                         }
 
                         if (showDialog) {
