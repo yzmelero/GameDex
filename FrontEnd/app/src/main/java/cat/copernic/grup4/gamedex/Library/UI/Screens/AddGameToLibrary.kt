@@ -81,7 +81,8 @@ import java.time.LocalDate
 import java.util.UUID
 
 //TODO Afegir les strings de AddGameToLibraryScreen
-
+//TODO no permitir guardar un juego que ya esta en la libreria del usuario
+// o modificar dicha entrada en su lugar
 
 @Composable
 fun AddGameToLibraryScreen(

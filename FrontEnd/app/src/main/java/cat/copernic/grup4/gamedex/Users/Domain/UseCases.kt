@@ -23,5 +23,7 @@ class UseCases(private val repository: UserRepository) {
     suspend fun deleteUser(userId: String) = repository.deleteUser(userId)
 
     suspend fun getAllUsersByUserId(userId: String) = repository.getAllUsersByUserId(userId)
+
+    suspend fun countByUserAndState(userId: String, state: String) = repository.countByUserAndState(userId, state)
 }
 

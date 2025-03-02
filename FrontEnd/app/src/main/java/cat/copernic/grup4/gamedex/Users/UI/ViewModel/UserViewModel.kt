@@ -42,6 +42,18 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     private val _deleteSuccess = MutableStateFlow<Boolean?>(null)
     val deleteSuccess: StateFlow<Boolean?> = _deleteSuccess
 
+    private val _wantToPlay = MutableStateFlow(0)
+    val wantToPlay: StateFlow<Int> = _wantToPlay
+
+    private val _playing = MutableStateFlow(0)
+    val playing: StateFlow<Int> = _playing
+
+    private val _finished = MutableStateFlow(0)
+    val finished: StateFlow<Int> = _finished
+
+    private val _dropped = MutableStateFlow(0)
+    val dropped: StateFlow<Int> = _dropped
+
 
     private val repository = UserRepository()
     private val _resetMessage = MutableStateFlow<String?>(null)
@@ -176,7 +188,7 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         viewModelScope.launch {
             val response = useCases.updateUser(updatedUser)
             _updateSuccess.value = response.isSuccessful
-            if(_currentUser.value?.username == updatedUser.username){
+            if (_currentUser.value?.username == updatedUser.username) {
                 _currentUser.value = updatedUser
             }
         }
@@ -191,20 +203,24 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             }
         }
     }
-//TODO STRINGS
+
+    //TODO STRINGS
     fun resetPassword(username: String, email: String) {
-        viewModelScope.launch{
-            try{
+        viewModelScope.launch {
+            try {
                 val response = repository.resetPassword(username, email)
-                Log.d("RESET_PASSWORD", "Response code: ${response.code()}, Body: ${response.body()}")
+                Log.d(
+                    "RESET_PASSWORD",
+                    "Response code: ${response.code()}, Body: ${response.body()}"
+                )
 
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     _resetMessage.value = responseBody?.get("message") ?: "Unknown response"
-                } else{
+                } else {
                     _resetMessage.value = R.string.userNotFound.toString()
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e("RESET_PASSWORD", "Error: ${e.message}")
                 _resetMessage.value = R.string.errorConnServer.toString()
             }
@@ -221,6 +237,25 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     }
                 } else {
                     println("API Error: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                println("Error obtaining users: ${e.message}")
+            }
+        }
+    }
+
+    fun countByUserAndState(userId: String, state: String) {
+        viewModelScope.launch {
+            try {
+                val response = useCases.countByUserAndState(userId, state)
+                if (response.isSuccessful) {
+                    val count = response.body() ?: 0
+                    when (state) {
+                        "WANTTOPLAY" -> _wantToPlay.value = count
+                        "PLAYING" -> _playing.value = count
+                        "FINISHED" -> _finished.value = count
+                        "DROPPED" -> _dropped.value = count
+                    }
                 }
             } catch (e: Exception) {
                 println("Error obtaining users: ${e.message}")

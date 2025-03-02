@@ -293,7 +293,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
             createdGameState?.let { success ->
                 if (success) {
                     Toast.makeText(context, R.string.gameCreated, Toast.LENGTH_LONG).show()
-                    navController.navigate("listvideogames")
+                    navController.navigate("listVideogames")
                 } else {
                     Toast.makeText(context, R.string.gameErrorCreate, Toast.LENGTH_LONG).show()
                 }

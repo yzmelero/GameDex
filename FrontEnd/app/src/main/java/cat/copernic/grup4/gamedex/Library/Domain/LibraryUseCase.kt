@@ -18,4 +18,10 @@ class LibraryUseCase(private val repository: LibraryRepository) {
     suspend fun getCommentsFromLibrary(gameId: String): Response<List<Library>> {
         return repository.getCommentsForVideogame(gameId)
     }
+
+    suspend fun deleteVideogameFromLibrary(gameId: String, username: String) = repository.deleteVideogameFromLibrary(gameId, username)
+
+    suspend fun getAverageRating(gameId: String): Response<Double> {
+        return repository.getAverageRating(gameId)
+    }
 }

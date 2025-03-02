@@ -16,6 +16,9 @@ class CategoryRepository {
     suspend fun deleteCategory(nameCategory: String): Response<Unit> {
         return RetrofitInstance.api.deleteCategory(nameCategory)
     }
+    suspend fun filterCategories(query: String): Response<List<Category>> {
+        return RetrofitInstance.api.filterCategories(query)
+    }
     suspend fun modifyCategory(category: Category): Response<Category> {
         return RetrofitInstance.api.modifyCategory(category)
     }

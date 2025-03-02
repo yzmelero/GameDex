@@ -22,6 +22,9 @@ interface CategoryApiRest {
     @DELETE("category/delete/{nameCategory}")
     suspend fun deleteCategory(@Path("nameCategory") nameCategory: String): Response<Unit>
 
+    @GET("category/filter/{query}")
+    suspend fun filterCategories(@Path("query") query: String): Response<List<Category>>
+
     @PUT("category/modify/{nameCategory}")
     suspend fun modifyCategory(@Body category: Category): Response<Category>
 

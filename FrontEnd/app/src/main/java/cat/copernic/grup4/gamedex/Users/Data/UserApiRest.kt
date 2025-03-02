@@ -47,6 +47,9 @@ interface UserApiRest {
     @GET("user/all/{userId}")
     suspend fun getAllUsersByUserId(@Path("userId") userId: String): Response<List<User>>
 
+    @GET("library/count/{userId}/{state}")
+    suspend fun countByUserAndState(@Path("userId") userId: String, @Path("state") state: String): Response<Int>
+
 /*
     @Headers("Content-Type: application/json")
     @POST("user/create")

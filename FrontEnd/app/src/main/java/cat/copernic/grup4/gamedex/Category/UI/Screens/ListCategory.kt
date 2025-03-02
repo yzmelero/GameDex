@@ -15,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -37,6 +36,7 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.ui.header
 
 @Composable
@@ -46,11 +46,19 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
     val categoryViewModel: CategoryViewModel =
         viewModel(factory = CategoryViewModelFactory(categoryCases))
 
+    val query = remember { navController.currentBackStackEntry?.arguments?.getString("nameCategory") } ?: return
     var searchQuery by remember { mutableStateOf("") }
     val category by categoryViewModel.category.collectAsState()
 
-    LaunchedEffect(Unit) {
-        categoryViewModel.getAllCategory()
+    val currentUser by userViewModel.currentUser.collectAsState()
+    val isAdmin = currentUser?.userType == UserType.ADMIN
+
+    LaunchedEffect(query) {
+        if (query.isEmpty() || query.isBlank()){
+            categoryViewModel.getAllCategory()
+        } else {
+            categoryViewModel.filterCategories(query)
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -86,7 +94,9 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
 
         Spacer(modifier = Modifier.height(10.dp))
 
-            SearchBar(searchQuery) { searchQuery = it }
+            SearchBar(searchQuery, navController) { newQuery ->
+                searchQuery = newQuery
+            }
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -103,13 +113,15 @@ fun ListCategoryScreen(navController: NavController, userViewModel: UserViewMode
         ) {
             BottomSection(navController, userViewModel, 0)
         }
-        FloatingAddButton(navController)
+
+        if (isAdmin) {
+            FloatingAddButton(navController)
+        }
     }
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
-    val context = LocalContext.current
+fun SearchBar(query: String, navController: NavController, onQueryChange: (String) -> Unit) {
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -124,13 +136,14 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
         ) {
             BasicTextField(
                 value = query,
-                onValueChange = onQueryChange,
+                onValueChange = { onQueryChange(it) },
                 textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
                 modifier = Modifier.weight(1f)
             )
             Icon(
+                modifier = Modifier.clickable { navController.navigate("list_category/$query") },
                 imageVector = Icons.Default.Search,
-                contentDescription = context.getString(R.string.search),
+                contentDescription = stringResource(R.string.search),
                 tint = Color.Gray
             )
         }
@@ -159,7 +172,7 @@ fun CategoriesGrid(category: List<Category>, navController: NavController) {
 @Composable
 fun CategoryButton(name: String, modifier: Modifier = Modifier) {
     Card(
-        shape = RoundedCornerShape(6.dp), // Forma rectangular amb mínim d'arrodoniment
+        shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Ombra afegida
         modifier = modifier

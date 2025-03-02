@@ -5,10 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +24,9 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -35,29 +36,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Library
-import cat.copernic.grup4.gamedex.Core.Model.StateType
-import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.R
-import cat.copernic.grup4.gamedex.Core.Model.Videogame
-
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
-import coil.compose.AsyncImage
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
-import cat.copernic.grup4.gamedex.Core.ui.theme.BottomNavBar
 import cat.copernic.grup4.gamedex.Library.Data.LibraryRepository
 import cat.copernic.grup4.gamedex.Library.Domain.LibraryUseCase
 import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModel
 import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModelFactory
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
-import cat.copernic.grup4.gamedex.Users.UI.Screens.UserListScreen
-import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
+//TODO Quan afegeixes un videojoc i no té comentaris, et posa els comentaris de l'anterior videojoc visualitzat.
 
 @Composable
 fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
@@ -79,17 +72,14 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
 
     val libraryItems by libraryViewModel.library.collectAsState()
 
-    val onDelete: (Library) -> Unit = { libraryToDelete ->
-        // Afegeix la lògica per eliminar el joc de la biblioteca
-        // Ex: libraryViewModel.deleteGame(libraryToDelete)
-    }
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.background))
             .windowInsetsPadding(WindowInsets.systemBars),
-        ) {
+    ) {
         header(navController, userViewModel)
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -103,14 +93,14 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         )
-        LazyColumn (
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
             contentPadding = PaddingValues(vertical = 8.dp)
-        ){
+        ) {
             items(libraryItems) { gameLibrary ->
-                VideogameItem(libraryViewModel, library = gameLibrary, onDelete = onDelete)
+                VideogameItem(libraryViewModel, library = gameLibrary, username = username)
             }
         }
 
@@ -121,7 +111,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
                 .padding(16.dp),
             containerColor = colorResource(id = R.color.buttons)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Videogame")
+            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.addgame_library))
         }
     }
     BottomSection(navController, userViewModel, 4)
@@ -131,7 +121,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
 fun VideogameItem(
     libraryViewModel: LibraryViewModel,
     library: Library,
-    onDelete: (Library) -> Unit
+    username: String,
 ) {
     Card(
         modifier = Modifier
@@ -146,7 +136,7 @@ fun VideogameItem(
             }
             imageBitmap?.let {
                 Image(
-                    it, contentDescription = "videogame picture",
+                    it, contentDescription = stringResource(R.string.gamePicture),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(72.dp)
@@ -165,25 +155,61 @@ fun VideogameItem(
                 Text(text = library.state.name, fontSize = 14.sp)
             }
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { onDelete(library) }) {
-                Icon(Icons.Default.Delete, contentDescription = "Delete Game")
+
+            var showDialog by remember { mutableStateOf(false) }
+
+            IconButton(
+                onClick = { showDialog = true },
+                modifier = Modifier
+                    .background(Color.Red, shape = CircleShape)
+            ) {
+                Icon(
+                    Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.deleteGame),
+                    tint = Color.White
+                )
+            }
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    title = { Text(stringResource(R.string.confirm_delete)) },
+                    text = { Text(stringResource(R.string.delete_question)) },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            library.videogame.gameId?.let {
+                                libraryViewModel.deleteVideogameFromLibrary(
+                                    it,
+                                    username
+                                )
+                            }
+                            showDialog = false
+                        }
+                        ) {
+                            Text(stringResource(R.string.delete), color = Color.Red)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            showDialog = false
+                        }) { Text(stringResource(R.string.cancel)) }
+
+                    })
             }
         }
     }
 }
 
+    @Preview
+    @Composable
+    fun LibraryScreenPreview() {
+        val fakeNavController = rememberNavController()
+        val fakeUserRepository = UserRepository()
+        val useCases = UseCases(fakeUserRepository)
 
-@Preview
-@Composable
-fun LibraryScreenPreview() {
-    val fakeNavController = rememberNavController()
-    val fakeUserRepository = UserRepository()
-    val useCases = UseCases(fakeUserRepository)
+        // Crea un fake ViewModel amb dades falses per la vista prèvia
+        val userViewModel =
+            UserViewModel(useCases) // Assegura't que UserViewModel té un constructor per defecte o crea'n un per la vista prèvia
 
-    // Crea un fake ViewModel amb dades falses per la vista prèvia
-    val userViewModel =
-        UserViewModel(useCases) // Assegura't que UserViewModel té un constructor per defecte o crea'n un per la vista prèvia
-
-    LibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
-}
+        LibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
+    }
 
