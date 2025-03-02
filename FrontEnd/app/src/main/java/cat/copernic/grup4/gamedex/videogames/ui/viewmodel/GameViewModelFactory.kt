@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 
+// Factory per obrir una instancia del viewModel
 class GameViewModelFactory(private val videogameUseCase: VideogameUseCase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(GameViewModel::class.java)) {

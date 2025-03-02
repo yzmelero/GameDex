@@ -30,6 +30,8 @@ import cat.copernic.grup4.gamedex.Users.UI.Screens.ResetPasswordScreen
 import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
 
 import cat.copernic.grup4.gamedex.videogames.ui.screens.AddGamesScreen
+import cat.copernic.grup4.gamedex.videogames.ui.screens.ListInactiveGamesScreen
+import cat.copernic.grup4.gamedex.videogames.ui.screens.ValidateGamesScreen
 
 @Composable
 fun AppNavigation(userViewModel: UserViewModel) {
@@ -44,7 +46,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("userList/{username}") { UserListScreen(navController, userViewModel) }
         composable("profile/{username}") { ProfileScreen(navController, userViewModel) }
         composable("validate") { ValidateListScreen(navController, userViewModel) }
-        composable("listvideogames") { ListGamesScreen(navController, userViewModel) }
+        composable("listVideogames") { ListGamesScreen(navController, userViewModel) }
         composable("viewGame/{gameId}") { ViewGamesScreen(navController, userViewModel) }
         composable("addGames") { AddGamesScreen(navController, userViewModel) }
         composable("view_category/{categoryId}") { ViewCategoryScreen(navController, userViewModel) }
@@ -56,5 +58,7 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("resetPassword") {ResetPasswordScreen(navController, userViewModel)}
         composable("addToLibrary/{gameId}") {AddGameToLibraryScreen(navController, userViewModel)}
         composable("libraryScreen") {LibraryScreen(navController,userViewModel)}
+        composable("listInactiveGames") { ListInactiveGamesScreen(navController, userViewModel) }
+        composable("validateGame/{gameId}") { ValidateGamesScreen(navController, userViewModel) }
     }
 }

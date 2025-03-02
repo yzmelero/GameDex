@@ -113,4 +113,8 @@
     <string name="deleteGame">Delete videogame</string>
     <string name="please_select_a_category">Please select a category</string>
     <string name="videogame_deleted_succesfully">Videogame deleted succesfully!</string>
+    <string name="inactive_games">Validate Games</string>
+    <string name="verify_game">Verify Game</string>
+    <string name="validate_game">Validate Game</string>
+    <string name="delete_game">Delete Game</string>
 </resources>
