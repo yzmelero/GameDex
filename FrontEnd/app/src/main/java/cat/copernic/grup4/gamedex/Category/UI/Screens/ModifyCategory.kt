@@ -41,6 +41,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     val categoryId = remember {
         navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
+    Log.d("ModifyCategoryScreen", "Category ID: $categoryId")
 
     val category by categoryViewModel.categoryGetById.collectAsState()
     val updateSuccess by categoryViewModel.categoryModified.collectAsState()
@@ -50,14 +51,10 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
     LaunchedEffect(categoryId) {
         Log.d("ModifyCategoryScreen", "Fetching category with ID: $categoryId")
-        categoryViewModel.getCategoryById(categoryId)
-    }
-
-    LaunchedEffect(category) {
-        category?.let {
-            Log.d("ModifyCategoryScreen", "Loaded category: ${it.nameCategory}, ${it.description}")
+        categoryViewModel.getCategoryById(categoryId)?.let {
             name = it.nameCategory
             description = it.description
+            Log.d("ModifyCategoryScreen", "Category Loaded: ${it.nameCategory}, ${it.description}")
         } ?: Log.d("ModifyCategoryScreen", "Category is null")
     }
 
@@ -105,7 +102,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = name,
+                        text = name.ifEmpty { "Cargando..." },
                         fontSize = 24.sp,
                         color = Color.Black,
                         style = GameDexTypography.bodyLarge
@@ -124,7 +121,6 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             Log.d("ModifyCategoryScreen", "Modify button clicked")
-
                             val updatedCategory = category?.copy(description = description)
 
                             if (updatedCategory != null) {
