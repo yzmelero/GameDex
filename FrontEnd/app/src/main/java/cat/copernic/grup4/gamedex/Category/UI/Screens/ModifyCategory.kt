@@ -42,6 +42,8 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
         navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
 
+    Log.d("ModifyCategoryScreen", "Screen opened with categoryId: $categoryId")
+
     val category by categoryViewModel.categoryGetById.collectAsState()
     val updateSuccess by categoryViewModel.categoryModified.collectAsState()
 
@@ -49,14 +51,22 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     var description by remember { mutableStateOf("") }
 
     LaunchedEffect(categoryId) {
-        categoryViewModel.getCategoryById(categoryId)?.let {
-            name = it.nameCategory
-            description = it.description
+        Log.d("ModifyCategoryScreen", "Fetching category with ID: $categoryId")
+
+        val fetchedCategory = categoryViewModel.getCategoryById(categoryId)
+
+        if (fetchedCategory == null) {
+            Log.e("ModifyCategoryScreen", "Category is null for ID: $categoryId")
+        } else {
+            name = fetchedCategory.nameCategory
+            description = fetchedCategory.description
+            Log.d("ModifyCategoryScreen", "Category Loaded: ${fetchedCategory.nameCategory}, ${fetchedCategory.description}")
         }
     }
 
     DisposableEffect(Unit) {
         onDispose {
+            Log.d("ModifyCategoryScreen", "Resetting categoryModified state")
             categoryViewModel._categoryModified.value = null
         }
     }
@@ -108,21 +118,27 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    InputFieldEdit(label = stringResource(R.string.description), value = description) { description = it }
+                    InputFieldEdit(label = stringResource(R.string.description), value = description) { newValue ->
+                        Log.d("ModifyCategoryScreen", "Description changed: $newValue")
+                        description = newValue
+                    }
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            Log.d("ModifyCategory", "Button clicked")
+                            Log.d("ModifyCategoryScreen", "Modify button clicked")
 
-                            val updatedCategory = category?.copy(
-                                description = description
-                            )
+                            if (category == null) {
+                                Log.e("ModifyCategoryScreen", "Error: Category is null, cannot update")
+                            } else {
+                                val updatedCategory = category?.copy(description = description)
 
-                            updatedCategory?.let {
-                                categoryViewModel.modifyCategory(it)
+                                updatedCategory?.let {
+                                    Log.d("ModifyCategoryScreen", "Updating category: ${it.nameCategory}, ${it.description}")
+                                    categoryViewModel.modifyCategory(it)
+                                }
                             }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
@@ -141,6 +157,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
     LaunchedEffect(updateSuccess) {
         updateSuccess?.let { success ->
             if (success) {
+                Log.d("ModifyCategoryScreen", "Category updated successfully")
                 Toast.makeText(
                     context,
                     context.getString(R.string.category_updated),
@@ -148,6 +165,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                 ).show()
                 navController.navigate("categories")
             } else {
+                Log.e("ModifyCategoryScreen", "Error updating category")
                 Toast.makeText(
                     context,
                     context.getString(R.string.error_updating_category),
@@ -172,7 +190,10 @@ fun InputFieldEdit(
         TextField(
             value = value,
             placeholder = { Text(text = stringResource(R.string.leave_empty)) },
-            onValueChange = onValueChange,
+            onValueChange = {
+                Log.d("ModifyCategoryScreen", "Input changed for $label: $it")
+                onValueChange(it)
+            },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
             modifier = Modifier
                 .fillMaxWidth()
