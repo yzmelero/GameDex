@@ -41,6 +41,12 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     private val _videogameDeleted = MutableStateFlow<Boolean?>(null)
     val videogameDeleted: StateFlow<Boolean?> = _videogameDeleted
 
+    private val _videogameByCategory = MutableStateFlow<List<Videogame>>(emptyList())
+    val videogameByCategory: StateFlow<List<Videogame>> = _videogameByCategory
+
+    private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
+    val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
+
     fun createVideogame(videogame: Videogame) {
         viewModelScope.launch {
             val response = videogameUseCase.createVideogame(videogame)
@@ -126,9 +132,6 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             }
         }
     }
-
-    private val _videogameByCategory = MutableStateFlow<List<Videogame>>(emptyList())
-    val videogameByCategory: StateFlow<List<Videogame>> = _videogameByCategory
     
     fun videogamesByCategory(categoryId: String) {
         viewModelScope.launch {
@@ -136,9 +139,6 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             _videogameByCategory.value = response.body() ?: emptyList()
         }
     }
-
-    private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
-    val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
 
     fun searchVideogames(nameGame: String) {
         viewModelScope.launch {
