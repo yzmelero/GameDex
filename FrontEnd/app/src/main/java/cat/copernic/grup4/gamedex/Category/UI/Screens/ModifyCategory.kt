@@ -1,7 +1,6 @@
 package cat.copernic.grup4.gamedex.Categories.UI.Screens
 
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
