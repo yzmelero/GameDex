@@ -44,7 +44,7 @@ public class VideogameApiController {
         return ResponseEntity.ok(newVideogame);
     }
 
-    @PutMapping("/update") // Defineix una ruta PUT per a modificar un videojoc
+    @PutMapping("/update/{gameId}") // Defineix una ruta PUT per a modificar un videojoc
     public ResponseEntity <Videogame> updateVideogame(@RequestBody Videogame videogame) {
         log.info("Updating videogame: " + videogame.toString());
         Videogame updatedVideogame = videogameLogic.modifyVideogame(videogame);

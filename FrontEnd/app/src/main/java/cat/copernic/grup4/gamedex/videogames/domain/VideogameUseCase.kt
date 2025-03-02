@@ -17,4 +17,5 @@ class VideogameUseCase (private val repository: VideogameRepository) {
     suspend fun validateVideogame(gameId: String) = repository.validateVideogame(gameId)
     suspend fun videogamesByCategory(categoryId: String) = repository.videogamesByCategory(categoryId)
     suspend fun videogamesByName(nameGame: String) = repository.videogamesByName(nameGame)
+    suspend fun updateVideogame(videogame: Videogame) = repository.updateVideogame(videogame)
 }

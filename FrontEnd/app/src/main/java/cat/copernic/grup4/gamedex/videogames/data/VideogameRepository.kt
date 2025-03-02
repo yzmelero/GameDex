@@ -36,4 +36,7 @@ class VideogameRepository {
     suspend fun videogamesByName(nameGame: String): Response<List<Videogame>> {
         return RetrofitInstance.api.videogamesByName(nameGame)
     }
+    suspend fun updateVideogame(videogame: Videogame): Response<Videogame> {
+        return RetrofitInstance.api.updateVideogame(videogame)
+    }
 }
