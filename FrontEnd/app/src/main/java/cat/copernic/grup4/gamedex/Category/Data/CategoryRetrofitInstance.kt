@@ -1,59 +1,43 @@
 package cat.copernic.grup4.gamedex.Category.Data
 
-import cat.copernic.grup4.gamedex.Core.Model.Category
-import retrofit2.Response
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Repositori per gestionar les operacions de la API REST de categories.
+ * Objecte que proporciona una instància de Retrofit configurada per a les operacions de la API REST de categories.
  */
-class CategoryRepository {
-
+object RetrofitInstance {
     /**
-     * Afegeix una nova categoria.
-     *
-     * @param category La categoria a afegir.
-     * @return La resposta de la API amb la categoria afegida.
+     * Interceptor per registrar les peticions i respostes HTTP.
      */
-    suspend fun addCategory(category: Category): Response<Category> {
-        return RetrofitInstance.api.addCategory(category)
+    private val logging = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
     }
 
     /**
-     * Obté totes les categories.
-     *
-     * @return La resposta de la API amb la llista de categories.
+     * Client HTTP configurat amb l'interceptor de registre.
      */
-    suspend fun getAllCategory(): Response<List<Category>> {
-        return RetrofitInstance.api.getAllCategory()
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(logging)
+        .build()
+
+    /**
+     * Instància de Retrofit configurada amb la URL base i el client HTTP.
+     */
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:8080/api/") // Canvia per l'IP del teu backend
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
     }
 
     /**
-     * Obté una categoria pel seu ID.
-     *
-     * @param categoryId L'ID de la categoria.
-     * @return La resposta de la API amb la categoria obtinguda.
+     * Instància de l'API de categories creada per Retrofit.
      */
-    suspend fun getCategoryById(categoryId: String): Response<Category> {
-        return RetrofitInstance.api.getCategoryById(categoryId)
-    }
-
-    /**
-     * Elimina una categoria pel seu nom.
-     *
-     * @param nameCategory El nom de la categoria a eliminar.
-     * @return La resposta de la API.
-     */
-    suspend fun deleteCategory(nameCategory: String): Response<Unit> {
-        return RetrofitInstance.api.deleteCategory(nameCategory)
-    }
-
-    /**
-     * Filtra categories basades en una consulta.
-     *
-     * @param query La consulta de cerca.
-     * @return La resposta de la API amb la llista de categories filtrades.
-     */
-    suspend fun filterCategories(query: String): Response<List<Category>> {
-        return RetrofitInstance.api.filterCategories(query)
+    val api: CategoryApiRest by lazy {
+        retrofit.create(CategoryApiRest::class.java)
     }
 }

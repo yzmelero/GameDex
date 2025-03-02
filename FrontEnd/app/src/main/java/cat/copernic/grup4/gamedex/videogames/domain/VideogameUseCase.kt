@@ -1,43 +1,67 @@
-package cat.copernic.grup4.gamedex.videogames.data
+package cat.copernic.grup4.gamedex.videogames.domain
 
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import cat.copernic.grup4.gamedex.Core.Model.Category
+import cat.copernic.grup4.gamedex.Core.Model.Videogame
+import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
+import retrofit2.Response
 
 /**
- * Objecte que proporciona una instància de Retrofit configurada per a les operacions de la API REST de videojocs.
+ * Classe que encapsula els casos d'ús per a les operacions de videojocs.
+ *
+ * @param repository El repositori de videojocs.
  */
-object RetrofitInstance {
-    /**
-     * Interceptor per registrar les peticions i respostes HTTP.
-     */
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
+class VideogameUseCase(private val repository: VideogameRepository) {
 
     /**
-     * Client HTTP configurat amb l'interceptor de registre.
+     * Crea un nou videojoc.
+     *
+     * @param videogame El videojoc a crear.
+     * @return La resposta de la API amb el videojoc creat.
      */
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
+    suspend fun createVideogame(videogame: Videogame) = repository.createVideogame(videogame)
 
     /**
-     * Instància de Retrofit configurada amb la URL base i el client HTTP.
+     * Obté un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API amb el videojoc obtingut.
      */
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/api/") // Canvia per l'IP del teu backend
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-    }
+    suspend fun videogamesById(gameId: String) = repository.videogamesById(gameId)
 
     /**
-     * Instància de l'API de videojocs creada per Retrofit.
+     * Obté tots els videojocs.
+     *
+     * @return La resposta de la API amb la llista de videojocs.
      */
-    val api: VideogameApiRest by lazy {
-        retrofit.create(VideogameApiRest::class.java)
-    }
+    suspend fun getAllVideogames() = repository.getAllVideogames()
+
+    /**
+     * Obté tots els videojocs inactius.
+     *
+     * @return La resposta de la API amb la llista de videojocs inactius.
+     */
+    suspend fun getAllInactiveVideogames() = repository.getAllInactiveVideogames()
+
+    /**
+     * Obté totes les categories de videojocs.
+     *
+     * @return La resposta de la API amb la llista de categories.
+     */
+    suspend fun getAllCategories(): Response<List<Category>> = repository.getAllCategories()
+
+    /**
+     * Elimina un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API.
+     */
+    suspend fun deleteVideogame(gameId: String) = repository.deleteVideogame(gameId)
+
+    /**
+     * Valida un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API amb el videojoc validat.
+     */
+    suspend fun validateVideogame(gameId: String) = repository.validateVideogame(gameId)
 }

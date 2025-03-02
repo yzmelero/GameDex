@@ -70,11 +70,11 @@ import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModel
 import cat.copernic.grup4.gamedex.Library.UI.ViewModel.LibraryViewModelFactory
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.Data.UserRepository
+import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
-import cat.copernic.grup4.gamedex.videogames.domain.VideogameUseCase
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import java.time.LocalDate
