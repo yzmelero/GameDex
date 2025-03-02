@@ -64,7 +64,7 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
 
     }
 
-    fun getLibrary(username: String) {
+    fun getLibrary(username: String, context: Context) {
         viewModelScope.launch {
             _library.value = emptyList() //Força natejar la pantalla abans de càrregar la següent
             val response =
@@ -72,7 +72,7 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
             if (response.isSuccessful) {
                 _library.value = response.body() ?: emptyList()
             } else {
-                _message.value = "Error retrieving the library"
+                _message.value = context.getString(R.string.error_retrieving_library)
             }
         }
     }
@@ -105,20 +105,20 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
     }
 
     //TODO Strings
-    fun deleteVideogameFromLibrary(gameId: String, username: String) {
+    fun deleteVideogameFromLibrary(gameId: String, username: String, context: Context) {
         viewModelScope.launch {
             try {
                 Log.d("LibraryViewModel", "Deleting gameId: $gameId for user: $username")
                 val response = libraryUseCase.deleteVideogameFromLibrary(gameId, username)
                 if (response.isSuccessful) {
                     Log.d("LibraryViewModel", "Deletion successful. Refreshing library")
-                    getLibrary(username)
+                    getLibrary(username, context)
                 } else {
                     Log.e("LibraryViewModel", "Failed to delete. Response code: ${response.code()}")
                 }
             } catch (e: Exception) {
                 Log.e("LibraryViewModel", "Error deleting the videogame: ${e.message}")
-                _message.value = "Error deleting the game from the library."
+                _message.value = context.getString(R.string.errordeletinglibrary)
             }
         }
     }
@@ -180,7 +180,7 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
                 }
             } catch (e: Exception) {
                 _message.value = context.getString(R.string.errorupdatingcomment, e.message)
-                Log.e("LibraryViewModel", "❌ Excepció actualitzant el joc: ${e.message}")
+                Log.e("LibraryViewModel", "Excepció actualitzant el joc: ${e.message}")
             }
         }
     }

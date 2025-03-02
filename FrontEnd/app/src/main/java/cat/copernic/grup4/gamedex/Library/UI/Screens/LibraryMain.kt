@@ -70,7 +70,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
     ).get(LibraryViewModel::class.java)
 
     LaunchedEffect(username) {
-        libraryViewModel.getLibrary(username)
+        libraryViewModel.getLibrary(username,context)
     }
 
     val libraryItems by libraryViewModel.library.collectAsState()
@@ -185,7 +185,8 @@ fun VideogameItem(
                             library.videogame.gameId?.let {
                                 libraryViewModel.deleteVideogameFromLibrary(
                                     it,
-                                    username
+                                    username,
+                                    context
                                 )
                             }
                             showDialog = false
