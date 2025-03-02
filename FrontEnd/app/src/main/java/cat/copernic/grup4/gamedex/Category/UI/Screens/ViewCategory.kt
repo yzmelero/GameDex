@@ -71,11 +71,8 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFFDBB2FF), Color(0xFFF7E6FF))
-                )
-            )
+            .background(colorResource(R.color.background))
+            .windowInsetsPadding(WindowInsets.systemBars)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -102,7 +99,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                         currentCategory?.let {
                             Text(
                                 it.nameCategory,
-                                fontSize = 32.sp,
+                                fontSize = 40.sp,
                                 fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
                                 style = GameDexTypography.bodyLarge,
                                 color = Color.Black
@@ -132,13 +129,13 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                         currentCategory?.let {
                             Text(
                                 it.description,
-                                fontSize = 18.sp,
+                                fontSize = 22.sp,
                                 style = GameDexTypography.bodyLarge,
-                                color = Color.Gray
+                                color = Color.Black
                             )
                         }
 
-                        Spacer(modifier = Modifier.weight(1f))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         if (currentUser?.userType == UserType.ADMIN) {
                             Button(

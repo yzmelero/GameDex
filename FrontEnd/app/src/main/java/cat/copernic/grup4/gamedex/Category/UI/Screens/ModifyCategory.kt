@@ -134,14 +134,12 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
                     InputFieldEdit(
                         label = stringResource(R.string.description),
                         value = description
                     ) { description = it }
 
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Row {
@@ -202,7 +200,7 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Button(
                         modifier = Modifier.fillMaxWidth(),
@@ -213,7 +211,6 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
                                 categoryPhoto = oldCategoryPhoto
                             )
                                 categoryViewModel.modifyCategory(updatedCategory)
-                                navController.popBackStack()
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
                     ) {
