@@ -277,11 +277,8 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         }
                         Spacer(modifier = Modifier.height(10.dp))
                     }
-
                 }
-
             }
-
         }
         BottomSection(navController, userViewModel, 1)
 
