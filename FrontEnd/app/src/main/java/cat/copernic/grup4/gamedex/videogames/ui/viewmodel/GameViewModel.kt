@@ -19,8 +19,14 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
+/**
+ * ViewModel que conté la lògica de la vista de jocs.
+ *
+ * @param videogameUseCase Els casos d'ús per a les operacions de videojocs.
+ */
 open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewModel() {
 
+    // Emmagatzema si s'ha creat un joc o no
     private val _videogameCreated = MutableStateFlow<Boolean?>(null)
     val videogameCreated: StateFlow<Boolean?> = _videogameCreated
 
@@ -30,12 +36,26 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     private val _videogameGetAll = MutableStateFlow<List<Videogame>>(emptyList())
     open val allVideogame: StateFlow<List<Videogame>> = _videogameGetAll
 
+    private val _videogameGetAllInactive = MutableStateFlow<List<Videogame>>(emptyList())
+    open val allInactiveVideogame: StateFlow<List<Videogame>> = _videogameGetAllInactive
+
     private val _categories = MutableStateFlow<List<Category>>(emptyList())
     val categories: StateFlow<List<Category>> = _categories
 
     private val _videogameDeleted = MutableStateFlow<Boolean?>(null)
     val videogameDeleted: StateFlow<Boolean?> = _videogameDeleted
 
+    private val _videogameByCategory = MutableStateFlow<List<Videogame>>(emptyList())
+    val videogameByCategory: StateFlow<List<Videogame>> = _videogameByCategory
+
+    private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
+    val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
+
+     /**
+     * Crea un nou videojoc.
+     *
+     * @param videogame El videojoc a crear.
+     */
     fun createVideogame(videogame: Videogame) {
         viewModelScope.launch {
             val response = videogameUseCase.createVideogame(videogame)
@@ -43,14 +63,21 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
+    /**
+     * Obté un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     */
     fun videogamesById(gameId: String) {
         viewModelScope.launch {
             val response = videogameUseCase.videogamesById(gameId)
             _getVideogame.value = response.body()
-
         }
     }
 
+    /**
+     * Obté tots els videojocs.
+     */
     fun getAllVideogames() {
         viewModelScope.launch {
             val response = videogameUseCase.getAllVideogames()
@@ -58,6 +85,19 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
+    /**
+     * Obté tots els videojocs inactius.
+     */
+    fun getAllInactiveVideogames() {
+        viewModelScope.launch {
+            val response = videogameUseCase.getAllInactiveVideogames()
+            _videogameGetAllInactive.value = response.body() ?: emptyList()
+        }
+    }
+
+    /**
+     * Obté totes les categories de videojocs.
+     */
     fun getAllCategories() {
         viewModelScope.launch {
             val response = videogameUseCase.getAllCategories()
@@ -67,6 +107,11 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
+    /**
+     * Elimina un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     */
     fun deleteVideogame(gameId: String) {
         viewModelScope.launch {
             val response = videogameUseCase.deleteVideogame(gameId)
@@ -74,6 +119,12 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
+    /**
+     * Converteix una cadena Base64 a un Bitmap.
+     *
+     * @param base64 La cadena Base64 a convertir.
+     * @return El Bitmap resultant o null si hi ha un error.
+     */
     fun base64ToBitmap(base64: String): ImageBitmap? {
         return try {
             val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
@@ -85,6 +136,13 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
+    /**
+     * Converteix un URI a una cadena Base64.
+     *
+     * @param context El context.
+     * @param uri El URI a convertir.
+     * @return La cadena Base64 resultant o null si hi ha un error.
+     */
     fun uriToBase64(context: Context, uri: Uri): String? {
         return try {
             val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
@@ -103,6 +161,34 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         } catch (e: Exception) {
             e.printStackTrace()
             null
+        }
+    }
+
+    /**
+     * Valida un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     */
+    fun validateVideogame(gameId: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.validateVideogame(gameId)
+            if (response.isSuccessful) {
+                getAllInactiveVideogames()
+            }
+        }
+    }
+    
+    fun videogamesByCategory(categoryId: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.videogamesByCategory(categoryId)
+            _videogameByCategory.value = response.body() ?: emptyList()
+        }
+    }
+
+    fun searchVideogames(nameGame: String) {
+        viewModelScope.launch {
+            val response = videogameUseCase.videogamesByName(nameGame)
+            _videogameByName.value = response.body() ?: emptyList()
         }
     }
 }

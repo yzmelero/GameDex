@@ -1,6 +1,5 @@
 package cat.copernic.grup4.gamedex.Users.UI.ViewModel
 
-
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -21,6 +20,11 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
+/**
+ * ViewModel per gestionar les operacions d'usuaris.
+ *
+ * @param useCases Els casos d'ús per a les operacions d'usuaris.
+ */
 class UserViewModel(private val useCases: UseCases) : ViewModel() {
 
     private val _users = MutableStateFlow<List<User>>(emptyList())
@@ -54,11 +58,15 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
     private val _dropped = MutableStateFlow(0)
     val dropped: StateFlow<Int> = _dropped
 
-
     private val repository = UserRepository()
     private val _resetMessage = MutableStateFlow<String?>(null)
     val resetMessage: StateFlow<String?> = _resetMessage
 
+    /**
+     * Registra un nou usuari.
+     *
+     * @param user L'usuari a registrar.
+     */
     fun registerUser(user: User) {
         viewModelScope.launch {
             val response = useCases.registerUser(user)
@@ -66,12 +74,17 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    /**
+     * Inicia sessió amb les credencials proporcionades.
+     *
+     * @param username El nom d'usuari.
+     * @param password La contrasenya.
+     */
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
             val response = useCases.loginUser(username, password)
             _loginSuccess.value = response.isSuccessful
             if (response.isSuccessful) {
-
                 val userResponse = useCases.getUser(username)
                 if (userResponse.isSuccessful) {
                     val user = userResponse.body()
@@ -85,6 +98,9 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    /**
+     * Tanca la sessió de l'usuari actual.
+     */
     fun logoutUser() {
         _currentUser.value = null
         _loginSuccess.value = false
@@ -94,6 +110,9 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         listUsers()
     }
 
+    /**
+     * Llista tots els usuaris inactius.
+     */
     fun listInactiveUsers() {
         viewModelScope.launch {
             try {
@@ -106,16 +125,22 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     println("Error en la API: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                println("Error al obtener usuarios inactivos: ${e.message}")
+                println("Error al obtenir usuaris inactius: ${e.message}")
             }
         }
     }
 
+    /**
+     * Obté un usuari pel seu nom d'usuari.
+     *
+     * @param username El nom d'usuari.
+     * @return L'usuari obtingut o null si no es troba.
+     */
     suspend fun getUser(username: String): User? {
         return try {
             val response = useCases.getUser(username)
             if (response.isSuccessful) {
-                response.body() // ✅ Extraemos el User del Response
+                response.body()
             } else {
                 null
             }
@@ -124,12 +149,13 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
-
+    /**
+     * Llista tots els usuaris.
+     */
     fun listUsers() {
         viewModelScope.launch {
             try {
-                val response =
-                    useCases.listUsers()
+                val response = useCases.listUsers()
                 if (response.isSuccessful) {
                     response.body()?.let { userList ->
                         _users.value = userList
@@ -138,11 +164,17 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     println("API Error: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                println("Error obtaining users: ${e.message}")
+                println("Error obtenint usuaris: ${e.message}")
             }
         }
     }
 
+    /**
+     * Converteix una cadena Base64 a un Bitmap.
+     *
+     * @param base64 La cadena Base64 a convertir.
+     * @return El Bitmap resultant o null si hi ha un error.
+     */
     fun base64ToBitmap(base64: String): ImageBitmap? {
         return try {
             val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
@@ -154,6 +186,13 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    /**
+     * Converteix un URI a una cadena Base64.
+     *
+     * @param context El context.
+     * @param uri El URI a convertir.
+     * @return La cadena Base64 resultant o null si hi ha un error.
+     */
     fun uriToBase64(context: Context, uri: Uri): String? {
         return try {
             val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
@@ -168,13 +207,18 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
             }
 
             val byteArray = byteArrayOutputStream.toByteArray()
-            Base64.encodeToString(byteArray, Base64.DEFAULT) // Convertir a Base64
+            Base64.encodeToString(byteArray, Base64.DEFAULT)
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
 
+    /**
+     * Valida un usuari pel seu ID.
+     *
+     * @param userId L'ID de l'usuari.
+     */
     fun validateUser(userId: String) {
         viewModelScope.launch {
             val response = useCases.validateUser(userId)
@@ -184,6 +228,11 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    /**
+     * Actualitza un usuari.
+     *
+     * @param updatedUser L'usuari a actualitzar.
+     */
     fun updateUser(updatedUser: User) {
         viewModelScope.launch {
             val response = useCases.updateUser(updatedUser)
@@ -194,6 +243,11 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    /**
+     * Elimina un usuari pel seu ID.
+     *
+     * @param userId L'ID de l'usuari.
+     */
     fun deleteUser(userId: String) {
         viewModelScope.launch {
             val response = useCases.deleteUser(userId)
@@ -204,15 +258,17 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
-    //TODO STRINGS
+    /**
+     * Restableix la contrasenya d'un usuari.
+     *
+     * @param username El nom d'usuari.
+     * @param email El correu electrònic associat a la sol·licitud de restabliment de contrasenya.
+     */
     fun resetPassword(username: String, email: String) {
         viewModelScope.launch {
             try {
                 val response = repository.resetPassword(username, email)
-                Log.d(
-                    "RESET_PASSWORD",
-                    "Response code: ${response.code()}, Body: ${response.body()}"
-                )
+                Log.d("RESET_PASSWORD", "Response code: ${response.code()}, Body: ${response.body()}")
 
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -227,6 +283,11 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
         }
     }
 
+    /**
+     * Obté tots els usuaris associats a un ID d'usuari.
+     *
+     * @param userId L'ID de l'usuari.
+     */
     fun getAllUsersByUserId(userId: String) {
         viewModelScope.launch {
             try {
@@ -239,11 +300,17 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     println("API Error: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                println("Error obtaining users: ${e.message}")
+                println("Error obtenint usuaris: ${e.message}")
             }
         }
     }
 
+    /**
+     * Compta el nombre de jocs en una biblioteca per estat.
+     *
+     * @param userId L'ID de l'usuari.
+     * @param state L'estat dels jocs.
+     */
     fun countByUserAndState(userId: String, state: String) {
         viewModelScope.launch {
             try {
@@ -258,7 +325,7 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                println("Error obtaining users: ${e.message}")
+                println("Error obtenint usuaris: ${e.message}")
             }
         }
     }

@@ -14,39 +14,47 @@ import java.time.LocalDate;
 
 import org.slf4j.Logger;
 
+/**
+ * Classe principal de l'aplicació Gamedex.
+ */
 @SpringBootApplication
 public class GamedexApplication {
-	private static final Logger logger = LoggerFactory.getLogger(GamedexApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(GamedexApplication.class);
 
-	@Autowired
-	private static UserRepository userRepository;
+    @Autowired
+    private static UserRepository userRepository;
 
-	@Autowired
-	private static UserLogic userLogic;
+    @Autowired
+    private static UserLogic userLogic;
 
-	public static void main(String[] args) {
-		logger.info("Starting GamedexApplication...");
+    /**
+     * Mètode principal que inicia l'aplicació.
+     *
+     * @param args Arguments de la línia de comandes.
+     */
+    public static void main(String[] args) {
+        logger.info("Starting GamedexApplication...");
 
-		var context = SpringApplication.run(GamedexApplication.class, args);
-		userRepository = context.getBean(UserRepository.class);
-		userLogic = context.getBean(UserLogic.class);
+        var context = SpringApplication.run(GamedexApplication.class, args);
+        userRepository = context.getBean(UserRepository.class);
+        userLogic = context.getBean(UserLogic.class);
 
-		
-		User user = new User("user", "user", "usuari", "apellido", "user@gmail.com", 
-				876543224,
-				LocalDate.of(1990, 1, 1), null, true, UserType.USER);
-		if (userRepository.findById(user.getUsername()).isPresent()) {
-		}else
-		userLogic.createUser(user);
+        // Crear usuari d'exemple
+        User user = new User("user", "user", "usuari", "apellido", "user@gmail.com", 
+                876543224,
+                LocalDate.of(1990, 1, 1), null, true, UserType.USER);
+        if (userRepository.findById(user.getUsername()).isPresent()) {
+        } else {
+            userLogic.createUser(user);
+        }
 
-		// Crear administrador de ejemplo
-		User admin = new User("admin", "admin", "admin", "apellido", "admin@gmail.com", 876543221,
-				LocalDate.of(1985, 1, 1), null, true, UserType.ADMIN);
-		if (userRepository.findById(admin.getUsername()).isEmpty()) {
-			userLogic.createUser(admin);
-		}
+        // Crear administrador d'exemple
+        User admin = new User("admin", "admin", "admin", "apellido", "admin@gmail.com", 876543221,
+                LocalDate.of(1985, 1, 1), null, true, UserType.ADMIN);
+        if (userRepository.findById(admin.getUsername()).isEmpty()) {
+            userLogic.createUser(admin);
+        }
 
-		logger.info("GamedexApplication started successfully.");
-	}
-
+        logger.info("GamedexApplication started successfully.");
+    }
 }

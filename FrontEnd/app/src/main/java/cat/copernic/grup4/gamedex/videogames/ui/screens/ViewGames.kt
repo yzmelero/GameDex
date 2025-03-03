@@ -98,10 +98,12 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
 
     val comment by libraryViewModel.comments.collectAsState()
 
+    val rating by libraryViewModel.rating.collectAsState()
 
     LaunchedEffect(videogameDeleted) {
         if (videogameDeleted == true) {
-            Toast.makeText(context, "Videogame deleted succesfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.videogame_deleted_succesfully), Toast.LENGTH_SHORT).show()
             navController.navigate("listvideogames")
         }
     }
@@ -109,8 +111,9 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
     LaunchedEffect(gameId) {
         gameViewModel.videogamesById(gameId)
         libraryViewModel.getCommentsByGame(gameId)
-
+        libraryViewModel.getAverageRating(gameId)
     }
+
 
     Box(
         modifier = Modifier
@@ -124,7 +127,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it, gameViewModel, userViewModel, navController, comment) }
+            game?.let { GameCard(it, gameViewModel, userViewModel, navController, comment, rating) }
         }
         BottomSection(navController, userViewModel, 1)
     }
@@ -136,7 +139,8 @@ fun GameCard(
     gameViewModel: GameViewModel,
     userViewModel: UserViewModel,
     navController: NavController,
-    comment: List<Library>
+    comment: List<Library>,
+    rating: Double?
 ) {
     val currentUser = userViewModel.currentUser.collectAsState().value
     Column(
@@ -159,7 +163,6 @@ fun GameCard(
                     contentAlignment = Alignment.TopEnd
                 ) {
                     Icon(
-                        // TODO Afegir a la llibreria
                         imageVector = Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(R.string.addgame_library),
                         modifier = Modifier
@@ -199,7 +202,7 @@ fun GameCard(
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = ("⭐ " + 7.85 + " ⭐"),
+                            text = ("⭐ ${rating ?: "N/A"} ⭐"),
                             fontSize = 26.sp,
                             fontWeight = FontWeight.Bold,
                             color = colorResource(R.color.yellowdark),
@@ -304,28 +307,51 @@ fun GameCard(
                     .padding(bottom = 12.dp, end = 12.dp),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                IconButton(
-                    onClick = { videogame.gameId }
-                ) {
-                    Icon(
-                        // TODO Funció d'eliminar videojoc
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = stringResource(R.string.delete),
-                        modifier = Modifier
-                            .size(30.dp)
-                            .background(Color.Red, shape = RoundedCornerShape(50))
-                    )
-                }
+                if (currentUser?.userType == UserType.ADMIN) {
+                    var showDialog by remember { mutableStateOf(false) }
 
+                    IconButton(
+                        onClick = { showDialog = true }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = stringResource(R.string.delete),
+                            modifier = Modifier.size(30.dp)
+                                .background(Color.Red, shape = RoundedCornerShape(50))
+                        )
+                    }
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showDialog = false },
+                            title = { Text(stringResource(R.string.confirm_delete)) },
+                            text = { Text(stringResource(R.string.delete_question)) },
+                            confirmButton = {
+                                TextButton(onClick = {
+                                    videogame.gameId?.let {
+                                        gameViewModel.deleteVideogame(it)
+                                        showDialog = false
+                                        navController.popBackStack()
+                                    } ?: Log.e("DELETE_GAME", "Error: gameId is null or empty")
+                                }) {
+                                    Text(stringResource(R.string.delete), color = Color.Red)
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = {
+                                    showDialog = false
+                                }) { Text(stringResource(R.string.cancel)) }
+                            }
+                        )
+                    }
+                }
             }
         }
-        CommentsSection(videogame.gameId.toString(), comment)
-
+        CommentsSection(videogame.gameId.toString(), comment, navController)
     }
 }
 
 @Composable
-fun CommentsSection(gameId: String, comment: List<Library>) {
+fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController) {
 
 
     // TODO Fer tota la part dels comentaris ben feta
@@ -348,7 +374,13 @@ fun CommentsSection(gameId: String, comment: List<Library>) {
                     Icons.Default.Add,
                     contentDescription = stringResource(R.string.add_comment),
                     Modifier
-                        .clickable { /* TODO Mostrar imatge */ }
+                        .clickable {
+                            Log.d(
+                                "AddGameToLibraryScreen",
+                                "Navigating to game with ID: $gameId"
+                            )
+                            gameId?.let { navController.navigate("addToLibrary/$it") }
+                        }
                         .background(Color.Magenta, shape = RoundedCornerShape(50))
                         .clip(RoundedCornerShape(50))
                         .size(30.dp)
@@ -419,6 +451,7 @@ fun CommentItem(username: String, comment: String, rating: String) {
                         .size(30.dp)
                         .clip(RoundedCornerShape(50))
                         .background(Color.Red)
+                        .clickable { }
                 )
             }
         }

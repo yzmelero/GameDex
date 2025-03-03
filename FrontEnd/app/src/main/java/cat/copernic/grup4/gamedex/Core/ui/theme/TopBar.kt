@@ -38,6 +38,13 @@ import cat.copernic.grup4.gamedex.Users.Domain.UseCases
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 
+/**
+ * Funció composable que defineix la barra superior de l'aplicació.
+ *
+ * @param navController El controlador de navegació.
+ * @param profileImageRes La imatge de perfil de l'usuari.
+ * @param userViewModel El ViewModel de l'usuari.
+ */
 @Composable
 fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: UserViewModel) {
     val currentUser by userViewModel.currentUser.collectAsState()
@@ -58,8 +65,7 @@ fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: Us
                 .clip(CircleShape)
                 .background(Color.White, shape = CircleShape)
                 .padding(2.dp)
-                .clickable {navController.navigate("profile/${currentUser?.username}")
-                }
+                .clickable { navController.navigate("profile/${currentUser?.username}") }
         )
 
         Text(
@@ -82,6 +88,13 @@ fun TopBar(navController: NavController, profileImageRes: Int, userViewModel: Us
     }
 }
 
+/**
+ * Funció composable que defineix la barra superior de l'aplicació amb una imatge de perfil.
+ *
+ * @param navController El controlador de navegació.
+ * @param profileImageRes La imatge de perfil de l'usuari.
+ * @param userViewModel El ViewModel de l'usuari.
+ */
 @Composable
 fun TopBarImage(navController: NavController, profileImageRes: ImageBitmap?, userViewModel: UserViewModel) {
     val currentUser by userViewModel.currentUser.collectAsState()
@@ -103,7 +116,7 @@ fun TopBarImage(navController: NavController, profileImageRes: ImageBitmap?, use
                     .clip(CircleShape)
                     .background(Color.White, shape = CircleShape)
                     .padding(2.dp)
-                    .clickable {navController.navigate("profile/${currentUser?.username}")}
+                    .clickable { navController.navigate("profile/${currentUser?.username}") }
             )
         }
 
@@ -127,12 +140,14 @@ fun TopBarImage(navController: NavController, profileImageRes: ImageBitmap?, use
     }
 }
 
-
+/**
+ * Funció de previsualització per a la barra superior.
+ */
 @Preview(showBackground = true)
 @Composable
 fun PreviewTopBar() {
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-    val fakeNavController = rememberNavController() // ✅ Crear un NavController fals per la preview
+    val fakeNavController = rememberNavController() // Crear un NavController fals per la preview
     TopBar(navController = fakeNavController, profileImageRes = R.drawable.user, userViewModel = userViewModel)
 }

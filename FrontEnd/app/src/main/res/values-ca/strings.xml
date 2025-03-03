@@ -60,6 +60,7 @@
     <string name="validate_users">Validar usuaris</string>
     <string name="view_profile">Veure perfil</string>
     <string name="stateGame">Estat</string>
+    <string name="delete_category">Esborrar categoria</string>
     <string name="delete_user">Esborrar usuari</string>
     <string name="validate_user">Validar  usuari</string>
     <string name="view_user">Veure usuari</string>
@@ -74,6 +75,7 @@
     <string name="valide_game">Validar videojoc</string>
     <string name="confirm_delete">Confirmar l\'eliminació</string>
     <string name="delete">Esborrar</string>
+    <string name="photo_category">Imatge de la categoria</string>
     <string name="reset_password">Restableix la contrasenya</string>
     <string name="accept">Acceptar</string>
     <string name="delete_question">Estàs segur que vols esborrar? Aquesta opció no és reversible.</string>
@@ -81,6 +83,7 @@
     <string name="Delete">Esborrar</string>
     <string name="cancel">Cancel·lar</string>
     <string name="pending">Pendent</string>
+    <string name="all_fields_required">Error, has de completar tots els camps</string>
     <string name="imageSelect">Selecció d\'imatge</string>
     <string name="register_an_admin">Registrar un admin</string>
     <string name="search">Cerca...</string>
@@ -99,4 +102,10 @@
     <string name="edit_profile">Editar perfil</string>
     <string name="user_updated">Usuari actualitzat</string>
     <string name="error_updating_user">Error actualitzant usuari, revisa els camps si us plau</string>
+    <string name="videogames">Videojocs</string>
+    <string name="profile">Perfil</string>
+    <string name="gamePicture">Imatge del videojoc</string>
+    <string name="deleteGame">Esborrar videojoc</string>
+    <string name="please_select_a_category">Si us plau, selecciona una categoria</string>
+    <string name="videogame_deleted_succesfully">Videojoc esborrat correctament</string>
 </resources>

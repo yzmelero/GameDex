@@ -5,10 +5,65 @@ import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.videogames.data.VideogameRepository
 import retrofit2.Response
 
-class VideogameUseCase (private val repository: VideogameRepository) {
+/**
+ * Classe que encapsula els casos d'ús per a les operacions de videojocs.
+ *
+ * @param repository El repositori de videojocs.
+ */
+class VideogameUseCase(private val repository: VideogameRepository) {
+
+    /**
+     * Crea un nou videojoc.
+     *
+     * @param videogame El videojoc a crear.
+     * @return La resposta de la API amb el videojoc creat.
+     */
     suspend fun createVideogame(videogame: Videogame) = repository.createVideogame(videogame)
+
+    /**
+     * Obté un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API amb el videojoc obtingut.
+     */
     suspend fun videogamesById(gameId: String) = repository.videogamesById(gameId)
+
+    /**
+     * Obté tots els videojocs.
+     *
+     * @return La resposta de la API amb la llista de videojocs.
+     */
     suspend fun getAllVideogames() = repository.getAllVideogames()
+
+    /**
+     * Obté tots els videojocs inactius.
+     *
+     * @return La resposta de la API amb la llista de videojocs inactius.
+     */
+    suspend fun getAllInactiveVideogames() = repository.getAllInactiveVideogames()
+
+    /**
+     * Obté totes les categories de videojocs.
+     *
+     * @return La resposta de la API amb la llista de categories.
+     */
     suspend fun getAllCategories(): Response<List<Category>> = repository.getAllCategories()
+
+    /**
+     * Elimina un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API.
+     */
     suspend fun deleteVideogame(gameId: String) = repository.deleteVideogame(gameId)
+
+    /**
+     * Valida un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API amb el videojoc validat.
+     */
+    suspend fun validateVideogame(gameId: String) = repository.validateVideogame(gameId)
+    suspend fun videogamesByCategory(categoryId: String) = repository.videogamesByCategory(categoryId)
+    suspend fun videogamesByName(nameGame: String) = repository.videogamesByName(nameGame)
 }
