@@ -35,8 +35,8 @@ public class VideogameLogic {
                 }
 
                 // Validació de ageRecommendation (0-100)
-                if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 100) {
-                    throw new RuntimeException("Age recommendation must be between 0 and 100");
+                if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 50) {
+                    throw new RuntimeException("Age recommendation must be between 0 and 50");
                 }
                 // Comprobar si existeix un videojoc amb el mateix nom
                 // Optional evita els null
@@ -90,8 +90,8 @@ public class VideogameLogic {
                 }
 
                 if (videogame.getAgeRecommendation() != newVideogame.getAgeRecommendation()) {
-                    if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 100) {
-                        throw new RuntimeException("Age recommendation must be between 0 and 100");
+                    if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 50) {
+                        throw new RuntimeException("Age recommendation must be between 0 and 50");
                     }
                     newVideogame.setAgeRecommendation(videogame.getAgeRecommendation());
                 }
