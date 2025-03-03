@@ -1,6 +1,5 @@
 :hardbreaks:
 == [aqua]#9. IMPLEMENTACIÓ#
-=== [red]#FALTA POR HACER#
 
 === [aqua]#9.1. GITLAB#
 https://gitlab.com/grup48254144/gamedex

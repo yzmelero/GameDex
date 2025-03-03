@@ -529,7 +529,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_9_implementació"><span class="aqua">9. IMPLEMENTACIÓ</span></a>
 <ul class="sectlevel2">
-<li><a href="#_falta_por_hacer"><span class="red">FALTA POR HACER</span></a></li>
 <li><a href="#_9_1_gitlab"><span class="aqua">9.1. GITLAB</span></a></li>
 <li><a href="#_9_2_justificacio_de_decisions"><span class="aqua">9.2. JUSTIFICACIO DE DECISIONS</span></a></li>
 <li><a href="#_9_3_llistat_de_funcionalitats_finalitzades"><span class="aqua">9.3. LLISTAT DE FUNCIONALITATS FINALITZADES</span></a></li>
@@ -563,21 +562,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_10_1_12_llibreria"><span class="aqua">10.1.12. LLIBRERIA</span></a></li>
 <li><a href="#_10_1_13_afegir_videojoc_a_la_llibreria"><span class="aqua">10.1.13. AFEGIR VIDEOJOC A LA LLIBRERIA</span></a></li>
 <li><a href="#_10_1_14_modificar_entrada_de_la_llibreria"><span class="aqua">10.1.14. MODIFICAR ENTRADA DE LA LLIBRERIA</span></a></li>
-<li><a href="#_aqua10_1_15">[aqua]#10.1.15. #</a></li>
-<li><a href="#_aqua10_1">[aqua]#10.1.. #</a></li>
-<li><a href="#_aqua10_1_2">[aqua]#10.1.. #</a></li>
-<li><a href="#_aqua10_1_3">[aqua]#10.1.. #</a></li>
 </ul>
 </li>
 <li><a href="#_10_2_manual_dusuari_administrador"><span class="aqua">10.2. MANUAL D&#8217;USUARI "ADMINISTRADOR"</span></a>
 <ul class="sectlevel3">
 <li><a href="#_10_2_0_abans_de_començar"><span class="aqua">10.2.0. ABANS DE COMENÇAR</span></a></li>
-</ul>
-</li>
-<li><a href="#_falta_por_hacer_2"><span class="red">FALTA POR HACER</span></a>
-<ul class="sectlevel3">
 <li><a href="#_10_2_1_llistat_de_categories"><span class="aqua">10.2.1. LLISTAT DE CATEGORIES</span></a></li>
 <li><a href="#_10_2_2_afegir_categoria"><span class="aqua">10.2.2. AFEGIR CATEGORIA</span></a></li>
+<li><a href="#_10_2_3_consultar_categoria"><span class="aqua">10.2.3. CONSULTAR CATEGORIA</span></a></li>
+<li><a href="#_10_2_4_modificar_categoria"><span class="aqua">10.2.4. MODIFICAR CATEGORIA</span></a></li>
+<li><a href="#_10_2_5_llistat_de_videojocs"><span class="aqua">10.2.5. LLISTAT DE VIDEOJOCS</span></a></li>
+<li><a href="#_10_2_6_visualitzar_videojoc"><span class="aqua">10.2.6. VISUALITZAR VIDEOJOC</span></a></li>
+<li><a href="#_10_2_7_llistat_de_videojocs_per_verificar"><span class="aqua">10.2.7. LLISTAT DE VIDEOJOCS PER VERIFICAR</span></a></li>
+<li><a href="#_10_2_8_verificar_videojoc"><span class="aqua">10.2.8. VERIFICAR VIDEOJOC</span></a></li>
+<li><a href="#_10_2_9_llistat_dusuaris"><span class="aqua">10.2.9. LLISTAT D&#8217;USUARIS</span></a></li>
+<li><a href="#_10_2_10_afegir_administrador"><span class="aqua">10.2.10. AFEGIR ADMINISTRADOR</span></a></li>
+<li><a href="#_10_2_11_llistat_dusuaris_per_verificar"><span class="aqua">10.2.11. LLISTAT D&#8217;USUARIS PER VERIFICAR</span></a></li>
+<li><a href="#_10_2_12_verificar_usuari"><span class="aqua">10.2.12. VERIFICAR USUARI</span></a></li>
+<li><a href="#_10_2_13_visualitzar_usuari"><span class="aqua">10.2.13. VISUALITZAR USUARI</span></a></li>
 </ul>
 </li>
 </ul>
@@ -598,7 +600,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_12_video_promocional"><span class="aqua">12. VIDEO PROMOCIONAL</span></a>
 <ul class="sectlevel2">
-<li><a href="#_falta_por_hacer_3"><span class="red">FALTA POR HACER</span></a></li>
+<li><a href="#_falta_por_hacer"><span class="red">FALTA POR HACER</span></a></li>
 </ul>
 </li>
 <li><a href="#_13_portfolis"><span class="aqua">13. PORTFOLIS</span></a>
@@ -2581,10 +2583,6 @@ Ja de cara al següent projecte, el que hauria de fer seria plantejar-me molt mi
 <h2 id="_9_implementació"><span class="aqua">9. IMPLEMENTACIÓ</span></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_falta_por_hacer"><span class="red">FALTA POR HACER</span></h3>
-
-</div>
-<div class="sect2">
 <h3 id="_9_1_gitlab"><span class="aqua">9.1. GITLAB</span></h3>
 <div class="paragraph">
 <p><a href="https://gitlab.com/grup48254144/gamedex" class="bare">https://gitlab.com/grup48254144/gamedex</a></p>
@@ -2864,6 +2862,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <img src="./images/listCategories.png" alt="listCategories" width="500" height="900">
 </div>
 </div>
+<div class="paragraph">
+<p>En la pantalla de llistar categories, l’usuari pot observar tots els tipus de videojoc que s’han afegit a l’aplicació. A sota de la capçalera, trobem un buscador que ens permet filtrar pel nom de la categoria, l’usuari pot escriure el nom complet de la categoria o només una part i se li mostraran tots els resultats obtinguts. A sota hi ha la llista de categories, cada categoria és un ítem clicable que ens porta a visualitzar més informació sobre la categoria corresponent.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_10_1_5_consultar_categoria"><span class="aqua">10.1.5. CONSULTAR CATEGORIA</span></h4>
@@ -2871,6 +2872,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <div class="content">
 <img src="./images/viewCategory.png" alt="viewCategory" width="500" height="900">
 </div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar categoria podem veure més informació de la categoria seleccionada. Trobem el nom de la categoria, una imatge descriptiva, i una descripció sobre aquesta categoria.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2880,6 +2884,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <img src="./images/listVideogames.png" alt="listVideogames" width="500" height="900">
 </div>
 </div>
+<div class="paragraph">
+<p>En la pantalla de llistar videojocs l’usuari pot accedir a un llistat dels videojocs que existeixen a la base de dades de la nostra aplicació. A sota del títol, trobem un buscador que ens permet trobar més fàcilment el videojoc que estem buscant, podem escriure el nom complet i ens mostrarà només aquell resultat o, podem escriure només una part i ens mostrarà tots els resultats que coincideixin. Seguidament, trobem un menú desplegable que ens permet filtrar els videojocs per categoria. A sota trobem la llista de videojocs disponibles per als filtres que hem aplicat, si no posem cap filtre, trobarem tots els videojocs. Per cada resultat de videojoc, podem veure la seva imatge, el nom del videojoc, la categoria a la qual pertany i també tenim una icona clicable d’un ull que ens porta a la pàgina d’aquest videojoc. A la part inferior, trobem una icona amb un símbol “+”, clicant aquí, l’usuari pot accedir a presentar una nova proposta de videojoc.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_10_1_7_consultar_videojoc"><span class="aqua">10.1.7. CONSULTAR VIDEOJOC</span></h4>
@@ -2887,6 +2894,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <div class="content">
 <img src="./images/viewVideogame.png" alt="viewVideogame" width="500" height="900">
 </div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de visualitzar videojoc trobem la informació detallada del videojoc corresponent i un apartat de comentaris on trobem les ressenyes que han deixat els usuaris sobre aquest videojoc. La pantalla està dividida en dues parts, la zona superior és la dels detalls del videojoc. Aquí podem veure la imatge, el nom, la puntuació mitjana dels usuaris, el PEGI (edat recomanada), l’any de llançament, la categoria a la qual pertany, l’empresa creadora del videojoc, i una descripció del videojoc. A la zona superior dreta, trobem una icona en forma de cor que ens permet afegir aquest videojoc a la nostra biblioteca personal i, per tant, desar una ressenya. A la zona inferior de la pantalla, trobem el llistat de comentaris per aquest videojoc. Al costat del títol de “COMENTARIS”, trobem una icona amb el símbol “+”, el qual ens porta a afegir un videojoc a la biblioteca, és la mateixa funcionalitat que el botó amb el símbol del cor de la part superior. A sota del títol, trobem el llistat de comentaris on per cada comentari podem veure el nom de l’usuari que l’ha escrit, la puntuació que li ha posat i un comentari.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2897,7 +2907,7 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 </div>
 </div>
 <div class="paragraph">
-<p>Hem de tenir en compte que en afegir un videojoc, aquest haura de ser validat per un administrador abans de ser visible per la resta d&#8217;usuaris.</p>
+<p>En la pantalla d’afegir videojoc trobem un formulari amb la informació necessària perquè l’usuari pugui presentar una proposta de videojoc als administradors. Qualsevol proposta ha de ser validada per un administrador. El formulari consta dels camps següents: nom del videojoc, any de llançament, edat recomanada, empresa creadora del videojoc, un menú desplegable per a escollir la categoria a la qual pertany el videojoc, una descripció i una imatge descriptiva. Finalment, per a poder enviar la proposta hi ha un botó de confirmació.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2906,6 +2916,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <div class="content">
 <img src="./images/listUsers.png" alt="listUsers" width="500" height="900">
 </div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar usuaris, l’usuari pot trobar una llista de tots els usuaris independentment que hagin estat validats o no. A sota del títol, trobem un espai per a realitzar una cerca personalitzada segons el nom d’usuari, en aquest espai podem escriure el nom d’usuari complet o només una part i l’aplicació ens mostrarà els resultats obtinguts. A sota d’aquest espai, està la llista d’usuaris, on cada ítem té la imatge de perfil (si l’usuari en té), el nom d’usuari i una icona clicable que ens permet navegar al perfil de l’usuari corresponent.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2916,7 +2929,7 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 </div>
 </div>
 <div class="paragraph">
-<p>Trobarem un boto per a anar a modificar el perfil nomes si ens trobem al nostre perfil.</p>
+<p>En la pantalla de consultar el perfil de l’usuari, podem trobar informació de l’usuari corresponent. Els camps que podem veure són la imatge de perfil, el nom d’usuari i el recompte de videojocs filtrats per acabats, jugant, aquells que es volen jugar i aquells que no s’han finalitzat. Al costat de la imatge de perfil a l’esquerra, hi ha un botó amb un llapis (nomes si ens trobem al nostre perfil), que ens portarà a la pantalla de modificar el perfil de l’usuari. A sota del recompte de videojocs, trobem un botó que ens portarà a la llibreria de l’usuari.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2926,6 +2939,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <img src="./images/modifyProfile.png" alt="modifyProfile" width="500" height="900">
 </div>
 </div>
+<div class="paragraph">
+<p>En la pantalla de modificar el perfil de l’usuari, podem modificar les dades introduïdes de l’usuari, que són les mateixes que en la pantalla de registre: contrasenya, nom, cognom, correu electrònic, telèfon, data de naixement i imatge de perfil. L’únic camp que no és editable és el nom d’usuari. Si l’usuari no vol canviar la contrasenya, haurà de deixar el camp buit. A sota de la imatge, hi ha el botó de confirmar, el qual guardarà l’usuari actualitzat i ens portarà a la pantalla de visualitzar el perfil.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_10_1_12_llibreria"><span class="aqua">10.1.12. LLIBRERIA</span></h4>
@@ -2933,6 +2949,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <div class="content">
 <img src="./images/listLibrary.png" alt="listLibrary" width="500" height="900">
 </div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla l’usuari trobarà un llistat de tots els jocs que ha afegit a la seva llibreria. Cada entrada mostrarà el nom del videojoc, la seva categoria i l&#8217;estat en què l&#8217;usuari ha guardat el videojoc (Finalitzat, Pendent, Jugant, o Abandonat). També trobarà dos botons a la dreta, un vermell que eliminarà el videojoc de la seva llibreria i un fúcsia que ens permetrà editar l&#8217;entrada a ala llibreria.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2942,6 +2961,9 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <img src="./images/addVideogameToLibrary.png" alt="addVideogameToLibrary" width="500" height="900">
 </div>
 </div>
+<div class="paragraph">
+<p>Aquesta pantalla permet a l’usuari afegir un videojoc a la seva llibreria personal. Podrem introduir un estat, una puntuació i un comentari. Només serà necessari afegir l&#8217;estat, on l’usuari podrà escollir entre Finalitzat, Pendent, Jugant o Abandonat.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_10_1_14_modificar_entrada_de_la_llibreria"><span class="aqua">10.1.14. MODIFICAR ENTRADA DE LA LLIBRERIA</span></h4>
@@ -2950,37 +2972,8 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 <img src="./images/addVideogameToLibrary.png" alt="addVideogameToLibrary" width="500" height="900">
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_aqua10_1_15">[aqua]#10.1.15. #</h4>
-<div class="imageblock text-center">
-<div class="content">
-<img src="./images/.png" alt="" width="500" height="900">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_aqua10_1">[aqua]#10.1.. #</h4>
-<div class="imageblock text-center">
-<div class="content">
-<img src="./images/.png" alt="" width="500" height="900">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_aqua10_1_2">[aqua]#10.1.. #</h4>
-<div class="imageblock text-center">
-<div class="content">
-<img src="./images/.png" alt="" width="500" height="900">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_aqua10_1_3">[aqua]#10.1.. #</h4>
-<div class="imageblock text-center">
-<div class="content">
-<img src="./images/.png" alt="" width="500" height="900">
-</div>
+<div class="paragraph">
+<p>Aquesta pantalla permet a l’usuari modificar un videojoc de la seva llibreria personal. Podrem modificar l&#8217;estat, la puntuació i el comentari.</p>
 </div>
 </div>
 </div>
@@ -2993,15 +2986,15 @@ En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usu
 La barra inferior ens permet accedir a les diferents parts de l&#8217;aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d&#8217;usuaris, el perfil d’usuari i a la nostra llibreria respectivament.</p>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_falta_por_hacer_2"><span class="red">FALTA POR HACER</span></h3>
 <div class="sect3">
 <h4 id="_10_2_1_llistat_de_categories"><span class="aqua">10.2.1. LLISTAT DE CATEGORIES</span></h4>
 <div class="imageblock text-center">
 <div class="content">
 <img src="./images/listCategoriesAdmin.png" alt="listCategoriesAdmin" width="500" height="900">
 </div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar categories, l’usuari pot observar tots els tipus de videojoc que s’han afegit a l’aplicació. A sota de la capçalera, trobem un buscador que ens permet filtrar pel nom de la categoria, l’usuari pot escriure el nom complet de la categoria o només una part i se li mostraran tots els resultats obtinguts. A sota hi ha la llista de categories, cada categoria és un ítem clicable que ens porta a visualitzar més informació sobre la categoria corresponent. L’administrador a més podrà afegir noves categories amb el botó amb la icona d&#8217;un “+” a l&#8217;esquena inferior dreta de la pantalla.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3010,6 +3003,133 @@ La barra inferior ens permet accedir a les diferents parts de l&#8217;aplicació
 <div class="content">
 <img src="./images/addCategory.png" alt="addCategory" width="500" height="900">
 </div>
+</div>
+<div class="paragraph">
+<p>La pantalla d’afegir categoria és una pantalla exclusiva per l&#8217;Administrador, i el seu objectiu  és poder afegir noves categories per a després assignar-li videojocs. Per poder crear-la hem d’afegir el nom de la categoria, una descripció per la categoria que vols afegir i una imatge sobre la categoria que vols crear.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_3_consultar_categoria"><span class="aqua">10.2.3. CONSULTAR CATEGORIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewCategoryAdmin.png" alt="viewCategoryAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar categoria podem veure més informació de la categoria seleccionada. Trobem el nom de la categoria, una imatge descriptiva, i una descripció sobre aquesta categoria. L’administrador a més trobarà al costat del nom de la categoria, un botó vermell amb una icona d’una brossa on podrà eliminar la categoria corresponent i a sota de la informació, hi ha un botó rosa per a poder modificar la informació de la categoria: la descripció i la imatge.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_4_modificar_categoria"><span class="aqua">10.2.4. MODIFICAR CATEGORIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/modifyCategory.png" alt="modifyCategory" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>Per la pantalla de modificar categoria el que podrà fer l’administrador és modificar la descripció i la imatge de la categoria visualitzada anteriorment.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_5_llistat_de_videojocs"><span class="aqua">10.2.5. LLISTAT DE VIDEOJOCS</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listVideogamesAdmin.png" alt="listVideogamesAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar videojocs l’usuari pot accedir a un llistat dels videojocs que existeixen a la base de dades de la nostra aplicació. A sota del títol, trobem un buscador que ens permet trobar més fàcilment el videojoc que estem buscant, podem escriure el nom complet i ens mostrarà només aquell resultat o, podem escriure només una part i ens mostrarà tots els resultats que coincideixin. Seguidament, trobem un menú desplegable que ens permet filtrar els videojocs per categoria. A sota trobem la llista de videojocs disponibles per als filtres que hem aplicat, si no posem cap filtre, trobarem tots els videojocs. Per cada resultat de videojoc, podem veure la seva imatge, el nom del videojoc, la categoria a la qual pertany i també tenim una icona clicable d’un ull que ens porta a la pàgina d’aquest videojoc. A la part inferior, trobem una icona amb un símbol “+”, clicant aquí, l’usuari pot accedir a presentar una nova proposta de videojoc.<br>
+A més l’administrador trobarà un botó a la part inferior esquerra amb un tic, que el permetrà anar al llistat de videojocs per verificar.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_6_visualitzar_videojoc"><span class="aqua">10.2.6. VISUALITZAR VIDEOJOC</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewVideogameAdmin.png" alt="viewVideogameAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de visualitzar videojoc trobem la informació detallada del videojoc corresponent i un apartat de comentaris on trobem les ressenyes que han deixat els usuaris sobre aquest videojoc. La pantalla està dividida en dues parts, la zona superior és la dels detalls del videojoc. Aquí podem veure la imatge, el nom, la puntuació mitjana dels usuaris, el PEGI (edat recomanada), l’any de llançament, la categoria a la qual pertany, l’empresa creadora del videojoc, i una descripció del videojoc. A la zona superior dreta, trobem una icona en forma de cor que ens permet afegir aquest videojoc a la nostra biblioteca personal i, per tant, desar una ressenya. A la zona inferior de la pantalla, trobem el llistat de comentaris per aquest videojoc. Al costat del títol de “COMENTARIS”, trobem una icona amb el símbol “+”, el qual ens porta a afegir un videojoc a la biblioteca, és la mateixa funcionalitat que el botó amb el símbol del cor de la part superior. A sota del títol, trobem el llistat de comentaris on per cada comentari podem veure el nom de l’usuari que l’ha escrit, la puntuació que li ha posat i un comentari.  L&#8217;administrador a més, té diverses opcions més. A la part superior a sota de la descripció, té un botó rosa per a poder modificar la informació del videojoc. A sota hi ha un botó vermell amb l&#8217;icona d&#8217;una brossa, aquí pot esborrar el videojoc.<br>
+En la secció de comentaris, l&#8217;administrador pot esborrar qualsevol comentari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_7_llistat_de_videojocs_per_verificar"><span class="aqua">10.2.7. LLISTAT DE VIDEOJOCS PER VERIFICAR</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/verifyVideogamesList.png" alt="verifyVideogamesList" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistat de videojocs per validar, l’administrador pot veure una llista de totes les propostes de videojocs que els usuaris han fet. Aquesta llista es troba a sota del títol. Per a cada proposta podem trobar una imatge, el nom del videojoc i la seva categoria. A la dreta d’aquesta informació trobem una icona amb un ull, en clicar-la, anirem a la pantalla de verificar videojoc.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_8_verificar_videojoc"><span class="aqua">10.2.8. VERIFICAR VIDEOJOC</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/verifyVideogame.png" alt="verifyVideogame" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de verificar videojoc, l&#8217;administrador pot acceptar o eliminar la proposta feta per un usuari. Primer trobarà tota la informació: el nom, una imatge, l&#8217;edat recomanada, l&#8217;any de llançament, l&#8217;empresa que ha creat el videojoc, la categoria a la qual pertany i una descripció. A la part inferior hi ha dos botons, un verd per acceptar la proposta i un vermell per a eliminar-la.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_9_llistat_dusuaris"><span class="aqua">10.2.9. LLISTAT D&#8217;USUARIS</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listUsersAdmin.png" alt="listUsersAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar usuaris, l’usuari pot trobar una llista de tots els usuaris independentment que hagin estat validats o no. A sota del títol, trobem un espai per a realitzar una cerca personalitzada segons el nom d’usuari, en aquest espai podem escriure el nom d’usuari complet o només una part i l’aplicació ens mostrarà els resultats obtinguts. A sota d’aquest espai, està la llista d’usuaris, on cada ítem té la imatge de perfil (si l’usuari en té), el nom d’usuari i una icona clicable que ens permet navegar al perfil de l’usuari corresponent. Si accedim com a Administrador a sota de la barra de recerca trobarem dos botons, un per crear un usuari administrador i l’altre per verificar els nous usuaris que s’han registrat.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_10_afegir_administrador"><span class="aqua">10.2.10. AFEGIR ADMINISTRADOR</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/addAdmin.png" alt="addAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla trobem un formulari que l&#8217;administrador ha d’omplir per a poder registrar nous administradors. Els camps que el componen són: nom d’usuari, nom, cognom, contrasenya, correu electrònic, telèfon, data de naixement i hi ha un camp per afegir una imatge de la galeria del telèfon.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_11_llistat_dusuaris_per_verificar"><span class="aqua">10.2.11. LLISTAT D&#8217;USUARIS PER VERIFICAR</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/validateUsersList.png" alt="validateUsersList" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla es mostrarà una llista de tots els usuaris que s’han registrat en la nostra aplicació i encara no han estat validats. Es mostrarà el nom de l’usuari i el seu avatar. Podrem accedir a la informació d’aquell usuari fent clic a la icona del costat dret de la targeta de l’usuari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_12_verificar_usuari"><span class="aqua">10.2.12. VERIFICAR USUARI</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/validateUser.png" alt="validateUser" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de validar un usuari, l&#8217;administrador pot acceptar la validació d&#8217;un usuari o eliminar-lo. En aquesta pantalla trobem les dades de l&#8217;usuari registrat, una imatge de perfil, el nom d&#8217;usuari, nom, cognom, telèfon, data de naixement, tipus d&#8217;usuari (usuari o administrador) i l&#8217;estat del registre de l&#8217;usuari. A sota hi ha dos botons, validar usuari per acceptar el registre i un per eliminar a l&#8217;usuari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_13_visualitzar_usuari"><span class="aqua">10.2.13. VISUALITZAR USUARI</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewProfileAdmin.png" alt="viewProfileAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar el perfil de l’usuari, podem trobar informació de l’usuari corresponent. Els camps que podem veure són la imatge de perfil, el nom d’usuari i el recompte de videojocs filtrats per acabats, jugant, aquells que es volen jugar i aquells que no s’han finalitzat. Al costat de la imatge de perfil a l’esquerra, hi ha un botó amb un llapis, que ens portarà a la pantalla de modificar el perfil de l’usuari. A sota del recompte de videojocs, trobem un botó que ens portarà a la llibreria de l’usuari.<br>
+L&#8217;administrador a més podra esborrar tots els perfils que no siguin el seu.</p>
 </div>
 </div>
 </div>
@@ -3371,7 +3491,7 @@ Després de la recerca i, tenint en compte la nostra situació geogràfica, hem 
 <h2 id="_12_video_promocional"><span class="aqua">12. VIDEO PROMOCIONAL</span></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_falta_por_hacer_3"><span class="red">FALTA POR HACER</span></h3>
+<h3 id="_falta_por_hacer"><span class="red">FALTA POR HACER</span></h3>
 
 </div>
 </div>
@@ -3440,7 +3560,7 @@ Després de la recerca i, tenint en compte la nostra situació geogràfica, hem 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-03 19:41:20 +0100
+Last updated 2025-03-03 21:22:30 +0100
 </div>
 </div>
 </body>
