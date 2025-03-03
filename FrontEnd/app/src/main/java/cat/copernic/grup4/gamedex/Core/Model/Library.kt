@@ -1,10 +1,17 @@
 package cat.copernic.grup4.gamedex.Core.Model
 
-import cat.copernic.grup4.gamedex.Core.Model.StateType
-import cat.copernic.grup4.gamedex.Core.Model.Videogame
-
+/**
+ * Classe que representa una biblioteca de videojocs.
+ *
+ * @param idLibrary L'identificador de la biblioteca.
+ * @param user L'usuari propietari de la biblioteca.
+ * @param videogame El videojoc a la biblioteca.
+ * @param state L'estat del videojoc a la biblioteca.
+ * @param description La descripció del videojoc a la biblioteca.
+ * @param rating La puntuació del videojoc a la biblioteca.
+ * @param publishedDate La data de publicació del videojoc a la biblioteca.
+ */
 data class Library(
-
     val idLibrary: String,
     val user: User,
     val videogame: Videogame,

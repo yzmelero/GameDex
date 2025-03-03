@@ -35,6 +35,11 @@ import cat.copernic.grup4.gamedex.videogames.ui.screens.ListInactiveGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ModifyGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ValidateGamesScreen
 
+/**
+ * Funció composable que defineix la navegació de l'aplicació.
+ *
+ * @param userViewModel El ViewModel de l'usuari.
+ */
 @Composable
 fun AppNavigation(userViewModel: UserViewModel) {
     val navController = rememberNavController()

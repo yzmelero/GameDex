@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.apiController.UserApiController;
 import cat.copernic.gamedex.entity.User;
-import cat.copernic.gamedex.entity.UserType;
 import cat.copernic.gamedex.repository.UserRepository;
 
+/**
+ * Lògica de negoci per gestionar els usuaris.
+ */
 @Service
 public class UserLogic {
 
@@ -25,8 +27,12 @@ public class UserLogic {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * Valida els camps d'un usuari.
+     *
+     * @param user L'usuari a validar.
+     */
     public void validations(User user) {
-
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         if (!user.getEmail().matches(emailRegex)) {
             throw new RuntimeException("Invalid email format");
@@ -37,6 +43,12 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Crea un nou usuari.
+     *
+     * @param user L'usuari a crear.
+     * @return L'usuari creat.
+     */
     public User createUser(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
@@ -49,11 +61,6 @@ public class UserLogic {
                 throw new RuntimeException("Empty fields are not allowed");
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            // Estas dos lineas hacen que el usuario creado por defecto sea un usuario
-            // normal y no un admin y que este desactivado.
-            /*
-             * user.setState(false); user.setUserType(UserType.USER);
-             */
 
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 throw new RuntimeException("Email already exists");
@@ -71,20 +78,12 @@ public class UserLogic {
         }
     }
 
-    /*
-     * public User createAdmin(User user) { try { Optional<User> oldUser =
-     * userRepository.findById(user.getUsername()); if (oldUser.isPresent()) { throw
-     * new RuntimeException("User already exists"); }
-     * 
-     * // Estas dos lineas hacen que el usuario creado por defecto sea un usuario //
-     * normal y no un admin y que este desactivado. user.setState(true);
-     * user.setUserType(UserType.ADMIN);
-     * 
-     * return userRepository.save(user); } catch (RuntimeException e) { throw e; //
-     * Re-throw the original RuntimeException } catch (Exception e) { throw new
-     * RuntimeException("Unexpected error creating user"); } }
+    /**
+     * Modifica un usuari existent.
+     *
+     * @param user L'usuari amb les dades actualitzades.
+     * @return L'usuari modificat.
      */
-
     public User modifyUser(User user) {
         try {
             Optional<User> oldUser = userRepository.findById(user.getUsername());
@@ -96,7 +95,6 @@ public class UserLogic {
                 if ((user.getPassword() != newUser.getPassword()) && !user.getPassword().isEmpty()
                         && !user.getPassword().isBlank()) {
                     newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-
                 }
 
                 if ((user.getName() != newUser.getName()) && !user.getName().isEmpty()) {
@@ -141,10 +139,14 @@ public class UserLogic {
             throw e; // Re-throw the original RuntimeException
         } catch (Exception e) {
             throw new RuntimeException("Unexpected error modifying user");
-
         }
     }
 
+    /**
+     * Elimina un usuari pel seu nom d'usuari.
+     *
+     * @param username El nom d'usuari.
+     */
     public void deleteUser(String username) {
         try {
             Optional<User> user = userRepository.findById(username);
@@ -159,6 +161,11 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Obté tots els usuaris.
+     *
+     * @return Una llista de tots els usuaris.
+     */
     public List<User> getAllUsers() {
         try {
             return userRepository.findAll();
@@ -169,6 +176,11 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Obté tots els usuaris inactius.
+     *
+     * @return Una llista de tots els usuaris inactius.
+     */
     public List<User> getInactiveUsers() {
         try {
             log.info("Getting inactive users");
@@ -178,10 +190,22 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Obté un usuari pel seu ID.
+     *
+     * @param userId L'ID de l'usuari.
+     * @return L'usuari amb l'ID especificat.
+     */
     public User getUserById(String userId) {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    /**
+     * Obté usuaris pel seu nom d'usuari.
+     *
+     * @param username El nom d'usuari.
+     * @return Una llista d'usuaris que coincideixen amb el nom d'usuari.
+     */
     public List<User> getUserByUsername(String username) {
         try {
             return userRepository.findByUsernameContaining(username);
@@ -190,6 +214,12 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Valida un usuari pel seu ID.
+     *
+     * @param userId L'ID de l'usuari a validar.
+     * @return L'usuari validat.
+     */
     public User validateUser(String userId) {
         try {
             Optional<User> userOptional = userRepository.findById(userId);
@@ -206,10 +236,25 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Comprova si un usuari existeix pel seu nom d'usuari i correu electrònic.
+     *
+     * @param username El nom d'usuari.
+     * @param email    El correu electrònic.
+     * @return Cert si l'usuari existeix, fals en cas contrari.
+     */
     public boolean userExists(String username, String email) {
         return userRepository.findByUsernameAndEmail(username, email).isPresent();
     }
 
+    /**
+     * Actualitza la contrasenya d'un usuari.
+     *
+     * @param username El nom d'usuari.
+     * @param email    El correu electrònic.
+     * @return Cert si la contrasenya s'ha actualitzat correctament, fals en cas
+     *         contrari.
+     */
     public boolean updatePassword(String username, String email) {
         Optional<User> userFound = userRepository.findByUsername(username);
         User user = userFound.get();
