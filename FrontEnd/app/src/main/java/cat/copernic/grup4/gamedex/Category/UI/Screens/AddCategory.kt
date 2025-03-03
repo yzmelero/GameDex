@@ -174,7 +174,7 @@ fun AddCategoryScreen(navController: NavController, userViewModel: UserViewModel
                     context.getString(R.string.category_added),
                     Toast.LENGTH_LONG
                 ).show()
-                navController.navigate("list_category") {
+                navController.navigate("list_category/") {
                     popUpTo("add_category") { inclusive = true }
                 }
             } else {

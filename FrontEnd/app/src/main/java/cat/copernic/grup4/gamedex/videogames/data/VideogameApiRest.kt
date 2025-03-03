@@ -10,32 +10,68 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-// Interfície que conté les crides a la API REST per comunicar-se amb el backend
+/**
+ * Interfície que conté les crides a la API REST per comunicar-se amb el backend.
+ */
 interface VideogameApiRest {
 
-    @POST("videogame/create") // Indica que es farà una petició POST a la ruta "videogame/create"
-    // suspend fa que faci peticions en segon pla sense bloquejar la UI
-    suspend fun createVideogame(@Body videogame: Videogame): Response<Videogame> 
-    // Response representa la resposta de la petició HTTP més el cos de la resposta (en aquest cas, un Videogame)
-    // La resposta del servidor amb el nou joc creat
+    /**
+     * Crea un nou videojoc.
+     *
+     * @param videogame El videojoc a crear.
+     * @return La resposta de la API amb el videojoc creat.
+     */
+    @POST("videogame/create")
+    suspend fun createVideogame(@Body videogame: Videogame): Response<Videogame>
 
+    /**
+     * Obté un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API amb el videojoc obtingut.
+     */
     @GET("videogame/byId/{gameId}")
     suspend fun videogamesById(@Path("gameId") gameId: String): Response<Videogame>
-    // @Path("gameId") indica que el valor de gameId es substituirà a la ruta de la petició retornant la informació del joc amb aquesta ID
 
+    /**
+     * Obté tots els videojocs.
+     *
+     * @return La resposta de la API amb la llista de videojocs.
+     */
     @GET("videogame/all")
     suspend fun getAllVideogames(): Response<List<Videogame>>
 
+    /**
+     * Obté tots els videojocs inactius.
+     *
+     * @return La resposta de la API amb la llista de videojocs inactius.
+     */
     @GET("videogame/all/inactive")
     suspend fun getAllInactiveVideogames(): Response<List<Videogame>>
 
+    /**
+     * Obté totes les categories de videojocs.
+     *
+     * @return La resposta de la API amb la llista de categories.
+     */
     @GET("videogame/categories")
     suspend fun getAllCategories(): Response<List<Category>>
 
+    /**
+     * Elimina un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API.
+     */
     @DELETE("videogame/delete/{gameId}")
     suspend fun deleteVideogame(@Path("gameId") gameId: String): Response<Void>
-    // Es void perquè no retorna res, només elimina el joc amb la ID gameId i conté el codi de resposta HTTP
 
+    /**
+     * Valida un videojoc pel seu ID.
+     *
+     * @param gameId L'ID del videojoc.
+     * @return La resposta de la API amb el videojoc validat.
+     */
     @PUT("videogame/validate/{gameId}")
     suspend fun validateVideogame(@Path("gameId") gameId: String): Response<Videogame>
 
