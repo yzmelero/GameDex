@@ -71,12 +71,9 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
      *
      * @param gameId L'ID del videojoc.
      */
-    fun videogamesById(gameId: String) {
-        viewModelScope.launch {
     suspend fun videogamesById(gameId: String): Videogame? {
         return try {
             val response = videogameUseCase.videogamesById(gameId)
-            _getVideogame.value = response.body()
             if (response.isSuccessful) {
                 val game = response.body()
                 _getVideogame.value = game
@@ -191,10 +188,10 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             }
         }
     }
-    
+
     /**
      * Obté els videojocs d'una categoria.
-     * 
+     *
      * @param categoryId L'ID de la categoria.
      */
     fun videogamesByCategory(categoryId: String) {
@@ -206,7 +203,7 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
 
     /**
      * Cerca videojocs pel seu nom.
-     * 
+     *
      * @param nameGame El nom del videojoc.
      */
     fun searchVideogames(nameGame: String) {
@@ -218,7 +215,7 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
 
     /**
      * Modifica un videojoc.
-     * 
+     *
      * @param videogame El videojoc a modificar.
      */
     fun updateVideogame(videogame: Videogame) {
