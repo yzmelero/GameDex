@@ -1,4 +1,145 @@
 :hardbreaks:
 == [aqua]#10. MANUAL D'USUARI#
+
+Per a accedir a la nostra aplicació cal tenir MongoDB versió 1.45, JDK versió 21, i un dispositiu mòbil o emulador. 
+La base de dades es troba sota el nom de “Projecte3GameDex”. 
+L'aplicació té dos usuaris per defecte, un administrador i un usuari “normal”. 
+
+
+**Administrador:**
+
+** Username: admin
+
+** Password: admin
+
+**Usuari:** 
+
+** Username: user
+
+** Password: user
+
+
+La base de dades no té cap contrasenya.
+
+
+=== [aqua]#10.1. MANUAL D'USUARI "CLIENT"#
+
+==== [aqua]#10.1.0. ABANS DE COMENÇAR#
+
+En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l'esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l'aplicació.
+La barra inferior ens permet accedir a les diferents parts de l'aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d'usuaris, el perfil d’usuari i a la nostra llibreria respectivament.
+
+==== [aqua]#10.1.1 LOGIN#
+
+image::login.png[align="center"]
+
+Aquesta és la pantalla d'inici de sessió, on l'usuari ha d'introduir el seu nom d'usuari i contrasenya per a poder accedir a l'aplicació.
+L'usuari també tindrà l'opció d'enregistrar-se si no té un compte o de recuperar la seva contrasenya en cas d'haver-la oblidat.
+En clicar el botó de "confirmar", si les credencials son correctes, l'usuari serà redirigit a la pantalla principal de l'aplicació.
+
+==== [aqua]#10.1.2. REGISTRE#
+
+image::signUp.png[align="center"]
+
+==== [aqua]#10.1.3. RESETEJAR CONTRASENYA#
+
+image::forgotYourPassword.png[align="center"]
+
+==== [aqua]#10.1.4. LLISTAT DE CATEGORIES#
+
+image::listCategories.png[align="center"]
+
+==== [aqua]#10.1.5. CONSULTAR CATEGORIA#
+
+image::viewCategory.png[align="center"]
+
+==== [aqua]#10.1.6. LLISTAT DE VIDEOJOCS#
+
+image::listVideogames.png[align="center"]
+
+==== [aqua]#10.1.7. CONSULTAR VIDEOJOC#
+
+image::viewVideogame.png[align="center"]
+
+==== [aqua]#10.1.8. AFEGIR VIDEOJOC #
+
+image::addVideogame.png[align="center"]
+
+Hem de tenir en compte que en afegir un videojoc, aquest haura de ser validat per un administrador abans de ser visible per la resta d'usuaris.
+
+==== [aqua]#10.1.9. LLISTAT D'USUARIS #
+
+image::listUsers.png[align="center"]
+
+==== [aqua]#10.1.10. VIEW PROFILE #
+
+image::viewProfile.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center"]
+
+=== [aqua]#10.2. MANUAL D'USUARI "ADMINISTRADOR"#
+
+==== [aqua]#10.2.0. ABANS DE COMENÇAR#
+
+En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l'esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l'aplicació.
+La barra inferior ens permet accedir a les diferents parts de l'aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d'usuaris, el perfil d’usuari i a la nostra llibreria respectivament.
+
 === [red]#FALTA POR HACER#
-//TODO: FALTA POR HACER
+
+==== [aqua]#10.2.1. LLISTAT DE CATEGORIES #
+
+image::listCategoriesAdmin.png[align="center"]
+
+==== [aqua]#10.2.2. AFEGIR CATEGORIA #
+
+image::addCategory.png[align="center"]

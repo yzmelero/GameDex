@@ -7,11 +7,103 @@ https://gitlab.com/grup48254144/gamedex
 
 === [aqua]#9.2. JUSTIFICACIO DE DECISIONS#
 
+** RF30 “Afegir comentari” i RF41 “Afegir videojoc a la biblioteca” han estat fusionats. Els comentaris formen part de la relació entre videojoc i usuari, i per tant els emmagatzemem en la relació “Library”/”Biblioteca”, com a atributs. 
+
+** L’usuari inicia sessió amb el nom d’usuari i la contrasenya. El correu electrònic l’hem destinat només per a validar l’usuari a l’hora de recuperar la contrasenya. 
+
+** En el requisit funcional 08 “Llistar usuaris”, es demana que sigui l’administrador qui pugui visualitzar una llista de tots els usuaris. Nosaltres hem decidit que per a la nostra aplicació era més convenient que tots els usuaris puguin accedir a la llista de tots els usuaris per a poder visualitzar els seus perfils. No obstant, en la pantalla d’usuaris, hi ha algunes funcions que només estan disponibles per a l’administrador, com ara el botó de validar. 
+
+** Per conveniència, tots els usuaris poden accedir a un filtre a la pàgina d’usuaris per a poder filtrar-los per username. 
+
+** Tots els usuaris poden accedir a visualitzar els perfils dels altres usuaris.
+
+** Hem afegit un RF41, en el qual un usuari pot afegir qualsevol videojoc que hagi estat validat a la seva biblioteca.
+
+** Tots els usuaris poden accedir a la seva biblioteca per a veure els videojocs afegits.
+
+** En l’RF34 “(RF34) Eliminar comentaris”, l’usuari que ha posat el comentari també pot esborrar el seu propi comentari.
+
+** Hem decidit que pots guardar un videojoc a la teva biblioteca però sense puntuació ni comentari, per tant hem post l’estat default en “want to play” i aquests comentaris no es llisten en la pàgina de veure videojocs. 
+
+** Quan es va parlar de la implementació de seguretat per a l’aplicació, se’ns va dir que no feia falta fer seguretat, només l’autenticació i fer algún tipus d’encriptació per a la contrasenya, així que hem fet justament això. Per a la recuperació de la contrasenya, hem fet un sistema on en clicar el botó “Forgot your password?”, et portés a una pantalla on l’usuari introdueix el seu nom d’usuari i el correu electrònic i el sistema verifica que existeixi aquest usuari i que el correu electrònic sigui el correcte, aleshores surt un missatge avisant que s’ha canviat la contrasenya, se li mostra per pantalla la propia contrasenya  i se li demana clicar un botó per a confirmar que s’ha llegit.
+
+
 === [aqua]#9.3. LLISTAT DE FUNCIONALITATS FINALITZADES#
+
+** (RF01) Login Usuari
+
+** (RF02) Registre Usuari
+
+** (RF45) Registre d’administrador
+
+** (RF03) Recuperar contrasenya
+
+** (RF04) Editar perfil usuari
+
+** (RF48) Consultar perfil d’usuari
+
+** (RF05) Logout
+
+** (RF06) Validar Usuaris
+
+** (RF07) Eliminar usuari
+
+** (RF08) Llistar usuaris
+
+** (RF09) Modificar usuaris
+
+** (RF44) Filtre d’usuaris
+
+** (RF46) Consultar usuari
+
+** (RF10) Crear categoria
+
+** (RF11) Llistar categories:
+
+** (RF12) Filtrar per categoria
+
+** (RF13) Consultar categoria
+
+** (RF14) Modificar categoria
+
+** (RF15) Eliminar categoria
+
+** (RF16) Filtrar Videojocs per Categories
+
+** (RF20) Afegir videojoc
+
+** (RF21) Llistar videojocs
+
+** (RF22) Filtrar videojocs
+
+** (RF24) Consultar videojoc
+
+** (RF25) Modificar videojoc
+
+** (RF26) Eliminar videojoc
+
+** (RF40) Validar proposta de videojocs
+
+** (RF41) Afegir videojoc a biblioteca personal
+
+** (RF42) Modificar videojoc a la biblioteca personal
+
+** (RF43) Eliminar videojoc de la biblioteca personal
+
+** (RF47) Consultar biblioteca personal
+
+** (RF30) Afegir comentaris
+
+** (RF33) Visualitzar puntuació mitjana
+
+** (RF34) Eliminar comentaris
+
 
 === [aqua]#9.4. LLISTAT D'INCIDENCIES#
 
 ==== [aqua]#9.4.1. MARIO#
+
+En el meu cas no he tingut gaires incidències, tot i això, alguns petits problemes sí que he trobat al llarg del projecte. En primer lloc, he trobat dificultats a fer les pantalles amb android studio, ja que tot i que no era un procés gaire difícil, al començament no quedava tot com m’agradava, però després vaig aprendre a fer millor les pantalles. També vaig trobar moltes dificultats amb les imatges perquè no sabíem com gestionar correctament les imatges i amb molt de temps i de recerca a internet vaig aconseguir que funcionessin com volíem. Per últim, l’API va costar molt de gestionar al començament, ja que els exemples de connexió amb API que havíem fet a classe eren molt més senzills que el que es requeria al projecte.
 
 ==== [aqua]#9.4.2. ANNA#
 
@@ -20,3 +112,4 @@ https://gitlab.com/grup48254144/gamedex
 ==== [aqua]#9.4.4. YAIZA#
 
 ==== [aqua]#9.4.5. GRUP#
+Grupalment, hem trobat un gran problema al llarg de tot el projecte que ens ha endarrerit molt. La principal incidència que hem trobat a escala grupal és amb les eines de treball, els requisits de sistema per a l’ús d’emuladors a l’Android Studio són molt exigents i no coincideixen amb els requisits de sistema mínims que se’ns van demanar de cara a tenir un portàtil per a poder començar el grau. Això ens ha portat a tenir dos portàtils en el nostre grup que no podien provar les funcionalitats que s’anaven fent. A més, feien els portàtils anar amb molt de lag i s’acabaven congelant tota l’estona. 
