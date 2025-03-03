@@ -64,7 +64,7 @@ public class CategoryApiController {
      * @param category La categoria amb les modificacions.
      * @return La categoria modificada.
      */
-    @PutMapping("/modify")
+    @PutMapping("/modify/{nameCategory}")
     public ResponseEntity<Category> modifyCategory(@RequestBody Category category) {
         log.info("Modifying category: " + category.toString());
         Category updatedCategory = categoryLogic.modifyCategory(category);

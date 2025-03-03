@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Categories.UI.Screens.ModifyCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.AddCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
 import cat.copernic.grup4.gamedex.Category.UI.Screens.ListCategoryScreen
@@ -65,5 +66,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("libraryScreen") {LibraryScreen(navController,userViewModel)}
         composable("listInactiveGames") { ListInactiveGamesScreen(navController, userViewModel) }
         composable("validateGame/{gameId}") { ValidateGamesScreen(navController, userViewModel) }
+        composable("modify_category/{categoryId}") { ModifyCategoryScreen(navController, userViewModel) }
     }
 }

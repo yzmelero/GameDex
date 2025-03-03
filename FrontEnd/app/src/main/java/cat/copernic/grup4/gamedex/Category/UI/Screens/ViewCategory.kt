@@ -71,11 +71,8 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFFDBB2FF), Color(0xFFF7E6FF))
-                )
-            )
+            .background(colorResource(R.color.background))
+            .windowInsetsPadding(WindowInsets.systemBars)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -102,7 +99,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                         currentCategory?.let {
                             Text(
                                 it.nameCategory,
-                                fontSize = 32.sp,
+                                fontSize = 40.sp,
                                 fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
                                 style = GameDexTypography.bodyLarge,
                                 color = Color.Black
@@ -112,7 +109,9 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                         Spacer(modifier = Modifier.height(20.dp))
 
                         currentCategory?.let {
-                            val imageBitmap = it.categoryPhoto?.let { userViewModel.base64ToBitmap(it) }
+                            val imageBitmap = currentCategory.categoryPhoto?.let {
+                                userViewModel.base64ToBitmap(it)
+                            }
                             imageBitmap?.let { bitmap ->
                                 Image(
                                     bitmap,
@@ -130,17 +129,17 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                         currentCategory?.let {
                             Text(
                                 it.description,
-                                fontSize = 18.sp,
+                                fontSize = 22.sp,
                                 style = GameDexTypography.bodyLarge,
-                                color = Color.Gray
+                                color = Color.Black
                             )
                         }
 
-                        Spacer(modifier = Modifier.weight(1f))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         if (currentUser?.userType == UserType.ADMIN) {
                             Button(
-                                onClick = { navController.navigate("list_category") },
+                                onClick = { navController.navigate("modify_category/${currentCategory?.nameCategory}") },
                                 colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.bubblegum)),
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.fillMaxWidth()
@@ -164,9 +163,7 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
                                 .padding(12.dp)
                                 .background(Color.Red, shape = CircleShape)
                         ) {
-                            Icon(Icons.Default.Delete,
-                                contentDescription = stringResource(R.string.delete_category),
-                                tint = Color.White)
+                            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_category))
                         }
 
                         if (showDialog) {

@@ -30,4 +30,9 @@ public interface VideogameRepository extends MongoRepository<Videogame, String> 
      * @return Una llista de videojocs que coincideixen amb l'estat especificat.
      */
     List<Videogame> findByState(boolean state);
+
+    // Mètode per buscar videojocs per categoria
+    List<Videogame> findByCategory(String category);
+
+    List<Videogame> findByNameGameContaining(String nameGame);
 }

@@ -21,5 +21,6 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
          * @return Una llista de categories que contenen la cadena especificada en el
          *         seu nom.
          */
-        List<Category> findByNameCategoryContaining(String nameCategory);
+    List<Category> findByNameCategoryContaining(String nameCategory);
+    List<Category> findAllByOrderByNameCategoryAsc();
 }
