@@ -23,7 +23,7 @@ public class VideogameLogic {
                 // Valida que no hi hagi camps buits
                 if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty() ||
                         videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0 ||
-                        videogame.getDeveloper().isEmpty() || videogame.getGamePhoto() == null) {
+                        videogame.getDeveloper().isEmpty() || videogame.getGamePhoto() == null || videogame.getGamePhoto().length == 0) {
                     throw new RuntimeException("Empty fields are not allowed");
                 }
                 if (videogame.getCategory() == null) {
@@ -73,7 +73,7 @@ public class VideogameLogic {
                     newVideogame.setReleaseYear(videogame.getReleaseYear());
                 }
 
-                if (videogame.getGamePhoto() != newVideogame.getGamePhoto()) {
+                if (videogame.getGamePhoto() != null && !videogame.getGamePhoto().equals(newVideogame.getGamePhoto())) {
                     newVideogame.setGamePhoto(videogame.getGamePhoto());
                 }
 
