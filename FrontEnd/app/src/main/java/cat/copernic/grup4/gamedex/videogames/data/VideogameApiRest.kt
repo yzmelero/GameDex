@@ -75,12 +75,30 @@ interface VideogameApiRest {
     @PUT("videogame/validate/{gameId}")
     suspend fun validateVideogame(@Path("gameId") gameId: String): Response<Videogame>
 
+    /**
+     * Obté els videojocs d'una categoria.
+     * 
+     * @param categoryId L'ID de la categoria.
+     * @return La resposta de la API amb la llista de videojocs de la categoria.
+     */
     @GET("videogame/byCategory/{categoryId}")
     suspend fun videogamesByCategory(@Path("categoryId") categoryId: String): Response<List<Videogame>>
 
+    /**
+     * Obté els videojocs pel seu nom.
+     * 
+     * @param nameGame El nom del videojoc.
+     * @return La resposta de la API amb la llista de videojocs amb el nom indicat.
+     */
     @GET("videogame/byName/{nameGame}")
     suspend fun videogamesByName(@Path("nameGame") nameGame: String): Response<List<Videogame>>
 
+    /**
+     * Modifica un videojoc.
+     * 
+     * @param videogame El videojoc a modificar.
+     * @return La resposta de la API amb el videojoc modificat.
+     */
     @PUT("videogame/update/{gameId}")
     suspend fun updateVideogame(@Body videogame: Videogame): Response<Videogame>
 }
