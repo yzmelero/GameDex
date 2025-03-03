@@ -57,7 +57,6 @@ fun ModifyCategoryScreen(navController: NavController, userViewModel: UserViewMo
         navController.currentBackStackEntry?.arguments?.getString("categoryId")
     } ?: return
 
-    val category by categoryViewModel.categoryGetById.collectAsState()
     val updateSuccess by categoryViewModel.categoryModified.collectAsState()
 
     var nameCategory by remember { mutableStateOf("") }

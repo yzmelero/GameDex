@@ -32,6 +32,7 @@ import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
 
 import cat.copernic.grup4.gamedex.videogames.ui.screens.AddGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ListInactiveGamesScreen
+import cat.copernic.grup4.gamedex.videogames.ui.screens.ModifyGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ValidateGamesScreen
 
 @Composable

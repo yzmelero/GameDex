@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -85,15 +86,17 @@ import coil.compose.AsyncImage
 fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
-    val categories by gameViewModel.categories.collectAsState()
 
+    val context = LocalContext.current
     val gameId = remember {
         // Obté la ID del joc dels paràmetres de navegació
         navController.currentBackStackEntry?.arguments?.getString("gameId")
     } ?: return // Si es null, surt
-    
-    val context = LocalContext.current
-    val createdGameState by gameViewModel.videogameUpdated.collectAsState()
+
+    val game by gameViewModel.gameById.collectAsState()
+    val categories by gameViewModel.categories.collectAsState()
+    val updateSuccess by gameViewModel.videogameUpdated.collectAsState()
+
 
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
@@ -113,12 +116,12 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
 
     LaunchedEffect(gameId) {
         val game = gameViewModel.videogamesById(gameId)
-        game.let {
+        game?.let {
             nameGame = it.nameGame
             releaseYear = it.releaseYear
             ageRecommendation = it.ageRecommendation
             developer = it.developer
-            selectedCategory = categories.find { it.nameCategory == it.category }
+            selectedCategory = categories.find { it.nameCategory == game.category }
             descriptionGame = it.descriptionGame
             oldGamePhoto = it.gamePhoto ?: ""
         }
@@ -194,14 +197,17 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                             selectedCategory = selectedCategory,
                             onCategorySelected = {
                                 selectedCategory = it
-                                Log.d("AddGamesScreen", "Categoría seleccionada: ${it.nameCategory}")
+                                Log.d(
+                                    "AddGamesScreen",
+                                    "Categoría seleccionada: ${it.nameCategory}"
+                                )
                             }
                         )
                         InputField(
                             label = stringResource(R.string.description),
                             value = descriptionGame
                         ) { descriptionGame = it }
-
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = stringResource(R.string.cover) + ":",
                             color = Color.Black,
@@ -210,29 +216,51 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                             modifier = Modifier.padding(end = 100.dp, bottom = 4.dp)
                         )
 
-
-                        var selectedImageUri by remember {
-                            mutableStateOf<Uri?>(null)
-                        }
-
-                        val imagePickerLauncher = rememberLauncherForActivityResult(
-                            contract = ActivityResultContracts.PickVisualMedia(),
-                            onResult = { uri -> selectedImageUri = uri }
-                        )
-
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                             modifier = Modifier.padding(start = 50.dp)
                         ) {
-                            Row (horizontalArrangement = Arrangement.Center){
+                            Row(horizontalArrangement = Arrangement.Center) {
                                 Spacer(modifier = Modifier.height(4.dp))
-                                if (selectedImageUri == null) {
-                                    Image(
-                                        painter = painterResource(R.drawable.eldenring),
-                                        contentDescription = stringResource(R.string.cover),
+                                if (selectedImageUri == null && oldGamePhoto.isNotEmpty()) {
+                                    val imageBitmap = gameViewModel.base64ToBitmap(oldGamePhoto)
+                                    imageBitmap?.let {
+                                        Image(
+                                            bitmap = it,
+                                            contentDescription = stringResource(R.string.category_photo),
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier
+                                                .size(120.dp)
+                                                .clip(CircleShape)
+                                        )
+                                    }
+                                } else if (selectedImageUri != null) {
+                                    gamePhoto =
+                                        gameViewModel.uriToBase64(context, selectedImageUri!!)
+                                            .toString()
+                                    oldGamePhoto = gamePhoto
+                                    AsyncImage(
+                                        model = selectedImageUri,
+                                        contentDescription = stringResource(R.string.gamePicture),
+                                        contentScale = ContentScale.Crop,
                                         modifier = Modifier
-                                            .size(height = 170.dp, width = 110.dp)
+                                            .size(120.dp)
+                                            .clip(CircleShape)
+                                    )
+                                } else {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.eldenring),
+                                        contentDescription = stringResource(R.string.gamePicture),
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .size(120.dp)
+                                            .clip(CircleShape)
+                                    )
+                                    Icon(
+                                        Icons.Default.Add,
+                                        contentDescription = stringResource(R.string.add_cover),
+                                        modifier = Modifier
                                             .clickable {
                                                 imagePickerLauncher
                                                     .launch(
@@ -242,97 +270,93 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                                         )
                                                     )
                                             }
-                                    )
-                                } else {
-                                    gamePhoto =
-                                        gameViewModel.uriToBase64(context, selectedImageUri!!)
-                                            .toString()
-                                    AsyncImage(
-                                        model = selectedImageUri,
-                                        contentDescription = stringResource(R.string.cover),
-                                        contentScale = ContentScale.Crop,
-                                        modifier = Modifier.size(height = 170.dp, width = 110.dp)
+                                            .padding(start = 10.dp, top = 100.dp)
+                                            .background(
+                                                colorResource(R.color.header),
+                                                shape = RoundedCornerShape(50)
+                                            )
+                                            .clip(RoundedCornerShape(50))
+                                            .size(40.dp)
                                     )
                                 }
-                                Icon(
-                                    Icons.Default.Add,
-                                    contentDescription = stringResource(R.string.add_cover),
-                                    modifier = Modifier
-                                        .clickable {
-                                            imagePickerLauncher
-                                                .launch(
-                                                    PickVisualMediaRequest(
-                                                        ActivityResultContracts
-                                                            .PickVisualMedia.ImageOnly
-                                                    )
-                                                )
-                                        }
-                                        .padding(start = 10.dp, top = 100.dp)
-                                        .background(
-                                            colorResource(R.color.header),
-                                            shape = RoundedCornerShape(50)
+                            }
+
+                            Spacer(modifier = Modifier.height(20.dp))
+                            Button(
+                                onClick = {
+                                    if (selectedCategory == null) {
+                                        Toast.makeText(
+                                            context,
+                                            context.getString(R.string.please_select_a_category),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    } else {
+                                        Log.d(
+                                            "AddGamesScreen",
+                                            "Categoría seleccionada: ${selectedCategory?.nameCategory}"
                                         )
-                                        .clip(RoundedCornerShape(50))
-                                        .size(40.dp)
+                                        val updatedGame = Videogame(
+                                            gameId = "",
+                                            nameGame = nameGame,
+                                            releaseYear = releaseYear,
+                                            ageRecommendation = ageRecommendation,
+                                            developer = developer,
+                                            category = selectedCategory!!.nameCategory,
+                                            descriptionGame = descriptionGame,
+                                            gamePhoto = gamePhoto
+                                        )
+                                        Log.d(
+                                            "AddGamesScreen",
+                                            "Datos del nuevo juego: Name: $nameGame, Year: $releaseYear, Age: $ageRecommendation, Developer: $developer, Category: ${selectedCategory?.nameCategory}, Description: $descriptionGame"
+                                        )
+                                        gameViewModel.updateVideogame(updatedGame)
+
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(
+                                        0xFFFF69B4
+                                    )
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.confirm),
+                                    color = Color.White,
+                                    style = GameDexTypography.bodyLarge,
+                                    fontSize = 22.sp
                                 )
                             }
+                            Spacer(modifier = Modifier.height(10.dp))
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Button(
-                            onClick = {
-                                if (selectedCategory == null) {
-                                    Toast.makeText(context,
-                                        context.getString(R.string.please_select_a_category), Toast.LENGTH_SHORT).show()
-                                } else {
-                                    Log.d("AddGamesScreen", "Categoría seleccionada: ${selectedCategory?.nameCategory}")
-                                    val newGame = Videogame(
-                                        gameId = "",
-                                        nameGame = nameGame,
-                                        releaseYear = releaseYear,
-                                        ageRecommendation = ageRecommendation,
-                                        developer = developer,
-                                        category = selectedCategory!!.nameCategory,
-                                        descriptionGame = descriptionGame,
-                                        gamePhoto = gamePhoto
-                                    )
-                                    Log.d("AddGamesScreen", "Datos del nuevo juego: Name: $nameGame, Year: $releaseYear, Age: $ageRecommendation, Developer: $developer, Category: ${selectedCategory?.nameCategory}, Description: $descriptionGame")
-                                    gameViewModel.createVideogame(newGame)
-
-                                }
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                                .clip(RoundedCornerShape(16.dp))
-                        ) {
-                            Text(
-                                text = stringResource(R.string.confirm),
-                                color = Color.White,
-                                style = GameDexTypography.bodyLarge,
-                                fontSize = 22.sp
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(10.dp))
                     }
 
                 }
 
             }
-
-        }
-        BottomSection(navController, userViewModel, 1)
-
-        LaunchedEffect(createdGameState) {
-            createdGameState?.let { success ->
-                if (success) {
-                    Toast.makeText(context, R.string.gameCreated, Toast.LENGTH_LONG).show()
-                    navController.navigate("listVideogames")
-                } else {
-                    Toast.makeText(context, R.string.gameErrorCreate, Toast.LENGTH_LONG).show()
+            LaunchedEffect(updateSuccess) {
+                updateSuccess?.let { success ->
+                    if (success) {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.game_updated),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        navController.popBackStack()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.error_updating_game),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
+            BottomSection(navController, userViewModel, 1)
         }
     }
 }

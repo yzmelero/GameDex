@@ -173,6 +173,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                             color = Color.Black,
                             //style = GameDexTypography.bodyLarge,
                             fontSize = 18.sp,
+
                             modifier = Modifier.padding(end = 100.dp, bottom = 4.dp)
                         )
 

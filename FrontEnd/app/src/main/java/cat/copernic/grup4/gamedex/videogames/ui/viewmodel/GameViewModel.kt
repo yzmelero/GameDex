@@ -57,11 +57,18 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
-    fun videogamesById(gameId: String) {
-        viewModelScope.launch {
+    suspend fun videogamesById(gameId: String): Videogame? {
+        return try {
             val response = videogameUseCase.videogamesById(gameId)
-            _getVideogame.value = response.body()
-
+            if (response.isSuccessful) {
+                val game = response.body()
+                _getVideogame.value = game
+                game
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 
