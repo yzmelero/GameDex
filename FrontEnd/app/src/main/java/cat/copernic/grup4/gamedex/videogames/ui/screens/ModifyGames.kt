@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -33,14 +32,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -80,13 +75,21 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import coil.compose.AsyncImage
 
+// Pantalla de modificar jocs
 @Composable
 fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
-    val categories by gameViewModel.categories.collectAsState()
 
-    // TODO Moure variables al ViewModel
+    val context = LocalContext.current
+    val gameId = remember {
+        // Obté la ID del joc dels paràmetres de navegació
+        navController.currentBackStackEntry?.arguments?.getString("gameId")
+    } ?: return // Si es null, surt
+
+    val categories by gameViewModel.categories.collectAsState()
+    val updateSuccess by gameViewModel.videogameUpdated.collectAsState()
+
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }
@@ -94,13 +97,34 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
     var selectedCategory by remember { mutableStateOf<Category?>(null) }
     var descriptionGame by remember { mutableStateOf("") }
     var gamePhoto by remember { mutableStateOf("") }
+    var oldGamePhoto by remember { mutableStateOf("") }
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
-    val context = LocalContext.current
-    val createdGameState by gameViewModel.videogameCreated.collectAsState()
-
+    DisposableEffect(Unit) {
+        onDispose {
+            gameViewModel._videogameUpdated.value = null
+        }
+    }
     LaunchedEffect(Unit) {
         gameViewModel.getAllCategories()
     }
+    LaunchedEffect(gameId, categories) {
+        val game = gameViewModel.videogamesById(gameId)
+        game?.let {
+            nameGame = it.nameGame
+            releaseYear = it.releaseYear
+            ageRecommendation = it.ageRecommendation
+            developer = it.developer
+            selectedCategory = categories.find { category -> category.nameCategory == it.category }
+            descriptionGame = it.descriptionGame
+            oldGamePhoto = it.gamePhoto ?: ""
+        }
+    }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> selectedImageUri = uri }
+    )
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -138,6 +162,13 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                         modifier = Modifier.padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Text(
+                            text = nameGame,
+                            fontSize = 40.sp,
+                            color = Color.Black,
+                            style = GameDexTypography.bodyLarge
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
                         InputField(
                             label = stringResource(R.string.game_name),
                             value = nameGame
@@ -160,14 +191,17 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                             selectedCategory = selectedCategory,
                             onCategorySelected = {
                                 selectedCategory = it
-                                Log.d("AddGamesScreen", "Categoría seleccionada: ${it.nameCategory}")
+                                Log.d(
+                                    "ModifyGamesScreen",
+                                    "Categoría seleccionada: ${it.nameCategory}"
+                                )
                             }
                         )
                         InputField(
                             label = stringResource(R.string.description),
                             value = descriptionGame
                         ) { descriptionGame = it }
-
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = stringResource(R.string.cover) + ":",
                             color = Color.Black,
@@ -176,46 +210,38 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                             modifier = Modifier.padding(end = 100.dp, bottom = 4.dp)
                         )
 
-
-                        var selectedImageUri by remember {
-                            mutableStateOf<Uri?>(null)
-                        }
-
-                        val imagePickerLauncher = rememberLauncherForActivityResult(
-                            contract = ActivityResultContracts.PickVisualMedia(),
-                            onResult = { uri -> selectedImageUri = uri }
-                        )
-
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                             modifier = Modifier.padding(start = 50.dp)
                         ) {
-                            Row (horizontalArrangement = Arrangement.Center){
+                            Row(horizontalArrangement = Arrangement.Center) {
                                 Spacer(modifier = Modifier.height(4.dp))
-                                if (selectedImageUri == null) {
-                                    Image(
-                                        painter = painterResource(R.drawable.eldenring),
-                                        contentDescription = stringResource(R.string.cover),
-                                        modifier = Modifier
-                                            .size(height = 170.dp, width = 110.dp)
-                                            .clickable {
-                                                imagePickerLauncher
-                                                    .launch(
-                                                        PickVisualMediaRequest(
-                                                            ActivityResultContracts
-                                                                .PickVisualMedia.ImageOnly
-                                                        )
-                                                    )
-                                            }
-                                    )
-                                } else {
+                                if (selectedImageUri == null && oldGamePhoto.isNotEmpty()) {
+                                    val imageBitmap = gameViewModel.base64ToBitmap(oldGamePhoto)
+                                    imageBitmap?.let {
+                                        Image(
+                                            bitmap = it,
+                                            contentDescription = stringResource(R.string.category_photo),
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier.size(height = 170.dp, width = 110.dp)
+                                        )
+                                    }
+                                } else if (selectedImageUri != null) {
                                     gamePhoto =
                                         gameViewModel.uriToBase64(context, selectedImageUri!!)
                                             .toString()
+                                    oldGamePhoto = gamePhoto
                                     AsyncImage(
                                         model = selectedImageUri,
-                                        contentDescription = stringResource(R.string.cover),
+                                        contentDescription = stringResource(R.string.gamePicture),
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier.size(height = 170.dp, width = 110.dp)
+                                    )
+                                } else {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.defaultimage),
+                                        contentDescription = stringResource(R.string.gamePicture),
                                         contentScale = ContentScale.Crop,
                                         modifier = Modifier.size(height = 170.dp, width = 110.dp)
                                     )
@@ -242,29 +268,28 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                         .size(40.dp)
                                 )
                             }
+                            Spacer(modifier = Modifier.height(20.dp))
                         }
-
-                        Spacer(modifier = Modifier.height(20.dp))
                         Button(
                             onClick = {
                                 if (selectedCategory == null) {
-                                    Toast.makeText(context,
-                                        context.getString(R.string.please_select_a_category), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.please_select_a_category),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 } else {
-                                    Log.d("AddGamesScreen", "Categoría seleccionada: ${selectedCategory?.nameCategory}")
-                                    val newGame = Videogame(
-                                        gameId = "",
+                                    val updatedGame = Videogame(
+                                        gameId = gameId,
                                         nameGame = nameGame,
                                         releaseYear = releaseYear,
                                         ageRecommendation = ageRecommendation,
                                         developer = developer,
                                         category = selectedCategory!!.nameCategory,
                                         descriptionGame = descriptionGame,
-                                        gamePhoto = gamePhoto
+                                        gamePhoto = oldGamePhoto
                                     )
-                                    Log.d("AddGamesScreen", "Datos del nuevo juego: Name: $nameGame, Year: $releaseYear, Age: $ageRecommendation, Developer: $developer, Category: ${selectedCategory?.nameCategory}, Description: $descriptionGame")
-                                    gameViewModel.createVideogame(newGame)
-
+                                    gameViewModel.updateVideogame(updatedGame)
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
@@ -282,24 +307,28 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                         }
                         Spacer(modifier = Modifier.height(10.dp))
                     }
-
                 }
-
             }
-
+            LaunchedEffect(updateSuccess) {
+                updateSuccess?.let { success ->
+                    if (success) {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.game_updated),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        navController.popBackStack()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.error_updating_game),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
         }
         BottomSection(navController, userViewModel, 1)
-
-        LaunchedEffect(createdGameState) {
-            createdGameState?.let { success ->
-                if (success) {
-                    Toast.makeText(context, R.string.gameCreated, Toast.LENGTH_LONG).show()
-                    navController.navigate("listvideogames")
-                } else {
-                    Toast.makeText(context, R.string.gameErrorCreate, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
     }
 }
 
@@ -309,5 +338,5 @@ fun PreviewModifyGamesScreen() {
     val fakeNavController = rememberNavController()
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-    AddGamesScreen(navController = fakeNavController, userViewModel)
+    ModifyGamesScreen(navController = fakeNavController, userViewModel)
 }

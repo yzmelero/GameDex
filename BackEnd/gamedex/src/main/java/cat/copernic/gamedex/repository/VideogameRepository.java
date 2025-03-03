@@ -31,8 +31,26 @@ public interface VideogameRepository extends MongoRepository<Videogame, String> 
      */
     List<Videogame> findByState(boolean state);
 
-    // Mètode per buscar videojocs per categoria
-    List<Videogame> findByCategory(String category);
+    /**
+     * Cerca videojocs per la seva categoria i estat actiu.
+     * @param category L'ID de la categoria.
+     * @param state   L'estat dels videojocs (true per a actius, false per a
+     * @return Una llista de videojocs que coincideixen amb la categoria i l'estat especificats.
+     */
+    List<Videogame> findByCategoryAndState(String category, boolean state);
 
+    /**
+     * Cerca videojocs pel seu nom.
+     * @param nameGame El nom del videojoc.
+     * @return Una llista de videojocs que coincideixen amb el nom especificat.
+     */
     List<Videogame> findByNameGameContaining(String nameGame);
+
+    /**
+     * Cerca videojocs per la seva categoria.
+     * No poder eliminar una categoria si està en ús.
+     * @param category L'ID de la categoria.
+     * @return Una llista de videojocs que coincideixen amb la categoria especificada.
+     */
+    List<Videogame> findByCategory(String category);
 }

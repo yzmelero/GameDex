@@ -31,7 +31,7 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     val videogameCreated: StateFlow<Boolean?> = _videogameCreated
 
     private val _getVideogame = MutableStateFlow<Videogame?>(null)
-    open val gameById: StateFlow<Videogame?> = _getVideogame
+    open val gameById: StateFlow<Videogame?> get() = _getVideogame
 
     private val _videogameGetAll = MutableStateFlow<List<Videogame>>(emptyList())
     open val allVideogame: StateFlow<List<Videogame>> = _videogameGetAll
@@ -51,6 +51,9 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
     val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
 
+    val _videogameUpdated = MutableStateFlow<Boolean?>(null)
+    val videogameUpdated: StateFlow<Boolean?> = _videogameUpdated
+
      /**
      * Crea un nou videojoc.
      *
@@ -68,10 +71,18 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
      *
      * @param gameId L'ID del videojoc.
      */
-    fun videogamesById(gameId: String) {
-        viewModelScope.launch {
+    suspend fun videogamesById(gameId: String): Videogame? {
+        return try {
             val response = videogameUseCase.videogamesById(gameId)
-            _getVideogame.value = response.body()
+            if (response.isSuccessful) {
+                val game = response.body()
+                _getVideogame.value = game
+                game
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 
@@ -177,7 +188,12 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
             }
         }
     }
-    
+
+    /**
+     * Obté els videojocs d'una categoria.
+     *
+     * @param categoryId L'ID de la categoria.
+     */
     fun videogamesByCategory(categoryId: String) {
         viewModelScope.launch {
             val response = videogameUseCase.videogamesByCategory(categoryId)
@@ -185,10 +201,30 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
         }
     }
 
+    /**
+     * Cerca videojocs pel seu nom.
+     *
+     * @param nameGame El nom del videojoc.
+     */
     fun searchVideogames(nameGame: String) {
         viewModelScope.launch {
             val response = videogameUseCase.videogamesByName(nameGame)
             _videogameByName.value = response.body() ?: emptyList()
+        }
+    }
+
+    /**
+     * Modifica un videojoc.
+     *
+     * @param videogame El videojoc a modificar.
+     */
+    fun updateVideogame(videogame: Videogame) {
+        viewModelScope.launch {
+            val response = videogameUseCase.updateVideogame(videogame)
+            _videogameUpdated.value = response.isSuccessful
+            if (_getVideogame.value?.gameId == videogame.gameId) {
+                _getVideogame.value = videogame
+            }
         }
     }
 }

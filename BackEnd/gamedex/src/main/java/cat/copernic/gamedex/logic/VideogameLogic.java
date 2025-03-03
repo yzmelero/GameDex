@@ -29,13 +29,19 @@ public class VideogameLogic {
                 videogame.setGameId(null); // Null perquè MongoDB generi un ID
 
                 // Valida que no hi hagi camps buits
-                if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty()
-                        || videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0
-                        || videogame.getDeveloper().isEmpty()) {
+                if (videogame.getNameGame().isEmpty() || videogame.getDescriptionGame().isEmpty() ||
+                        videogame.getReleaseYear() == 0 || videogame.getAgeRecommendation() == 0 ||
+                        videogame.getDeveloper().isEmpty() || videogame.getGamePhoto() == null || videogame.getGamePhoto().length == 0) {
                     throw new RuntimeException("Empty fields are not allowed");
                 }
                 if (videogame.getCategory() == null) {
                     throw new RuntimeException("Category is required");
+                }
+                if (videogame.getReleaseYear() < 1950 || videogame.getReleaseYear() > 2023) {
+                    throw new RuntimeException("Release year must be between 1950 and 2023");
+                }
+                if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 50) {
+                    throw new RuntimeException("Age recommendation must be between 0 and 50");
                 }
                 // Comprova si existeix un videojoc amb el mateix nom
                 Optional<Videogame> existingGame = videogameRepo.findByNameGame(videogame.getNameGame());
@@ -82,14 +88,20 @@ public class VideogameLogic {
                 }
 
                 if (videogame.getReleaseYear() != newVideogame.getReleaseYear()) {
+                    if (videogame.getReleaseYear() < 1950 || videogame.getReleaseYear() > 2023) {
+                        throw new RuntimeException("Release year must be between 1950 and 2023");
+                    }
                     newVideogame.setReleaseYear(videogame.getReleaseYear());
                 }
 
-                if (videogame.getGamePhoto() != newVideogame.getGamePhoto()) {
+                if (videogame.getGamePhoto() != null && !videogame.getGamePhoto().equals(newVideogame.getGamePhoto())) {
                     newVideogame.setGamePhoto(videogame.getGamePhoto());
                 }
 
                 if (videogame.getAgeRecommendation() != newVideogame.getAgeRecommendation()) {
+                    if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 50) {
+                        throw new RuntimeException("Age recommendation must be between 0 and 50");
+                    }
                     newVideogame.setAgeRecommendation(videogame.getAgeRecommendation());
                 }
 
@@ -208,9 +220,14 @@ public class VideogameLogic {
         }
     }
 
+    /**
+     * Obté tots els videojocs d'una categoria amb l'estat actiu.
+     * @param categoryId L'ID de la categoria.
+     * @return Una llista de videojocs que coincideixen amb la categoria.
+     */
     public List<Videogame> getVideogameByCategory(String categoryId) {
         try {
-            return videogameRepo.findByCategory(categoryId);
+            return videogameRepo.findByCategoryAndState(categoryId, true);
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
@@ -218,6 +235,11 @@ public class VideogameLogic {
         }
     }
 
+    /**
+     * Cerca videojocs pel seu nom.
+     * @param nameGame El nom del videojoc.
+     * @return Una llista de videojocs que coincideixen amb el nom.
+     */
     public List<Videogame> searchVideogamesByName(String nameGame) {
         try {
             return videogameRepo.findByNameGameContaining(nameGame);
