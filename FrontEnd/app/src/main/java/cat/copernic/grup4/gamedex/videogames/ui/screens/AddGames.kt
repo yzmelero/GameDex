@@ -86,7 +86,6 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val categories by gameViewModel.categories.collectAsState()
 
-    // TODO Moure variables al ViewModel
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
     var ageRecommendation by remember { mutableStateOf("") }

@@ -24,9 +24,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -34,13 +32,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -93,10 +86,8 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
         navController.currentBackStackEntry?.arguments?.getString("gameId")
     } ?: return // Si es null, surt
 
-    val game by gameViewModel.gameById.collectAsState()
     val categories by gameViewModel.categories.collectAsState()
     val updateSuccess by gameViewModel.videogameUpdated.collectAsState()
-
 
     var nameGame by remember { mutableStateOf("") }
     var releaseYear by remember { mutableStateOf("") }
@@ -113,7 +104,6 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
             gameViewModel._videogameUpdated.value = null
         }
     }
-
     LaunchedEffect(Unit) {
         gameViewModel.getAllCategories()
     }
@@ -316,9 +306,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                         }
                         Spacer(modifier = Modifier.height(10.dp))
                     }
-
                 }
-
             }
             LaunchedEffect(updateSuccess) {
                 updateSuccess?.let { success ->
