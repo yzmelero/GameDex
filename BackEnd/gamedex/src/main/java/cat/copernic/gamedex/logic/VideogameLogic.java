@@ -178,7 +178,7 @@ public class VideogameLogic {
 
     public List<Videogame> getVideogameByCategory(String categoryId) {
         try {
-            return videogameRepo.findByCategory(categoryId);
+            return videogameRepo.findByCategoryAndState(categoryId, true);
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
