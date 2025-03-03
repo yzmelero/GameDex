@@ -163,7 +163,6 @@ fun GameCard(
                     contentAlignment = Alignment.TopEnd
                 ) {
                     Icon(
-                        // TODO Afegir a la llibreria
                         imageVector = Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(R.string.addgame_library),
                         modifier = Modifier
@@ -308,23 +307,46 @@ fun GameCard(
                     .padding(bottom = 12.dp, end = 12.dp),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                IconButton(
-                    onClick = { videogame.gameId }
-                ) {
-                    Icon(
-                        // TODO Funció d'eliminar videojoc
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = stringResource(R.string.delete),
-                        modifier = Modifier
-                            .size(30.dp)
-                            .background(Color.Red, shape = RoundedCornerShape(50))
-                    )
-                }
+                if (currentUser?.userType == UserType.ADMIN) {
+                    var showDialog by remember { mutableStateOf(false) }
 
+                    IconButton(
+                        onClick = { showDialog = true }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = stringResource(R.string.delete),
+                            modifier = Modifier.size(30.dp)
+                                .background(Color.Red, shape = RoundedCornerShape(50))
+                        )
+                    }
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showDialog = false },
+                            title = { Text(stringResource(R.string.confirm_delete)) },
+                            text = { Text(stringResource(R.string.delete_question)) },
+                            confirmButton = {
+                                TextButton(onClick = {
+                                    videogame.gameId?.let {
+                                        gameViewModel.deleteVideogame(it)
+                                        showDialog = false
+                                        navController.popBackStack()
+                                    } ?: Log.e("DELETE_GAME", "Error: gameId is null or empty")
+                                }) {
+                                    Text(stringResource(R.string.delete), color = Color.Red)
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = {
+                                    showDialog = false
+                                }) { Text(stringResource(R.string.cancel)) }
+                            }
+                        )
+                    }
+                }
             }
         }
         CommentsSection(videogame.gameId.toString(), comment, navController)
-
     }
 }
 
