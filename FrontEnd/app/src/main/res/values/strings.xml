@@ -125,4 +125,5 @@
     <string name="all_games">All Categories</string>
     <string name="game_updated">Game Updated</string>
     <string name="error_updating_game">Error Updating Game</string>
+    <string name="failDelCat">You cannot delete a category that has a game associated.</string>
 </resources>

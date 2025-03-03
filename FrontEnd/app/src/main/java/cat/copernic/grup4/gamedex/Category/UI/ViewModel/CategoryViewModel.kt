@@ -39,6 +39,9 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
 
     val _categoryModified = MutableStateFlow<Boolean?>(null)
     val categoryModified: StateFlow<Boolean?> = _categoryModified
+
+    private val _deleteError = MutableStateFlow<Boolean?>(null)
+    val deleteError: StateFlow<Boolean?> = _deleteError
     
    /**
      * Afegeix una nova categoria.
@@ -89,7 +92,13 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
     fun deleteCategory(nameCategory: String) {
         viewModelScope.launch {
             val response = categoryCases.deleteCategory(nameCategory)
-            _categoryDeleted.value = response.isSuccessful
+            if (response.isSuccessful) {
+                _categoryDeleted.value = true
+                _deleteError.value = false
+            } else {
+                _categoryDeleted.value = false
+                _deleteError.value = true
+            }
         }
     }
 
