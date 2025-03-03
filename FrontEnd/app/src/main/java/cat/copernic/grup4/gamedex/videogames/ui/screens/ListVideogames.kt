@@ -1,6 +1,7 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -29,9 +30,14 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults.TrailingIcon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -44,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,6 +61,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import cat.copernic.grup4.gamedex.Core.Model.Category
 import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
@@ -74,11 +82,19 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
-    val videogame by gameViewModel.allVideogame.collectAsState()
+    val categories by gameViewModel.categories.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf<Category?>(null) }
+
+    val videogame by if (selectedCategory == null) {
+        gameViewModel.allVideogame.collectAsState()
+    } else {
+        gameViewModel.videogameByCategory.collectAsState()
+    }
 
     LaunchedEffect(Unit) {
         gameViewModel.getAllVideogames()
+        gameViewModel.getAllCategories()
     }
 
     Box(
@@ -100,11 +116,21 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
                 style = GameDexTypography.bodyLarge
             )
             Spacer(modifier = Modifier.height(10.dp))
-            SearchBar(searchQuery) { searchQuery = it }
-
+            SearchBar(searchQuery, { searchQuery = it }, gameViewModel)
+            CategoryFilter(
+                categories = categories,
+                selectedCategory = selectedCategory,
+                onCategorySelected = { category ->
+                    selectedCategory = category
+                    if (category != null) {
+                        gameViewModel.videogamesByCategory(category.nameCategory)
+                    } else {
+                        gameViewModel.getAllVideogames()
+                    }
+                }
+            )
             Spacer(modifier = Modifier.height(10.dp))
-
-            VideogamesGrid(videogame, navController, gameViewModel)
+            VideogamesGrid(videogame, selectedCategory, searchQuery, navController, gameViewModel)
 
         }
         BottomSection(navController, userViewModel,1)
@@ -113,8 +139,7 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
-    // TODO fer el filtre i la recerca funcional, es provisional
+fun SearchBar(query: String, onQueryChange: (String) -> Unit, gameViewModel: GameViewModel) {
     Card(
         shape = RoundedCornerShape(50.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -129,7 +154,10 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
         ) {
             BasicTextField(
                 value = query,
-                onValueChange = onQueryChange,
+                onValueChange = { newQuery ->
+                    onQueryChange(newQuery)
+                    gameViewModel.searchVideogames(newQuery)
+                },
                 textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
                 modifier = Modifier.weight(1f)
             )
@@ -142,9 +170,71 @@ fun SearchBar(query: String, onQueryChange: (String) -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CategoryFilter(
+    categories: List<Category>,
+    selectedCategory: Category?,
+    onCategorySelected: (Category?) -> Unit
+) {
+    val context = LocalContext.current
+    var expanded by remember { mutableStateOf(false) }
+
+    Card(
+        shape = RoundedCornerShape(50.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 12.dp)
+            .fillMaxWidth()
+            .clickable { expanded = !expanded }
+    ) {
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded }
+        ) {
+            TextField(
+                value = selectedCategory?.nameCategory ?: context.getString(R.string.all_games),
+                onValueChange = {},
+                readOnly = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor()
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color.White),
+                trailingIcon = { TrailingIcon(expanded = expanded) }
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text(context.getString(R.string.all_games)) },
+                    onClick = {
+                        onCategorySelected(null)
+                        expanded = false
+                    }
+                )
+                categories.forEach { category ->
+                    DropdownMenuItem(
+                        text = { Text(category.nameCategory) },
+                        onClick = {
+                            onCategorySelected(category)
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+    }
+    Spacer(modifier = Modifier.height(6.dp))
+}
 
 @Composable
-fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gameViewModel: GameViewModel) {
+fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, searchQuery: String, navController: NavController, gameViewModel: GameViewModel) {
+    val filteredGames = videogame.filter { game ->
+        searchQuery.isBlank() || game.nameGame.contains(searchQuery, ignoreCase = true)
+    }
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
@@ -152,7 +242,7 @@ fun VideogamesGrid(videogame: List<Videogame>, navController: NavController, gam
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        videogame.forEach { game ->
+        filteredGames.sortedBy { it.nameGame }.forEach { game ->
             GameItem(videogame = game, navController = navController, gameViewModel = gameViewModel)
         }
     }

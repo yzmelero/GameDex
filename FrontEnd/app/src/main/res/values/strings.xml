@@ -61,7 +61,6 @@
     <string name="validate_users">Validate Users</string>
     <string name="view_profile">view profile</string>
     <string name="stateGame">State</string>
-
     <string name="delete_category">delete_category</string>
     <string name="delete_user">Delete User</string>
     <string name="validate_user">Validate User</string>
@@ -123,4 +122,5 @@
     <string name="leave_empty">Leave Empty</string>
     <string name="category_photo">Category Photo</string>
     <string name="add_photo">Add Photo</string>
+    <string name="all_games">All Categories</string>
 </resources>
