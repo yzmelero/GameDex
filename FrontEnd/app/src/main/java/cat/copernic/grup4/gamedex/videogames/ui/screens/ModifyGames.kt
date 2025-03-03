@@ -75,6 +75,15 @@ import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModel
 import cat.copernic.grup4.gamedex.videogames.ui.viewmodel.GameViewModelFactory
 import coil.compose.AsyncImage
 
+/**
+ * Pantalla per modificar les dades d'un videojoc existent.
+ * 
+ * Aquesta pantalla permet als usuaris editar la informació d'un videojoc.
+ * Es poden editar el nom del joc, any de llançament, recomanació d'edat, desenvolupador, categoria, descripció i la imatge del joc.
+ * 
+ * @param navController Controlador de navegació per gestionar els canvis de pantalla de l'aplicació.
+ * @param userViewModel ViewModel que gestiona les dades i l'estat de l'usuari.
+ */
 @Composable
 fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewModel) {
     val videogameUseCase = VideogameUseCase(VideogameRepository())
