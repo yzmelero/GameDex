@@ -134,4 +134,74 @@ Una idea que hem tingut és poder apropar la nostra aplicació a un públic més
 
 ** Twitch ( mitjà )
 
+==== [aqua]#11.3.3. HÉCTOR#
 
+===== [aqua]#11.3.3.1. COMPARTIR#
+
+** Instagram ( molt )
+
+** GitLab ( molt )
+
+** YouTube ( molt )
+
+** TikTok ( molt )
+
+** Discord ( molt )
+
+** WhatsApp ( poc )
+
+===== [aqua]#11.3.3.2. INFORMATIVES#
+
+** ChatGPT ( molt )
+
+** Copilot ( molt )
+
+** Gemini ( molt )
+
+** Google ( molt )
+
+** YouTube ( mitjà )
+
+** TikTok ( molt )
+
+===== [aqua]#11.3.3.3. REFLEXIÓ#
+
+** Trello ( molt )
+
+** Youtube ( molt )
+
+==== [aqua]#11.3.4. YAIZA#
+
+===== [aqua]#11.3.4.1. COMPARTIR#
+
+** GitHub ( poc )
+
+** GitLab ( molt )
+
+** YouTube ( molt )
+
+** Discord ( molt )
+
+** WhatsApp ( mitjà )
+
+===== [aqua]#11.3.4.2. INFORMATIVES#
+
+** ChatGPT ( mitjà )
+
+** Copilot ( mitjà )
+
+** Google ( molt )
+
+** YouTube ( mitjà )
+
+** TikTok ( mitjà )
+
+** Reddit ( poc )
+
+===== [aqua]#11.3.4.3. REFLEXIÓ#
+
+** Trello ( mitjà )
+
+** Reddit ( poc )
+
+** Youtube ( molt )
