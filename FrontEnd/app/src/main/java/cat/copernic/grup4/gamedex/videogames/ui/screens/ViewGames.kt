@@ -395,6 +395,7 @@ fun CommentsSection(gameId: String, comment: List<Library>, navController: NavCo
             }
             Spacer(modifier = Modifier.height(8.dp))
             comment.forEach { library ->
+                if (library.description.isNotBlank() && library.description.isNotEmpty()){
                 CommentItem(
                     username = library.user.username,
                     comment = library.description ?: "No description",
@@ -405,6 +406,7 @@ fun CommentsSection(gameId: String, comment: List<Library>, navController: NavCo
                     gameId,
                     navController
                 )
+            }
             }
             /*CommentItem(
                 "VicoGracias",
