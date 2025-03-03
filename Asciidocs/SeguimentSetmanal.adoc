@@ -1,7 +1,6 @@
 :hardbreaks:
 == [aqua]#8. PLANIFICACIÓ I SEGUIMENT SETMANAL#
-=== [red]#FALTA POR HACER#
-//TODO: FALTA POR HACER
+
 Enllaç al Trello grupal de gamedex: https://trello.com/invite/b/67935061f9febf9359af1e6c/ATTIed687fb1113b36c123fa5e384c0eb025D9BFC44F/gamedex
 
 

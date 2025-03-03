@@ -1,4 +1,22 @@
 :hardbreaks:
 == [aqua]#9. IMPLEMENTACIÓ#
 === [red]#FALTA POR HACER#
-//TODO: FALTA POR HACER
+
+=== [aqua]#9.1. GITLAB#
+https://gitlab.com/grup48254144/gamedex
+
+=== [aqua]#9.2. JUSTIFICACIO DE DECISIONS#
+
+=== [aqua]#9.3. LLISTAT DE FUNCIONALITATS FINALITZADES#
+
+=== [aqua]#9.4. LLISTAT D'INCIDENCIES#
+
+==== [aqua]#9.4.1. MARIO#
+
+==== [aqua]#9.4.2. ANNA#
+
+==== [aqua]#9.4.3. HECTOR#
+
+==== [aqua]#9.4.4. YAIZA#
+
+==== [aqua]#9.4.5. GRUP#
