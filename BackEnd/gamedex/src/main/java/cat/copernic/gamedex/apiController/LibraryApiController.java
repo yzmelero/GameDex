@@ -117,6 +117,15 @@ public class LibraryApiController {
         return ResponseEntity.ok(rating);
     }
 
+    /**
+     * Gestiona la verificació d'una entrada a la biblioteca d'un usuari per a un
+     * videojoc específic.
+     *
+     * @param gameId   Identificador del videojoc a verificar.
+     * @param username Nom d'usuari del propietari de la biblioteca.
+     * @return ResponseEntity que conté l'entrada de la biblioteca si existeix, o un
+     *         estat 404 si no es troba.
+     */
     @GetMapping("/verify/{gameId}/{username}")
     public ResponseEntity<Library> getLibraryEntry(@PathVariable String gameId, @PathVariable String username) {
 
@@ -133,6 +142,13 @@ public class LibraryApiController {
         }
     }
 
+    /**
+     * Actualitza una entrada existent a la biblioteca d'un usuari.
+     *
+     * @param library Objecte Library que conté la informació actualitzada.
+     * @return ResponseEntity amb l'entrada actualitzada si l'operació té èxit,
+     *         o un estat 500 en cas d'error durant l'actualització.
+     */
     @PutMapping("/update")
     public ResponseEntity<Library> updateGameInLibrary(@RequestBody Library library) {
         log.info("📩 Rebuda petició d'actualització per Library ID: " + library.getIdLibrary());
