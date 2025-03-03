@@ -2,9 +2,11 @@ package cat.copernic.gamedex.logic;
 
 import cat.copernic.gamedex.entity.Library;
 import cat.copernic.gamedex.repository.LibraryRepository;
+import cat.copernic.gamedex.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,6 @@ public class LibraryLogic {
     @Autowired
     private LibraryRepository libraryRepository;
 
-    Logger log = LoggerFactory.getLogger(LibraryLogic.class);
-
     /**
      * Obté la biblioteca d'un usuari pel seu nom d'usuari.
      *
@@ -31,6 +31,8 @@ public class LibraryLogic {
         return libraryRepository.findByUserUsername(username);
     }
 
+    Logger log = LoggerFactory.getLogger(LibraryLogic.class);
+
     /**
      * Afegeix un joc a la biblioteca d'un usuari.
      *
@@ -39,8 +41,9 @@ public class LibraryLogic {
      */
     public Library addGameToLibrary(Library library) {
         System.out.println("Usuari rebut en backend: " + library.getUser().getUsername());
-        Optional<Library> existingGamesInLibrary = libraryRepository
-                .findByUserAndVideogame(library.getUser().getUsername(), library.getVideogame().getGameId());
+        Optional<Library> existingGamesInLibrary = libraryRepository.findByUserAndVideogame(
+                library.getUser().getUsername(),
+                library.getVideogame().getGameId());
         System.out.println("Username: " + library.getUser().getUsername());
         System.out.println("Game ID: " + library.getVideogame().getGameId());
 
@@ -112,6 +115,41 @@ public class LibraryLogic {
                 count++;
             }
         }
-        return count > 0 ? sum / count : 0.0; // Retorna la mitjana si hi ha valoracions
+        return count > 0 ? sum / count : 0.0;// Retorna la mitjana si hi ha valoracions
     }
+
+    /**
+     * Obté una entrada específica de la biblioteca d'un usuari per a un videojoc
+     * determinat.
+     *
+     * @param gameId   Identificador del videojoc.
+     * @param username Nom d'usuari del propietari de la biblioteca.
+     * @return Un Optional que conté l'entrada de la biblioteca si existeix.
+     */
+    public Optional<Library> getLibraryEntry(String gameId, String username) {
+        return libraryRepository.findByUserAndVideogame(gameId, username);
+    }
+
+    /**
+     * Actualitza una entrada existent a la biblioteca d'un usuari.
+     *
+     * @param library Objecte Library amb la informació actualitzada.
+     * @return L'objecte Library actualitzat després de desar-lo a la base de dades.
+     * @throws RuntimeException Si el videojoc no es troba a la biblioteca de
+     *                          l'usuari.
+     */
+    public Library updateGameInLibrary(Library library) {
+
+        Library existingLibrary = libraryRepository.findByUserAndVideogame(
+                library.getVideogame().getGameId(),
+                library.getUser().getUsername()).orElseThrow(() -> new RuntimeException("Game not found in library"));
+
+        existingLibrary.setState(library.getState());
+        existingLibrary.setDescription(library.getDescription());
+        existingLibrary.setRating(library.getRating());
+
+        return libraryRepository.save(existingLibrary); // Retornem el 'Library' actualitzat.
+
+    }
+
 }
