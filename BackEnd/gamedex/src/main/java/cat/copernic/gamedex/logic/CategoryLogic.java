@@ -44,6 +44,7 @@ public class CategoryLogic {
 
     /**
      * Elimina una categoria pel seu nom.
+     * I si la categoria està en ús, llavors no es pot eliminar.
      *
      * @param nameCategory El nom de la categoria a eliminar.
      */

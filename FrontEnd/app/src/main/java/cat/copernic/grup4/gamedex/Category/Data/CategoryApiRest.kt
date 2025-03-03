@@ -58,6 +58,13 @@ interface CategoryApiRest {
     @GET("category/filter/{query}")
     suspend fun filterCategories(@Path("query") query: String): Response<List<Category>>
 
+    /**
+     * 
+     * Modifica una categoria pel seu nom.
+     * 
+     * @param category La categoria a modificar.
+     * @return La resposta de la API amb la categoria modificada.
+     */
     @PUT("category/modify/{nameCategory}")
     suspend fun modifyCategory(@Body category: Category): Response<Category>
 

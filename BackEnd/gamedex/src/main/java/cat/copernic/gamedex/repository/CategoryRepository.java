@@ -14,13 +14,13 @@ import cat.copernic.gamedex.entity.Category;
 @Repository
 public interface CategoryRepository extends MongoRepository<Category, String> {
 
-        /**
-         * Cerca categories que continguin una cadena específica en el seu nom.
-         *
-         * @param nameCategory La cadena a cercar en el nom de la categoria.
-         * @return Una llista de categories que contenen la cadena especificada en el
-         *         seu nom.
-         */
+    /**
+     * Cerca categories que continguin una cadena específica en el seu nom.
+     *
+     * @param nameCategory La cadena a cercar en el nom de la categoria.
+     * @return Una llista de categories que contenen la cadena especificada en el
+     *         seu nom.
+     */
     List<Category> findByNameCategoryContaining(String nameCategory);
     List<Category> findAllByOrderByNameCategoryAsc();
 }

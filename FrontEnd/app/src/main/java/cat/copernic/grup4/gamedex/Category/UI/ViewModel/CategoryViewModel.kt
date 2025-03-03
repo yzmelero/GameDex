@@ -115,7 +115,12 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
-    
+    /**
+     * Modifica una categoria.
+     * 
+     * @param modifyCategory La categoria a modificar.
+     * @return La resposta de la API amb la categoria modificada.
+     */
     fun modifyCategory(modifyCategory: Category) {
         viewModelScope.launch {
             try {
@@ -148,7 +153,7 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
         }
     }
 
-/**
+    /**
      * Converteix una cadena Base64 a un Bitmap.
      *
      * @param base64String La cadena Base64 a convertir.
