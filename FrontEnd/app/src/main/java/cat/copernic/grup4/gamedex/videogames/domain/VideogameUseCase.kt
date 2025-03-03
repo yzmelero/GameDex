@@ -64,7 +64,28 @@ class VideogameUseCase(private val repository: VideogameRepository) {
      * @return La resposta de la API amb el videojoc validat.
      */
     suspend fun validateVideogame(gameId: String) = repository.validateVideogame(gameId)
+
+    /**
+     * Obté els videojocs d'una categoria.
+     * 
+     * @param categoryId L'ID de la categoria.
+     * @return La resposta de la API amb la llista de videojocs de la categoria.
+     */
     suspend fun videogamesByCategory(categoryId: String) = repository.videogamesByCategory(categoryId)
+
+    /**
+     * Obté els videojocs per nom.
+     * 
+     * @param nameGame El nom del videojoc.
+     * @return La resposta de la API amb la llista de videojocs amb el nom.
+     */
     suspend fun videogamesByName(nameGame: String) = repository.videogamesByName(nameGame)
+
+    /**
+     * Modificar un videojoc.
+     * 
+     * @param videogame El videojoc a modificar.
+     * @return La resposta de la API amb el videojoc modificat.
+     */
     suspend fun updateVideogame(videogame: Videogame) = repository.updateVideogame(videogame)
 }
