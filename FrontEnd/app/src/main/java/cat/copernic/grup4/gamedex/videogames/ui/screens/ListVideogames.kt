@@ -131,7 +131,6 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
             )
             Spacer(modifier = Modifier.height(10.dp))
             VideogamesGrid(videogame, selectedCategory, searchQuery, navController, gameViewModel)
-
         }
         BottomSection(navController, userViewModel,1)
         GameButtons(navController, userViewModel)
@@ -268,7 +267,6 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
                     gameViewModel.base64ToBitmap(base64)
                 }
             }
-
             imageBitmap?.let {
                 Image(
                     it,
@@ -297,7 +295,6 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
                     style = GameDexTypography.bodyLarge
                 )
             }
-
             Spacer(modifier = Modifier.width(74.dp))
             Box(
                 modifier = Modifier
@@ -325,8 +322,8 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
             }
         }
     }
-
 }
+
 @Composable
 fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
     val currentUser by userViewModel.currentUser.collectAsState()
@@ -340,19 +337,19 @@ fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
         verticalAlignment = Alignment.Bottom
     ) {
         if (isAdmin) {
-        IconButton(
-            onClick = {navController.navigate("listInactiveGames")},
-            modifier = Modifier
-                .size(56.dp)
-                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
-        ) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = stringResource(R.string.valide_game),
-                modifier = Modifier.size(40.dp)
-            )
-        }
+            IconButton(
+                onClick = {navController.navigate("listInactiveGames")},
+                modifier = Modifier
+                    .size(56.dp)
+                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = stringResource(R.string.valide_game),
+                    modifier = Modifier.size(40.dp)
+                )
             }
+        }
         IconButton(
             onClick = {navController.navigate("addGames")},
             modifier = Modifier
@@ -367,7 +364,6 @@ fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

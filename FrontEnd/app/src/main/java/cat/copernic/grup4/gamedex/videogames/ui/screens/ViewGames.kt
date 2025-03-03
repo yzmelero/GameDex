@@ -114,7 +114,6 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
         libraryViewModel.getAverageRating(gameId)
     }
 
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -143,6 +142,8 @@ fun GameCard(
     rating: Double?
 ) {
     val currentUser = userViewModel.currentUser.collectAsState().value
+    val isAdmin = currentUser?.userType == UserType.ADMIN
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -287,18 +288,20 @@ fun GameCard(
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = { navController.navigate("updateVideogame/${videogame.gameId}") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                ) {
-                    Text(
-                        stringResource(R.string.modify),
-                        fontSize = 20.sp,
-                        style = GameDexTypography.bodyLarge
-                    )
+                if(isAdmin) {
+                    Button(
+                        onClick = { navController.navigate("updateVideogame/${videogame.gameId}") },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                    ) {
+                        Text(
+                            stringResource(R.string.modify),
+                            fontSize = 20.sp,
+                            style = GameDexTypography.bodyLarge
+                        )
+                    }
                 }
             }
             Box(
@@ -307,7 +310,7 @@ fun GameCard(
                     .padding(bottom = 12.dp, end = 12.dp),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                if (currentUser?.userType == UserType.ADMIN) {
+                if (isAdmin) {
                     var showDialog by remember { mutableStateOf(false) }
 
                     IconButton(

@@ -176,7 +176,6 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                             modifier = Modifier.padding(end = 100.dp, bottom = 4.dp)
                         )
 
-
                         var selectedImageUri by remember {
                             mutableStateOf<Uri?>(null)
                         }
