@@ -39,9 +39,6 @@ class CategoryViewModel(private val categoryCases: CategoryCases) : ViewModel() 
 
     val _categoryModified = MutableStateFlow<Boolean?>(null)
     val categoryModified: StateFlow<Boolean?> = _categoryModified
-
-    val _categoryModified = MutableStateFlow<Boolean?>(null)
-    val categoryModified: StateFlow<Boolean?> = _categoryModified
     
    /**
      * Afegeix una nova categoria.

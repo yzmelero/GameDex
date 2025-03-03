@@ -51,12 +51,6 @@ open class GameViewModel(private val videogameUseCase: VideogameUseCase) : ViewM
     private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
     val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
 
-    private val _videogameByCategory = MutableStateFlow<List<Videogame>>(emptyList())
-    val videogameByCategory: StateFlow<List<Videogame>> = _videogameByCategory
-
-    private val _videogameByName = MutableStateFlow<List<Videogame>>(emptyList())
-    val searchVideogames: StateFlow<List<Videogame>> = _videogameByName
-
      /**
      * Crea un nou videojoc.
      *
