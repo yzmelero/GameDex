@@ -1,13 +1,11 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,13 +18,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -47,7 +42,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -58,7 +52,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
 import cat.copernic.grup4.gamedex.Core.ui.header
@@ -81,7 +74,6 @@ fun ValidateGamesScreen(navController: NavController, userViewModel: UserViewMod
         navController.currentBackStackEntry?.arguments?.getString("gameId")
     } ?: return // Si es null, surt
 
-    //val gameId = "67c064d5c11df1548c1516e3";
     val videogameUseCase = VideogameUseCase(VideogameRepository())
     val gameViewModel: GameViewModel = viewModel(factory = GameViewModelFactory(videogameUseCase))
     val game by gameViewModel.gameById.collectAsState()
@@ -266,9 +258,11 @@ fun AcceptGame(videogame : Videogame, gameViewModel: GameViewModel, userViewMode
                     text = { Text(stringResource(R.string.delete_question)) },
                     confirmButton = {
                         TextButton(onClick = {
-                            gameViewModel.videogameDeleted
-                            showDialog = false
-                            navController.popBackStack()
+                            videogame.gameId?.let {
+                                gameViewModel.deleteVideogame(it)
+                                showDialog = false
+                                navController.popBackStack()
+                            } ?: Log.e("DELETE_GAME", "Error: gameId is null or empty")
                         }) {
                             Text(stringResource(R.string.delete), color = Color.Red)
                         }
@@ -279,7 +273,6 @@ fun AcceptGame(videogame : Videogame, gameViewModel: GameViewModel, userViewMode
                         }) { Text(stringResource(R.string.cancel)) }
                     }
                 )
-
             }
         }
     }
@@ -291,19 +284,5 @@ fun PreviewValidateGamesScreen() {
     val fakeNavController = rememberNavController()
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-
     ValidateGamesScreen(navController = fakeNavController, userViewModel)
-/*
-    val fakeGame = Videogame(
-        nameGame = "Nombre prueba",
-        releaseYear = "2022",
-        category = "Categoria",
-        developer = "FromSoftware",
-        ageRecommendation = "18",
-        descriptionGame = "Lorem ipsum dolor sit amet consectetur adipiscing elit odio aptent cubilia, laoreet cursus pharetra vulputate pellentesque integer nec fermentum sociis id, feugiat class torquent vel egestas primis mus sed fusce. Interdum condimentum mauris sed ridiculus duis justo phasellus, lobortis feugiat augue ultricies cum ultrices arcu ullamcorper, curabitur in cras auctor morbi sapien. Consequat penatibus litora tristique dis rutrum nec venenatis aliquam, lectus aptent laoreet fames condimentum augue varius gravida metus, montes platea duis conubia justo quis lobortis.",
-        gamePhoto = "",
-        gameId = "1"
-    )
-
-    AcceptGame(fakeGame)*/
 }

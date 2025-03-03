@@ -104,7 +104,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
         if (videogameDeleted == true) {
             Toast.makeText(context,
                 context.getString(R.string.videogame_deleted_succesfully), Toast.LENGTH_SHORT).show()
-            navController.navigate("listvideogames")
+            navController.navigate("listVideogames")
         }
     }
 
@@ -113,7 +113,6 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
         libraryViewModel.getCommentsByGame(gameId)
         libraryViewModel.getAverageRating(gameId)
     }
-
 
     Box(
         modifier = Modifier
@@ -143,6 +142,8 @@ fun GameCard(
     rating: Double?
 ) {
     val currentUser = userViewModel.currentUser.collectAsState().value
+    val isAdmin = currentUser?.userType == UserType.ADMIN
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -287,18 +288,20 @@ fun GameCard(
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = { /* TODO navigació a pantalla modificar (a fer) */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                ) {
-                    Text(
-                        stringResource(R.string.modify),
-                        fontSize = 20.sp,
-                        style = GameDexTypography.bodyLarge
-                    )
+                if(isAdmin) {
+                    Button(
+                        onClick = { navController.navigate("updateVideogame/${videogame.gameId}") },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                    ) {
+                        Text(
+                            stringResource(R.string.modify),
+                            fontSize = 20.sp,
+                            style = GameDexTypography.bodyLarge
+                        )
+                    }
                 }
             }
             Box(
@@ -307,7 +310,7 @@ fun GameCard(
                     .padding(bottom = 12.dp, end = 12.dp),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                if (currentUser?.userType == UserType.ADMIN) {
+                if (isAdmin) {
                     var showDialog by remember { mutableStateOf(false) }
 
                     IconButton(
@@ -353,8 +356,6 @@ fun GameCard(
 @Composable
 fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController) {
 
-
-    // TODO Fer tota la part dels comentaris ben feta
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -394,11 +395,6 @@ fun CommentsSection(gameId: String, comment: List<Library>, navController: NavCo
                     rating = "⭐ ${library.rating} ⭐"
                 )
             }
-            /*CommentItem(
-                "VicoGracias",
-                "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥",
-                "⭐9.96⭐"
-            )*/
         }
     }
 }

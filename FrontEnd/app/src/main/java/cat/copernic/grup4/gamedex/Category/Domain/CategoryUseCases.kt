@@ -48,5 +48,12 @@ class CategoryCases(private val repository: CategoryRepository) {
      * @return La resposta de la API amb la llista de categories filtrades.
      */
     suspend fun filterCategories(query: String) = repository.filterCategories(query)
+
+    /**
+     * Modifica una categoria.
+     * 
+     * @param category La categoria a modificar.
+     * @return La resposta de la API amb la categoria modificada.  
+     */
     suspend fun modifyCategory(category: Category) = repository.modifyCategory(category)
 }

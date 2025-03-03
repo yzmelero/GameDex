@@ -21,7 +21,6 @@ public class Category {
      * El nom de la categoria.
      */
     @Id
-    @Field(name = "name_category")
     private String nameCategory;
 
     /**
