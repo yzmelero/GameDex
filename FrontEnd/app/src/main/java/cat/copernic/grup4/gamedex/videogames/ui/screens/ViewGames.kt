@@ -104,7 +104,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
         if (videogameDeleted == true) {
             Toast.makeText(context,
                 context.getString(R.string.videogame_deleted_succesfully), Toast.LENGTH_SHORT).show()
-            navController.navigate("listvideogames")
+            navController.navigate("listVideogames")
         }
     }
 
@@ -397,11 +397,6 @@ fun CommentsSection(gameId: String, comment: List<Library>, navController: NavCo
                     rating = "⭐ ${library.rating} ⭐"
                 )
             }
-            /*CommentItem(
-                "VicoGracias",
-                "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥",
-                "⭐9.96⭐"
-            )*/
         }
     }
 }

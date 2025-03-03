@@ -167,6 +167,7 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                             value = descriptionGame
                         ) { descriptionGame = it }
 
+                        Spacer(modifier = Modifier.height(10.dp))
                         Text(
                             text = stringResource(R.string.cover) + ":",
                             color = Color.Black,
@@ -178,22 +179,19 @@ fun AddGamesScreen(navController : NavController, userViewModel: UserViewModel) 
                         var selectedImageUri by remember {
                             mutableStateOf<Uri?>(null)
                         }
-
                         val imagePickerLauncher = rememberLauncherForActivityResult(
                             contract = ActivityResultContracts.PickVisualMedia(),
                             onResult = { uri -> selectedImageUri = uri }
                         )
-
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                             modifier = Modifier.padding(start = 50.dp)
                         ) {
                             Row (horizontalArrangement = Arrangement.Center){
-                                Spacer(modifier = Modifier.height(4.dp))
                                 if (selectedImageUri == null) {
                                     Image(
-                                        painter = painterResource(R.drawable.eldenring),
+                                        painter = painterResource(R.drawable.defaultimage),
                                         contentDescription = stringResource(R.string.cover),
                                         modifier = Modifier
                                             .size(height = 170.dp, width = 110.dp)

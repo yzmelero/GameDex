@@ -239,7 +239,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                     )
                                 } else {
                                     Image(
-                                        painter = painterResource(id = R.drawable.eldenring),
+                                        painter = painterResource(id = R.drawable.defaultimage),
                                         contentDescription = stringResource(R.string.gamePicture),
                                         contentScale = ContentScale.Crop,
                                         modifier = Modifier.size(height = 170.dp, width = 110.dp)
