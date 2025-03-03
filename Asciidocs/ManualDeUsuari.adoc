@@ -1,0 +1,205 @@
+:hardbreaks:
+== [aqua]#10. MANUAL D'USUARI#
+
+Per a accedir a la nostra aplicació cal tenir MongoDB versió 1.45, JDK versió 21, i un dispositiu mòbil o emulador. 
+La base de dades es troba sota el nom de “Projecte3GameDex”. 
+L'aplicació té dos usuaris per defecte, un administrador i un usuari “normal”. 
+
+
+**Administrador:**
+
+** Username: admin
+
+** Password: admin
+
+**Usuari:** 
+
+** Username: user
+
+** Password: user
+
+
+La base de dades no té cap contrasenya.
+
+
+=== [aqua]#10.1. MANUAL D'USUARI "CLIENT"#
+
+==== [aqua]#10.1.0. ABANS DE COMENÇAR#
+
+En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l'esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l'aplicació.
+La barra inferior ens permet accedir a les diferents parts de l'aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d'usuaris, el perfil d’usuari i a la nostra llibreria respectivament.
+
+==== [aqua]#10.1.1 LOGIN#
+
+image::login.png[align="center", width="500", height="900"]
+
+Aquesta és la pantalla d'inici de sessió, on l'usuari ha d'introduir el seu nom d'usuari i contrasenya per a poder accedir a l'aplicació.
+L'usuari també tindrà l'opció d'enregistrar-se si no té un compte o de recuperar la seva contrasenya en cas d'haver-la oblidat.
+En clicar el botó de "confirmar", si les credencials son correctes, l'usuari serà redirigit a la pantalla principal de l'aplicació.
+
+==== [aqua]#10.1.2. REGISTRE#
+
+image::signUp.png[align="center", width="500", height="900"]
+
+En aquesta pantalla trobem en la part superior el logo de l’aplicació. A l’esquerra hi ha un botó per tornar a la pantalla d’Iniciar Sessió. Seguit d’això trobem un formulari que l’usuari ha d’omplir per a poder registrar-se. Els camps que el componen són: nom d’usuari, nom, cognom, contrasenya, correu electrònic, telèfon, data de naixement i hi ha un camp per afegir una imatge de la galeria del telèfon. L’usuari ha de tenir en compte què no podrà iniciar sessió fins que el seu compte no hagi estat validat per un administrador.
+
+==== [aqua]#10.1.3. RESETEJAR CONTRASENYA#
+
+image::forgotYourPassword.png[align="center", width="500", height="900"]
+
+Si l’usuari vol canviar la contrasenya, haurà d’haver clicat en el botó “Has oblidat la contrasenya?” que hi ha a la pantalla d’iniciar Sessió. Una vegada que l’usuari es troba en aquesta pantalla veurà en la part superior un botó per a tornar enrere i un formulari de dos camps, nom d’usuari i correu electrònic. En el cas de voler canviar la contrasenya, l’usuari ha d’omplir el formulari i clicar en Confirmar. Aleshores apareixerà un missatge de confirmació en el cas que les credencials siguin correctes juntament amb una contrasenya provisional que es recomana canviar immediatament després de l’inici de sessió.
+
+==== [aqua]#10.1.4. LLISTAT DE CATEGORIES#
+
+image::listCategories.png[align="center", width="500", height="900"]
+
+En la pantalla de llistar categories, l’usuari pot observar tots els tipus de videojoc que s’han afegit a l’aplicació. A sota de la capçalera, trobem un buscador que ens permet filtrar pel nom de la categoria, l’usuari pot escriure el nom complet de la categoria o només una part i se li mostraran tots els resultats obtinguts. A sota hi ha la llista de categories, cada categoria és un ítem clicable que ens porta a visualitzar més informació sobre la categoria corresponent. 
+
+==== [aqua]#10.1.5. CONSULTAR CATEGORIA#
+
+image::viewCategory.png[align="center", width="500", height="900"]
+
+En la pantalla de consultar categoria podem veure més informació de la categoria seleccionada. Trobem el nom de la categoria, una imatge descriptiva, i una descripció sobre aquesta categoria. 
+
+==== [aqua]#10.1.6. LLISTAT DE VIDEOJOCS#
+
+image::listVideogames.png[align="center", width="500", height="900"]
+
+En la pantalla de llistar videojocs l’usuari pot accedir a un llistat dels videojocs que existeixen a la base de dades de la nostra aplicació. A sota del títol, trobem un buscador que ens permet trobar més fàcilment el videojoc que estem buscant, podem escriure el nom complet i ens mostrarà només aquell resultat o, podem escriure només una part i ens mostrarà tots els resultats que coincideixin. Seguidament, trobem un menú desplegable que ens permet filtrar els videojocs per categoria. A sota trobem la llista de videojocs disponibles per als filtres que hem aplicat, si no posem cap filtre, trobarem tots els videojocs. Per cada resultat de videojoc, podem veure la seva imatge, el nom del videojoc, la categoria a la qual pertany i també tenim una icona clicable d’un ull que ens porta a la pàgina d’aquest videojoc. A la part inferior, trobem una icona amb un símbol “+”, clicant aquí, l’usuari pot accedir a presentar una nova proposta de videojoc. 
+
+==== [aqua]#10.1.7. CONSULTAR VIDEOJOC#
+
+image::viewVideogame.png[align="center", width="500", height="900"]
+
+En la pantalla de visualitzar videojoc trobem la informació detallada del videojoc corresponent i un apartat de comentaris on trobem les ressenyes que han deixat els usuaris sobre aquest videojoc. La pantalla està dividida en dues parts, la zona superior és la dels detalls del videojoc. Aquí podem veure la imatge, el nom, la puntuació mitjana dels usuaris, el PEGI (edat recomanada), l’any de llançament, la categoria a la qual pertany, l’empresa creadora del videojoc, i una descripció del videojoc. A la zona superior dreta, trobem una icona en forma de cor que ens permet afegir aquest videojoc a la nostra biblioteca personal i, per tant, desar una ressenya. A la zona inferior de la pantalla, trobem el llistat de comentaris per aquest videojoc. Al costat del títol de “COMENTARIS”, trobem una icona amb el símbol “+”, el qual ens porta a afegir un videojoc a la biblioteca, és la mateixa funcionalitat que el botó amb el símbol del cor de la part superior. A sota del títol, trobem el llistat de comentaris on per cada comentari podem veure el nom de l’usuari que l’ha escrit, la puntuació que li ha posat i un comentari.
+
+==== [aqua]#10.1.8. AFEGIR VIDEOJOC#
+
+image::addVideogame.png[align="center", width="500", height="900"]
+
+En la pantalla d’afegir videojoc trobem un formulari amb la informació necessària perquè l’usuari pugui presentar una proposta de videojoc als administradors. Qualsevol proposta ha de ser validada per un administrador. El formulari consta dels camps següents: nom del videojoc, any de llançament, edat recomanada, empresa creadora del videojoc, un menú desplegable per a escollir la categoria a la qual pertany el videojoc, una descripció i una imatge descriptiva. Finalment, per a poder enviar la proposta hi ha un botó de confirmació.
+
+==== [aqua]#10.1.9. LLISTAT D'USUARIS#
+
+image::listUsers.png[align="center", width="500", height="900"]
+
+En la pantalla de llistar usuaris, l’usuari pot trobar una llista de tots els usuaris independentment que hagin estat validats o no. A sota del títol, trobem un espai per a realitzar una cerca personalitzada segons el nom d’usuari, en aquest espai podem escriure el nom d’usuari complet o només una part i l’aplicació ens mostrarà els resultats obtinguts. A sota d’aquest espai, està la llista d’usuaris, on cada ítem té la imatge de perfil (si l’usuari en té), el nom d’usuari i una icona clicable que ens permet navegar al perfil de l’usuari corresponent.
+
+==== [aqua]#10.1.10. VIEW PROFILE#
+
+image::viewProfile.png[align="center", width="500", height="900"]
+
+En la pantalla de consultar el perfil de l’usuari, podem trobar informació de l’usuari corresponent. Els camps que podem veure són la imatge de perfil, el nom d’usuari i el recompte de videojocs filtrats per acabats, jugant, aquells que es volen jugar i aquells que no s’han finalitzat. Al costat de la imatge de perfil a l’esquerra, hi ha un botó amb un llapis (nomes si ens trobem al nostre perfil), que ens portarà a la pantalla de modificar el perfil de l’usuari. A sota del recompte de videojocs, trobem un botó que ens portarà a la llibreria de l’usuari. 
+
+==== [aqua]#10.1.11. MODIFICAR PERFIL#
+
+image::modifyProfile.png[align="center", width="500", height="900"]
+
+En la pantalla de modificar el perfil de l’usuari, podem modificar les dades introduïdes de l’usuari, que són les mateixes que en la pantalla de registre: contrasenya, nom, cognom, correu electrònic, telèfon, data de naixement i imatge de perfil. L’únic camp que no és editable és el nom d’usuari. Si l’usuari no vol canviar la contrasenya, haurà de deixar el camp buit. A sota de la imatge, hi ha el botó de confirmar, el qual guardarà l’usuari actualitzat i ens portarà a la pantalla de visualitzar el perfil.
+
+==== [aqua]#10.1.12. LLIBRERIA#
+
+image::listLibrary.png[align="center", width="500", height="900"]
+
+En aquesta pantalla l’usuari trobarà un llistat de tots els jocs que ha afegit a la seva llibreria. Cada entrada mostrarà el nom del videojoc, la seva categoria i l'estat en què l'usuari ha guardat el videojoc (Finalitzat, Pendent, Jugant, o Abandonat). També trobarà dos botons a la dreta, un vermell que eliminarà el videojoc de la seva llibreria i un fúcsia que ens permetrà editar l'entrada a ala llibreria.
+
+==== [aqua]#10.1.13. AFEGIR VIDEOJOC A LA LLIBRERIA#
+
+image::addVideogameToLibrary.png[align="center", width="500", height="900"]
+
+Aquesta pantalla permet a l’usuari afegir un videojoc a la seva llibreria personal. Podrem introduir un estat, una puntuació i un comentari. Només serà necessari afegir l'estat, on l’usuari podrà escollir entre Finalitzat, Pendent, Jugant o Abandonat. 
+
+==== [aqua]#10.1.14. MODIFICAR ENTRADA DE LA LLIBRERIA#
+
+image::addVideogameToLibrary.png[align="center", width="500", height="900"]
+
+Aquesta pantalla permet a l’usuari modificar un videojoc de la seva llibreria personal. Podrem modificar l'estat, la puntuació i el comentari. 
+
+
+=== [aqua]#10.2. MANUAL D'USUARI "ADMINISTRADOR"#
+
+==== [aqua]#10.2.0. ABANS DE COMENÇAR#
+
+En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l'esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l'aplicació.
+La barra inferior ens permet accedir a les diferents parts de l'aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d'usuaris, el perfil d’usuari i a la nostra llibreria respectivament.
+
+==== [aqua]#10.2.1. LLISTAT DE CATEGORIES#
+
+image::listCategoriesAdmin.png[align="center", width="500", height="900"]
+
+En la pantalla de llistar categories, l’usuari pot observar tots els tipus de videojoc que s’han afegit a l’aplicació. A sota de la capçalera, trobem un buscador que ens permet filtrar pel nom de la categoria, l’usuari pot escriure el nom complet de la categoria o només una part i se li mostraran tots els resultats obtinguts. A sota hi ha la llista de categories, cada categoria és un ítem clicable que ens porta a visualitzar més informació sobre la categoria corresponent. L’administrador a més podrà afegir noves categories amb el botó amb la icona d'un “+” a l'esquena inferior dreta de la pantalla.
+
+==== [aqua]#10.2.2. AFEGIR CATEGORIA#
+
+image::addCategory.png[align="center", width="500", height="900"]
+
+La pantalla d’afegir categoria és una pantalla exclusiva per l'Administrador, i el seu objectiu  és poder afegir noves categories per a després assignar-li videojocs. Per poder crear-la hem d’afegir el nom de la categoria, una descripció per la categoria que vols afegir i una imatge sobre la categoria que vols crear.
+
+==== [aqua]#10.2.3. CONSULTAR CATEGORIA#
+
+image::viewCategoryAdmin.png[align="center", width="500", height="900"]
+
+En la pantalla de consultar categoria podem veure més informació de la categoria seleccionada. Trobem el nom de la categoria, una imatge descriptiva, i una descripció sobre aquesta categoria. L’administrador a més trobarà al costat del nom de la categoria, un botó vermell amb una icona d’una brossa on podrà eliminar la categoria corresponent i a sota de la informació, hi ha un botó rosa per a poder modificar la informació de la categoria: la descripció i la imatge. 
+
+==== [aqua]#10.2.4. MODIFICAR CATEGORIA#
+
+image::modifyCategory.png[align="center", width="500", height="900"]
+
+Per la pantalla de modificar categoria el que podrà fer l’administrador és modificar la descripció i la imatge de la categoria visualitzada anteriorment.
+
+==== [aqua]#10.2.5. LLISTAT DE VIDEOJOCS#
+
+image::listVideogamesAdmin.png[align="center", width="500", height="900"]
+
+En la pantalla de llistar videojocs l’usuari pot accedir a un llistat dels videojocs que existeixen a la base de dades de la nostra aplicació. A sota del títol, trobem un buscador que ens permet trobar més fàcilment el videojoc que estem buscant, podem escriure el nom complet i ens mostrarà només aquell resultat o, podem escriure només una part i ens mostrarà tots els resultats que coincideixin. Seguidament, trobem un menú desplegable que ens permet filtrar els videojocs per categoria. A sota trobem la llista de videojocs disponibles per als filtres que hem aplicat, si no posem cap filtre, trobarem tots els videojocs. Per cada resultat de videojoc, podem veure la seva imatge, el nom del videojoc, la categoria a la qual pertany i també tenim una icona clicable d’un ull que ens porta a la pàgina d’aquest videojoc. A la part inferior, trobem una icona amb un símbol “+”, clicant aquí, l’usuari pot accedir a presentar una nova proposta de videojoc. 
+A més l’administrador trobarà un botó a la part inferior esquerra amb un tic, que el permetrà anar al llistat de videojocs per verificar.
+
+==== [aqua]#10.2.6. VISUALITZAR VIDEOJOC#
+
+image::viewVideogameAdmin.png[align="center", width="500", height="900"]
+
+En la pantalla de visualitzar videojoc trobem la informació detallada del videojoc corresponent i un apartat de comentaris on trobem les ressenyes que han deixat els usuaris sobre aquest videojoc. La pantalla està dividida en dues parts, la zona superior és la dels detalls del videojoc. Aquí podem veure la imatge, el nom, la puntuació mitjana dels usuaris, el PEGI (edat recomanada), l’any de llançament, la categoria a la qual pertany, l’empresa creadora del videojoc, i una descripció del videojoc. A la zona superior dreta, trobem una icona en forma de cor que ens permet afegir aquest videojoc a la nostra biblioteca personal i, per tant, desar una ressenya. A la zona inferior de la pantalla, trobem el llistat de comentaris per aquest videojoc. Al costat del títol de “COMENTARIS”, trobem una icona amb el símbol “+”, el qual ens porta a afegir un videojoc a la biblioteca, és la mateixa funcionalitat que el botó amb el símbol del cor de la part superior. A sota del títol, trobem el llistat de comentaris on per cada comentari podem veure el nom de l’usuari que l’ha escrit, la puntuació que li ha posat i un comentari.  L'administrador a més, té diverses opcions més. A la part superior a sota de la descripció, té un botó rosa per a poder modificar la informació del videojoc. A sota hi ha un botó vermell amb l'icona d'una brossa, aquí pot esborrar el videojoc. 
+En la secció de comentaris, l'administrador pot esborrar qualsevol comentari.
+
+==== [aqua]#10.2.7. LLISTAT DE VIDEOJOCS PER VERIFICAR#
+
+image::verifyVideogamesList.png[align="center", width="500", height="900"]
+
+En la pantalla de llistat de videojocs per validar, l’administrador pot veure una llista de totes les propostes de videojocs que els usuaris han fet. Aquesta llista es troba a sota del títol. Per a cada proposta podem trobar una imatge, el nom del videojoc i la seva categoria. A la dreta d’aquesta informació trobem una icona amb un ull, en clicar-la, anirem a la pantalla de verificar videojoc.
+
+==== [aqua]#10.2.8. VERIFICAR VIDEOJOC#
+
+image::verifyVideogame.png[align="center", width="500", height="900"]
+
+En la pantalla de verificar videojoc, l'administrador pot acceptar o eliminar la proposta feta per un usuari. Primer trobarà tota la informació: el nom, una imatge, l'edat recomanada, l'any de llançament, l'empresa que ha creat el videojoc, la categoria a la qual pertany i una descripció. A la part inferior hi ha dos botons, un verd per acceptar la proposta i un vermell per a eliminar-la.
+
+==== [aqua]#10.2.9. LLISTAT D'USUARIS#
+
+image::listUsersAdmin.png[align="center", width="500", height="900"]
+
+En la pantalla de llistar usuaris, l’usuari pot trobar una llista de tots els usuaris independentment que hagin estat validats o no. A sota del títol, trobem un espai per a realitzar una cerca personalitzada segons el nom d’usuari, en aquest espai podem escriure el nom d’usuari complet o només una part i l’aplicació ens mostrarà els resultats obtinguts. A sota d’aquest espai, està la llista d’usuaris, on cada ítem té la imatge de perfil (si l’usuari en té), el nom d’usuari i una icona clicable que ens permet navegar al perfil de l’usuari corresponent. Si accedim com a Administrador a sota de la barra de recerca trobarem dos botons, un per crear un usuari administrador i l’altre per verificar els nous usuaris que s’han registrat.
+
+==== [aqua]#10.2.10. AFEGIR ADMINISTRADOR#
+
+image::addAdmin.png[align="center", width="500", height="900"]
+
+En aquesta pantalla trobem un formulari que l'administrador ha d’omplir per a poder registrar nous administradors. Els camps que el componen són: nom d’usuari, nom, cognom, contrasenya, correu electrònic, telèfon, data de naixement i hi ha un camp per afegir una imatge de la galeria del telèfon.
+
+==== [aqua]#10.2.11. LLISTAT D'USUARIS PER VERIFICAR#
+
+image::validateUsersList.png[align="center", width="500", height="900"]
+
+En aquesta pantalla es mostrarà una llista de tots els usuaris que s’han registrat en la nostra aplicació i encara no han estat validats. Es mostrarà el nom de l’usuari i el seu avatar. Podrem accedir a la informació d’aquell usuari fent clic a la icona del costat dret de la targeta de l’usuari.
+
+==== [aqua]#10.2.12. VERIFICAR USUARI#
+
+image::validateUser.png[align="center", width="500", height="900"]
+
+En la pantalla de validar un usuari, l'administrador pot acceptar la validació d'un usuari o eliminar-lo. En aquesta pantalla trobem les dades de l'usuari registrat, una imatge de perfil, el nom d'usuari, nom, cognom, telèfon, data de naixement, tipus d'usuari (usuari o administrador) i l'estat del registre de l'usuari. A sota hi ha dos botons, validar usuari per acceptar el registre i un per eliminar a l'usuari.
+
+==== [aqua]#10.2.13. VISUALITZAR USUARI#
+
+image::viewProfileAdmin.png[align="center", width="500", height="900"]
+
+En la pantalla de consultar el perfil de l’usuari, podem trobar informació de l’usuari corresponent. Els camps que podem veure són la imatge de perfil, el nom d’usuari i el recompte de videojocs filtrats per acabats, jugant, aquells que es volen jugar i aquells que no s’han finalitzat. Al costat de la imatge de perfil a l’esquerra, hi ha un botó amb un llapis, que ens portarà a la pantalla de modificar el perfil de l’usuari. A sota del recompte de videojocs, trobem un botó que ens portarà a la llibreria de l’usuari. 
+L'administrador a més podra esborrar tots els perfils que no siguin el seu.

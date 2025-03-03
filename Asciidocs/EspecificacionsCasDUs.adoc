@@ -1,0 +1,34 @@
+.ID: CU33
+== [aqua]#5. Especificacions de casos d’ús de negoci#
+
+Validar proposta de videojocs
+
+*Nom:* Validar proposta de videojocs
+
+*Descripció:* L’administrador valida les propostes de videojocs que generen els usuaris. Podrà acceptar-les o rebutjar-les.
+
+*Actors:* Administrador
+
+*Precondició:* Iniciar sessió com a administrador.
+
+[cols="2,2", options="header"]
+|===
+|Flux Normal |Flux Alternatiu
+
+|1. L’administrador inicia sessió amb les seves credencials
+|
+
+|2. L’administrador accedeix a la pantalla de videojocs
+|
+
+|3. Prem el botó de “validar usuaris”
+|
+
+|4. Es mostra una llista de tots els usuaris que necessiten validació. A cada entrada es troba un botó de visualitzar.
+|4.1. Si no hi ha cap usuari pendent de validació, la llista apareixerà buida.
+
+|5. Es mostrarà a detall la informació de l'usuari visualitzat amb un botó per validar i un per a rebutjar.
+|
+|===
+
+*Postcondició:* L’usuari queda validat i pot accedir amb les seves credencials al sistema.

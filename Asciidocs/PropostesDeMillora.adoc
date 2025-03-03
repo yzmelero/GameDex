@@ -1,0 +1,11 @@
+:hardbreaks:
+== [aqua]#14. PROPOSTES DE MILLORA#
+Tenim una sèrie de propostes de millora per a la nostra aplicació que ens agradaria poder implementar a futur. Les nostres principals propostes són les següents.
+
+** **Funció de seguiment entre usuaris:** Per tal d’afegir un extra de socialització a la nostra aplicació, ens agradaria poder afegir un sistema on els usuaris puguin seguir a altres usuaris. Això podria venir acompanyat d’un sistema de notificacions, o una nova pantalla d’últimes notícies o de seguiment on puguis veure l’activitat recent de les persones a les quals segueixes.
+
+** **Funció de xat:** Continuant amb la proposta de millora anterior, creiem que podria ser beneficiós un xat, sigui entre tots els usuaris o privat. En cas que fos entre tots els usuaris, hi hauria moderadors dins del xat. En cas que fos privat, hi hauria d’haver una nova funcionalitat d’incidències en cas que es donin situacions poc afortunades entre dos usuaris. 
+
+** **Servidor en el núvol:** Per a portar la nostra aplicació als telèfons mòbils, haurem de fer servir servidors al núvol, ja que actualment depenem d’un servidor local.
+
+** **Notificacions per correu electrònic:** Per a aportar més seguretat, faríem la recuperació de contrasenya mitjançant un enllaç al correu electrònic. També ho faríem servir per a enviar notificacions com per exemple, si un administrador ha hagut de modificar el perfil d’un usuari o si s’ha esborrat algun comentari.

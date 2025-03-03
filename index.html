@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.22">
 <title>Memoria GameDEX Projecte 3</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -327,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -432,20 +433,214 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Memoria GameDEX Projecte 3</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">INDEX</div>
+<ul class="sectlevel1">
+<li><a href="#_1_propostes_didees_del_projecte"><span class="aqua">1. PROPOSTES D&#8217;IDEES DEL PROJECTE</span></a>
+<ul class="sectlevel2">
+<li><a href="#_1_1_idea_1_preferent_biblioteca_de_videojocs"><span class="aqua">1.1. IDEA 1 (preferent): Biblioteca de Videojocs</span></a>
+<ul class="sectlevel3">
+<li><a href="#_1_1_1_objectiu_de_lapp_i_quines_necessitats_resol"><span class="aqua">1.1.1. Objectiu de l’app i quines necessitats resol</span></a></li>
+<li><a href="#_1_1_2_estudi_de_mercat"><span class="aqua">1.1.2. Estudi de mercat</span></a></li>
+<li><a href="#_1_1_3_target"><span class="aqua">1.1.3. Target</span></a></li>
+<li><a href="#_1_1_4_explicació_dels_termes_categoria_i_ítem"><span class="aqua">1.1.4. Explicació dels termes "Categoria" i "Ítem"</span></a></li>
+<li><a href="#_1_1_5_exemple_de_processos_de_negoci"><span class="aqua">1.1.5. Exemple de processos de negoci</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_2_especificació_de_requisits"><span class="aqua">2. ESPECIFICACIÓ DE REQUISITS</span></a>
+<ul class="sectlevel2">
+<li><a href="#_2_1_requisits_no_funcionals"><span class="aqua">2.1. Requisits no funcionals</span></a></li>
+<li><a href="#_2_2_requisits_funcionals"><span class="aqua">2.2. Requisits funcionals</span></a></li>
+</ul>
+</li>
+<li><a href="#_3_guió_dactors"><span class="aqua">3. GUIÓ D&#8217;ACTORS</span></a>
+<ul class="sectlevel2">
+<li><a href="#_3_1_guió_de_client"><span class="aqua">3.1. Guió de client</span></a></li>
+<li><a href="#_3_2_guió_dadministrador"><span class="aqua">3.2. Guió d&#8217;Administrador</span></a></li>
+</ul>
+</li>
+<li><a href="#_4_diagrames"><span class="aqua">4. DIAGRAMES</span></a>
+<ul class="sectlevel2">
+<li><a href="#_4_1_diagrama_casos_dús"><span class="aqua">4.1. Diagrama casos d&#8217;ús</span></a></li>
+<li><a href="#_4_2_diagrama_entitat_relació"><span class="aqua">4.2. Diagrama entitat-relació</span></a></li>
+<li><a href="#_4_3_diagrama_darquitectura"><span class="aqua">4.3. Diagrama d&#8217;arquitectura</span></a></li>
+<li><a href="#_4_3_1_back_end"><span class="aqua">4.3.1. Back end</span></a></li>
+<li><a href="#_4_3_2_front_end"><span class="aqua">4.3.2 Front end</span></a></li>
+</ul>
+</li>
+<li><a href="#_5_especificacions_de_casos_dús_de_negoci"><span class="aqua">5. Especificacions de casos d’ús de negoci</span></a></li>
+<li><a href="#_6_disseny_de_pantalles"><span class="aqua">6. DISSENY DE PANTALLES</span></a>
+<ul class="sectlevel2">
+<li><a href="#_6_1_pantalla_de_registre"><span class="aqua">6.1. Pantalla de registre</span></a></li>
+<li><a href="#_6_2_pantalla_de_login"><span class="aqua">6.2. Pantalla de login</span></a></li>
+<li><a href="#_6_3_llistat_de_categories"><span class="aqua">6.3. Llistat de categories</span></a></li>
+<li><a href="#_6_4_llistat_de_videojocs"><span class="aqua">6.4. Llistat de videojocs</span></a></li>
+<li><a href="#_6_5_pantalla_de_modificar_perfil"><span class="aqua">6.5. Pantalla de modificar perfil</span></a></li>
+<li><a href="#_6_6_llistat_de_usuaris"><span class="aqua">6.6. Llistat de usuaris</span></a></li>
+<li><a href="#_6_7_visualitzar_videojoc"><span class="aqua">6.7. Visualitzar videojoc</span></a></li>
+<li><a href="#_6_8_pantalla_de_perfil"><span class="aqua">6.8. Pantalla de perfil</span></a></li>
+<li><a href="#_6_9_visualitzar_categoria"><span class="aqua">6.9. Visualitzar categoria</span></a></li>
+<li><a href="#_6_10_afegir_videojoc"><span class="aqua">6.10. Afegir videojoc</span></a></li>
+<li><a href="#_6_11_afegir_categoria"><span class="aqua">6.11. Afegir categoria</span></a></li>
+<li><a href="#_6_12_modificar_videojoc"><span class="aqua">6.12. Modificar videojoc</span></a></li>
+<li><a href="#_6_13_modificar_categoria"><span class="aqua">6.13. Modificar categoria</span></a></li>
+<li><a href="#_6_14_verificar_videojoc"><span class="aqua">6.14. Verificar videojoc</span></a></li>
+<li><a href="#_6_15_verificar_usuari"><span class="aqua">6.15. Verificar usuari</span></a></li>
+<li><a href="#_6_16_pantalla_de_biblioteca"><span class="aqua">6.16. Pantalla de biblioteca</span></a></li>
+<li><a href="#_6_17_afegir_a_la_biblioteca"><span class="aqua">6.17. Afegir a la biblioteca</span></a></li>
+<li><a href="#_6_18_guia_destils"><span class="aqua">6.18. Guia d&#8217;estils</span></a></li>
+<li><a href="#_6_19_components_de_figma"><span class="aqua">6.19. Components de figma</span></a></li>
+</ul>
+</li>
+<li><a href="#_7_disseny_de_la_base_de_dades"><span class="aqua">7. DISSENY DE LA BASE DE DADES</span></a></li>
+<li><a href="#_8_planificació_i_seguiment_setmanal"><span class="aqua">8. PLANIFICACIÓ I SEGUIMENT SETMANAL</span></a>
+<ul class="sectlevel2">
+<li><a href="#_8_1_sprint_1"><span class="aqua">8.1. Sprint 1</span></a>
+<ul class="sectlevel3">
+<li><a href="#_8_1_1_tasques_realitzades"><span class="aqua">8.1.1. Tasques realitzades</span></a></li>
+<li><a href="#_8_1_2_release_notes"><span class="aqua">8.1.2. Release notes</span></a></li>
+<li><a href="#_8_1_3_incidències"><span class="aqua">8.1.3. Incidències</span></a></li>
+<li><a href="#_8_1_4_analisis_final"><span class="aqua">8.1.4. Analisis final</span></a></li>
+</ul>
+</li>
+<li><a href="#_8_2_sprint_2"><span class="aqua">8.2. Sprint 2</span></a>
+<ul class="sectlevel3">
+<li><a href="#_8_2_1_tasques_realitzades"><span class="aqua">8.2.1. Tasques realitzades</span></a></li>
+<li><a href="#_8_2_2_release_notes"><span class="aqua">8.2.2. Release notes</span></a></li>
+<li><a href="#_8_2_3_incidències"><span class="aqua">8.2.3. Incidències</span></a></li>
+<li><a href="#_8_2_4_analisis_final"><span class="aqua">8.2.4. Analisis final</span></a></li>
+</ul>
+</li>
+<li><a href="#_8_3_sprint_3"><span class="aqua">8.3. Sprint 3</span></a>
+<ul class="sectlevel3">
+<li><a href="#_8_3_1_tasques_realitzades"><span class="aqua">8.3.1. Tasques realitzades</span></a></li>
+<li><a href="#_8_3_2_release_notes"><span class="aqua">8.3.2. Release notes</span></a></li>
+<li><a href="#_8_3_3_incidències"><span class="aqua">8.3.3. Incidències</span></a></li>
+<li><a href="#_8_3_4_analisis_final"><span class="aqua">8.3.4. Analisis final</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_9_implementació"><span class="aqua">9. IMPLEMENTACIÓ</span></a>
+<ul class="sectlevel2">
+<li><a href="#_9_1_gitlab"><span class="aqua">9.1. GITLAB</span></a></li>
+<li><a href="#_9_2_justificacio_de_decisions"><span class="aqua">9.2. JUSTIFICACIO DE DECISIONS</span></a></li>
+<li><a href="#_9_3_llistat_de_funcionalitats_finalitzades"><span class="aqua">9.3. LLISTAT DE FUNCIONALITATS FINALITZADES</span></a></li>
+<li><a href="#_9_4_llistat_dincidencies"><span class="aqua">9.4. LLISTAT D&#8217;INCIDENCIES</span></a>
+<ul class="sectlevel3">
+<li><a href="#_9_4_1_mario"><span class="aqua">9.4.1. MARIO</span></a></li>
+<li><a href="#_9_4_2_anna"><span class="aqua">9.4.2. ANNA</span></a></li>
+<li><a href="#_9_4_3_hector"><span class="aqua">9.4.3. HECTOR</span></a></li>
+<li><a href="#_9_4_4_yaiza"><span class="aqua">9.4.4. YAIZA</span></a></li>
+<li><a href="#_9_4_5_grup"><span class="aqua">9.4.5. GRUP</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_10_manual_dusuari"><span class="aqua">10. MANUAL D&#8217;USUARI</span></a>
+<ul class="sectlevel2">
+<li><a href="#_10_1_manual_dusuari_client"><span class="aqua">10.1. MANUAL D&#8217;USUARI "CLIENT"</span></a>
+<ul class="sectlevel3">
+<li><a href="#_10_1_0_abans_de_començar"><span class="aqua">10.1.0. ABANS DE COMENÇAR</span></a></li>
+<li><a href="#_10_1_1_login"><span class="aqua">10.1.1 LOGIN</span></a></li>
+<li><a href="#_10_1_2_registre"><span class="aqua">10.1.2. REGISTRE</span></a></li>
+<li><a href="#_10_1_3_resetejar_contrasenya"><span class="aqua">10.1.3. RESETEJAR CONTRASENYA</span></a></li>
+<li><a href="#_10_1_4_llistat_de_categories"><span class="aqua">10.1.4. LLISTAT DE CATEGORIES</span></a></li>
+<li><a href="#_10_1_5_consultar_categoria"><span class="aqua">10.1.5. CONSULTAR CATEGORIA</span></a></li>
+<li><a href="#_10_1_6_llistat_de_videojocs"><span class="aqua">10.1.6. LLISTAT DE VIDEOJOCS</span></a></li>
+<li><a href="#_10_1_7_consultar_videojoc"><span class="aqua">10.1.7. CONSULTAR VIDEOJOC</span></a></li>
+<li><a href="#_10_1_8_afegir_videojoc"><span class="aqua">10.1.8. AFEGIR VIDEOJOC</span></a></li>
+<li><a href="#_10_1_9_llistat_dusuaris"><span class="aqua">10.1.9. LLISTAT D&#8217;USUARIS</span></a></li>
+<li><a href="#_10_1_10_view_profile"><span class="aqua">10.1.10. VIEW PROFILE</span></a></li>
+<li><a href="#_10_1_11_modificar_perfil"><span class="aqua">10.1.11. MODIFICAR PERFIL</span></a></li>
+<li><a href="#_10_1_12_llibreria"><span class="aqua">10.1.12. LLIBRERIA</span></a></li>
+<li><a href="#_10_1_13_afegir_videojoc_a_la_llibreria"><span class="aqua">10.1.13. AFEGIR VIDEOJOC A LA LLIBRERIA</span></a></li>
+<li><a href="#_10_1_14_modificar_entrada_de_la_llibreria"><span class="aqua">10.1.14. MODIFICAR ENTRADA DE LA LLIBRERIA</span></a></li>
+</ul>
+</li>
+<li><a href="#_10_2_manual_dusuari_administrador"><span class="aqua">10.2. MANUAL D&#8217;USUARI "ADMINISTRADOR"</span></a>
+<ul class="sectlevel3">
+<li><a href="#_10_2_0_abans_de_començar"><span class="aqua">10.2.0. ABANS DE COMENÇAR</span></a></li>
+<li><a href="#_10_2_1_llistat_de_categories"><span class="aqua">10.2.1. LLISTAT DE CATEGORIES</span></a></li>
+<li><a href="#_10_2_2_afegir_categoria"><span class="aqua">10.2.2. AFEGIR CATEGORIA</span></a></li>
+<li><a href="#_10_2_3_consultar_categoria"><span class="aqua">10.2.3. CONSULTAR CATEGORIA</span></a></li>
+<li><a href="#_10_2_4_modificar_categoria"><span class="aqua">10.2.4. MODIFICAR CATEGORIA</span></a></li>
+<li><a href="#_10_2_5_llistat_de_videojocs"><span class="aqua">10.2.5. LLISTAT DE VIDEOJOCS</span></a></li>
+<li><a href="#_10_2_6_visualitzar_videojoc"><span class="aqua">10.2.6. VISUALITZAR VIDEOJOC</span></a></li>
+<li><a href="#_10_2_7_llistat_de_videojocs_per_verificar"><span class="aqua">10.2.7. LLISTAT DE VIDEOJOCS PER VERIFICAR</span></a></li>
+<li><a href="#_10_2_8_verificar_videojoc"><span class="aqua">10.2.8. VERIFICAR VIDEOJOC</span></a></li>
+<li><a href="#_10_2_9_llistat_dusuaris"><span class="aqua">10.2.9. LLISTAT D&#8217;USUARIS</span></a></li>
+<li><a href="#_10_2_10_afegir_administrador"><span class="aqua">10.2.10. AFEGIR ADMINISTRADOR</span></a></li>
+<li><a href="#_10_2_11_llistat_dusuaris_per_verificar"><span class="aqua">10.2.11. LLISTAT D&#8217;USUARIS PER VERIFICAR</span></a></li>
+<li><a href="#_10_2_12_verificar_usuari"><span class="aqua">10.2.12. VERIFICAR USUARI</span></a></li>
+<li><a href="#_10_2_13_visualitzar_usuari"><span class="aqua">10.2.13. VISUALITZAR USUARI</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_11_fol"><span class="aqua">11. FOL</span></a>
+<ul class="sectlevel2">
+<li><a href="#_11_1_objectiu_de_desenvolupament_sostenible"><span class="aqua">11.1. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE</span></a></li>
+<li><a href="#_11_2_subvencions_i_ajuts_per_al_nostre_projecte"><span class="aqua">11.2. SUBVENCIONS I AJUTS PER AL NOSTRE PROJECTE</span></a></li>
+<li><a href="#_11_3_identitat_digital"><span class="aqua">11.3. IDENTITAT DIGITAL</span></a>
+<ul class="sectlevel3">
+<li><a href="#_11_3_1_anna"><span class="aqua">11.3.1. ANNA</span></a></li>
+<li><a href="#_11_3_2_mario"><span class="aqua">11.3.2. MARIO</span></a></li>
+<li><a href="#_11_3_3_héctor"><span class="aqua">11.3.3. HÉCTOR</span></a></li>
+<li><a href="#_11_3_4_yaiza"><span class="aqua">11.3.4. YAIZA</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_12_video_promocional"><span class="aqua">12. VIDEO PROMOCIONAL</span></a></li>
+<li><a href="#_13_portfolis"><span class="aqua">13. PORTFOLIS</span></a>
+<ul class="sectlevel2">
+<li><a href="#_13_1_mario"><span class="aqua">13.1. MARIO</span></a></li>
+<li><a href="#_13_2_hector"><span class="aqua">13.2. Hector</span></a></li>
+<li><a href="#_13_3_yaiza"><span class="aqua">13.3. Yaiza</span></a></li>
+<li><a href="#_13_4_anna"><span class="aqua">13.4. ANNA</span></a></li>
+</ul>
+</li>
+<li><a href="#_14_propostes_de_millora"><span class="aqua">14. PROPOSTES DE MILLORA</span></a></li>
+<li><a href="#_15_conclusió"><span class="aqua">15. CONCLUSIÓ</span></a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/GDEX.png" alt="GDEX" width="1000" height="1000">
+</div>
+</div>
+<div class="sidebarblock text-right">
+<div class="content">
+<div class="paragraph">
+<p><strong>Noms:</strong> Anna Serrano,<br>
+Yaiza Melero,<br>
+Héctor Vico,<br>
+Mario Olaya<br>
+<strong>Any:</strong> 2025<br>
+<strong>Curs:</strong> DAM2M</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="1-propostes-didees-del-projecte"><a class="anchor" href="#1-propostes-didees-del-projecte"></a><span class="aqua">1. PROPOSTES D&#8217;IDEES DEL PROJECTE</span></h2>
+<h2 id="_1_propostes_didees_del_projecte"><span class="aqua">1. PROPOSTES D&#8217;IDEES DEL PROJECTE</span></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="1-1-idea-1-preferent-biblioteca-de-videojocs"><a class="anchor" href="#1-1-idea-1-preferent-biblioteca-de-videojocs"></a><span class="aqua">1.1. IDEA 1 (preferent): Biblioteca de Videojocs</span></h3>
+<h3 id="_1_1_idea_1_preferent_biblioteca_de_videojocs"><span class="aqua">1.1. IDEA 1 (preferent): Biblioteca de Videojocs</span></h3>
 <div class="sect3">
-<h4 id="1-1-1-objectiu-de-lapp-i-quines-necessitats-resol"><a class="anchor" href="#1-1-1-objectiu-de-lapp-i-quines-necessitats-resol"></a><span class="aqua">1.1.1. Objectiu de l’app i quines necessitats resol</span></h4>
+<h4 id="_1_1_1_objectiu_de_lapp_i_quines_necessitats_resol"><span class="aqua">1.1.1. Objectiu de l’app i quines necessitats resol</span></h4>
 <div class="paragraph">
 <p>El nostre objectiu amb aquesta app, és fer un <strong>llistat de videojocs</strong> dividit entre les seves diferents <strong>categories</strong> (Acció, aventura, simulació, estratègia…), on els usuaris puguin afegir al seu perfil els jocs dividint-los en diferents apartats d’estat: Re-Jugat, Acabat, Jugant, Pendent o Rebutjat. I a més d’afegir-los al seu perfil, ho puguin afegir amb una <strong>qualificació</strong> del que els ha semblat el joc i afegir un <strong>comentari destinat a la comunitat</strong>.</p>
 </div>
@@ -454,7 +649,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-1-2-estudi-de-mercat"><a class="anchor" href="#1-1-2-estudi-de-mercat"></a><span class="aqua">1.1.2. Estudi de mercat</span></h4>
+<h4 id="_1_1_2_estudi_de_mercat"><span class="aqua">1.1.2. Estudi de mercat</span></h4>
 <div class="paragraph">
 <p>Al mercat d’aplicacions ja existeixen diverses opcions similars a la nostra app, però amb temàtiques diferents. Per exemple, <em>MyAnimeList</em> o <em>AnimePlanet</em> són aplicacions amb característiques similars, però centrades en anime i manga, així com <em>GoodReads</em> i <em>TheStoryGraph</em> on podem trobar el mateix concepte aplicat a llibres.</p>
 </div>
@@ -471,7 +666,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
 <div class="content">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAIHUExURS5RojJUozRWpDJVpC9SojhZpu/y+P////7+/v39/kJiq/T2+j1dqDVXpVt3tlJvsvr6/Ont9Zqr0vj5/HiPw9vh71t2tvz8/fb4+2R+utHZ6s3V6KSz1ufr9DBTozNVpEFhqn+Vxjlap/r7/fHz+Ozv9j9fqfX2+vf4+7nF4J+v1MrT54Waya+824SZyJ2t0zpbp5yt08PN5M7W6fX3+vP1+aOy1nmPw0lnruHm8c/X6TtcqJKkzsXP5T5eqePo8o2gzEporlx3trvH4eTp81Zys0Rjq2V/uujs9TZXpdLa693j8GiBu1l1tVZztNTb7ENiq2B7uEVkrDFTo+Dl8dHY6k1qr2yEvW6GvmmCvHSLwd/k8Km42drg7k1rsPH0+e3w96a118HL43CIv66824KXx9/l8Zmq0ejr9HaNwqi32Nfe7WJ8udXc7F55t7rG4K272pGkztbc7MjR5qGx1fv8/UBgqmeAu+Xp87G+3Nje7ePn8tbd7Zur0lRxs9DY6pao0FNwsrXB3sfQ5oSYyKe114GWx3uRxL/J4lBtsVdztM3W6Zip0X6TxZOlz3qQw3+UxrjE31Vxs4ebyUtpr7PA3b/K4maAu4uey+7x99Pa60lorm+Hv3KJwKi22MTO5aq42fDy+GN9uYOXx2uEvY6hzYqey/n6/KKx1TxdqKu52UdmrbC925AFSCAAAASgSURBVHja7dz3VxRXGIDhbwH5dkFYYGkiRQFRkAgiWKKxxFijxhZrLOm9995777338kfmIIHDzp2ZnbsyJ3dn3udH5xvgvh6m7OwiAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAitUYFuBL1MTwXaKZqvdqDd9hVL2yUb9X5q0Ntw/v75lUH/cVjy4yBmpjCpA1vlP912Hz7U3lBWg4Oba0oMHWuxNAu44Fj2/t0TICjLfu7NRwPQ4F0LXBv7wvq32Axg8HtLRGhwLklgRNt6htgGN3dmkkjzgUQJsX+w//krUNcPM1GtETLgXQN3xnNw6qXYAT32t0B10KoKM+o1XPqFWAqrVNFuvXEacCFPLm6C1qFeDwfrXytFMBtK3BO/mBWgU42KyWDjkVQO/yDB4qWAVoLdiuv+js60AAPVU0t3mb2gTYrvY2ORagdvf8uZvUJsDPWo6P3Aqgq+fdgL2nNgG+yZUVoMWxAPrg3NTnOZsAJ6bKWr+edS3Ao7PX50e/VIsAVW2Bo9eOnD7/Z3Ug1wLotv5LM9Xhl/PeAM8GDd57OvAmqzfTJyLOBdCXLs18pzYB8gH3ftktvXPrXXGxdvDCVP1kZ6FpoGPm1yvnZAB9ffqUrlYBHg6YunXef7jfLaibAVZ+IvlOqwBHAqY+looMoNdtPa5WAVaXPMVVVgBdoVYBXvSfua2vYgOoXYBu/5ni15gSHKC61ndkWNIS4ECUVzyTHOAP34mHJDUB/K+Cl1dUgH/Cl/tXWIAh311yQxUVoH9d2PonGsICLPHd53qpqABVy0JezTvXnwkL8JvvTi9UWAC/B6CzV0V/S2iAK3z3OlBpAWR5wPoL7RIewP86OL/Y4zHXA8gN/of7M1IiQFv55xK3AmR8D4RbpFSAi0kJIH4HwielVICaXGICSKNxIFxaXTJAgyYngHEg3PTfI/PUBPAcCAfPS9oCZK6c948DP0nqAhQdCN+VKAF6s4kKMO9AOCaRAshgsgLMHQh3SsQAxxMWQH6YeWV4X9QAzyctQPX0gfCOOoka4LOkBZC6Zl35nEQO0J24ANK46qREDzCavACyUSwC7DE2vun7MLiSAohNgKPGxvfTFUCMB6ndKQvwtnEPmbIAI8bz9Zp0BfjWfEEwXQEOG1u/SFcAMT5SM5GyAJ96t67qW5gAwW+9cytAa4n3Rix8gBvdCjBkfMFXYw5wyq0A8pXxOK031gAd444FeMfYvifWAF2OHQTlamP7A7EGaHEtgOz1bq9fFGeAe5wLsN4YWBNjAL+z7P8coN0YaIsxwFXiXAAxPyz6eHwBtjsYYExL3RMvYIBdDgbYZf6YR+IKcPl3CDEEkKdKvU9s4QIMOxlgjfmDnokpwGuXHaAj51UqgLFDh3dk3PyIxd5+ywC5aHaIk8x3y92/uWigzockiPdy+MIGSZlzxRcru9O2/qLD4OQrkj77fpxb/7odkkazf27m919rUrl+WTbz7pq785JW02fCjpZMatcvedWz7ZJmE90NqV6/VAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICdfwFdlTP/e4E5QQAAAABJRU5ErkJggg==" alt="myanimelist" width="200" height="100">
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png" alt="myanimelist" width="200" height="100">
 </div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
@@ -488,13 +683,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-1-3-target"><a class="anchor" href="#1-1-3-target"></a><span class="aqua">1.1.3. Target</span></h4>
+<h4 id="_1_1_3_target"><span class="aqua">1.1.3. Target</span></h4>
 <div class="paragraph">
 <p>La nostra aplicació està pensada per a un públic de totes les edats amb la motivació de compartir amb altres persones allò que gaudeixen, els videojocs. També pot estar orientada a persones que simplement volen portar un registre d’aquells videojocs que vol jugar o que ja ha jugat. Tot i que no hi ha gaires restriccions d’ús, l’aplicació només està disponible en tres idiomes, català, castellà i anglès i per usuaris d&#8217;Android.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-1-4-explicació-dels-termes-categoria-i-ítem"><a class="anchor" href="#1-1-4-explicació-dels-termes-categoria-i-ítem"></a><span class="aqua">1.1.4. Explicació dels termes "Categoria" i "Ítem"</span></h4>
+<h4 id="_1_1_4_explicació_dels_termes_categoria_i_ítem"><span class="aqua">1.1.4. Explicació dels termes "Categoria" i "Ítem"</span></h4>
 <div class="paragraph">
 <p>En el cas de la nostra aplicació i entenent el terme “Categoria” com a un <strong>diferencial entre els ítems</strong> amb l’única finalitat de poder-los <strong>agrupar per a un filtratge previ o per a una fàcil navegació per l&#8217;aplicació</strong>. L’identifiquem com <strong>“els tipus de videojoc”</strong>, com ja hem esmentat, un videojoc pot ser d’aventures, d’acció, de simulació, etc.</p>
 </div>
@@ -506,7 +701,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="1-1-5-exemple-de-processos-de-negoci"><a class="anchor" href="#1-1-5-exemple-de-processos-de-negoci"></a><span class="aqua">1.1.5. Exemple de processos de negoci</span></h4>
+<h4 id="_1_1_5_exemple_de_processos_de_negoci"><span class="aqua">1.1.5. Exemple de processos de negoci</span></h4>
 <div class="paragraph">
 <p>En el cas de la nostra proposta d’aplicació, alguns exemples de processos de negoci que podem justificar des del principi, són els següents:</p>
 </div>
@@ -518,31 +713,248 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_especificació_de_requisits"><span class="aqua">2. ESPECIFICACIÓ DE REQUISITS</span></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="1-1-idea-2-venta-darticles-de-segona-mà"><a class="anchor" href="#1-1-idea-2-venta-darticles-de-segona-mà"></a><span class="aqua">1.1. IDEA 2: Venta d&#8217;articles de segona mà</span></h3>
-<div class="sect3">
-<h4 id="1-2-1-objectiu-de-lapp-i-quines-necessitats-resol"><a class="anchor" href="#1-2-1-objectiu-de-lapp-i-quines-necessitats-resol"></a><span class="aqua">1.2.1. Objectiu de l’app i quines necessitats resol</span></h4>
+<h3 id="_2_1_requisits_no_funcionals"><span class="aqua">2.1. Requisits no funcionals</span></h3>
 <div class="paragraph">
-<p>El nostre objectiu amb aquesta aplicació és crear un espai on un usuari pugui <strong>comprar ítems de segona mà a venedors particulars locals</strong>. Aquesta aplicació té diversos objectius:</p>
+<p><strong>Requisits Tècnics part frontend Mobile</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>(RN01)</strong> L’aplicació s’ha de desenvolupar utilitzant l’IDE Android Studio, implementant el llenguatge Kotlin per crear una aplicació nativa compatible amb dispositius Android.</p>
+</li>
+<li>
+<p><strong>(RN02)</strong> L’aplicació ha de tenir l’arquitectura MVVM (Model-View-ViewModel) i el ViewModel ha de gestionar l&#8217;estat de l&#8217;aplicació amb MutableStateFlow i StateFlow.</p>
+</li>
+<li>
+<p><strong>(RN03)</strong> S’ha d’utilitzar Jetpack Compose per implementar la interfície gràfica.</p>
+</li>
+<li>
+<p><strong>(RN07)</strong> S’ha d&#8217;utilitzar el git/gitlab per implementar el projecte en equip de forma òptima i adient.</p>
+</li>
+<li>
+<p><strong>(RN08)</strong> S’han de fer servir les següents branques: main/master, developer i branques per features, bugfix, etc.</p>
+</li>
+<li>
+<p><strong>(RN09)</strong> Tots els merges de funcionalitats s’han de fer per merge-request a developer.</p>
+</li>
+<li>
+<p><strong>(RN10)</strong> Les branques fusionades s’eliminen després del merge-request.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>El primer és <strong>donar una segona vida</strong> a productes que encara tenen vida útil i que o bé anaven a acabar a la brossa o bé no estaven fent-se servir. Per exemple, llibres, CDs, mobles, roba, joguines, etc.</p>
+<p><strong>Requisits d’Interfície (UI/UX, Accessibilitat) frontend Mobile</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>(RN11)</strong> L’app ha d’estar en català, castellà i anglès.</p>
+</li>
+<li>
+<p><strong>(RN12)</strong> La interfície de l&#8217;usuari ha de complir amb les directrius de disseny Material Design. El disseny visual ha de ser atractiu amb coherència de colors, fonts, icones, bona distribució i agrupació de components. Mateix disseny per totes les pantalles.</p>
+</li>
+<li>
+<p><strong>(RN13)</strong> Responsive: En cas de variar la grandària de la pantalla del mòbil (no cal per tablet), s’ha d’adaptar el contingut de forma proporcionada.</p>
+</li>
+<li>
+<p><strong>(RN14)</strong> Usabilitat (UX): Interfície amigable, efectiva, intuïtiva i eficient. No pot haver-hi passos innecessaris entre el que vols fer i com fer-ho. Ha de quedar molt clar què es pot fer. També cal que tingui coherència amb les funcionalitats disponibles i no disponibles en cada moment.</p>
+</li>
+<li>
+<p><strong>(RN15)</strong> App accessible: Els elements interactius han de tenir etiquetes descriptives per facilitar-ne l&#8217;ús.</p>
+</li>
+<li>
+<p><strong>(RN16)</strong> S’ha d&#8217;utilitzar el menú Bottom Navigation per a la navegació a les funcionalitats principals.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Un altre objectiu molt important és <strong>posar a l’abast de més persones</strong>, sobretot a nivell d’accessibilitat econòmica, el màxim de productes possibles. Aquest aspecte ens permetria apropar l’educació a més infants, o apropar oci de diversos àmbits a més persones.</p>
+<p><strong>Requisits operatius frontend Mobile</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>(RN17)</strong> L’app s’ha de poder executar en qualsevol emulador o dispositiu mòbil amb sistema operatiu Android.</p>
+</li>
+<li>
+<p><strong>(RN18)</strong> Fluïdesa: L’app ha de respondre a les entrades de l&#8217;usuari en tot moment. Això vol dir que en cap cas pot quedar “congelada” mentre realitza qualsevol operació.</p>
+</li>
+<li>
+<p><strong>(RN19)</strong> Gestió d’excepcions: Totes les possibles situacions excepcionals han de quedar gestionades de forma correcta i proporcionar missatges d’errors descriptius i útils per a l’usuari quan falli.</p>
+</li>
+<li>
+<p><strong>(RN20)</strong> El codi ha de ser optimitzat, eficient i sense redundàncies.</p>
+</li>
+<li>
+<p><strong>(RN21)</strong> S’han d’utilitzar les classes, interfícies i mètodes i packages de forma òptima i adient.</p>
+</li>
+<li>
+<p><strong>(RN22)</strong> Qualsevol entrada per teclat per part de l’usuari ha de validar-se i filtrar-se per garantir que les dades recollides siguin correctes, coherents i segures.</p>
+</li>
+<li>
+<p><strong>(RN23)</strong> Totes les capçaleres de mètodes i classes han d’estar degudament comentades en format JavaDOC en el frontend i backend.</p>
+</li>
+<li>
+<p><strong>(RN24)</strong> Els logs han d&#8217;estar disponibles per al monitoratge i depuració.</p>
+</li>
+<li>
+<p><strong>(RN25)</strong> L’aplicació ha de garantir que només els usuaris amb els permisos adequats puguin accedir a determinades funcionalitats.</p>
+</li>
+<li>
+<p><strong>(RN26)</strong> La capa presentació ha d’estar ubicada en el frontend Mobile.</p>
+</li>
+<li>
+<p><strong>(RN27)</strong> La comunicació entre el frontend Mobile i el backend s’ha de portar a terme mitjançant els principis REST.</p>
+</li>
+<li>
+<p><strong>(RN28)</strong> L’administrador pot fer totes les funcionalitats.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Finalment, creiem que aquesta aplicació podria ajudar a <strong>reduir el consumisme no sostenible</strong>, fomentant la producció i el consum responsable.</p>
+<p><strong>Requisits backend</strong></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>(RN40)</strong> Les capes de servei, lógica de negoci i de persistència han d’estar ubicades al backend.</p>
+</li>
+<li>
+<p><strong>(RN42)</strong> El backend s’ha d’implementar mitjançant SpringBoot.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_2_requisits_funcionals"><span class="aqua">2.2. Requisits funcionals</span></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>(RF01) Login Usuari: </strong> L’usuari ha de poder iniciar sessió a l’aplicació amb el seu correu electrònic i contrasenya i sempre que estigui activat.</p>
+</li>
+<li>
+<p><strong>(RF02) Registre Usuari: </strong> L’usuari ha de poder registrar-se per poder utilitzar l’app. Un nou client enregistrat, per defecte està en estat desactivat.</p>
+</li>
+<li>
+<p><strong>(RF45) Registre d&#8217;administrador: </strong> Els administradors podran registrar nous administradors al sistema, afegint tota la informació necessària. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF03) Recuperar contrasenya: </strong> L’usuari ha de poder recuperar  la contrasenya en cas d’oblit.</p>
+</li>
+<li>
+<p><strong>(RF04) Editar perfil usuari: </strong> L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.</p>
+</li>
+<li>
+<p><strong> (RF48) Consultar perfil d’usuari: </strong> Cada usuari podrà consultar el seu perfil d’usuari. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF05) Logout: </strong> L’usuari ha de poder tancar la sessió de manera segura.</p>
+</li>
+<li>
+<p><strong>(RF06) Validar Usuaris: </strong> L’administrador ha de poder canviar l’estat (activat o desactivat) dels usuaris enregistrats.</p>
+</li>
+<li>
+<p><strong>(RF07) Eliminar usuari: </strong> L’administrador ha de poder eliminar un usuari.</p>
+</li>
+<li>
+<p><strong>(RF08) Llistar usuaris: </strong> Tots els usuaris han de poder llistar tots els usuaris. (modificada)</p>
+</li>
+<li>
+<p><strong>(RF09) Modificar usuaris: </strong> L’administrador ha de poder modificar un usuari.</p>
+</li>
+<li>
+<p><strong>(RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF46) Consultar usuari: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF10) Crear categoria: </strong> Crear un nou tipus. Només l’usuari administrador ha de poder crear un nou tipus de videojoc que contingui com a mínim un nom, una imatge i una descripció.</p>
+</li>
+<li>
+<p><strong>(RF11) Llistar categories: </strong> Llistar tipus de videojocs. L’usuari ha de poder veure una llista de tots els tipus existents.</p>
+</li>
+<li>
+<p><strong>(RF12) Filtrar per categoria: </strong> L’usuari ha de poder cercar tipus pel seu nom i veure els resultats ordenats alfabèticament.</p>
+</li>
+<li>
+<p><strong>(RF13) Consultar categoria: </strong> Ampliar informació dels tipus de videojocs. L’usuari ha de poder seleccionar un tipus de videojoc i veure tota la informació associada (nom, imatge i descripció).</p>
+</li>
+<li>
+<p><strong>(RF14) Modificar categoria: </strong> Modificar tipus de videojoc. Només l’usuari administrador ha de poder modificar el nom, la imatge i la descripció de qualsevol tipus.</p>
+</li>
+<li>
+<p><strong>(RF15) Eliminar categoria: </strong> Eliminar tipus de videojoc. Només l’usuari administrador ha de poder eliminar un tipus de videojoc, sempre que no tingui ítems associats.</p>
+</li>
+<li>
+<p><strong>(RF16) Filtrar Videojocs per Categories: </strong> L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.</p>
+</li>
+<li>
+<p><strong>(RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.</p>
+</li>
+<li>
+<p><strong>(RF21) Llistar videojocs: </strong> L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.</p>
+</li>
+<li>
+<p><strong>(RF22) Filtrar videojocs: </strong> L’usuari ha de poder filtrar els ítems basant-se en qualsevol dels camps disponibles dels ítems (com el títol, l&#8217;autor, o la data de creació, entre d’altres).</p>
+</li>
+<li>
+<p><strong>(RF23) Ordenar llistat de videojocs: </strong> Ordenar videojocs per camps. L’usuari ha de poder ordenar la llista dels videojocs segons qualsevol camp disponible, com el títol, la data de creació o l’autor.</p>
+</li>
+<li>
+<p><strong>(RF24) Consultar videojoc: </strong> Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).</p>
+</li>
+<li>
+<p><strong>(RF25) Modificar videojoc: </strong> L&#8217;administrador, ha de poder modificar-ne la informació d&#8217;un videojoc, excepte l’autor, la data de creació, les valoracions i els comentaris. (Modificada)</p>
+</li>
+<li>
+<p><strong>(RF26) Eliminar videojoc: </strong> L’administrador, han de poder eliminar un videojoc. (Modificada)</p>
+</li>
+<li>
+<p><strong>(RF40) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF41) Afegir videojoc a biblioteca personal: </strong> Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l&#8217;estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF42) Modificar videojoc a la biblioteca personal: </strong> Tots els usuaris podran modificar l&#8217;estat dels jocs a la seva biblioteca personal. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF43) Eliminar videojoc de la biblioteca personal: </strong> Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)</p>
+</li>
+<li>
+<p><strong> (RF47) Consultar biblioteca personal: </strong> Cada usuari podrà consultar la seva biblioteca personal. (Afegida)</p>
+</li>
+<li>
+<p><strong>(RF30) Afegir comentaris: </strong> Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.</p>
+</li>
+<li>
+<p><strong>(RF31) Llistar comentaris (per data de creació): </strong> Llistar comentaris d’un videojoc ordenats per data de creació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.</p>
+</li>
+<li>
+<p><strong>(RF32) Llistar comentaris (per puntuació): </strong> Llistar comentaris d’un videojoc ordenats per puntuació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.</p>
+</li>
+<li>
+<p><strong>(RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.</p>
+</li>
+<li>
+<p><strong>(RF34) Eliminar comentaris: </strong> Només l’administrador, han de poder eliminar.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="3-guió-dactors"><a class="anchor" href="#3-guió-dactors"></a><span class="aqua">3. GUIÓ D&#8217;ACTORS</span></h2>
+<h2 id="_3_guió_dactors"><span class="aqua">3. GUIÓ D&#8217;ACTORS</span></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="3-1-guió-de-client"><a class="anchor" href="#3-1-guió-de-client"></a><span class="aqua">3.1. Guió de client</span></h3>
+<h3 id="_3_1_guió_de_client"><span class="aqua">3.1. Guió de client</span></h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -569,7 +981,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF04) Editar perfil usuari:</strong> L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.<br>
 <br>
+ <strong>(RF48) Consultar perfil d’usuari: </strong> Cada usuari podrà consultar el seu perfil d’usuari. (Afegida)<br>
+<br>
   <strong>(RF05) Logout: </strong>L’usuari ha de poder tancar la sessió de manera segura.<br>
+<br>
+  <strong> (RF08) Llistar usuaris: </strong> Tots els usuaris han de poder llistar tots els usuaris. (modificada)<br>
+<br>
+  <strong> (RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari. (Afegida)<br>
+<br>
+  <strong> (RF46) Consultar usuaris: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs. (Afegida)<br>
 <br>
   <strong>(RF11) Llistar categories: </strong>Llistar tipus de videojocs. L’usuari ha de poder veure una llista de tots els tipus existents.<br>
 <br>
@@ -579,7 +999,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF16) Filtrar Videojocs per Categories:</strong> L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.<br>
 <br>
-  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria.<br>
+  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.<br>
 <br>
   <strong> (RF21) Llistar videojocs: </strong> L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.<br>
 <br>
@@ -589,9 +1009,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF24) Consultar videojoc:</strong> Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).<br>
 <br>
-  <strong> (RF25) Modificar videojoc:</strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder modificar-ne la informació, excepte l’autor, la data de creació, les valoracions i els comentaris.<br>
+  <strong> (RF40) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)<br>
 <br>
-  <strong> (RF26) Eliminar videojoc: </strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder eliminar-lo.<br>
+  <strong> (RF41) Afegir videojoc a biblioteca personal: </strong> Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l&#8217;estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)<br>
+<br>
+  <strong> (RF42) Modificar videojoc a la biblioteca personal: </strong> Tots els usuaris podran modificar l&#8217;estat dels jocs a la seva biblioteca personal. (Afegida)<br>
+<br>
+  <strong> (RF43) Eliminar videojoc de la biblioteca personal: </strong> Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)<br>
+<br>
+  <strong> (RF47) Consultar biblioteca personal: </strong> Cada usuari podrà consultar la seva biblioteca personal. (Afegida)<br>
 <br>
   <strong> (RF30) Afegir comentaris: </strong> Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.<br>
 <br>
@@ -599,13 +1025,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF32) Llistar comentaris (per puntuació): </strong> Llistar comentaris d’un videojoc ordenats per puntuació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.<br>
 <br>
-  <strong> (RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.</p></td>
+  <strong> (RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.<br>
+<br>
+  <strong> (RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari.<br>
+<br>
+  <strong> (RF46) Consultar usuaris: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="3-2-guió-dadministrador"><a class="anchor" href="#3-2-guió-dadministrador"></a><span class="aqua">3.2. Guió d&#8217;Administrador</span></h3>
+<h3 id="_3_2_guió_dadministrador"><span class="aqua">3.2. Guió d&#8217;Administrador</span></h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -628,9 +1058,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF02) Registre Usuari: </strong> L’usuari ha de poder registrar-se per poder utilitzar l’app. Un nou client enregistrat, per defecte està en estat desactivat.<br>
 <br>
+  <strong> (RF45) Registre d&#8217;administrador: </strong> Els administradors podran registrar nous administradors al sistema, afegint tota la informació necessària. (Afegida)<br>
+<br>
   <strong> (RF03) Recuperar contrasenya: </strong> L’usuari ha de poder recuperar la contrasenya en cas d’oblit.<br>
 <br>
   <strong> (RF04) Editar perfil usuari: </strong> L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.<br>
+<br>
+ <strong>(RF48) Consultar perfil d’usuari: </strong> Cada usuari podrà consultar el seu perfil d’usuari. (Afegida)<br>
 <br>
   <strong> (RF05) Logout: </strong> L’usuari ha de poder tancar la sessió de manera segura.<br>
 <br>
@@ -638,9 +1072,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF07) Eliminar usuari: </strong> L’administrador ha de poder eliminar un usuari.<br>
 <br>
-  <strong> (RF08) Llistar usuaris: </strong> L’administrador ha de poder llistar tots els usuaris.<br>
+  <strong> (RF08) Llistar usuaris: </strong> Tots els usuaris han de poder llistar tots els usuaris. (modificada)<br>
 <br>
   <strong> (RF09) Modificar usuaris: </strong> L’administrador ha de poder modificar un usuari.<br>
+<br>
+  <strong> (RF44) Filtre d&#8217;usuaris: </strong> Tots els usuaris podran filtrar el llistat d&#8217;usuaris per nom d&#8217;usuari. (Afegida)<br>
+<br>
+  <strong> (RF46) Consultar usuaris: </strong> Tots els usuaris podran consultar/visualitzar el perfil de la resta d&#8217;usuaris, per veure la seva activitat de videojocs. (Afegida)<br>
 <br>
   <strong> (RF10) Crear categoria: </strong> Crear un nou tipus. Només l’usuari administrador ha de poder crear un nou tipus de videojoc que contingui com a mínim un nom, una imatge i una descripció.<br>
 <br>
@@ -656,7 +1094,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF16) Filtrar Videojocs per Categories: </strong> L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.<br>
 <br>
-  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria.<br>
+  <strong> (RF20) Afegir videojoc: </strong> L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.<br>
 <br>
   <strong> (RF21) Llistar videojocs: </strong> L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.<br>
 <br>
@@ -666,9 +1104,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF24) Consultar videojoc: </strong> Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).<br>
 <br>
-  <strong> (RF25) Modificar videojoc: </strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder modificar-ne la informació, excepte l’autor, la data de creació, les valoracions i els comentaris.<br>
+  <strong> (RF25) Modificar videojoc: </strong> L&#8217;administrador, ha de poder modificar-ne la informació d&#8217;un videojoc, excepte l’autor, la data de creació, les valoracions i els comentaris. (Modificada)<br>
 <br>
-  <strong> (RF26) Eliminar videojoc: </strong> Només l’usuari que ha creat un videojoc, o l’administrador, han de poder eliminar-lo.<br>
+  <strong> (RF26) Eliminar videojoc: </strong> L’administrador, han de poder eliminar un videojoc. (Modificada)<br>
+<br>
+  <strong> (RF40) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)<br>
+<br>
+  <strong> (RF41) Afegir videojoc a biblioteca personal: </strong> Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l&#8217;estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)<br>
+<br>
+  <strong> (RF42) Modificar videojoc a la biblioteca personal: </strong> Tots els usuaris podran modificar l&#8217;estat dels jocs a la seva biblioteca personal. (Afegida)<br>
+<br>
+  <strong> (RF43) Eliminar videojoc de la biblioteca personal: </strong> Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)<br>
+<br>
+  <strong> (RF47) Consultar biblioteca personal: </strong> Cada usuari podrà consultar la seva biblioteca personal. (Afegida)<br>
 <br>
   <strong> (RF30) Afegir comentaris: </strong> Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.<br>
 <br>
@@ -678,27 +1126,2437 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br>
   <strong> (RF33) Visualitzar puntuació mitjana: </strong> Visualitzar puntuació mitjana dels comentaris d’un videojoc.<br>
 <br>
-  <strong> (RF34) Eliminar comentaris: </strong> Només l’administrador, han de poder eliminar.<br>
-<br>
-  <strong> (RF) Validar proposta de videojocs: </strong> L’administrador ha de validar les propostes creades pels usuaris i acceptar o rebutjar-les.</p></td>
+  <strong> (RF34) Eliminar comentaris: </strong> Només l’administrador, han de poder eliminar.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_4_diagrames"><span class="aqua">4. DIAGRAMES</span></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_4_1_diagrama_casos_dús"><span class="aqua">4.1. Diagrama casos d&#8217;ús</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/DiagramaCasDUs.png" alt="DiagramaCasDUs">
+</div>
+</div>
+<div class="paragraph">
+<p>Enllaç al diagrama: <a href="https://drive.google.com/file/d/1wv_vgXYEm49lvKDeumHc-RMjSW0Ys1wh/view?usp=sharing" class="bare">https://drive.google.com/file/d/1wv_vgXYEm49lvKDeumHc-RMjSW0Ys1wh/view?usp=sharing</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_2_diagrama_entitat_relació"><span class="aqua">4.2. Diagrama entitat-relació</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/DiagramaER.jpg" alt="DiagramaER">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_3_diagrama_darquitectura"><span class="aqua">4.3. Diagrama d&#8217;arquitectura</span></h3>
+<div class="paragraph">
+<p>Per a l’arquitectura d’aquest projecte, el nostre grup proposa una divisió de dues parts, el front-end per la part d’Android i el back-end per la part de Java.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/DiagramaArquitectura.jpg" alt="DiagramaArquitectura">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_3_1_back_end"><span class="aqua">4.3.1. Back end</span></h3>
+<div class="paragraph">
+<p>BACK END (Java Spring Boot)</p>
+</div>
+<div class="paragraph">
+<p>GameDex_Backend</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>lògica</p>
+</li>
+<li>
+<p>repositori</p>
+</li>
+<li>
+<p>entitats</p>
+</li>
+<li>
+<p>apiController</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pel que fa el back-end hem decidit crear quatre packages, 3 que ja hem fet servir per a altres projectes que són: “entitats” (per als fitxers de classes), el de “repositori” (per a les operacions intermèdies entre la base de dades i la nostra aplicació Spring Boot) i el de “lògica” (per a la lògica de negoci). El nou package que incorporem és el d’apiController, on es gestionen les operacions API REST.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_3_2_front_end"><span class="aqua">4.3.2 Front end</span></h3>
+<div class="paragraph">
+<p>FRONT END (Android MVVM + Feature Layer)<br>
+GameDex_Frontend</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Feature layer (px. pantallaLogin)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>View → Interfície usuari</p>
+</li>
+<li>
+<p>ViewModel → Lògica de negoci</p>
+</li>
+<li>
+<p>Model → Gestionar dades i cridar l’API REST.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>De cara al front-end, hem decidit partir d’una “feature layer” on hi haurà packages independents per a cada funcionalitat. A dins de cada funcionalitat, hi haurà els fitxers de view (presentació), model (connexió amb API REST) i viewModel (lògica de negoci) per a la funcionalitat corresponent.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_5_especificacions_de_casos_dús_de_negoci"><span class="aqua">5. Especificacions de casos d’ús de negoci</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">ID: CU33</div>
+<p>Validar proposta de videojocs</p>
+</div>
+<div class="paragraph">
+<p><strong>Nom:</strong> Validar proposta de videojocs</p>
+</div>
+<div class="paragraph">
+<p><strong>Descripció:</strong> L’administrador valida les propostes de videojocs que generen els usuaris. Podrà acceptar-les o rebutjar-les.</p>
+</div>
+<div class="paragraph">
+<p><strong>Actors:</strong> Administrador</p>
+</div>
+<div class="paragraph">
+<p><strong>Precondició:</strong> Iniciar sessió com a administrador.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Flux Normal</th>
+<th class="tableblock halign-left valign-top">Flux Alternatiu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. L’administrador inicia sessió amb les seves credencials</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2. L’administrador accedeix a la pantalla de videojocs</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3. Prem el botó de “validar usuaris”</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4. Es mostra una llista de tots els usuaris que necessiten validació. A cada entrada es troba un botó de visualitzar.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.1. Si no hi ha cap usuari pendent de validació, la llista apareixerà buida.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5. Es mostrarà a detall la informació de l&#8217;usuari visualitzat amb un botó per validar i un per a rebutjar.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Postcondició:</strong> L’usuari queda validat i pot accedir amb les seves credencials al sistema.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_6_disseny_de_pantalles"><span class="aqua">6. DISSENY DE PANTALLES</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enllaç al prototip en figma: <a href="https://www.figma.com/design/20bKgUXKKStzkyAi8DGw7P/GameDex?node-id=56-282&amp;t=ZU2t5j3mICRfmB4Y-1" class="bare">https://www.figma.com/design/20bKgUXKKStzkyAi8DGw7P/GameDex?node-id=56-282&amp;t=ZU2t5j3mICRfmB4Y-1</a></p>
+</div>
+<div class="sect2">
+<h3 id="_6_1_pantalla_de_registre"><span class="aqua">6.1. Pantalla de registre</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/PantallaRegistre.jpg" alt="PantallaRegistre">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_2_pantalla_de_login"><span class="aqua">6.2. Pantalla de login</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/PantallaLogin.jpg" alt="PantallaLogin">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_3_llistat_de_categories"><span class="aqua">6.3. Llistat de categories</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/LlistatCategories.jpg" alt="LlistatCategories">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_4_llistat_de_videojocs"><span class="aqua">6.4. Llistat de videojocs</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/LlistatVideojocs.jpg" alt="LlistatVideojocs">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_5_pantalla_de_modificar_perfil"><span class="aqua">6.5. Pantalla de modificar perfil</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/ModificarPerfil.jpg" alt="ModificarPerfil">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_6_llistat_de_usuaris"><span class="aqua">6.6. Llistat de usuaris</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/LlistatUsuaris.jpg" alt="LlistatUsuaris">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_7_visualitzar_videojoc"><span class="aqua">6.7. Visualitzar videojoc</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/VisualitzarVideojoc.jpg" alt="VisualitzarVideojoc">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_8_pantalla_de_perfil"><span class="aqua">6.8. Pantalla de perfil</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/PantallaPerfil.jpg" alt="PantallaPerfil">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_9_visualitzar_categoria"><span class="aqua">6.9. Visualitzar categoria</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/VisualitzarCategoria.jpg" alt="VisualitzarCategoria">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_10_afegir_videojoc"><span class="aqua">6.10. Afegir videojoc</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/AfegirVideojoc.jpg" alt="AfegirVideojoc">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_11_afegir_categoria"><span class="aqua">6.11. Afegir categoria</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/AfegirCategoria.jpg" alt="AfegirCategoria">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_12_modificar_videojoc"><span class="aqua">6.12. Modificar videojoc</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/ModificarVideojoc.jpg" alt="ModificarVideojoc">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_13_modificar_categoria"><span class="aqua">6.13. Modificar categoria</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/ModificarCategoria.jpg" alt="ModificarCategoria">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_14_verificar_videojoc"><span class="aqua">6.14. Verificar videojoc</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/VerificarVideojoc.jpg" alt="VerificarVideojoc">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_15_verificar_usuari"><span class="aqua">6.15. Verificar usuari</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/VerificarUsuari.jpg" alt="VerificarUsuari">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_16_pantalla_de_biblioteca"><span class="aqua">6.16. Pantalla de biblioteca</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/PantallaBiblioteca.jpg" alt="PantallaBiblioteca">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_17_afegir_a_la_biblioteca"><span class="aqua">6.17. Afegir a la biblioteca</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/AfegirBiblioteca.jpg" alt="AfegirBiblioteca">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_18_guia_destils"><span class="aqua">6.18. Guia d&#8217;estils</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/GuiaEstils.jpg" alt="GuiaEstils">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_19_components_de_figma"><span class="aqua">6.19. Components de figma</span></h3>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/ComponentsFigma.jpg" alt="ComponentsFigma">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_7_disseny_de_la_base_de_dades"><span class="aqua">7. DISSENY DE LA BASE DE DADES</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Totes les dades de la nostra aplicació seran emmagatzemades en una base de dades no relacional (MongoDB) per la seva gran escalabilitat. Les dades que emmagatzemem són: usuaris, tipus de videojocs (categoria), videojocs (ítem) i biblioteca, que serà l’entitat resultant de la relació entre videojocs i usuaris i que es farà càrrec dels comentaris, puntuació i el seguiment de l’estat del videojoc.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_8_planificació_i_seguiment_setmanal"><span class="aqua">8. PLANIFICACIÓ I SEGUIMENT SETMANAL</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enllaç al Trello grupal de gamedex: <a href="https://trello.com/invite/b/67935061f9febf9359af1e6c/ATTIed687fb1113b36c123fa5e384c0eb025D9BFC44F/gamedex" class="bare">https://trello.com/invite/b/67935061f9febf9359af1e6c/ATTIed687fb1113b36c123fa5e384c0eb025D9BFC44F/gamedex</a></p>
+</div>
+<div class="sect2">
+<h3 id="_8_1_sprint_1"><span class="aqua">8.1. Sprint 1</span></h3>
+<div class="sect3">
+<h4 id="_8_1_1_tasques_realitzades"><span class="aqua">8.1.1. Tasques realitzades</span></h4>
+<div class="sect4">
+<h5 id="_8_1_1_1_hector"><span class="aqua">8.1.1.1. Hector</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Afegir Categoria backend (1 hora)</p>
+</li>
+<li>
+<p>Modificar Categoria backend (1 hora)</p>
+</li>
+<li>
+<p>Eliminar Categoria backend (1 hora)</p>
+</li>
+<li>
+<p>Llistar Categoria backend (1 hora)</p>
+</li>
+<li>
+<p>Test CRUD Categoria backend (2 hores)</p>
+</li>
+<li>
+<p>Consulta Categoria backend (1 hora)</p>
+</li>
+<li>
+<p>Filtre Categoria backend (1 hora)</p>
+</li>
+<li>
+<p>Pantalla LlistaCategoria + AfegirCategoria frontend (15 hores)</p>
+</li>
+<li>
+<p>Detalls del TopBar frontend (1 hora)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_1_1_2_yaiza"><span class="aqua">8.1.1.2. Yaiza</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Afegir Videojoc  (2 hores)</p>
+</li>
+<li>
+<p>Modificar Videojoc (1 hora)</p>
+</li>
+<li>
+<p>Eliminar Videojoc (30 minuts)</p>
+</li>
+<li>
+<p>Llistar Videojocs (30 minuts)</p>
+</li>
+<li>
+<p>Consultar Videojoc (1 hora)</p>
+</li>
+<li>
+<p>Filtre Videojoc (1 hora)</p>
+</li>
+<li>
+<p>Pantalla AfegirVideojoc + altres detalls (15h)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_1_1_3_anna"><span class="aqua">8.1.1.3. Anna</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Afegir comentari: backend (3 hores)</p>
+</li>
+<li>
+<p>Llistar usuaris (sense filtres) backend (1 hora)</p>
+</li>
+<li>
+<p>Eliminar comentari backend (1 hora)</p>
+</li>
+<li>
+<p>Test comentarisLogica backend (2 hores)</p>
+</li>
+<li>
+<p>BottomNavBar frontend (3 hores)</p>
+</li>
+<li>
+<p>LoginPantalla frontend (6 hores)</p>
+</li>
+<li>
+<p>Estructura navegation frontend (3 hores)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_1_1_4_mario"><span class="aqua">8.1.1.4. Mario</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Registre Usuari backend i pantalla(3 hores)</p>
+</li>
+<li>
+<p>Modificar Usuari backend (1 hora)</p>
+</li>
+<li>
+<p>Eliminar Usuari backend (1 hora)</p>
+</li>
+<li>
+<p>Llistar Usuari backend (1 hora)</p>
+</li>
+<li>
+<p>Filtre Usuari backend (1 hora)</p>
+</li>
+<li>
+<p>Registre Admin + test crud Usuaris backend (1 hora)</p>
+</li>
+<li>
+<p>Preparar asciidocs per a tots els apartats de la memoria pendents (1h)</p>
+</li>
+<li>
+<p>Configuració d&#8217;api i bases d&#8217;api backend i frontend(20h)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_1_2_release_notes"><span class="aqua">8.1.2. Release notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Afegir comentari: Anna (3 hores)</p>
+</li>
+<li>
+<p>Llistar usuaris (sense filtres) Anna (1 hora)</p>
+</li>
+<li>
+<p>Eliminar comentari: Anna (1 hora)</p>
+</li>
+<li>
+<p>Test comentarisLogica: Anna (2 hores)</p>
+</li>
+<li>
+<p>BottomNavBar: Anna (3 hores)</p>
+</li>
+<li>
+<p>LoginPantalla: Anna (6 hores)</p>
+</li>
+<li>
+<p>Estructura navegation: Anna (3 hores)</p>
+</li>
+<li>
+<p>Registre Usuari: Mario (3 hores)</p>
+</li>
+<li>
+<p>Modificar Usuari: Mario (1 hora)</p>
+</li>
+<li>
+<p>Eliminar Usuari: Mario (1 hora)</p>
+</li>
+<li>
+<p>Llistar Usuari: Mario (1 hora)</p>
+</li>
+<li>
+<p>Filtre Usuari: Mario (1 hora)</p>
+</li>
+<li>
+<p>Registre Admin + test crud Usuaris: Mario (1 hora)</p>
+</li>
+<li>
+<p>Preparar asciidocs para todos los apartados de memoria pendientes: Mario (1h)</p>
+</li>
+<li>
+<p>Configuracion de api y bases de api: Mario i Anna (20h)</p>
+</li>
+<li>
+<p>Afegir Categoria: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Modificar Categoria: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Eliminar Categoria: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Llistar Categoria: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Test CRUD Categoria: Héctor (2 hores)</p>
+</li>
+<li>
+<p>Consulta Categoria: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Filtre Categoria: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Pantalla LlistaCategoria + AfegirCategoria: Héctor (15 hores)</p>
+</li>
+<li>
+<p>Detalls del TopBar: Héctor (1 hora)</p>
+</li>
+<li>
+<p>Afegir Videojoc: Yaiza (2 hores)</p>
+</li>
+<li>
+<p>Modificar Videojoc: Yaiza (1 hora)</p>
+</li>
+<li>
+<p>Eliminar Videojoc: Yaiza (30 minuts)</p>
+</li>
+<li>
+<p>Llistar Videojocs: Yaiza (30 minuts)</p>
+</li>
+<li>
+<p>Consultar Videojoc: Yaiza (1 hora)</p>
+</li>
+<li>
+<p>Filtre Videojoc: Yaiza (1 hora)</p>
+</li>
+<li>
+<p>Pantalla AfegirVideojoc + altres detalls: Yaiza (15h)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_1_3_incidències"><span class="aqua">8.1.3. Incidències</span></h4>
+<div class="paragraph">
+<p>(Dilluns 10/02) L’Héctor, la Yaiza i l’Anna han estat molta estona intentant resoldre problemes amb l’Android Studio. Havíem de fer un pull de l’estructura i ens dónava molts problemes, començant pels “fetch” que no acabaven, documents creats al visual que no havíem creat nosaltres i que ens dónaven problemes per a poder fer el pull. A les 8:55, l’Anna havia pogut fer el pull, però l’IDE posava que “Kotlin index are corrupted” i no podia continuar. A les 9:10 hem decidit esborrar la carpeta “caches” motivats pel ChatGPT. A l’Anna li ha començat a funcionar l’Android Studio a les 9:29.</p>
+</div>
+<div class="paragraph">
+<p>(Dilluns 10/02) A les 10:17 hem sapigut que havíem de crear tot el projecte de nou perquè havíem entès que havíem de fer servir la plantilla del Bottom Navigation. Sembla ser que és una versió antiga i que no ens serveix, i és ara que ho sabem.</p>
+</div>
+<div class="paragraph">
+<p>(Dimarts 11/02 - Dijous 13/02) Problemes amb l&#8217;api. Hem treballat mes de 15 hores a l&#8217;api i continua sin funcionar. No terminem de entre el funcionament de l&#8217;api i en demanar ajuda al professor nos ens ha pogut ajudar.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_1_4_analisis_final"><span class="aqua">8.1.4. Analisis final</span></h4>
+<div class="sect4">
+<h5 id="_8_1_4_1_hector"><span class="aqua">8.1.4.1. Hector</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Les hores que he dedicat ha sigut la següent:</p>
+</div>
+<div class="paragraph">
+<p>Afegir Categoria (1 hora)<br>
+Modificar Categoria (1 hora)<br>
+Eliminar Categoria (1 hora)<br>
+Llistar Categoria (1 hora)<br>
+Test CRUD Categoria (2 hores)<br>
+Consulta Categoria (1 hora)<br>
+Filtre Categoria (1 hora)<br>
+Pantalla LlistaCategoria + AfegirCategoria (16 hores)<br>
+Detalls del TopBar (1 hora)</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Les tasques que he realitzat han sigut:</p>
+</div>
+<div class="paragraph">
+<p>Crear tot el CRUD del BackEnd de la part de Categoria.<br>
+També he creat els tests del CRUD per poder comprovar que funcionin bé i poder començar amb el FrontEnd.<br>
+I amb tot el CRUD creat he començat a fer les pantalles de Categoria, però de moment tan sols tinc dues creades, que són, LlistaCategoria i AfegirCategoria, en les pantalles també he fet les traduccions de String en strings.xml, d’anglès, català i espanyol.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>M’he tret mitja part de la pantalla, però sento que encara me&#8217;n queda moltíssim, fent les pantalles he après bastant Kotlin i més que res m’està agradant la part de crear les pantalles, però sento que això no és res, encara queda moltíssim per fer. Això és el que sento jo, perquè no sabem bé com anem respecte al pes del projecte.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>Un problema que he vist és que en tres setmanes amb els temes que tenim i amb les pràctiques en mig no tinc molt temps per poder, estudiar i posar-me a fer el projecte, perquè surto de les pràctiques a les 18 i arribo a les 19:00 a casa i no tinc temps per tot, llavors no sé com organitzar-me les hores, però això és problema meu. Per part de l’sprint és que no sé com fer res de l&#8217;API, però més que res no he començat, però pel següent sprint segur que tindre completat o començat, també tinc molts dubtes per part de les pantalles, perquè no sé com fer que es posin les dades de la base de dades en aquestes pantalles.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>L&#8217;única millora que jo veig és que he d’anar més de pressa i fer més en casa, aquesta part és personal. Però per part de Grup crec que estem anant bé, però això depèn de com anem avançant perquè portem una setmana.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_1_4_2_yaiza"><span class="aqua">8.1.4.2. Yaiza</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Les hores que he dedicat ha sigut la següent:</p>
+</div>
+<div class="paragraph">
+<p>Afegir Videojoc  (2 hores)<br>
+Modificar Videojoc (1 hora)<br>
+Eliminar Videojoc (30 minuts)<br>
+Llistar Videojocs (30 minuts)<br>
+Consultar Videojoc (1 hora)<br>
+Filtre Videojoc (1 hora)<br>
+Pantalla AfegirVideojoc + altres detalls (15h)<br>
+Pantalla VisualitzarVideojoc (6h)</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="paragraph">
+<p>He creat tot el CRUD del BackEnd de la part de Videojocs i el filtre per consultar per ID. Quan ja he fet tota la part del CRUD, he començat a fer les pantalles de Videojoc. Fins ara tinc dues acabades, AfegirVideojoc i VisualitzarVideojoc.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>De cara al primer dia quan vam començar les pantalles, vaig començar amb molts dubtes i moltes dificultats a l&#8217;hora de plasmar les nostres idees, però a causa de prova i error, he anat avançant i m’he anat fent millor a android studio i kotlin, anant ara més ràpid amb les següents pantalles que hauré de fer.<br>
+Problemes trobats durant l’sprint:</p>
+</div>
+<div class="paragraph">
+<p>L’únic que hem avançat han sigut les pantalles visualment. Tema connectar el Frontend amb el Backend, hem tingut molts dubtes, i en el meu cas per exemple, he de fer el llistat de videojocs, però com no tenim cap videojoc creat, tampoc sé com fer la pantalla sense afegir, diguem, les dades manualment a l’Android studio, i a causa d’estar pensant com fer o com no fer una pantalla, he tardat massa i estic anant molt més lenta del que m&#8217;agradaria.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>Més que res suposo que hauríem d’intentar organitzar-nos millor i intentar fer les coses més ràpidament.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_1_4_3_anna"><span class="aqua">8.1.4.3. Anna</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong><br>
+De base he dedicat unes 19 hores a fer les meves funcionalitats. A més he estat dedicant hores a organitzar el grup i a ajudar amb funcionalitats als meus companys, en total he dedicat unes 29 hores.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong><br>
+En un principi jo m’encarregava de fer tot allò relacionat amb la biblioteca/comentaris, no obstant en ser una entitat que té relacions de dependència amb altres entitats, no m’ha sigut possible progressar molt. És per això que he fet els CRUD molt bàsics de comentari, i els seus test corresponents. També m’he encarregat de fer una plantilla al front end per a facilitar la implementació de la Bottom Navigation Bar en totes les pantalles i que fos funcional. Vaig començar la pantalla d’afegir comentari, però quan vaig adonar-me de què necessitava les entitats dels meus companys, em vaig posar a fer la pantalla de login. Vaig crear tota l’estructura de navegació per botons. Finalment, vaig estar ajudant el Mario a implementar l’api i comprovar que funcionés la creació d’un usuari, cosa que ens va portar al voltant de 20 hores, però sense això no podíem avançar gaire.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong><br>
+Em sento molt motivada a aprendre més sobre kotlin i android studio per als meus projectes personals. Però no estic molt contenta de la frustració que hem viscut aquesta setmana i, per tant, no puc trobar gaires aspectes positius. Per dir algun aspecte positiu, ara no veig tan difícil fer les pantalles, crec que és bastant intuïtiu.<br>
+Problemes trobats durant l’sprint:</p>
+</div>
+<div class="paragraph">
+<p>Hem trobat molts problemes durant aquest Sprint. Primer de tot no teníem gaire clar res de conceptes tècnics i ens ha costat molt posar-nos a treballar. Crec que han estat massa coneixements nous per a un mateix projecte i ha estat molt frustrant. Quan ja havíem creat els dos projectes (front i back end), i havíem començat a treballar seguint les indicacions que s’havien estat donant a classe, vam haver de començar de nou el projecte del front end perquè no funcionava amb la plantilla que havíem de fer servir. Això ens va suposar un retard. A més a l’hora de fer l’api, com no teníem gaire clar com fer-la, vaig demanar al Mario que ell s’encarregués d’investigar mentre jo feia la implementació de la navegació, però donava molts errors i m’hi vaig posar amb ell a solucionar-ho en paral·lel, per tant, vam estar tots dos provant solucions a la vegada, cosa que ens va fer perdre encara més temps, com 20 hores.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>Ara que hem aconseguit que funcioni l’api, ens toca treballar a un ritme més ràpid, ja que hauríem tots de tenir clar com funcionen la majoria de les coses a fer.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_1_4_4_mario"><span class="aqua">8.1.4.4. Mario</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong><br>
+He dedicat un aproximat de 29 hores a les meves funcionalitats, però la majoria de les hores han sigut dedicades a l’api i els problemes que ens donava. A més a més, he dedicat algunes hores extra per a ajudar a la resta del grup i per als moments en què havíem de parlar decisions grupals.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong><br>
+He començat dedicant-me principalment a les funcionalitats associades a l&#8217;usuari. Vaig començar per crear l&#8217;entitat d&#8217;usuari, l’enum UserType, el repository i la lògica pel CRUD, a més vaig afegir la pantalla de registre. Després vaig començar a intentar fer la implementació de l’api, vaig començar per intentar configurar-la i implementar-la però vaig trigar moltes hores, ja que no hi tenia prou coneixements. L’api donava molts errors i problemes en els quals he hagut d’invertir moltes hores.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong><br>
+Personalment, em costa trobar aspectes positius al treball d’aquesta setmana. Ha sigut molt agobiant i frustrant, ja que hem tingut molts problemes. Si haig de dir alguna cosa positiva és que, donada aquesta setmana de treball intensiu, a l&#8217;últim projecte tindre més facilitats per completar algunes coses.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>Hem tingut molts problemes. Un dels problemes va ser una manca de comunicació amb el professorat que ens va fer haver de crear el projecte del frontend dues vegades, retardant molt el treball. A més, com que hem hagut d’adquirir molts coneixements en molt poc temps, tenim molts dubtes que impedeixen avançar amb velocitat. Sento que el professorat continua mancant en comunicació i, per tant, hi ha hagut diverses vegades en què he hagut de fer una mateixa funcionalitat o entitat més de tres vegades, ja que cada professor em deia una cosa distinta. Finalment, l’api no em va quedar molt clara i he trigat molt de temps en fer-la, ha sigut molt frustrant, perquè tampoc he rebut gaire ajuda quan l&#8217;he demanat.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>Penso que als següents sprints haurem d’aprofitar els coneixements adquirits en aquest sprint per avançar molt més ràpid, ja que si no dupliquem o tripliquem la velocitat de treball no crec que puguem arribar a l&#8217;entrega final, i menys tenint en compte que haurem de reservar dies al mig del projecte per a estudiar per als exàmens.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_2_sprint_2"><span class="aqua">8.2. Sprint 2</span></h3>
+<div class="sect3">
+<h4 id="_8_2_1_tasques_realitzades"><span class="aqua">8.2.1. Tasques realitzades</span></h4>
+<div class="sect4">
+<h5 id="_8_2_1_1_hector"><span class="aqua">8.2.1.1. Hector</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Configuració API Pantalla AddCategory (5 hores)</p>
+</li>
+<li>
+<p>Configuració API Pantalla ListCategory (5 hores)</p>
+</li>
+<li>
+<p>Configuració Imatges en AddCategory (7 hores)</p>
+</li>
+<li>
+<p>Creació de la pantalla ViewCategory (3 hores)</p>
+</li>
+<li>
+<p>Configuració API Pantalla ViewCategory (5 hores)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_2_1_2_yaiza"><span class="aqua">8.2.1.2. Yaiza</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Creació Pantalla ListVideogames (3 hores)</p>
+</li>
+<li>
+<p>Configuració api Pantalla AddGame + ViewGame + ListVideogame  (19 hores)</p>
+</li>
+<li>
+<p>Modificacions a les pantalles (2 hores)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_2_1_3_anna"><span class="aqua">8.2.1.3. Anna</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Login (19 hores)</p>
+</li>
+<li>
+<p>Afegir videojoc a la biblioteca (2 hores)</p>
+</li>
+<li>
+<p>FOL (1 hora)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_2_1_4_mario"><span class="aqua">8.2.1.4. Mario</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Imatges a registrar usuari (2 hores)</p>
+</li>
+<li>
+<p>Listar usuaris (10 hores)</p>
+</li>
+<li>
+<p>Perfil d&#8217;usuari (3 hores)</p>
+</li>
+<li>
+<p>Navegació de pantalles (2 hores)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_2_2_release_notes"><span class="aqua">8.2.2. Release notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Imatges a registrar usuari (2 hores) Mario</p>
+</li>
+<li>
+<p>Listar usuaris (10 hores) Mario</p>
+</li>
+<li>
+<p>Perfil d&#8217;usuari (3 hores) Mario</p>
+</li>
+<li>
+<p>Navegació de pantalles (2 hores) Mario</p>
+</li>
+<li>
+<p>Creació Pantalla ListVideogames (3 hores) Yaiza</p>
+</li>
+<li>
+<p>Configuració api Pantalla AddGame + ViewGame + ListVideogame  (19 hores) Yaiza</p>
+</li>
+<li>
+<p>Modificacions a les pantalles (2 hores) Yaiza</p>
+</li>
+<li>
+<p>Configuració API Pantalla AddCategory (5 hores) Hector</p>
+</li>
+<li>
+<p>Configuració API Pantalla ListCategory (5 hores) Hector</p>
+</li>
+<li>
+<p>Configuració Imatges en AddCategory (7 hores) Hector</p>
+</li>
+<li>
+<p>Creació de la pantalla ViewCategory (3 hores) Hector</p>
+</li>
+<li>
+<p>Configuració API Pantalla ViewCategory (5 hores) Hector</p>
+</li>
+<li>
+<p>Login (19 hores) Anna</p>
+</li>
+<li>
+<p>Afegir videojoc a la biblioteca (2 hores) Anna</p>
+</li>
+<li>
+<p>FOL (1 hora) Anna</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_2_3_incidències"><span class="aqua">8.2.3. Incidències</span></h4>
+<div class="paragraph">
+<p>La principal incidència que hem tingut aquest sprint és que dels 4 membres del grup hi ha 2 que no poden fer ús de l&#8217;emulador del android studio. Hem descobert aquesta setmana que atès que la API només es pot utilitzar en local, ja que no està publicada en cap servidor, no es pot fer l&#8217;execució del android studio des del mòbil i, per tant, tot el testatge de funcionalitats i el treball en general s&#8217;ha vist afectat significativament.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_2_4_analisis_final"><span class="aqua">8.2.4. Analisis final</span></h4>
+<div class="sect4">
+<h5 id="_8_2_4_1_hector"><span class="aqua">8.2.4.1. Hector</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Configuració API Pantalla AddCategory (5 hores)<br>
+Configuració API Pantalla ListCategory (5 hores)<br>
+Configuració Imatges en AddCategory (7 hores)<br>
+Creació de la pantalla ViewCategory (3 hores)<br>
+Configuració API Pantalla ViewCategory (5 hores)</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Les tasques que he realitzat ha sigut la implementació de l’API i poder entendre com funciona aquesta part, ja que no l’entenc molt i l’he d’estudiar per poder tenir una nota decent en l’API. He estat bastant amb aquest part perquè el volia tenir tot bé, encara que no puc comprovar-lo amb aquest portàtil he pogut avançar molt això és el que crec jo. He afegit la part de l’API a les pantalles de AddCategory i ListCategory per poder comprovar que funcioni bé i l’he pogut acabar i funcionen bé les dues. He començat amb ViewCategory i de moment se guixo amb la implementació de la pantalla, ja que tinc l’API creat i em queda que funcioni.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>Ara que sé com funciona i com treballar amb l’API sento que baix molt més ràpid i podré acabar la part de Categoria en dos dies mínim, en si era perquè no entenia res de l’API i de la seva implementació, però ara que sé com funciona  ja no vaig tan atabalat.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>Els primers problemes que he trobat ha sigut el tema de les imatges perquè no entenia res i tampoc com funcionava, però al Mario em va donar un cop de mà i em va explicar com funciona i ara no és un gran problema. També crec que un problema podrà ser el tema dels filtres, per aquest motiu l’estem deixant com l’última acció per fer.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>Un aspecte a millorar és que he d’anar més de pressa, perquè no hi ha temps per tenir tot acabat per l’entrega final, llavors he de fer a casa per poder avançar més i poder tenir tot bé per l’entrega.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_2_4_2_yaiza"><span class="aqua">8.2.4.2. Yaiza</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Creació Pantalla ListVideogames (3 hores)<br>
+Configuració api Pantalla AddGame + ViewGame + ListVideogame  (19 hores)<br>
+Modificacions a les pantalles (2 hores)</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Aquesta setmana he estat familiaritzant-me amb com fer la part de l&#8217;API i veure com funciona, llavors m’he estat molta estona al principi. He fet funcional la pantalla AddGames i ViewGames, he creat la pantalla de ListVideogames i també l&#8217;he fet funcional. Ara que ja està fet entre cometes el bàsic d’aquestes pantalles, intentaré fer la part d’afegir imatges i fer que en afegir una categoria al joc, sigui amb un desplegable, que és el que estic intentant ara.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>Ara que entenc millor el tema de l’API ja no estic tan amoïnada com en un principi, he començat a veure una mica més clares les coses en haver començat a veure resultats de cara a veure les pantalles funcionals.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>Tema grup no he vist cap problema, l’única cosa ha sigut més una mica en l&#8217;àmbit personal. Ja que fins ara, he estat intentant no utilitzar cap mena d&#8217;IA en tot el projecte, perquè volia que es veiés que no em calia dependre d’una eina així per fer coses per mi mateixa. La primera setmana no vaig utilitzar res, però com tenim poc temps, no tinc temps de posar-me a pensar com fer-ho jo absolutament tot sense haver d’utilitzar res. Llavors he hagut de dependre una mica aquesta setmana perquè tenia molts errors amb el tema de l&#8217;API i no trobava el perquè. Vaig estar 2 dies amb una mateixa cosa i vaig perdre molt de temps, llavors vaig haver d’utilitzar eines perquè si no no arribarem a l’entrega, i no vull que per una cosa que m’he ficat al cap, això em faci anar més lenta i això perjudiqui el meu grup.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>No sabria que dir exactament, només sé que, personalment, he de fer alguna cosa per tenir present que he de fer i fer les coses pas a pas, perquè un problema que tinc és que vaig fent i vaig deixant les coses a mitges segons avanço, i hauria de, començar, acabar i següent. Intentaré fer-ho per l’últim sprint.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_2_4_3_anna"><span class="aqua">8.2.4.3. Anna</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong><br>
+Login (19 hores)<br>
+Afegir videojoc a la biblioteca (2 hores)<br>
+FOL (1 hora)</p>
+</div>
+<div class="paragraph">
+<p>Aquesta setmana he treballat unes 24 hores. En funcionalitats com a tal he estat unes 21 hores i en organització temporal i git entre una i dues hores. A més, cal comptar l’hora de la classe de FOL, on la professora ens va estar donant instruccions sobre la nova tasca a realitzar.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong><br>
+Aquesta setmana he estat dedicant-me a fer funcional el login tant al front com en el back end. A més també he arreglat una de les meves pantalles que m’estava donant molts problemes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong><br>
+L’única cosa que veig positiva d’aquest sprint és que finalment tenim una aplicació funcional des del principi. El fet que ara puguis registrar-te i iniciar sessió de manera funcional, em fa sentir realitzada i motivada.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong><br>
+Personalment, no he estat molt productiva aquesta setmana per problemes personals i m’ha costat molt superar els obstacles que estava trobant mentre feia el login. Tot i que entenia com havia de fer perquè funcionés, no era capaç de solucionar tots els problemes que trobava. Vaig haver de recórrer molt a la IA i tot i això vaig entrar en un bucle provant solucions. Finalment, vaig decidir esborrar tot i tornar-ho a fer, cosa que em va endarrerir moltíssim.<br>
+A més, en tenir l’entitat de biblioteca que depèn d’altres entitats, tot i tenir fetes algunes de les pantalles, no puc implementar la funcionalitat del back end i de l’api. Per tant, la setmana vinent tindré molta feina.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong><br>
+Hauré de fer molta feina a casa, ja que el portàtil em funciona bastant malament per a provar les funcionalitats amb l’emulador, cosa que amb el mòbil no em passava.<br>
+També he d’intentar no entrar en bucle, si no veig clara una solució després d’una mica de temps, he de tornar a començar o buscar una alternativa.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_2_4_4_mario"><span class="aqua">8.2.4.4. Mario</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong><br>
+Aquest sprint li he pogut dedicar menys hores, ja que he tingut problemes de salut que m&#8217;han fet no estar tant de temps a classe i no poder fer més a casa. Tot i això he fet aproximadament un total de 17 hores entre totes les meves funcionalitats.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Imatges a registrar usuari (2 hores)</p>
+</li>
+<li>
+<p>Llistar usuaris (10 hores)</p>
+</li>
+<li>
+<p>Perfil d&#8217;usuari (3 hores)</p>
+</li>
+<li>
+<p>Navegació de pantalles (2 hores)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong><br>
+He aconseguit aprendre a fer la gestió d&#8217;imatges (que l&#8217;usuari pugui pujar una imatge, guardar-la en la base de dades i poder-la recuperar posteriorment) malgrat totes les dificultats que m&#8217;he trobat en el procés. En haver aconseguit això i altres petits avanços que hem donat aquesta setmana ens faciliten molt el treball per a l&#8217;última setmana en la qual tot hauria d&#8217;anar més fluid.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong><br>
+Les imatges m&#8217;han pres massa temps, per la qual cosa, entre això i els problemes de salut, no he pogut fer grans avanços. He trobat moltes dificultats i no he sabut gestionar correctament el meu treball</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong><br>
+Aquesta setmana no trobo moltes coses a millorar, ja que he fet molta feina individual i he estat menys hores amb el meu grup en classe.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_3_sprint_3"><span class="aqua">8.3. Sprint 3</span></h3>
+<div class="sect3">
+<h4 id="_8_3_1_tasques_realitzades"><span class="aqua">8.3.1. Tasques realitzades</span></h4>
+<div class="sect4">
+<h5 id="_8_3_1_1_hector"><span class="aqua">8.3.1.1. Hector</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Pantalla ViewCategory (6 hores)</p>
+</li>
+<li>
+<p>Eliminar Category (2 hores)</p>
+</li>
+<li>
+<p>Filtre Category en la Llista (4 hores i no esta acabada)</p>
+</li>
+<li>
+<p>Implementació de la Logica al BackEnd (1 hora)</p>
+</li>
+<li>
+<p>Implementació de Retrofit, APIrest i ViewModel (1 hora)</p>
+</li>
+<li>
+<p>UI Pantalla Modify (4 hores) i no em surt res no se com fer aquesta part i he avançat una mica a casa i tampoc, no se com fer aquesta part.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_3_1_2_yaiza"><span class="aqua">8.3.1.2. Yaiza</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Desplegable Categoria (6h)</p>
+</li>
+<li>
+<p>Afegir imatge (3h)</p>
+</li>
+<li>
+<p>Camps buits (2h)</p>
+</li>
+<li>
+<p>Botons afegir i visualitzar videojocs funcionals (1h)</p>
+</li>
+<li>
+<p>Visualitzar imatge (2h)</p>
+</li>
+<li>
+<p>Botó validar jocs afegits (30 min)</p>
+</li>
+<li>
+<p>Visualitzar imatge (30 min)</p>
+</li>
+<li>
+<p>Funcionalitat esborrar i botó d’esborrar funcional (3h)</p>
+</li>
+<li>
+<p>Mirat per sobre com fer pantalla Modificar Videojocs (1h)</p>
+</li>
+<li>
+<p>Pantalla Llistar videojocs no validats (ListInactiveGames) (3h)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_3_1_3_anna"><span class="aqua">8.3.1.3. Anna</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Correcció de strings i traducció (1 hora i mitja)</p>
+</li>
+<li>
+<p>Afegir videojoc a la biblioteca (13 hores)</p>
+</li>
+<li>
+<p>Recuperar contrasenya (9 hores)</p>
+</li>
+<li>
+<p>Consultar biblioteca personal (5 hores)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_3_1_4_mario"><span class="aqua">8.3.1.4. Mario</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Registre admin (1 hora)</p>
+</li>
+<li>
+<p>Millores en el backend (2 hores)</p>
+</li>
+<li>
+<p>Modificar Usuari (15 hores)</p>
+</li>
+<li>
+<p>Perfil d’usuari (1 hora)</p>
+</li>
+<li>
+<p>validar usuaris (1 hora)</p>
+</li>
+<li>
+<p>Eliminar usuari (30 minuts)</p>
+</li>
+<li>
+<p>Solució d’errors generales (3 hores i mitja)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_3_2_release_notes"><span class="aqua">8.3.2. Release notes</span></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Pantalla ViewCategory (6 hores)</p>
+</li>
+<li>
+<p>Eliminar Category (2 hores)</p>
+</li>
+<li>
+<p>Implementació de la Logica al BackEnd (1 hora)</p>
+</li>
+<li>
+<p>Implementació de Retrofit, APIrest i ViewModel (1 hora)</p>
+</li>
+<li>
+<p>Desplegable Categoria (6h)</p>
+</li>
+<li>
+<p>Afegir imatge (3h)</p>
+</li>
+<li>
+<p>Camps buits (2h)</p>
+</li>
+<li>
+<p>Botons afegir i visualitzar videojocs funcionals (1h)</p>
+</li>
+<li>
+<p>Visualitzar imatge (2h)</p>
+</li>
+<li>
+<p>Botó validar jocs afegits (30 min)</p>
+</li>
+<li>
+<p>Visualitzar imatge (30 min)</p>
+</li>
+<li>
+<p>Funcionalitat esborrar i botó d’esborrar funcional (3h)</p>
+</li>
+<li>
+<p>Mirat per sobre com fer pantalla Modificar Videojocs (1h)</p>
+</li>
+<li>
+<p>Pantalla Llistar videojocs no validats (ListInactiveGames) (3h)</p>
+</li>
+<li>
+<p>Correcció de strings i traducció (1 hora i mitja)</p>
+</li>
+<li>
+<p>Afegir videojoc a la biblioteca (13 hores)</p>
+</li>
+<li>
+<p>Recuperar contrasenya (9 hores)</p>
+</li>
+<li>
+<p>Consultar biblioteca personal (5 hores)</p>
+</li>
+<li>
+<p>Registre admin (1 hora)</p>
+</li>
+<li>
+<p>Millores en el backend (2 hores)</p>
+</li>
+<li>
+<p>Modificar Usuari (15 hores)</p>
+</li>
+<li>
+<p>Perfil d’usuari (1 hora)</p>
+</li>
+<li>
+<p>validar usuaris (1 hora)</p>
+</li>
+<li>
+<p>Eliminar usuari (30 minuts)</p>
+</li>
+<li>
+<p>Solució d’errors generales (3 hores i mitja)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_3_3_incidències"><span class="aqua">8.3.3. Incidències</span></h4>
+<div class="paragraph">
+<p>Aquest sprint la principal incidència que hem trobat ha sigut que no podíem treballar adequadament com que dos membres de l&#8217;equip tenen ordinadors que no suporten bé l’android Studio i, per tant, això ens ha endarrerit molt.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_8_3_4_analisis_final"><span class="aqua">8.3.4. Analisis final</span></h4>
+<div class="sect4">
+<h5 id="_8_3_4_1_hector"><span class="aqua">8.3.4.1. Hector</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pantalla ViewCategory (6 hores)</p>
+</li>
+<li>
+<p>Eliminar Category (2 hores)</p>
+</li>
+<li>
+<p>Filtre Category en la Llista (4 hores i no està acabada)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Modificar Category:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Implementació de la Lògica al BackEnd (1 hora)</p>
+</li>
+<li>
+<p>Implementació de Retrofit, APIrest i ViewModel (1 hora)</p>
+</li>
+<li>
+<p>UI Pantalla Modify (4 hores) i no em surt res, no sé com fer aquesta part i he avançat una mica a casa i tampoc, no sé com fer aquesta part.<br>
+<strong>Tasques realitzades:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En aquest Sprint el que he fet ha sigut acabar la part de ViewCatgory i acabar el que hem faltat, però he tingut molts problemes a l’hora de crear la pantalla del ViewCategory, no sabia com fer-la i em donava molts problemes per la part de mostrar la informació d’una categoria i tan sols em mostrava la pantalla buida i vaig intentar de tot, però va ser una cosa molt absurda que va ser l’URL, ja que no estava igual que en el BackEnd i vaig modificar de tot. També vaig fer la part d’eliminar categoria i vaig fer que el botó tan sols la pugui veure l’administrador i no vaig tenir cap problema el vaig posar dintre d’un if amb un currentuser i no tenia cap complicació.</p>
+</div>
+<div class="paragraph">
+<p>Després de fer la part d’eliminar vaig començar per la de modificar vaig fer tota la part lògica, però després per mostrar la informació i poder fer-la editable em dona molts problemes i vaig estar molta estona i vaig decidir començar amb filtre, ja que volia descansar de fer la part de Modificar.</p>
+</div>
+<div class="paragraph">
+<p>Encara estic fent la part de filtrar, tinc la part del SearchBar, però no em funciona del tot, he de continuar aquesta part.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>Que em funciona el ViewModel i que eliminar està bé i de moment no estic anant tan malament, però sento que no he anat amb bon ritme, ja que estic trigant molt a fer les coses i quan no em surt una cosa no paro i si no aconsegueixo el que estic fent em frustro i em bloquejo.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>El problema que he trobat durant aquest sprint és que trigo molt a fer les coses i com que no puc comprovar que funciona bé per al meu ordinador, trigo molt a veure si funciona i que és el que està malament, llavors depenc dels meus companys en tota l’estona i si he de comprovar el meu codi el company que em deixa el seu ordinador està una estona sense fer res. Un altre problema és que quan he començat amb modificar he estat molta estona intentant que funcioni i he perdut molt de temps, quan podria haver començat per una altra cosa.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>De cara al següent sprint hem de tenir tot acabat a sí que he de posar-me les piles i fer que funcioni tot bé i funcional.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_3_4_2_yaiza"><span class="aqua">8.3.4.2. Yaiza</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Pantalla Creació de videojocs (AddGames)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Desplegable Categoria (6h)</p>
+</li>
+<li>
+<p>Afegir imatge (3h)</p>
+</li>
+<li>
+<p>Camps buits (2h)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pantalla llistar videojocs (ListVideogames)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Botons afegir i visualitzar videojocs funcionals (1h)</p>
+</li>
+<li>
+<p>Visualitzar imatge (2h)</p>
+</li>
+<li>
+<p>Botó validar jocs afegits (30 min)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pantalla Consultar videojoc (ViewGames)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Visualitzar imatge (30 min)</p>
+</li>
+<li>
+<p>Funcionalitat esborrar i botó d’esborrar funcional (3h)</p>
+</li>
+<li>
+<p>Mirat per sobre com fer pantalla Modificar Videojocs (1h)</p>
+</li>
+<li>
+<p>Pantalla Llistar videojocs no validats (ListInactiveGames) (3h)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Durant aquest sprint m’he dedicat a anar acabant petites coses que havia deixat per aquest sprint. A la pantalla d’Afegir Videojocs, he fet un desplegable pel camp de categoria, perquè agafi les categories existents a l’entitat de Categoria. He fet que la imatge es pugui afegir a la base de dades i es guardi i he fet que els camps a l&#8217;hora de crear un joc, si algun està buit, no deixi guardar.<br>
+A la de llistar, he fet que tant el botó d’afegir un videojoc com el de visualitzar siguin funcionals i naveguin a la pantalla que pertoqui. Ara que ja he fet que la imatge es guardi, he estat intentant que la imatge es visualitzés per cada joc llistat i he afegit el botó que serà per validar els jocs afegits, encara no navega perquè la pantalla de validar encara no està feta.<br>
+A la pantalla de visualitzar, he fet que es visualitzi la imatge, que com ja ho havia fet abans a la de llistar, l&#8217;he fet més ràpidament i finalment, he estat afegint tota la part d’esborrar i he fet que el botó d’esborrar el videojoc sigui funcional.<br>
+Això són les coses funcionals que he estat fent aquesta setmana, després he mirat una mica per sobre com fer les pantalles de modificar i validar, però encarà no estan.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong><br>
+Aquesta setmana m’he fet un llistat de totes les coses que tinc pendents i he valorat quines podia fer més ràpidament o quines eren més necessàries per continuar i treure coses de sobre. Això ha fet que hagi vist el que he anat avançant i tot i que siguin coses petites, sento que el ritme no ha estat gens malament.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong><br>
+A l’hora de fer el desplegable de categoria m’he estat molt de temps, que mirant enrere, podria haver-me estalviat si hagués posat ben connectada l’entitat de categoria a videojoc en comptes d’utilitzar un camp extra que tenia posat a la pantalla per afegir les categories manualment. Com no vaig pensar de cara a futur, ara m’he estat batallant bastant perquè tota l’estona hi havia incongruències, perquè ho agafava d’altre lloc que no era, o sortia null perquè resulta que havia posat altre nom… I era una cosa amb la qual vaig estar donant voltes quan, si ho hagués planejat bé des d’un principi, m’ho hauria tret de sobre molt més ràpid. Una altra cosa ha sigut quan he intentat començar a fer la pantalla de modificar i he vist que no sabia per on començar i com fer-la, llavor he intentat fer altres coses i en altre moment ja començaria a fer-la. La resta de coses les he anat resolent més de pressa i no ho veig tant problema, el que més problema m’ha donat aquesta setmana diria que ha sigut això del desplegable.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong><br>
+Ja de cara al següent projecte, el que hauria de fer seria plantejar-me molt millor que he de fer, com ho he de fer, i més o menys plantejar quant de temps trigaria aproximadament en cada cosa, per saber que coses hauria de prioritzar i quines serien més importants i es necessitin fetes per altres coses. Ja que he vist que he anat fent coses que he hagut d’anar deixant a meitat perquè no podia fer-les si no tenia altra cosa que no tenia feta.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_3_4_3_anna"><span class="aqua">8.3.4.3. Anna</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>He dedicat unes 35 hores aquest Sprint. A més de les tasques realitzades llistades al Release notes, també he dedicat 3 hores a les feines de FOL i una hora a organització. FALTA EL JUEVES!</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Correcció de strings i traducció (1 hora i mitja)</p>
+</li>
+<li>
+<p>Afegir videojoc a la biblioteca (13 hores)</p>
+</li>
+<li>
+<p>Recuperar contrasenya (9 hores)</p>
+</li>
+<li>
+<p>Consultar biblioteca personal (5 hores)</p>
+</li>
+<li>
+<p>Llistar comentaris sense filtrar (3 hores)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>En poder treballar a casa a partir del dimecres per la tarda, he pogut avançar molt més ràpid les funcionalitats. Ja tenim la navegació molt avançada i per tant es veu una bona feina.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>Aquest sprint he estat treballant més a casa que a l’institut perquè el meu ordinador es laggeja i es congela quan faig servir l’emulador de l’Android Studio, per tant els primers dies d’aquest sprint vaig perdre molt de temps. Em vaig plantejar no venir a classe i quedar-me a casa treballant a la torre, però per por a necessitar les hores, no ho he fet.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>De cara a l’entrega hem de treballar molt. No crec que hi hagi que millorar res.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_8_3_4_4_mario"><span class="aqua">8.3.4.4. Mario</span></h5>
+<div class="paragraph">
+<p><strong>Hores dedicades:</strong></p>
+</div>
+<div class="paragraph">
+<p>Aquest sprint he dedicat al voltant de 26 hores de treball a les meves funcionalitats i a la solució d’errors generals que anava trobant a l&#8217;aplicació així com ajudar als meus companys amb les seves funcionalitats si trobaven problemes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tasques realitzades:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Registre admin (1 hora)</p>
+</li>
+<li>
+<p>Millores en el backend (2 hores)</p>
+</li>
+<li>
+<p>Modificar Usuari (15 hores)</p>
+</li>
+<li>
+<p>Perfil d’usuari (1 hora)</p>
+</li>
+<li>
+<p>validar usuaris (1 hora)</p>
+</li>
+<li>
+<p>Eliminar usuari (30 minuts)</p>
+</li>
+<li>
+<p>Solució d’errors generales (3 hores i mitja)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Aspectes positius del treball realitzat:</strong></p>
+</div>
+<div class="paragraph">
+<p>He trobat moltes dificultats durant aquest sprint i he sigut capaç de superar-les totes amb poca ajuda. He trigat una mica més del que esperava en completar les funcionalitats que tenia pensades, però el fet d’haver superat tantes dificultats m’agrada.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problemes trobats durant l’sprint:</strong></p>
+</div>
+<div class="paragraph">
+<p>He trobat moltes dificultats amb modificar usuaris, sobretot amb les imatges, ja que era un sistema molt complex. A més he tingut dificultats amb algunes de les solucions dels problemes com per exemple que la topbar no actualitzava correctament la imatge d’usuari quan aquesta era modificada.</p>
+</div>
+<div class="paragraph">
+<p><strong>Accions concretes per aplicar millores en els següents sprints:</strong></p>
+</div>
+<div class="paragraph">
+<p>Com sempre passa, penso que de cara al següent projecte haurem de treballar més de pressa i d’organitzar-nos millor. De cara a l’entrega final ens queda molta feina d’implementació a més de fer asciidocs, feina de fol i el vídeo, no sé si arribarem a tot.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_9_implementació"><span class="aqua">9. IMPLEMENTACIÓ</span></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_9_1_gitlab"><span class="aqua">9.1. GITLAB</span></h3>
+<div class="paragraph">
+<p><a href="https://gitlab.com/grup48254144/gamedex" class="bare">https://gitlab.com/grup48254144/gamedex</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_2_justificacio_de_decisions"><span class="aqua">9.2. JUSTIFICACIO DE DECISIONS</span></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>RF30 “Afegir comentari” i RF41 “Afegir videojoc a la biblioteca” han estat fusionats. Els comentaris formen part de la relació entre videojoc i usuari, i per tant els emmagatzemem en la relació “Library”/”Biblioteca”, com a atributs.</p>
+</li>
+<li>
+<p>L’usuari inicia sessió amb el nom d’usuari i la contrasenya. El correu electrònic l’hem destinat només per a validar l’usuari a l’hora de recuperar la contrasenya.</p>
+</li>
+<li>
+<p>En el requisit funcional 08 “Llistar usuaris”, es demana que sigui l’administrador qui pugui visualitzar una llista de tots els usuaris. Nosaltres hem decidit que per a la nostra aplicació era més convenient que tots els usuaris puguin accedir a la llista de tots els usuaris per a poder visualitzar els seus perfils. No obstant, en la pantalla d’usuaris, hi ha algunes funcions que només estan disponibles per a l’administrador, com ara el botó de validar.</p>
+</li>
+<li>
+<p>Per conveniència, tots els usuaris poden accedir a un filtre a la pàgina d’usuaris per a poder filtrar-los per username.</p>
+</li>
+<li>
+<p>Tots els usuaris poden accedir a visualitzar els perfils dels altres usuaris.</p>
+</li>
+<li>
+<p>Hem afegit un RF41, en el qual un usuari pot afegir qualsevol videojoc que hagi estat validat a la seva biblioteca.</p>
+</li>
+<li>
+<p>Tots els usuaris poden accedir a la seva biblioteca per a veure els videojocs afegits.</p>
+</li>
+<li>
+<p>En l’RF34 “(RF34) Eliminar comentaris”, l’usuari que ha posat el comentari també pot esborrar el seu propi comentari.</p>
+</li>
+<li>
+<p>Hem decidit que pots guardar un videojoc a la teva biblioteca però sense puntuació ni comentari, per tant hem post l’estat default en “want to play” i aquests comentaris no es llisten en la pàgina de veure videojocs.</p>
+</li>
+<li>
+<p>Quan es va parlar de la implementació de seguretat per a l’aplicació, se’ns va dir que no feia falta fer seguretat, només l’autenticació i fer algún tipus d’encriptació per a la contrasenya, així que hem fet justament això. Per a la recuperació de la contrasenya, hem fet un sistema on en clicar el botó “Forgot your password?”, et portés a una pantalla on l’usuari introdueix el seu nom d’usuari i el correu electrònic i el sistema verifica que existeixi aquest usuari i que el correu electrònic sigui el correcte, aleshores surt un missatge avisant que s’ha canviat la contrasenya, se li mostra per pantalla la propia contrasenya  i se li demana clicar un botó per a confirmar que s’ha llegit.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_3_llistat_de_funcionalitats_finalitzades"><span class="aqua">9.3. LLISTAT DE FUNCIONALITATS FINALITZADES</span></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>(RF01) Login Usuari</p>
+</li>
+<li>
+<p>(RF02) Registre Usuari</p>
+</li>
+<li>
+<p>(RF45) Registre d’administrador</p>
+</li>
+<li>
+<p>(RF03) Recuperar contrasenya</p>
+</li>
+<li>
+<p>(RF04) Editar perfil usuari</p>
+</li>
+<li>
+<p>(RF48) Consultar perfil d’usuari</p>
+</li>
+<li>
+<p>(RF05) Logout</p>
+</li>
+<li>
+<p>(RF06) Validar Usuaris</p>
+</li>
+<li>
+<p>(RF07) Eliminar usuari</p>
+</li>
+<li>
+<p>(RF08) Llistar usuaris</p>
+</li>
+<li>
+<p>(RF09) Modificar usuaris</p>
+</li>
+<li>
+<p>(RF44) Filtre d’usuaris</p>
+</li>
+<li>
+<p>(RF46) Consultar usuari</p>
+</li>
+<li>
+<p>(RF10) Crear categoria</p>
+</li>
+<li>
+<p>(RF11) Llistar categories:</p>
+</li>
+<li>
+<p>(RF12) Filtrar per categoria</p>
+</li>
+<li>
+<p>(RF13) Consultar categoria</p>
+</li>
+<li>
+<p>(RF14) Modificar categoria</p>
+</li>
+<li>
+<p>(RF15) Eliminar categoria</p>
+</li>
+<li>
+<p>(RF16) Filtrar Videojocs per Categories</p>
+</li>
+<li>
+<p>(RF20) Afegir videojoc</p>
+</li>
+<li>
+<p>(RF21) Llistar videojocs</p>
+</li>
+<li>
+<p>(RF22) Filtrar videojocs</p>
+</li>
+<li>
+<p>(RF24) Consultar videojoc</p>
+</li>
+<li>
+<p>(RF25) Modificar videojoc</p>
+</li>
+<li>
+<p>(RF26) Eliminar videojoc</p>
+</li>
+<li>
+<p>(RF40) Validar proposta de videojocs</p>
+</li>
+<li>
+<p>(RF41) Afegir videojoc a biblioteca personal</p>
+</li>
+<li>
+<p>(RF42) Modificar videojoc a la biblioteca personal</p>
+</li>
+<li>
+<p>(RF43) Eliminar videojoc de la biblioteca personal</p>
+</li>
+<li>
+<p>(RF47) Consultar biblioteca personal</p>
+</li>
+<li>
+<p>(RF30) Afegir comentaris</p>
+</li>
+<li>
+<p>(RF33) Visualitzar puntuació mitjana</p>
+</li>
+<li>
+<p>(RF34) Eliminar comentaris</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_4_llistat_dincidencies"><span class="aqua">9.4. LLISTAT D&#8217;INCIDENCIES</span></h3>
+<div class="sect3">
+<h4 id="_9_4_1_mario"><span class="aqua">9.4.1. MARIO</span></h4>
+<div class="paragraph">
+<p>En el meu cas no he tingut gaires incidències, tot i això, alguns petits problemes sí que he trobat al llarg del projecte. En primer lloc, he trobat dificultats a fer les pantalles amb android studio, ja que tot i que no era un procés gaire difícil, al començament no quedava tot com m’agradava, però després vaig aprendre a fer millor les pantalles. També vaig trobar moltes dificultats amb les imatges perquè no sabíem com gestionar correctament les imatges i amb molt de temps i de recerca a internet vaig aconseguir que funcionessin com volíem. Per últim, l’API va costar molt de gestionar al començament, ja que els exemples de connexió amb API que havíem fet a classe eren molt més senzills que el que es requeria al projecte.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_9_4_2_anna"><span class="aqua">9.4.2. ANNA</span></h4>
+<div class="paragraph">
+<p>Aquest projecte ha estat tot un repte, doncs no he pogut treballar des de l’institut. Quan vam començar el segon Sprint i vam haver de començar a provar funcionalitats en l’emulador d’Android Studio, ja no vaig poder continuar fent servir el portàtil per a fer feina i per tant vaig haver de dedicar-li el doble d’hores, doncs vaig haver de fer tota la meva feina a casa. També vaig tenir molts problemes amb l’API doncs vaig estar treballant paral·lelament amb el Mario per aconseguir que funcionés i vam haver-li de dedicar moltes hores.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_9_4_3_hector"><span class="aqua">9.4.3. HECTOR</span></h4>
+<div class="paragraph">
+<p>Les incidències que he trobat per la meva part ha estat per part dels requisitsdel sistema, ja que no podia treballar molt a classe i no podia comprovar si la pantalla o l’aplicació funcionava correctament, això feia que despenges dels meus companys i no avancin per culpa meva, ja que no tenia el sistema que es requeria per fer aquest projecte.</p>
+</div>
+<div class="paragraph">
+<p>La incidència del sistema ha sigut la incidència que més m’ha perjudicat perquè per no tenir els requisits de la màquina he anat molt atabalat a més que era un projecte curt i que al principi em va costar posar-me amb el projecte, ja que no entenia res.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_9_4_4_yaiza"><span class="aqua">9.4.4. YAIZA</span></h4>
+<div class="paragraph">
+<p>Durant el projecte, he tingut diverses dificultats tècniques, sobretot per connectar el Frontend amb el Backend. Al principi, vaig voler evitar l’ús d’IA per demostrar que podia desenvolupar el projecte sense dependre d’això, però la falta de temps i els errors amb l’API em van obligar a buscar ajuda per no frenar l’equip. Vaig perdre dos dies intentant solucionar un problema i, finalment, vaig recórrer a suport extern per arribar a l’entrega.<br>
+Un dels principals entrebancs va ser el desplegable de categories, que vaig implementar de manera poc eficient en un principi. En comptes de connectar correctament l’entitat Categoria amb Videojoc, vaig afegir un camp extra per gestionar-les manualment, cosa que va generar errors i inconsistències que em van fer perdre molt de temps quan dies després vaig voler posar-me amb això.<br>
+També vaig tenir dificultats amb la pantalla de modificació. Al començament no sabia com abordar-la i la vaig haver de deixar per avançar en altres tasques. Quan la vaig reprendre, encara em donava molts problemes fins que, després de diversos intents, va acabar funcionant.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_9_4_5_grup"><span class="aqua">9.4.5. GRUP</span></h4>
+<div class="paragraph">
+<p>Grupalment, hem trobat un gran problema al llarg de tot el projecte que ens ha endarrerit molt. La principal incidència que hem trobat a escala grupal és amb les eines de treball, els requisits de sistema per a l’ús d’emuladors a l’Android Studio són molt exigents i no coincideixen amb els requisits de sistema mínims que se’ns van demanar de cara a tenir un portàtil per a poder començar el grau. Això ens ha portat a tenir dos portàtils en el nostre grup que no podien provar les funcionalitats que s’anaven fent. A més, feien els portàtils anar amb molt de lag i s’acabaven congelant tota l’estona.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_10_manual_dusuari"><span class="aqua">10. MANUAL D&#8217;USUARI</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Per a accedir a la nostra aplicació cal tenir MongoDB versió 1.45, JDK versió 21, i un dispositiu mòbil o emulador.<br>
+La base de dades es troba sota el nom de “Projecte3GameDex”.<br>
+L&#8217;aplicació té dos usuaris per defecte, un administrador i un usuari “normal”.</p>
+</div>
+<div class="paragraph">
+<p><strong>Administrador:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Username: admin</p>
+</li>
+<li>
+<p>Password: admin</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Usuari:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Username: user</p>
+</li>
+<li>
+<p>Password: user</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La base de dades no té cap contrasenya.</p>
+</div>
+<div class="sect2">
+<h3 id="_10_1_manual_dusuari_client"><span class="aqua">10.1. MANUAL D&#8217;USUARI "CLIENT"</span></h3>
+<div class="sect3">
+<h4 id="_10_1_0_abans_de_començar"><span class="aqua">10.1.0. ABANS DE COMENÇAR</span></h4>
+<div class="paragraph">
+<p>En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l&#8217;esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l&#8217;aplicació.<br>
+La barra inferior ens permet accedir a les diferents parts de l&#8217;aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d&#8217;usuaris, el perfil d’usuari i a la nostra llibreria respectivament.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_1_login"><span class="aqua">10.1.1 LOGIN</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/login.png" alt="login" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>Aquesta és la pantalla d&#8217;inici de sessió, on l&#8217;usuari ha d&#8217;introduir el seu nom d&#8217;usuari i contrasenya per a poder accedir a l&#8217;aplicació.<br>
+L&#8217;usuari també tindrà l&#8217;opció d&#8217;enregistrar-se si no té un compte o de recuperar la seva contrasenya en cas d&#8217;haver-la oblidat.<br>
+En clicar el botó de "confirmar", si les credencials son correctes, l&#8217;usuari serà redirigit a la pantalla principal de l&#8217;aplicació.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_2_registre"><span class="aqua">10.1.2. REGISTRE</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/signUp.png" alt="signUp" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla trobem en la part superior el logo de l’aplicació. A l’esquerra hi ha un botó per tornar a la pantalla d’Iniciar Sessió. Seguit d’això trobem un formulari que l’usuari ha d’omplir per a poder registrar-se. Els camps que el componen són: nom d’usuari, nom, cognom, contrasenya, correu electrònic, telèfon, data de naixement i hi ha un camp per afegir una imatge de la galeria del telèfon. L’usuari ha de tenir en compte què no podrà iniciar sessió fins que el seu compte no hagi estat validat per un administrador.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_3_resetejar_contrasenya"><span class="aqua">10.1.3. RESETEJAR CONTRASENYA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/forgotYourPassword.png" alt="forgotYourPassword" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>Si l’usuari vol canviar la contrasenya, haurà d’haver clicat en el botó “Has oblidat la contrasenya?” que hi ha a la pantalla d’iniciar Sessió. Una vegada que l’usuari es troba en aquesta pantalla veurà en la part superior un botó per a tornar enrere i un formulari de dos camps, nom d’usuari i correu electrònic. En el cas de voler canviar la contrasenya, l’usuari ha d’omplir el formulari i clicar en Confirmar. Aleshores apareixerà un missatge de confirmació en el cas que les credencials siguin correctes juntament amb una contrasenya provisional que es recomana canviar immediatament després de l’inici de sessió.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_4_llistat_de_categories"><span class="aqua">10.1.4. LLISTAT DE CATEGORIES</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listCategories.png" alt="listCategories" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar categories, l’usuari pot observar tots els tipus de videojoc que s’han afegit a l’aplicació. A sota de la capçalera, trobem un buscador que ens permet filtrar pel nom de la categoria, l’usuari pot escriure el nom complet de la categoria o només una part i se li mostraran tots els resultats obtinguts. A sota hi ha la llista de categories, cada categoria és un ítem clicable que ens porta a visualitzar més informació sobre la categoria corresponent.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_5_consultar_categoria"><span class="aqua">10.1.5. CONSULTAR CATEGORIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewCategory.png" alt="viewCategory" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar categoria podem veure més informació de la categoria seleccionada. Trobem el nom de la categoria, una imatge descriptiva, i una descripció sobre aquesta categoria.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_6_llistat_de_videojocs"><span class="aqua">10.1.6. LLISTAT DE VIDEOJOCS</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listVideogames.png" alt="listVideogames" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar videojocs l’usuari pot accedir a un llistat dels videojocs que existeixen a la base de dades de la nostra aplicació. A sota del títol, trobem un buscador que ens permet trobar més fàcilment el videojoc que estem buscant, podem escriure el nom complet i ens mostrarà només aquell resultat o, podem escriure només una part i ens mostrarà tots els resultats que coincideixin. Seguidament, trobem un menú desplegable que ens permet filtrar els videojocs per categoria. A sota trobem la llista de videojocs disponibles per als filtres que hem aplicat, si no posem cap filtre, trobarem tots els videojocs. Per cada resultat de videojoc, podem veure la seva imatge, el nom del videojoc, la categoria a la qual pertany i també tenim una icona clicable d’un ull que ens porta a la pàgina d’aquest videojoc. A la part inferior, trobem una icona amb un símbol “+”, clicant aquí, l’usuari pot accedir a presentar una nova proposta de videojoc.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_7_consultar_videojoc"><span class="aqua">10.1.7. CONSULTAR VIDEOJOC</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewVideogame.png" alt="viewVideogame" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de visualitzar videojoc trobem la informació detallada del videojoc corresponent i un apartat de comentaris on trobem les ressenyes que han deixat els usuaris sobre aquest videojoc. La pantalla està dividida en dues parts, la zona superior és la dels detalls del videojoc. Aquí podem veure la imatge, el nom, la puntuació mitjana dels usuaris, el PEGI (edat recomanada), l’any de llançament, la categoria a la qual pertany, l’empresa creadora del videojoc, i una descripció del videojoc. A la zona superior dreta, trobem una icona en forma de cor que ens permet afegir aquest videojoc a la nostra biblioteca personal i, per tant, desar una ressenya. A la zona inferior de la pantalla, trobem el llistat de comentaris per aquest videojoc. Al costat del títol de “COMENTARIS”, trobem una icona amb el símbol “+”, el qual ens porta a afegir un videojoc a la biblioteca, és la mateixa funcionalitat que el botó amb el símbol del cor de la part superior. A sota del títol, trobem el llistat de comentaris on per cada comentari podem veure el nom de l’usuari que l’ha escrit, la puntuació que li ha posat i un comentari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_8_afegir_videojoc"><span class="aqua">10.1.8. AFEGIR VIDEOJOC</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/addVideogame.png" alt="addVideogame" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla d’afegir videojoc trobem un formulari amb la informació necessària perquè l’usuari pugui presentar una proposta de videojoc als administradors. Qualsevol proposta ha de ser validada per un administrador. El formulari consta dels camps següents: nom del videojoc, any de llançament, edat recomanada, empresa creadora del videojoc, un menú desplegable per a escollir la categoria a la qual pertany el videojoc, una descripció i una imatge descriptiva. Finalment, per a poder enviar la proposta hi ha un botó de confirmació.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_9_llistat_dusuaris"><span class="aqua">10.1.9. LLISTAT D&#8217;USUARIS</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listUsers.png" alt="listUsers" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar usuaris, l’usuari pot trobar una llista de tots els usuaris independentment que hagin estat validats o no. A sota del títol, trobem un espai per a realitzar una cerca personalitzada segons el nom d’usuari, en aquest espai podem escriure el nom d’usuari complet o només una part i l’aplicació ens mostrarà els resultats obtinguts. A sota d’aquest espai, està la llista d’usuaris, on cada ítem té la imatge de perfil (si l’usuari en té), el nom d’usuari i una icona clicable que ens permet navegar al perfil de l’usuari corresponent.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_10_view_profile"><span class="aqua">10.1.10. VIEW PROFILE</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewProfile.png" alt="viewProfile" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar el perfil de l’usuari, podem trobar informació de l’usuari corresponent. Els camps que podem veure són la imatge de perfil, el nom d’usuari i el recompte de videojocs filtrats per acabats, jugant, aquells que es volen jugar i aquells que no s’han finalitzat. Al costat de la imatge de perfil a l’esquerra, hi ha un botó amb un llapis (nomes si ens trobem al nostre perfil), que ens portarà a la pantalla de modificar el perfil de l’usuari. A sota del recompte de videojocs, trobem un botó que ens portarà a la llibreria de l’usuari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_11_modificar_perfil"><span class="aqua">10.1.11. MODIFICAR PERFIL</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/modifyProfile.png" alt="modifyProfile" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de modificar el perfil de l’usuari, podem modificar les dades introduïdes de l’usuari, que són les mateixes que en la pantalla de registre: contrasenya, nom, cognom, correu electrònic, telèfon, data de naixement i imatge de perfil. L’únic camp que no és editable és el nom d’usuari. Si l’usuari no vol canviar la contrasenya, haurà de deixar el camp buit. A sota de la imatge, hi ha el botó de confirmar, el qual guardarà l’usuari actualitzat i ens portarà a la pantalla de visualitzar el perfil.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_12_llibreria"><span class="aqua">10.1.12. LLIBRERIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listLibrary.png" alt="listLibrary" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla l’usuari trobarà un llistat de tots els jocs que ha afegit a la seva llibreria. Cada entrada mostrarà el nom del videojoc, la seva categoria i l&#8217;estat en què l&#8217;usuari ha guardat el videojoc (Finalitzat, Pendent, Jugant, o Abandonat). També trobarà dos botons a la dreta, un vermell que eliminarà el videojoc de la seva llibreria i un fúcsia que ens permetrà editar l&#8217;entrada a ala llibreria.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_13_afegir_videojoc_a_la_llibreria"><span class="aqua">10.1.13. AFEGIR VIDEOJOC A LA LLIBRERIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/addVideogameToLibrary.png" alt="addVideogameToLibrary" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>Aquesta pantalla permet a l’usuari afegir un videojoc a la seva llibreria personal. Podrem introduir un estat, una puntuació i un comentari. Només serà necessari afegir l&#8217;estat, on l’usuari podrà escollir entre Finalitzat, Pendent, Jugant o Abandonat.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_1_14_modificar_entrada_de_la_llibreria"><span class="aqua">10.1.14. MODIFICAR ENTRADA DE LA LLIBRERIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/addVideogameToLibrary.png" alt="addVideogameToLibrary" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>Aquesta pantalla permet a l’usuari modificar un videojoc de la seva llibreria personal. Podrem modificar l&#8217;estat, la puntuació i el comentari.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_10_2_manual_dusuari_administrador"><span class="aqua">10.2. MANUAL D&#8217;USUARI "ADMINISTRADOR"</span></h3>
+<div class="sect3">
+<h4 id="_10_2_0_abans_de_començar"><span class="aqua">10.2.0. ABANS DE COMENÇAR</span></h4>
+<div class="paragraph">
+<p>En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l&#8217;esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l&#8217;aplicació.<br>
+La barra inferior ens permet accedir a les diferents parts de l&#8217;aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d&#8217;usuaris, el perfil d’usuari i a la nostra llibreria respectivament.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_1_llistat_de_categories"><span class="aqua">10.2.1. LLISTAT DE CATEGORIES</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listCategoriesAdmin.png" alt="listCategoriesAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar categories, l’usuari pot observar tots els tipus de videojoc que s’han afegit a l’aplicació. A sota de la capçalera, trobem un buscador que ens permet filtrar pel nom de la categoria, l’usuari pot escriure el nom complet de la categoria o només una part i se li mostraran tots els resultats obtinguts. A sota hi ha la llista de categories, cada categoria és un ítem clicable que ens porta a visualitzar més informació sobre la categoria corresponent. L’administrador a més podrà afegir noves categories amb el botó amb la icona d&#8217;un “+” a l&#8217;esquena inferior dreta de la pantalla.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_2_afegir_categoria"><span class="aqua">10.2.2. AFEGIR CATEGORIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/addCategory.png" alt="addCategory" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>La pantalla d’afegir categoria és una pantalla exclusiva per l&#8217;Administrador, i el seu objectiu  és poder afegir noves categories per a després assignar-li videojocs. Per poder crear-la hem d’afegir el nom de la categoria, una descripció per la categoria que vols afegir i una imatge sobre la categoria que vols crear.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_3_consultar_categoria"><span class="aqua">10.2.3. CONSULTAR CATEGORIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewCategoryAdmin.png" alt="viewCategoryAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar categoria podem veure més informació de la categoria seleccionada. Trobem el nom de la categoria, una imatge descriptiva, i una descripció sobre aquesta categoria. L’administrador a més trobarà al costat del nom de la categoria, un botó vermell amb una icona d’una brossa on podrà eliminar la categoria corresponent i a sota de la informació, hi ha un botó rosa per a poder modificar la informació de la categoria: la descripció i la imatge.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_4_modificar_categoria"><span class="aqua">10.2.4. MODIFICAR CATEGORIA</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/modifyCategory.png" alt="modifyCategory" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>Per la pantalla de modificar categoria el que podrà fer l’administrador és modificar la descripció i la imatge de la categoria visualitzada anteriorment.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_5_llistat_de_videojocs"><span class="aqua">10.2.5. LLISTAT DE VIDEOJOCS</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listVideogamesAdmin.png" alt="listVideogamesAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar videojocs l’usuari pot accedir a un llistat dels videojocs que existeixen a la base de dades de la nostra aplicació. A sota del títol, trobem un buscador que ens permet trobar més fàcilment el videojoc que estem buscant, podem escriure el nom complet i ens mostrarà només aquell resultat o, podem escriure només una part i ens mostrarà tots els resultats que coincideixin. Seguidament, trobem un menú desplegable que ens permet filtrar els videojocs per categoria. A sota trobem la llista de videojocs disponibles per als filtres que hem aplicat, si no posem cap filtre, trobarem tots els videojocs. Per cada resultat de videojoc, podem veure la seva imatge, el nom del videojoc, la categoria a la qual pertany i també tenim una icona clicable d’un ull que ens porta a la pàgina d’aquest videojoc. A la part inferior, trobem una icona amb un símbol “+”, clicant aquí, l’usuari pot accedir a presentar una nova proposta de videojoc.<br>
+A més l’administrador trobarà un botó a la part inferior esquerra amb un tic, que el permetrà anar al llistat de videojocs per verificar.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_6_visualitzar_videojoc"><span class="aqua">10.2.6. VISUALITZAR VIDEOJOC</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewVideogameAdmin.png" alt="viewVideogameAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de visualitzar videojoc trobem la informació detallada del videojoc corresponent i un apartat de comentaris on trobem les ressenyes que han deixat els usuaris sobre aquest videojoc. La pantalla està dividida en dues parts, la zona superior és la dels detalls del videojoc. Aquí podem veure la imatge, el nom, la puntuació mitjana dels usuaris, el PEGI (edat recomanada), l’any de llançament, la categoria a la qual pertany, l’empresa creadora del videojoc, i una descripció del videojoc. A la zona superior dreta, trobem una icona en forma de cor que ens permet afegir aquest videojoc a la nostra biblioteca personal i, per tant, desar una ressenya. A la zona inferior de la pantalla, trobem el llistat de comentaris per aquest videojoc. Al costat del títol de “COMENTARIS”, trobem una icona amb el símbol “+”, el qual ens porta a afegir un videojoc a la biblioteca, és la mateixa funcionalitat que el botó amb el símbol del cor de la part superior. A sota del títol, trobem el llistat de comentaris on per cada comentari podem veure el nom de l’usuari que l’ha escrit, la puntuació que li ha posat i un comentari.  L&#8217;administrador a més, té diverses opcions més. A la part superior a sota de la descripció, té un botó rosa per a poder modificar la informació del videojoc. A sota hi ha un botó vermell amb l&#8217;icona d&#8217;una brossa, aquí pot esborrar el videojoc.<br>
+En la secció de comentaris, l&#8217;administrador pot esborrar qualsevol comentari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_7_llistat_de_videojocs_per_verificar"><span class="aqua">10.2.7. LLISTAT DE VIDEOJOCS PER VERIFICAR</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/verifyVideogamesList.png" alt="verifyVideogamesList" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistat de videojocs per validar, l’administrador pot veure una llista de totes les propostes de videojocs que els usuaris han fet. Aquesta llista es troba a sota del títol. Per a cada proposta podem trobar una imatge, el nom del videojoc i la seva categoria. A la dreta d’aquesta informació trobem una icona amb un ull, en clicar-la, anirem a la pantalla de verificar videojoc.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_8_verificar_videojoc"><span class="aqua">10.2.8. VERIFICAR VIDEOJOC</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/verifyVideogame.png" alt="verifyVideogame" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de verificar videojoc, l&#8217;administrador pot acceptar o eliminar la proposta feta per un usuari. Primer trobarà tota la informació: el nom, una imatge, l&#8217;edat recomanada, l&#8217;any de llançament, l&#8217;empresa que ha creat el videojoc, la categoria a la qual pertany i una descripció. A la part inferior hi ha dos botons, un verd per acceptar la proposta i un vermell per a eliminar-la.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_9_llistat_dusuaris"><span class="aqua">10.2.9. LLISTAT D&#8217;USUARIS</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/listUsersAdmin.png" alt="listUsersAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de llistar usuaris, l’usuari pot trobar una llista de tots els usuaris independentment que hagin estat validats o no. A sota del títol, trobem un espai per a realitzar una cerca personalitzada segons el nom d’usuari, en aquest espai podem escriure el nom d’usuari complet o només una part i l’aplicació ens mostrarà els resultats obtinguts. A sota d’aquest espai, està la llista d’usuaris, on cada ítem té la imatge de perfil (si l’usuari en té), el nom d’usuari i una icona clicable que ens permet navegar al perfil de l’usuari corresponent. Si accedim com a Administrador a sota de la barra de recerca trobarem dos botons, un per crear un usuari administrador i l’altre per verificar els nous usuaris que s’han registrat.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_10_afegir_administrador"><span class="aqua">10.2.10. AFEGIR ADMINISTRADOR</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/addAdmin.png" alt="addAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla trobem un formulari que l&#8217;administrador ha d’omplir per a poder registrar nous administradors. Els camps que el componen són: nom d’usuari, nom, cognom, contrasenya, correu electrònic, telèfon, data de naixement i hi ha un camp per afegir una imatge de la galeria del telèfon.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_11_llistat_dusuaris_per_verificar"><span class="aqua">10.2.11. LLISTAT D&#8217;USUARIS PER VERIFICAR</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/validateUsersList.png" alt="validateUsersList" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En aquesta pantalla es mostrarà una llista de tots els usuaris que s’han registrat en la nostra aplicació i encara no han estat validats. Es mostrarà el nom de l’usuari i el seu avatar. Podrem accedir a la informació d’aquell usuari fent clic a la icona del costat dret de la targeta de l’usuari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_12_verificar_usuari"><span class="aqua">10.2.12. VERIFICAR USUARI</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/validateUser.png" alt="validateUser" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de validar un usuari, l&#8217;administrador pot acceptar la validació d&#8217;un usuari o eliminar-lo. En aquesta pantalla trobem les dades de l&#8217;usuari registrat, una imatge de perfil, el nom d&#8217;usuari, nom, cognom, telèfon, data de naixement, tipus d&#8217;usuari (usuari o administrador) i l&#8217;estat del registre de l&#8217;usuari. A sota hi ha dos botons, validar usuari per acceptar el registre i un per eliminar a l&#8217;usuari.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_10_2_13_visualitzar_usuari"><span class="aqua">10.2.13. VISUALITZAR USUARI</span></h4>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/viewProfileAdmin.png" alt="viewProfileAdmin" width="500" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p>En la pantalla de consultar el perfil de l’usuari, podem trobar informació de l’usuari corresponent. Els camps que podem veure són la imatge de perfil, el nom d’usuari i el recompte de videojocs filtrats per acabats, jugant, aquells que es volen jugar i aquells que no s’han finalitzat. Al costat de la imatge de perfil a l’esquerra, hi ha un botó amb un llapis, que ens portarà a la pantalla de modificar el perfil de l’usuari. A sota del recompte de videojocs, trobem un botó que ens portarà a la llibreria de l’usuari.<br>
+L&#8217;administrador a més podra esborrar tots els perfils que no siguin el seu.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_11_fol"><span class="aqua">11. FOL</span></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_11_1_objectiu_de_desenvolupament_sostenible"><span class="aqua">11.1. OBJECTIU DE DESENVOLUPAMENT SOSTENIBLE</span></h3>
+<div class="paragraph">
+<p>Com a persones joves, ens envoltem contínuament d’estímuls dins del nostre àmbit d’oci que tot i que no som conscients de manera activa, ens perjudiquen com a societat. És el cas de comunitats i jocs poc inclusius que no sols no estan pensats perquè jugui tothom sinó que inciten a marginar a col·lectius. És per això que nosaltres volem incloure en la nostra idea d’aplicació, una biblioteca de videojocs, espais segurs on les desigualtats no tenen cabuda, seguint com a exemple, l’objectiu de desenvolupament sostenible número 10: reducció de les desigualtats.</p>
+</div>
+<div class="paragraph">
+<p>La nostra idea és que quan un usuari iniciï l’aplicació i aparegui en la pàgina principal, trobarà un llistat de categories, on a part de les típiques etiquetes com poden ser “aventures”, “acció”, “shooters”, també trobarà algunes més inclusives com ara “educatius”, “accessibles”, “cultural i històric” o “diversitat”.</p>
+</div>
+<div class="paragraph">
+<p>Dins la categoria d’educatius, ens agradaria incloure videojocs que puguin aportar valors tant ètics com acadèmics en els infants i joves. Pel que fa als videojocs accessibles, creiem que és important afegir experiencies per a persones amb discapacitats físiques o cognitives. En cultural i històric hi hauria videojocs que explorin la història i les cultures d’arreu del món des d’un punt de vista objectiu i fidel al lloc corresponent. I finalment en la categoria de diversitat, afegiríem videojocs que destaquen per la inclusió, ja sigui en una creació de personatges amb moltes possibilitats de personalització, en videojocs que explorin cultures diferents des del respecte, etc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_11_2_subvencions_i_ajuts_per_al_nostre_projecte"><span class="aqua">11.2. SUBVENCIONS I AJUTS PER AL NOSTRE PROJECTE</span></h3>
+<div class="paragraph">
+<p>En la nostra tasca anterior, vam decidir que consideràvem prou important i adient per al nostre projecte l&#8217;addició de l’Objectiu de<br>
+Desenvolupament Sostenible número 10 “reducció de les desigualtats”.<br>
+Després de la recerca i, tenint en compte la nostra situació geogràfica, hem conclòs en què podríem beneficiar-nos (o sol·licitar) la següent subvenció:</p>
+</div>
+<div class="paragraph">
+<p>La <strong>“Convocatòria General de Subvencions de l’Ajuntament de Barcelona 2025”</strong>, la qual dona suport a projectes que fomenten la cohesió social, la inclusió i la diversitat.  El nostre projecte promou espais de jocs inclusius i accessibles apropant els videojocs a tothom.</p>
+</div>
+<div class="paragraph">
+<p>Tot i això, hem vist algunes subvencions que creiem que de cara a un futur, podríem adaptar el nostre projecte per a ser aptes a obtenir-les.</p>
+</div>
+<div class="paragraph">
+<p>Una idea que hem tingut és poder apropar la nostra aplicació a un públic més jove, adolescents, tot i que ara mateix tenim una categoria de videojocs educacionals, hem pensat en algun tipus de mode per a menors d’edat, on puguem garantir un espai segur per a aquests usuaris, d’aquesta manera podríem fer jornades de conscienciació a escoles o a espais socials. La nostra aplicació té un espai de socialització, reduint la ràtio d’edats podem assegurar un àmbit de conversació més inclusiu.  Això ens podria fer aptes per a les <strong>“Subvencions per a l&#8217;enfortiment de l&#8217;economia social i solidària i per a la intercooperació en l&#8217;estratègia #ESSBCN2030 - ENFORTIM L&#8217;ESS 2024”</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_11_3_identitat_digital"><span class="aqua">11.3. IDENTITAT DIGITAL</span></h3>
+<div class="sect3">
+<h4 id="_11_3_1_anna"><span class="aqua">11.3.1. ANNA</span></h4>
+<div class="sect4">
+<h5 id="_11_3_1_1_compartir"><span class="aqua">11.3.1.1. COMPARTIR</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Linkedin ( poc )</p>
+</li>
+<li>
+<p>Instagram ( mitjà )</p>
+</li>
+<li>
+<p>Pinterest ( molt )</p>
+</li>
+<li>
+<p>GitHub ( poc )</p>
+</li>
+<li>
+<p>GitLab ( molt )</p>
+</li>
+<li>
+<p>YouTube ( molt )</p>
+</li>
+<li>
+<p>TikTok ( molt )</p>
+</li>
+<li>
+<p>Discord ( molt )</p>
+</li>
+<li>
+<p>Telegram ( molt )</p>
+</li>
+<li>
+<p>WhatsApp ( poc )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_1_2_informatives"><span class="aqua">11.3.1.2. INFORMATIVES</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>ChatGPT ( molt )</p>
+</li>
+<li>
+<p>Google ( molt )</p>
+</li>
+<li>
+<p>YouTube ( mitjà )</p>
+</li>
+<li>
+<p>TikTok ( molt )</p>
+</li>
+<li>
+<p>Wikipèdia ( molt poc )</p>
+</li>
+<li>
+<p>W3Schools ( molt poc )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_1_3_reflexió"><span class="aqua">11.3.1.3. REFLEXIÓ</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>StackOverflow ( poc )</p>
+</li>
+<li>
+<p>Notion ( poc )</p>
+</li>
+<li>
+<p>Trello ( mitjà )</p>
+</li>
+<li>
+<p>Reddit ( molt )</p>
+</li>
+<li>
+<p>Youtube ( molt )</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_11_3_2_mario"><span class="aqua">11.3.2. MARIO</span></h4>
+<div class="sect4">
+<h5 id="_11_3_2_1_compartir"><span class="aqua">11.3.2.1. COMPARTIR</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Linkedin ( mitjà )</p>
+</li>
+<li>
+<p>Instagram ( poc )</p>
+</li>
+<li>
+<p>GitHub ( mitjà )</p>
+</li>
+<li>
+<p>GitLab ( molt )</p>
+</li>
+<li>
+<p>YouTube ( molt )</p>
+</li>
+<li>
+<p>TikTok ( molt )</p>
+</li>
+<li>
+<p>Twitter ( molt )</p>
+</li>
+<li>
+<p>Discord ( molt )</p>
+</li>
+<li>
+<p>Telegram ( poc )</p>
+</li>
+<li>
+<p>WhatsApp ( mitjà )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_2_2_informatives"><span class="aqua">11.3.2.2. INFORMATIVES</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>ChatGPT ( molt )</p>
+</li>
+<li>
+<p>Google ( molt )</p>
+</li>
+<li>
+<p>YouTube ( molt )</p>
+</li>
+<li>
+<p>Twitch ( poc )</p>
+</li>
+<li>
+<p>TikTok ( molt )</p>
+</li>
+<li>
+<p>Wikipèdia ( mitjà )</p>
+</li>
+<li>
+<p>W3Schools ( molt poc )</p>
+</li>
+<li>
+<p>StackOverflow ( mitjà )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_2_3_reflexió"><span class="aqua">11.3.2.3. REFLEXIÓ</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>StackOverflow ( mitjà )</p>
+</li>
+<li>
+<p>Notion ( poc )</p>
+</li>
+<li>
+<p>Trello ( poc )</p>
+</li>
+<li>
+<p>Reddit ( mitjà )</p>
+</li>
+<li>
+<p>Youtube ( molt )</p>
+</li>
+<li>
+<p>Twitch ( mitjà )</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_11_3_3_héctor"><span class="aqua">11.3.3. HÉCTOR</span></h4>
+<div class="sect4">
+<h5 id="_11_3_3_1_compartir"><span class="aqua">11.3.3.1. COMPARTIR</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Instagram ( molt )</p>
+</li>
+<li>
+<p>GitLab ( molt )</p>
+</li>
+<li>
+<p>YouTube ( molt )</p>
+</li>
+<li>
+<p>TikTok ( molt )</p>
+</li>
+<li>
+<p>Discord ( molt )</p>
+</li>
+<li>
+<p>WhatsApp ( poc )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_3_2_informatives"><span class="aqua">11.3.3.2. INFORMATIVES</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>ChatGPT ( molt )</p>
+</li>
+<li>
+<p>Copilot ( molt )</p>
+</li>
+<li>
+<p>Gemini ( molt )</p>
+</li>
+<li>
+<p>Google ( molt )</p>
+</li>
+<li>
+<p>YouTube ( mitjà )</p>
+</li>
+<li>
+<p>TikTok ( molt )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_3_3_reflexió"><span class="aqua">11.3.3.3. REFLEXIÓ</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Trello ( molt )</p>
+</li>
+<li>
+<p>Youtube ( molt )</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_11_3_4_yaiza"><span class="aqua">11.3.4. YAIZA</span></h4>
+<div class="sect4">
+<h5 id="_11_3_4_1_compartir"><span class="aqua">11.3.4.1. COMPARTIR</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>GitHub ( poc )</p>
+</li>
+<li>
+<p>GitLab ( molt )</p>
+</li>
+<li>
+<p>YouTube ( molt )</p>
+</li>
+<li>
+<p>Discord ( molt )</p>
+</li>
+<li>
+<p>WhatsApp ( mitjà )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_4_2_informatives"><span class="aqua">11.3.4.2. INFORMATIVES</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>ChatGPT ( mitjà )</p>
+</li>
+<li>
+<p>Copilot ( mitjà )</p>
+</li>
+<li>
+<p>Google ( molt )</p>
+</li>
+<li>
+<p>YouTube ( mitjà )</p>
+</li>
+<li>
+<p>TikTok ( mitjà )</p>
+</li>
+<li>
+<p>Reddit ( poc )</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_11_3_4_3_reflexió"><span class="aqua">11.3.4.3. REFLEXIÓ</span></h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Trello ( mitjà )</p>
+</li>
+<li>
+<p>Reddit ( poc )</p>
+</li>
+<li>
+<p>Youtube ( molt )</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_12_video_promocional"><span class="aqua">12. VIDEO PROMOCIONAL</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://drive.google.com/drive/folders/1YSjHoMZvDV2e8C5iHLonZ1ixlSxpRgq-?usp=sharing" class="bare">https://drive.google.com/drive/folders/1YSjHoMZvDV2e8C5iHLonZ1ixlSxpRgq-?usp=sharing</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_13_portfolis"><span class="aqua">13. PORTFOLIS</span></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_13_1_mario"><span class="aqua">13.1. MARIO</span></h3>
+<div class="paragraph">
+<p><a href="https://github.com/Straffe03" class="bare">https://github.com/Straffe03</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_13_2_hector"><span class="aqua">13.2. Hector</span></h3>
+<div class="paragraph">
+<p><a href="https://github.com/viicolin" class="bare">https://github.com/viicolin</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_13_3_yaiza"><span class="aqua">13.3. Yaiza</span></h3>
+<div class="paragraph">
+<p><a href="https://github.com/yzmelero" class="bare">https://github.com/yzmelero</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_13_4_anna"><span class="aqua">13.4. ANNA</span></h3>
+<div class="paragraph">
+<p><a href="https://github.com/anakeyofsun" class="bare">https://github.com/anakeyofsun</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_14_propostes_de_millora"><span class="aqua">14. PROPOSTES DE MILLORA</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tenim una sèrie de propostes de millora per a la nostra aplicació que ens agradaria poder implementar a futur. Les nostres principals propostes són les següents.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Funció de seguiment entre usuaris:</strong> Per tal d’afegir un extra de socialització a la nostra aplicació, ens agradaria poder afegir un sistema on els usuaris puguin seguir a altres usuaris. Això podria venir acompanyat d’un sistema de notificacions, o una nova pantalla d’últimes notícies o de seguiment on puguis veure l’activitat recent de les persones a les quals segueixes.</p>
+</li>
+<li>
+<p><strong>Funció de xat:</strong> Continuant amb la proposta de millora anterior, creiem que podria ser beneficiós un xat, sigui entre tots els usuaris o privat. En cas que fos entre tots els usuaris, hi hauria moderadors dins del xat. En cas que fos privat, hi hauria d’haver una nova funcionalitat d’incidències en cas que es donin situacions poc afortunades entre dos usuaris.</p>
+</li>
+<li>
+<p><strong>Servidor en el núvol:</strong> Per a portar la nostra aplicació als telèfons mòbils, haurem de fer servir servidors al núvol, ja que actualment depenem d’un servidor local.</p>
+</li>
+<li>
+<p><strong>Notificacions per correu electrònic:</strong> Per a aportar més seguretat, faríem la recuperació de contrasenya mitjançant un enllaç al correu electrònic. També ho faríem servir per a enviar notificacions com per exemple, si un administrador ha hagut de modificar el perfil d’un usuari o si s’ha esborrat algun comentari.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_15_conclusió"><span class="aqua">15. CONCLUSIÓ</span></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Després d’haver estat treballant aproximadament un mes amb android studio i Kotlin, trobem que són dues eines molt intuïtives i senzilles de fer servir que ens aporten moltes facilitats i oportunitats. Així i tot, trobem que android studio té moltes àrees millorables com per exemple el seu rendiment o la pantalla de resolució de conflictes de merge entre d’altres.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-24 15:42:13 +0100
+Last updated 2025-03-03 21:30:29 +0100
 </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
-<script>
-if (!hljs.initHighlighting.called) {
-  hljs.initHighlighting.called = true
-  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
-}
-</script>
 </body>
 </html>

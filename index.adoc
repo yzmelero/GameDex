@@ -1,9 +1,23 @@
-= Memoria GameDEX Projecte 3
-
 :toc-title: INDEX
 :toc: left
 :toclevels: 3
 :hardbreaks:
+:imagesdir: ./images
+
+= Memoria GameDEX Projecte 3
+
+image::GDEX.png[align="center", width="1000", height="1000"]
+ 
+[.text-right]
+****
+**Noms:** Anna Serrano,
+Yaiza Melero,
+Héctor Vico,
+Mario Olaya   
+**Any:** 2025  
+**Curs:** DAM2M
+****
+
 
 == [aqua]#1. PROPOSTES D'IDEES DEL PROJECTE#
 
@@ -55,4 +69,45 @@ La segona proposta de procés de negoci és que a l’hora de què **un usuari v
 
 
 //El include añadira los documentos seleccionados
+
+//include para adoc de especificacio de requisits
+include::./Asciidocs/EspecificacioDeRequisits.adoc[]
+
+//include para guio d'actors
 include::./Asciidocs/guiodActors.adoc[]
+
+//include per diagrames
+include::./Asciidocs/Diagrames.adoc[]
+
+//include per especificacions de cas d'us
+include::./Asciidocs/EspecificacionsCasDUs.adoc[]
+
+//include per disseny de pantalles
+include::./Asciidocs/DissenyPantalles.adoc[]
+
+//include per disseny de la base de dades
+include::./Asciidocs/DissenyBBDD.adoc[]
+
+//include per a Planificacio i seguiment setmanal
+include::./Asciidocs/SeguimentSetmanal.adoc[]
+
+//include per a la Implementació
+include::./Asciidocs/Implementacio.adoc[]
+
+//include per al Manual d'usuari
+include::./Asciidocs/ManualDeUsuari.adoc[]
+
+//include per a FOl
+include::./Asciidocs/FOL.adoc[]
+
+//include per al Video Promocional
+include::./Asciidocs/VideoPromocional.adoc[]
+
+//include per als Portfolis
+include::./Asciidocs/Portfolis.adoc[]
+
+//include per a les Propostes de millora
+include::./Asciidocs/PropostesDeMillora.adoc[]
+
+//include per a la conclusió
+include::./Asciidocs/Conclusio.adoc[]

@@ -1,0 +1,61 @@
+:hardbreaks:
+== [aqua]#6. DISSENY DE PANTALLES#
+
+Enllaç al prototip en figma: https://www.figma.com/design/20bKgUXKKStzkyAi8DGw7P/GameDex?node-id=56-282&t=ZU2t5j3mICRfmB4Y-1
+
+=== [aqua]#6.1. Pantalla de registre#
+image::PantallaRegistre.jpg[align="center"]
+
+=== [aqua]#6.2. Pantalla de login#
+image::PantallaLogin.jpg[align="center"]
+
+=== [aqua]#6.3. Llistat de categories#
+image::LlistatCategories.jpg[align="center"]
+
+=== [aqua]#6.4. Llistat de videojocs#
+image::LlistatVideojocs.jpg[align="center"]
+
+=== [aqua]#6.5. Pantalla de modificar perfil#
+image::ModificarPerfil.jpg[align="center"]
+
+=== [aqua]#6.6. Llistat de usuaris#
+image::LlistatUsuaris.jpg[align="center"]
+
+=== [aqua]#6.7. Visualitzar videojoc#
+image::VisualitzarVideojoc.jpg[align="center"]
+
+=== [aqua]#6.8. Pantalla de perfil#
+image::PantallaPerfil.jpg[align="center"]
+
+=== [aqua]#6.9. Visualitzar categoria#
+image::VisualitzarCategoria.jpg[align="center"]
+
+=== [aqua]#6.10. Afegir videojoc#
+image::AfegirVideojoc.jpg[align="center"]
+
+=== [aqua]#6.11. Afegir categoria#
+image::AfegirCategoria.jpg[align="center"]
+
+=== [aqua]#6.12. Modificar videojoc#
+image::ModificarVideojoc.jpg[align="center"]
+
+=== [aqua]#6.13. Modificar categoria#
+image::ModificarCategoria.jpg[align="center"]
+
+=== [aqua]#6.14. Verificar videojoc#
+image::VerificarVideojoc.jpg[align="center"]
+
+=== [aqua]#6.15. Verificar usuari#
+image::VerificarUsuari.jpg[align="center"]
+
+=== [aqua]#6.16. Pantalla de biblioteca#
+image::PantallaBiblioteca.jpg[align="center"]
+
+=== [aqua]#6.17. Afegir a la biblioteca#
+image::AfegirBiblioteca.jpg[align="center"]
+
+=== [aqua]#6.18. Guia d'estils#
+image::GuiaEstils.jpg[align="center"]
+
+=== [aqua]#6.19. Components de figma#
+image::ComponentsFigma.jpg[align="center"]

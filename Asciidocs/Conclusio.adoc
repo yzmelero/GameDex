@@ -1,0 +1,3 @@
+:hardbreaks:
+== [aqua]#15. CONCLUSIÓ#
+Després d’haver estat treballant aproximadament un mes amb android studio i Kotlin, trobem que són dues eines molt intuïtives i senzilles de fer servir que ens aporten moltes facilitats i oportunitats. Així i tot, trobem que android studio té moltes àrees millorables com per exemple el seu rendiment o la pantalla de resolució de conflictes de merge entre d’altres.

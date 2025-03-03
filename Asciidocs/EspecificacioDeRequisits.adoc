@@ -1,0 +1,143 @@
+:hardbreaks:
+== [aqua]#2. ESPECIFICACIÓ DE REQUISITS#
+
+=== [aqua]#2.1. Requisits no funcionals#
+
+**Requisits Tècnics part frontend Mobile**
+
+** **(RN01)** L’aplicació s’ha de desenvolupar utilitzant l’IDE Android Studio, implementant el llenguatge Kotlin per crear una aplicació nativa compatible amb dispositius Android.  
+
+** **(RN02)** L’aplicació ha de tenir l’arquitectura MVVM (Model-View-ViewModel) i el ViewModel ha de gestionar l'estat de l'aplicació amb MutableStateFlow i StateFlow.  
+
+** **(RN03)** S’ha d’utilitzar Jetpack Compose per implementar la interfície gràfica.
+
+** **(RN07)** S’ha d'utilitzar el git/gitlab per implementar el projecte en equip de forma òptima i adient.  
+
+** **(RN08)** S’han de fer servir les següents branques: main/master, developer i branques per features, bugfix, etc.  
+
+** **(RN09)** Tots els merges de funcionalitats s’han de fer per merge-request a developer.  
+
+** **(RN10)** Les branques fusionades s’eliminen després del merge-request.
+
+**Requisits d’Interfície (UI/UX, Accessibilitat) frontend Mobile**
+
+** **(RN11)** L’app ha d’estar en català, castellà i anglès.  
+
+** **(RN12)** La interfície de l'usuari ha de complir amb les directrius de disseny Material Design. El disseny visual ha de ser atractiu amb coherència de colors, fonts, icones, bona distribució i agrupació de components. Mateix disseny per totes les pantalles.
+
+** **(RN13)** Responsive: En cas de variar la grandària de la pantalla del mòbil (no cal per tablet), s’ha d’adaptar el contingut de forma proporcionada.
+
+** **(RN14)** Usabilitat (UX): Interfície amigable, efectiva, intuïtiva i eficient. No pot haver-hi passos innecessaris entre el que vols fer i com fer-ho. Ha de quedar molt clar què es pot fer. També cal que tingui coherència amb les funcionalitats disponibles i no disponibles en cada moment.
+
+** **(RN15)** App accessible: Els elements interactius han de tenir etiquetes descriptives per facilitar-ne l'ús.  
+
+** **(RN16)** S’ha d'utilitzar el menú Bottom Navigation per a la navegació a les funcionalitats principals.  
+
+**Requisits operatius frontend Mobile**  
+
+** **(RN17)** L’app s’ha de poder executar en qualsevol emulador o dispositiu mòbil amb sistema operatiu Android.
+
+** **(RN18)** Fluïdesa: L’app ha de respondre a les entrades de l'usuari en tot moment. Això vol dir que en cap cas pot quedar “congelada” mentre realitza qualsevol operació.
+
+** **(RN19)** Gestió d’excepcions: Totes les possibles situacions excepcionals han de quedar gestionades de forma correcta i proporcionar missatges d’errors descriptius i útils per a l’usuari quan falli.  
+
+** **(RN20)** El codi ha de ser optimitzat, eficient i sense redundàncies.
+
+** **(RN21)** S’han d’utilitzar les classes, interfícies i mètodes i packages de forma òptima i adient.  
+
+** **(RN22)** Qualsevol entrada per teclat per part de l’usuari ha de validar-se i filtrar-se per garantir que les dades recollides siguin correctes, coherents i segures.
+
+** **(RN23)** Totes les capçaleres de mètodes i classes han d’estar degudament comentades en format JavaDOC en el frontend i backend.  
+
+** **(RN24)** Els logs han d'estar disponibles per al monitoratge i depuració.  
+
+** **(RN25)** L’aplicació ha de garantir que només els usuaris amb els permisos adequats puguin accedir a determinades funcionalitats.
+
+** **(RN26)** La capa presentació ha d’estar ubicada en el frontend Mobile.  
+
+** **(RN27)** La comunicació entre el frontend Mobile i el backend s’ha de portar a terme mitjançant els principis REST.  
+
+** **(RN28)** L’administrador pot fer totes les funcionalitats.  
+
+**Requisits backend**
+
+** **(RN40)** Les capes de servei, lógica de negoci i de persistència han d’estar ubicades al backend.
+
+** **(RN42)** El backend s’ha d’implementar mitjançant SpringBoot.  
+
+
+=== [aqua]#2.2. Requisits funcionals#
+
+  ** **(RF01) Login Usuari: ** L’usuari ha de poder iniciar sessió a l’aplicació amb el seu correu electrònic i contrasenya i sempre que estigui activat.
+
+  ** **(RF02) Registre Usuari: ** L’usuari ha de poder registrar-se per poder utilitzar l’app. Un nou client enregistrat, per defecte està en estat desactivat.
+
+  ** **(RF45) Registre d'administrador: ** Els administradors podran registrar nous administradors al sistema, afegint tota la informació necessària. (Afegida)
+
+  ** **(RF03) Recuperar contrasenya: ** L’usuari ha de poder recuperar  la contrasenya en cas d’oblit.
+
+  ** **(RF04) Editar perfil usuari: ** L’usuari ha de poder modificar les dades del seu perfil, inclosa la seva foto.
+  
+  **  ** (RF48) Consultar perfil d’usuari: ** Cada usuari podrà consultar el seu perfil d’usuari. (Afegida)
+
+  ** **(RF05) Logout: ** L’usuari ha de poder tancar la sessió de manera segura.
+
+  ** **(RF06) Validar Usuaris: ** L’administrador ha de poder canviar l’estat (activat o desactivat) dels usuaris enregistrats.
+
+  ** **(RF07) Eliminar usuari: ** L’administrador ha de poder eliminar un usuari.
+
+  ** **(RF08) Llistar usuaris: ** Tots els usuaris han de poder llistar tots els usuaris. (modificada)
+
+  ** **(RF09) Modificar usuaris: ** L’administrador ha de poder modificar un usuari.
+  
+  ** **(RF44) Filtre d'usuaris: ** Tots els usuaris podran filtrar el llistat d'usuaris per nom d'usuari. (Afegida)
+  
+  ** **(RF46) Consultar usuari: ** Tots els usuaris podran consultar/visualitzar el perfil de la resta d'usuaris, per veure la seva activitat de videojocs. (Afegida)
+
+  ** **(RF10) Crear categoria: ** Crear un nou tipus. Només l’usuari administrador ha de poder crear un nou tipus de videojoc que contingui com a mínim un nom, una imatge i una descripció.
+
+  ** **(RF11) Llistar categories: ** Llistar tipus de videojocs. L’usuari ha de poder veure una llista de tots els tipus existents.
+
+  ** **(RF12) Filtrar per categoria: ** L’usuari ha de poder cercar tipus pel seu nom i veure els resultats ordenats alfabèticament.
+
+  ** **(RF13) Consultar categoria: ** Ampliar informació dels tipus de videojocs. L’usuari ha de poder seleccionar un tipus de videojoc i veure tota la informació associada (nom, imatge i descripció).
+
+  ** **(RF14) Modificar categoria: ** Modificar tipus de videojoc. Només l’usuari administrador ha de poder modificar el nom, la imatge i la descripció de qualsevol tipus.
+
+  ** **(RF15) Eliminar categoria: ** Eliminar tipus de videojoc. Només l’usuari administrador ha de poder eliminar un tipus de videojoc, sempre que no tingui ítems associats.
+
+  ** **(RF16) Filtrar Videojocs per Categories: ** L’usuari ha de poder veure només els videojocs que pertanyen a un tipus seleccionat.
+
+  ** **(RF20) Afegir videojoc: ** L’usuari ha de poder crear un nou videojoc que contingui, com a mínim, una imatge, títol, descripció curta, data de creació, autor i categoria. El joc haurà de ser validat per un administrador.
+
+  ** **(RF21) Llistar videojocs: ** L’usuari ha de poder veure una llista de tots els videojocs existents, mostrant-ne la imatge i títol, amb un botó per ampliar informació.
+
+  ** **(RF22) Filtrar videojocs: ** L’usuari ha de poder filtrar els ítems basant-se en qualsevol dels camps disponibles dels ítems (com el títol, l'autor, o la data de creació, entre d’altres).
+
+  ** **(RF23) Ordenar llistat de videojocs: ** Ordenar videojocs per camps. L’usuari ha de poder ordenar la llista dels videojocs segons qualsevol camp disponible, com el títol, la data de creació o l’autor.
+
+  ** **(RF24) Consultar videojoc: ** Visualitzar la informació del videojoc. L’usuari ha de poder veure tots els detalls d’un videojoc seleccionat (títol, imatge, descripció, autor, data de creació).
+
+  ** **(RF25) Modificar videojoc: ** L'administrador, ha de poder modificar-ne la informació d'un videojoc, excepte l’autor, la data de creació, les valoracions i els comentaris. (Modificada)
+
+  ** **(RF26) Eliminar videojoc: ** L’administrador, han de poder eliminar un videojoc. (Modificada)
+  
+  ** **(RF40) Validar proposta de videojocs: ** L’administrador ha de validar les propostes de videojocs creades pels usuaris i acceptar o rebutjar-les. (Afegida)
+  
+  ** **(RF41) Afegir videojoc a biblioteca personal: ** Tots els usuaris podran afegir jocs existents a la seva biblioteca personal, seleccionant l'estat en el qual es troba el joc (jugat, jugant, etc.). (Afegida)
+  
+  ** **(RF42) Modificar videojoc a la biblioteca personal: ** Tots els usuaris podran modificar l'estat dels jocs a la seva biblioteca personal. (Afegida)
+  
+  ** **(RF43) Eliminar videojoc de la biblioteca personal: ** Tots els usuaris podran eliminar un videojoc que de la seva biblioteca personal. (Afegida)
+  
+  ** ** (RF47) Consultar biblioteca personal: ** Cada usuari podrà consultar la seva biblioteca personal. (Afegida)
+
+  ** **(RF30) Afegir comentaris: ** Crear nou comentari d’un videojoc. L’usuari ha de poder crear un nou comentari que contingui, com a mínim una descripció curta, una puntuació, data de creació, autor.
+
+  ** **(RF31) Llistar comentaris (per data de creació): ** Llistar comentaris d’un videojoc ordenats per data de creació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.
+
+  ** **(RF32) Llistar comentaris (per puntuació): ** Llistar comentaris d’un videojoc ordenats per puntuació. L’usuari ha de poder veure una llista de tots els comentaris existents d’un videojoc, mostrant-ne com a mínim la descripció, la puntuació, la data de creació i l’autor.
+
+  ** **(RF33) Visualitzar puntuació mitjana: ** Visualitzar puntuació mitjana dels comentaris d’un videojoc.
+
+  ** **(RF34) Eliminar comentaris: ** Només l’administrador, han de poder eliminar.
