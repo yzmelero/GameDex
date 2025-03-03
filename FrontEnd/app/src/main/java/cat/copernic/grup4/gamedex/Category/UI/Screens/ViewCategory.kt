@@ -65,15 +65,6 @@ fun ViewCategoryScreen(navController: NavController, userViewModel: UserViewMode
         }
     }
 
-    val deleteError by categoryViewModel.deleteError.collectAsState()
-
-    LaunchedEffect(deleteError) {
-        if (deleteError == true) {
-            Toast.makeText(context, R.string.failDelCat, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
     val currentCategory = category
     val currentUser = userViewModel.currentUser.collectAsState().value
 
