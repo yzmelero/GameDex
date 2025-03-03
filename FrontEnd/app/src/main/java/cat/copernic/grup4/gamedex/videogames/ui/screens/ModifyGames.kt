@@ -303,7 +303,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                             developer = developer,
                                             category = selectedCategory!!.nameCategory,
                                             descriptionGame = descriptionGame,
-                                            gamePhoto = gamePhoto
+                                            gamePhoto = oldGamePhoto
                                         )
                                         Log.d(
                                             "AddGamesScreen",
