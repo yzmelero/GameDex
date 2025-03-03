@@ -64,7 +64,7 @@
     <string name="delete_user">Esborrar usuari</string>
     <string name="validate_user">Validar  usuari</string>
     <string name="view_user">Veure usuari</string>
-    <string name="loading">Carregant...</string>
+    <string name="loading">Carregant…</string>
     <string name="validated">Validat</string>
     <string name="state">Estat: %1$s</string>
     <string name="user_type">Tipus d\'usuari: %1$s</string>
@@ -86,7 +86,7 @@
     <string name="all_fields_required">Error, has de completar tots els camps</string>
     <string name="imageSelect">Selecció d\'imatge</string>
     <string name="register_an_admin">Registrar un admin</string>
-    <string name="search">Cerca...</string>
+    <string name="search">Cerca…</string>
     <string name="succDelCat">La categoria s\'ha esborrat exitosament.</string>
     <string name="unkViewModel">Classe ViewModel desconeguda.</string>
     <string name="cantLoadGame">Error: No es pot càrregar el videojoc.</string>
@@ -112,11 +112,21 @@
     <string name="verify_game">Verificar joc</string>
     <string name="validate_game">Validar jocs</string>
     <string name="delete_game">Esborrar joc</string>
+    <string name="all_games">Totes les categories</string>
     <string name="modifycomment">Modificar comentari</string>
     <string name="commentmodifiedsuccessfully">Comentari modificat correctament</string>
-    <string name="errorupdatingcomment">Error mentre s\'actualitzava el videojoc</string>
+    <string name="errorupdatingcomment">Error mentre s\'actualitzava el videojoc: %1$s</string>
     <string name="errorcheckinglibraryentry">Error buscant l\'entrada de la biblioteca.</string>
     <string name="errorretrievingrating">No s\'ha pogut obtenir el rating.</string>
     <string name="errordeletinglibrary">Error esborrant el videojoc de la biblioteca.</string>
     <string name="error_retrieving_library">Error recuperant la biblioteca.</string>
+    <string name="category_updated">Categoria actualitzada</string>
+    <string name="modify_category">Modificar categoria</string>
+    <string name="error_updating_category">Error actualitzant la categoria</string>
+    <string name="leave_empty">Deixar buit</string>
+    <string name="category_photo">Imatge de la categoria</string>
+    <string name="add_photo">Afegir imatge</string>
+    <string name="game_updated">Videojoc actualitzat</string>
+    <string name="error_updating_game">Error en actualitzar el joc</string>
+    <string name="failDelCat">No pots eliminar una categoria que té videojocs associats.</string>
 </resources>

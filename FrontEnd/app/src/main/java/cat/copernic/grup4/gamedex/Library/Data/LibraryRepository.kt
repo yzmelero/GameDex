@@ -60,10 +60,23 @@ class LibraryRepository {
         return RetrofitInstance.api.getAverageRating(gameId)
     }
 
-    suspend fun getLibraryEntry(gameId: String, username: String): Response<Library>{
-        return RetrofitInstance.api.getLibraryEntry(gameId,username)
+    /**
+     * Obté una entrada de la biblioteca d'un usuari per a un videojoc específic fent una crida a l'API.
+     *
+     * @param gameId Identificador del videojoc.
+     * @param username Nom d'usuari del propietari de la biblioteca.
+     * @return Una resposta amb l'objecte Library si existeix.
+     */
+    suspend fun getLibraryEntry(gameId: String, username: String): Response<Library> {
+        return RetrofitInstance.api.getLibraryEntry(gameId, username)
     }
 
+    /**
+     * Actualitza la informació d'un videojoc dins la biblioteca d'un usuari mitjançant una crida a l'API.
+     *
+     * @param library L'objecte Library amb la informació actualitzada.
+     * @return Una resposta amb l'objecte Library actualitzat.
+     */
     suspend fun updateGameInLibrary(library: Library): Response<Library> {
         return RetrofitInstance.api.updateGameInLibrary(library)
     }

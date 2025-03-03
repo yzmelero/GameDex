@@ -137,18 +137,18 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
      * @param gameId   L'ID del joc.
      * @param username El nom d'usuari.
      */
-    fun deleteVideogameFromLibrary(gameId: String, username: String, context: Context)  {
+    fun deleteVideogameFromLibrary(gameId: String, username: String, context: Context) {
         viewModelScope.launch {
             try {
                 Log.d("LibraryViewModel", "Deleting gameId: $gameId for user: $username")
                 val response = libraryUseCase.deleteVideogameFromLibrary(gameId, username)
-                if (response.isSuccessful)  {
+                if (response.isSuccessful) {
                     Log.d("LibraryViewModel", "Deletion successful. Refreshing library")
                     getLibrary(username, context)
-                }  else  {
+                } else {
                     Log.e("LibraryViewModel", "Failed to delete. Response code: ${response.code()}")
                 }
-            } catch (e: Exception)  {
+            } catch (e: Exception) {
                 Log.e("LibraryViewModel", "Error deleting the videogame: ${e.message}")
                 _message.value = context.getString(R.string.errordeletinglibrary)
             }
@@ -168,18 +168,27 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
                     "LibraryViewModel",
                     "Response code: ${response.code()} - Body: ${response.body()}"
                 )
-                if (response.isSuccessful)  {
+                if (response.isSuccessful) {
                     _rating.value = response.body() /*?: 0.0*/
-                }  else  {
+                } else {
                     _message.value = "Error: ${response.code()}"
                 }
-            }  catch (e: Exception)  {
+            } catch (e: Exception) {
                 _message.value = context.getString(R.string.errorretrievingrating)
             }
         }
     }
 
-    //Mètode per a comprovar si ja hi ha una entrada per a un videojoc i un usuari concrets.
+    /**
+     * Comprova si un videojoc específic està present a la biblioteca d'un usuari.
+     *
+     * Aquest mètode realitza una crida a la capa de negoci (`libraryUseCase`) per obtenir la informació
+     * de la biblioteca i actualitza `_existingLibraryEntry` amb l'entrada trobada o `null` si no existeix.
+     *
+     * @param gameId L'identificador del videojoc.
+     * @param username El nom d'usuari del propietari de la biblioteca.
+     * @param context El context de l'aplicació, utilitzat per obtenir cadenes de text per als missatges d'error.
+     */
     fun checkLibraryEntry(gameId: String, username: String, context: Context) {
         viewModelScope.launch {
             try {
@@ -199,6 +208,15 @@ class LibraryViewModel(private val libraryUseCase: LibraryUseCase) : ViewModel()
         }
     }
 
+    /**
+     * Actualitza la informació d'un videojoc a la biblioteca d'un usuari.
+     *
+     * Aquest mètode envia una petició d'actualització a la capa de negoci (`libraryUseCase`) i
+     * actualitza `_message` amb el resultat de l'operació (èxit o error).
+     *
+     * @param library L'objecte `Library` amb la informació actualitzada.
+     * @param context El context de l'aplicació, utilitzat per obtenir cadenes de text per als missatges d'error.
+     */
     fun updateGameInLibrary(library: Library, context: Context) {
         viewModelScope.launch {
             try {
