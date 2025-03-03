@@ -37,6 +37,12 @@ public class VideogameLogic {
                 if (videogame.getCategory() == null) {
                     throw new RuntimeException("Category is required");
                 }
+                if (videogame.getReleaseYear() < 1950 || videogame.getReleaseYear() > 2023) {
+                    throw new RuntimeException("Release year must be between 1950 and 2023");
+                }
+                if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 50) {
+                    throw new RuntimeException("Age recommendation must be between 0 and 50");
+                }
                 // Comprova si existeix un videojoc amb el mateix nom
                 Optional<Videogame> existingGame = videogameRepo.findByNameGame(videogame.getNameGame());
                 if (existingGame.isPresent()) {
