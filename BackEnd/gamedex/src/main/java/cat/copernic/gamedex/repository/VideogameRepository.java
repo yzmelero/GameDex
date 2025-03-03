@@ -45,4 +45,6 @@ public interface VideogameRepository extends MongoRepository<Videogame, String> 
      * @return Una llista de videojocs que coincideixen amb el nom especificat.
      */
     List<Videogame> findByNameGameContaining(String nameGame);
+
+    List<Videogame> findByCategory(String category);
 }

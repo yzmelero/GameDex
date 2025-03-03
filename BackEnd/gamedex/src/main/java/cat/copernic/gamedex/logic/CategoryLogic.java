@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import cat.copernic.gamedex.entity.Category;
 import cat.copernic.gamedex.repository.CategoryRepository;
+import cat.copernic.gamedex.repository.VideogameRepository;
 
 /**
  * Lògica de negoci per gestionar les categories.
@@ -17,6 +18,9 @@ public class CategoryLogic {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private VideogameRepository videogameRepository;
 
     /**
      * Crea una nova categoria.
@@ -48,6 +52,9 @@ public class CategoryLogic {
             Optional<Category> category = categoryRepository.findById(nameCategory);
             if (category.isEmpty()) {
                 throw new RuntimeException("Category not found");
+            }
+            if (!videogameRepository.findByCategory(nameCategory).isEmpty()) {
+                throw new RuntimeException("Category is in use");
             }
             categoryRepository.deleteById(nameCategory);
         } catch (RuntimeException e) {
