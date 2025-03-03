@@ -1,4 +1,132 @@
 :hardbreaks:
 == [aqua]#10. MANUAL D'USUARI#
+
+Per a accedir a la nostra aplicació cal tenir MongoDB versió 1.45, JDK versió 21, i un dispositiu mòbil o emulador. 
+La base de dades es troba sota el nom de “Projecte3GameDex”. 
+L'aplicació té dos usuaris per defecte, un administrador i un usuari “normal”. 
+
+
+**Administrador:**
+
+** Username: admin
+
+** Password: admin
+
+**Usuari:** 
+
+** Username: user
+
+** Password: user
+
+
+La base de dades no té cap contrasenya.
+
+
+=== [aqua]#10.1. MANUAL D'USUARI "CLIENT"#
+
+==== [aqua]#10.1.0. ABANS DE COMENÇAR#
+
+En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l'esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l'aplicació.
+La barra inferior ens permet accedir a les diferents parts de l'aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d'usuaris, el perfil d’usuari i a la nostra llibreria respectivament.
+
+==== [aqua]#10.1.1 LOGIN#
+
+image::login.png[align="center", width="500", height="900"]
+
+Aquesta és la pantalla d'inici de sessió, on l'usuari ha d'introduir el seu nom d'usuari i contrasenya per a poder accedir a l'aplicació.
+L'usuari també tindrà l'opció d'enregistrar-se si no té un compte o de recuperar la seva contrasenya en cas d'haver-la oblidat.
+En clicar el botó de "confirmar", si les credencials son correctes, l'usuari serà redirigit a la pantalla principal de l'aplicació.
+
+==== [aqua]#10.1.2. REGISTRE#
+
+image::signUp.png[align="center", width="500", height="900"]
+
+En aquesta pantalla trobem en la part superior el logo de l’aplicació. A l’esquerra hi ha un botó per tornar a la pantalla d’Iniciar Sessió. Seguit d’això trobem un formulari que l’usuari ha d’omplir per a poder registrar-se. Els camps que el componen són: nom d’usuari, nom, cognom, contrasenya, correu electrònic, telèfon, data de naixement i hi ha un camp per afegir una imatge de la galeria del telèfon. L’usuari ha de tenir en compte què no podrà iniciar sessió fins que el seu compte no hagi estat validat per un administrador.
+
+==== [aqua]#10.1.3. RESETEJAR CONTRASENYA#
+
+image::forgotYourPassword.png[align="center", width="500", height="900"]
+
+
+Si l’usuari vol canviar la contrasenya, haurà d’haver clicat en el botó “Has oblidat la contrasenya?” que hi ha a la pantalla d’iniciar Sessió. Una vegada que l’usuari es troba en aquesta pantalla veurà en la part superior un botó per a tornar enrere i un formulari de dos camps, nom d’usuari i correu electrònic. En el cas de voler canviar la contrasenya, l’usuari ha d’omplir el formulari i clicar en Confirmar. Aleshores apareixerà un missatge de confirmació en el cas que les credencials siguin correctes juntament amb una contrasenya provisional que es recomana canviar immediatament després de l’inici de sessió.
+
+==== [aqua]#10.1.4. LLISTAT DE CATEGORIES#
+
+image::listCategories.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.5. CONSULTAR CATEGORIA#
+
+image::viewCategory.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.6. LLISTAT DE VIDEOJOCS#
+
+image::listVideogames.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.7. CONSULTAR VIDEOJOC#
+
+image::viewVideogame.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.8. AFEGIR VIDEOJOC#
+
+image::addVideogame.png[align="center", width="500", height="900"]
+
+Hem de tenir en compte que en afegir un videojoc, aquest haura de ser validat per un administrador abans de ser visible per la resta d'usuaris.
+
+==== [aqua]#10.1.9. LLISTAT D'USUARIS#
+
+image::listUsers.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.10. VIEW PROFILE#
+
+image::viewProfile.png[align="center", width="500", height="900"]
+
+Trobarem un boto per a anar a modificar el perfil nomes si ens trobem al nostre perfil.
+
+==== [aqua]#10.1.11. MODIFICAR PERFIL#
+
+image::modifyProfile.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.12. LLIBRERIA#
+
+image::listLibrary.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.13. AFEGIR VIDEOJOC A LA LLIBRERIA#
+
+image::addVideogameToLibrary.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.14. MODIFICAR ENTRADA DE LA LLIBRERIA#
+
+image::addVideogameToLibrary.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.15. #
+
+image::.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.1.. #
+
+image::.png[align="center", width="500", height="900"]
+
+=== [aqua]#10.2. MANUAL D'USUARI "ADMINISTRADOR"#
+
+==== [aqua]#10.2.0. ABANS DE COMENÇAR#
+
+En iniciar sessió a la nostra aplicació trobarem dues barres horitzontals, una a la part superior i una a la part inferior. La barra a la part superior tindrà a l'esquerra la foto de perfil del nostre usuari, clicant aquí podrem anar a visualitzar el nostre perfil. A la part dreta es troba un botó que tancarà la sessió a l'aplicació.
+La barra inferior ens permet accedir a les diferents parts de l'aplicació. Les diferents icones, per ordre, ens portaran al llistat de categories, el llistat de videojocs, el llistat d'usuaris, el perfil d’usuari i a la nostra llibreria respectivament.
+
 === [red]#FALTA POR HACER#
-//TODO: FALTA POR HACER
+
+==== [aqua]#10.2.1. LLISTAT DE CATEGORIES#
+
+image::listCategoriesAdmin.png[align="center", width="500", height="900"]
+
+==== [aqua]#10.2.2. AFEGIR CATEGORIA#
+
+image::addCategory.png[align="center", width="500", height="900"]
