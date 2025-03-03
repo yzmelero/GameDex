@@ -48,7 +48,8 @@ class LibraryUseCase(private val repository: LibraryRepository) {
      * @param gameId   L'ID del joc.
      * @param username El nom d'usuari.
      */
-    suspend fun deleteVideogameFromLibrary(gameId: String, username: String) = repository.deleteVideogameFromLibrary(gameId, username)
+    suspend fun deleteVideogameFromLibrary(gameId: String, username: String) =
+        repository.deleteVideogameFromLibrary(gameId, username)
 
     /**
      * Obté la puntuació mitjana d'un videojoc.
@@ -59,4 +60,26 @@ class LibraryUseCase(private val repository: LibraryRepository) {
     suspend fun getAverageRating(gameId: String): Response<Double> {
         return repository.getAverageRating(gameId)
     }
+
+    /**
+     * Obté una entrada de la biblioteca d'un usuari per a un videojoc específic a través del repositori.
+     *
+     * @param gameId Identificador del videojoc.
+     * @param username Nom d'usuari del propietari de la biblioteca.
+     * @return Una resposta amb l'objecte Library si existeix.
+     */
+    suspend fun getLibraryEntry(gameId: String, username: String): Response<Library> {
+        return repository.getLibraryEntry(gameId, username)
+    }
+
+    /**
+     * Actualitza la informació d'un videojoc dins la biblioteca d'un usuari a través del repositori.
+     *
+     * @param library L'objecte Library amb la informació actualitzada.
+     * @return Una resposta amb l'objecte Library actualitzat.
+     */
+    suspend fun updateGameInLibrary(library: Library): Response<Library> {
+        return repository.updateGameInLibrary(library)
+    }
 }
+

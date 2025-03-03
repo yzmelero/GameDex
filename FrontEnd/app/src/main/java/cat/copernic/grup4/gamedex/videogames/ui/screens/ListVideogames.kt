@@ -1,7 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
 
-import android.util.Log
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.systemBars
@@ -62,7 +61,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Category
-import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
@@ -131,7 +129,6 @@ fun ListGamesScreen(navController : NavController, userViewModel: UserViewModel)
             )
             Spacer(modifier = Modifier.height(10.dp))
             VideogamesGrid(videogame, selectedCategory, searchQuery, navController, gameViewModel)
-
         }
         BottomSection(navController, userViewModel,1)
         GameButtons(navController, userViewModel)
@@ -227,7 +224,6 @@ fun CategoryFilter(
             }
         }
     }
-    Spacer(modifier = Modifier.height(6.dp))
 }
 
 @Composable
@@ -238,7 +234,7 @@ fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, sear
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 16.dp, bottom = 80.dp)
+            .padding(bottom = 80.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -255,7 +251,7 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         modifier = Modifier
-            .padding(top = 5.dp)
+            .padding(bottom = 10.dp)
             .fillMaxWidth()
             .clickable { navController.navigate("viewGame/${videogame.gameId}") }
     ) {
@@ -268,7 +264,6 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
                     gameViewModel.base64ToBitmap(base64)
                 }
             }
-
             imageBitmap?.let {
                 Image(
                     it,
@@ -297,8 +292,7 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
                     style = GameDexTypography.bodyLarge
                 )
             }
-
-            Spacer(modifier = Modifier.width(74.dp))
+            Spacer(modifier = Modifier.width(80.dp))
             Box(
                 modifier = Modifier
                     .size(48.dp)
@@ -325,8 +319,8 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
             }
         }
     }
-
 }
+
 @Composable
 fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
     val currentUser by userViewModel.currentUser.collectAsState()
@@ -340,19 +334,19 @@ fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
         verticalAlignment = Alignment.Bottom
     ) {
         if (isAdmin) {
-        IconButton(
-            onClick = {navController.navigate("listInactiveGames")},
-            modifier = Modifier
-                .size(56.dp)
-                .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
-        ) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = stringResource(R.string.valide_game),
-                modifier = Modifier.size(40.dp)
-            )
-        }
+            IconButton(
+                onClick = {navController.navigate("listInactiveGames")},
+                modifier = Modifier
+                    .size(56.dp)
+                    .background(colorResource(R.color.header), shape = RoundedCornerShape(50))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = stringResource(R.string.valide_game),
+                    modifier = Modifier.size(40.dp)
+                )
             }
+        }
         IconButton(
             onClick = {navController.navigate("addGames")},
             modifier = Modifier
@@ -367,7 +361,6 @@ fun GameButtons(navController: NavController, userViewModel: UserViewModel) {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

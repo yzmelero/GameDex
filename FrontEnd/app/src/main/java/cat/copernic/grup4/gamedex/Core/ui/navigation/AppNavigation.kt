@@ -32,6 +32,7 @@ import cat.copernic.grup4.gamedex.Users.UI.Screens.ViewValidateUserScreen
 
 import cat.copernic.grup4.gamedex.videogames.ui.screens.AddGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ListInactiveGamesScreen
+import cat.copernic.grup4.gamedex.videogames.ui.screens.ModifyGamesScreen
 import cat.copernic.grup4.gamedex.videogames.ui.screens.ValidateGamesScreen
 
 /**
@@ -67,5 +68,6 @@ fun AppNavigation(userViewModel: UserViewModel) {
         composable("listInactiveGames") { ListInactiveGamesScreen(navController, userViewModel) }
         composable("validateGame/{gameId}") { ValidateGamesScreen(navController, userViewModel) }
         composable("modify_category/{categoryId}") { ModifyCategoryScreen(navController, userViewModel) }
+        composable("updateVideogame/{gameId}") { ModifyGamesScreen(navController, userViewModel) }
     }
 }

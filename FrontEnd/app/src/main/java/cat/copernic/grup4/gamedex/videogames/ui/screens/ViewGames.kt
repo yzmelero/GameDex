@@ -1,5 +1,6 @@
 package cat.copernic.grup4.gamedex.videogames.ui.screens
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.WindowInsets
@@ -58,6 +59,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Library
+import cat.copernic.grup4.gamedex.Core.Model.User
 import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.Core.Model.Videogame
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
@@ -100,20 +102,21 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
 
     val rating by libraryViewModel.rating.collectAsState()
 
+    val currentUser by userViewModel.currentUser.collectAsState()
+
     LaunchedEffect(videogameDeleted) {
         if (videogameDeleted == true) {
             Toast.makeText(context,
                 context.getString(R.string.videogame_deleted_succesfully), Toast.LENGTH_SHORT).show()
-            navController.navigate("listvideogames")
+            navController.navigate("listVideogames")
         }
     }
 
     LaunchedEffect(gameId) {
         gameViewModel.videogamesById(gameId)
-        libraryViewModel.getCommentsByGame(gameId)
-        libraryViewModel.getAverageRating(gameId)
+        libraryViewModel.getCommentsByGame(gameId, context)
+        libraryViewModel.getAverageRating(gameId, context)
     }
-
 
     Box(
         modifier = Modifier
@@ -127,7 +130,7 @@ fun ViewGamesScreen(navController: NavController, userViewModel: UserViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header(navController, userViewModel)
-            game?.let { GameCard(it, gameViewModel, userViewModel, navController, comment, rating) }
+            game?.let { GameCard(it, gameViewModel, userViewModel, navController, comment, rating, currentUser, context, libraryViewModel) }
         }
         BottomSection(navController, userViewModel, 1)
     }
@@ -140,9 +143,15 @@ fun GameCard(
     userViewModel: UserViewModel,
     navController: NavController,
     comment: List<Library>,
-    rating: Double?
+    rating: Double?,
+    currentUser: User?,
+    context: Context,
+    libraryViewModel: LibraryViewModel
 ) {
     val currentUser = userViewModel.currentUser.collectAsState().value
+    val isAdmin = currentUser?.userType == UserType.ADMIN
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -287,18 +296,20 @@ fun GameCard(
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = { /* TODO navigació a pantalla modificar (a fer) */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                ) {
-                    Text(
-                        stringResource(R.string.modify),
-                        fontSize = 20.sp,
-                        style = GameDexTypography.bodyLarge
-                    )
+                if(isAdmin) {
+                    Button(
+                        onClick = { navController.navigate("updateVideogame/${videogame.gameId}") },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                    ) {
+                        Text(
+                            stringResource(R.string.modify),
+                            fontSize = 20.sp,
+                            style = GameDexTypography.bodyLarge
+                        )
+                    }
                 }
             }
             Box(
@@ -346,15 +357,13 @@ fun GameCard(
                 }
             }
         }
-        CommentsSection(videogame.gameId.toString(), comment, navController)
+        CommentsSection(videogame.gameId.toString(), comment, navController, currentUser, context, libraryViewModel)
     }
 }
 
 @Composable
-fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController) {
+fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController, currentUser: User?, context: Context, libraryViewModel: LibraryViewModel) {
 
-
-    // TODO Fer tota la part dels comentaris ben feta
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -388,23 +397,25 @@ fun CommentsSection(gameId: String, comment: List<Library>, navController: NavCo
             }
             Spacer(modifier = Modifier.height(8.dp))
             comment.forEach { library ->
+                if (library.description.isNotBlank() && library.description.isNotEmpty()){
                 CommentItem(
                     username = library.user.username,
                     comment = library.description ?: "No description",
-                    rating = "⭐ ${library.rating} ⭐"
+                    rating = "⭐ ${library.rating} ⭐",
+                    currentUser,
+                    context,
+                    libraryViewModel,
+                    gameId,
+                    navController
                 )
             }
-            /*CommentItem(
-                "VicoGracias",
-                "Bruh, Elden Ring is mad fire, fam. Big bosses, sick world, and magic that's straight lit. 🔥",
-                "⭐9.96⭐"
-            )*/
+            }
         }
     }
 }
 
 @Composable
-fun CommentItem(username: String, comment: String, rating: String) {
+fun CommentItem(username: String, comment: String, rating: String, currentUser: User?, context: Context, libraryViewModel: LibraryViewModel, gameId: String, navController: NavController) {
     Card(
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
@@ -444,20 +455,44 @@ fun CommentItem(username: String, comment: String, rating: String) {
                         .padding(top = 4.dp)
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = stringResource(R.string.addgame_library),
-                    modifier = Modifier
-                        .size(30.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(Color.Red)
-                        .clickable { }
-                )
+                if (currentUser?.userType == UserType.ADMIN) {
+                    var showDialog by remember { mutableStateOf(false) }
+
+                    IconButton(onClick = { showDialog = true }) {
+                        Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.delete),
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(Color.Red)
+                    ) }
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showDialog = false },
+                            title = { Text(stringResource(R.string.confirm_delete)) },
+                            text = { Text(stringResource(R.string.delete_question)) },
+                            confirmButton = {
+                                TextButton(onClick = {
+                                    libraryViewModel.deleteVideogameFromLibrary(gameId, username, context)
+                                    showDialog = false
+                                    navController.navigate("viewGame/${gameId}")
+                                }) {
+                                    Text(stringResource(R.string.delete), color = Color.Red)
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = {
+                                    showDialog = false
+                                }) { Text(stringResource(R.string.cancel)) }
+                            }
+                        )
+                    }
+                }
             }
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

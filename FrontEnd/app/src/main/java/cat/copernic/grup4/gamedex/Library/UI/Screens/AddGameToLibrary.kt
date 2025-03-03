@@ -99,21 +99,28 @@ fun AddGameToLibraryScreen(
     val game by gameViewModel.gameById.collectAsState()
 
     val context = LocalContext.current
-
-
-    LaunchedEffect(gameId) {
-        Log.d("error", "gameId: ${gameId}")
-        gameViewModel.videogamesById(gameId)
-        if (game == null) {
-            Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
-        }
-    }
-    val users by userViewModel.users.collectAsState()
+    val user by userViewModel.currentUser.collectAsState()
 
     val libraryViewModel: LibraryViewModel = ViewModelProvider(
         context as ViewModelStoreOwner,
         LibraryViewModelFactory.LibraryViewModelFactory(LibraryUseCase(LibraryRepository()))
     ).get(LibraryViewModel::class.java)
+
+    LaunchedEffect(gameId, user) {
+        Log.d("error", "gameId: ${gameId}")
+        gameViewModel.videogamesById(gameId)
+        user?.username?.let { username ->
+            libraryViewModel.checkLibraryEntry(gameId, user!!.username, context)
+        }
+        if (game == null) {
+            Toast.makeText(context, R.string.cantLoadGame, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    val existingLibraryEntry by libraryViewModel.existingLibraryEntry.collectAsState()
+    val users by userViewModel.users.collectAsState()
+
 
     val message by libraryViewModel.message.collectAsState()
 
@@ -123,6 +130,7 @@ fun AddGameToLibraryScreen(
             libraryViewModel.clearMessage()
         }
     }
+
     var selectedState by remember { mutableStateOf(context.getString(R.string.select)) }
     val stateOptions = listOf(
         context.getString(R.string.finished),
@@ -279,7 +287,7 @@ fun AddGameToLibraryScreen(
 
                             if (user != null && game != null) {
                                 val newLibraryEntry = Library(
-                                    idLibrary = UUID.randomUUID().toString(),
+                                    idLibrary = UUID.randomUUID().toString(), //MODIFICAT
                                     user = user,
                                     videogame = game!!,
                                     state = stateEnum,
@@ -287,10 +295,18 @@ fun AddGameToLibraryScreen(
                                     rating = rating,
                                     publishedDate = LocalDate.now().toString()
                                 )
-                                libraryViewModel.addGameToLibrary(newLibraryEntry, context)
-                                //TODO Canviar ruta per a que porti a la biblioteca
-                                navController.popBackStack()
-                                Log.d("AddGameToLibrary", "Pop back stack")
+
+                                if (existingLibraryEntry != null) {
+                                    libraryViewModel.updateGameInLibrary(newLibraryEntry, context)
+                                    navController.navigate("libraryScreen")
+                                } else {
+                                    libraryViewModel.addGameToLibrary(newLibraryEntry, context)
+                                    navController.navigate("libraryScreen")
+                                }
+
+                                /*libraryViewModel.addGameToLibrary(newLibraryEntry, context)
+                                navController.navigate("libraryScreen")
+                                Log.d("AddGameToLibrary", "Pop back stack")*/
 
                             }
                         },

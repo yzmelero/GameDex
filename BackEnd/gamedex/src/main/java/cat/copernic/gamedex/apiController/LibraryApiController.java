@@ -9,7 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Optional;
 import cat.copernic.gamedex.logic.LibraryLogic;
 import cat.copernic.gamedex.entity.Library;
 
@@ -118,6 +118,51 @@ public class LibraryApiController {
     }
 
     /**
+     * Gestiona la verificació d'una entrada a la biblioteca d'un usuari per a un
+     * videojoc específic.
+     *
+     * @param gameId   Identificador del videojoc a verificar.
+     * @param username Nom d'usuari del propietari de la biblioteca.
+     * @return ResponseEntity que conté l'entrada de la biblioteca si existeix, o un
+     *         estat 404 si no es troba.
+     */
+    @GetMapping("/verify/{gameId}/{username}")
+    public ResponseEntity<Library> getLibraryEntry(@PathVariable String gameId, @PathVariable String username) {
+
+        log.info("Rebent petició per a la llibreria de l'usuari " + username + " pel videojoc " + gameId);
+
+        Optional<Library> libraryEntry = libraryLogic.getLibraryEntry(gameId, username);
+
+        if (libraryEntry.isPresent()) {
+            log.info("Entrada trobada: " + libraryEntry.get());
+            return ResponseEntity.ok(libraryEntry.get());
+        } else {
+            log.warn("Entrada no trobada per aquest usuari i joc");
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Actualitza una entrada existent a la biblioteca d'un usuari.
+     *
+     * @param library Objecte Library que conté la informació actualitzada.
+     * @return ResponseEntity amb l'entrada actualitzada si l'operació té èxit,
+     *         o un estat 500 en cas d'error durant l'actualització.
+     */
+    @PutMapping("/update")
+    public ResponseEntity<Library> updateGameInLibrary(@RequestBody Library library) {
+        log.info("📩 Rebuda petició d'actualització per Library ID: " + library.getIdLibrary());
+        try {
+            Library updatedLibrary = libraryLogic.updateGameInLibrary(library);
+            log.info("Entrada actualitzada correctament: " + updatedLibrary);
+            return ResponseEntity.ok(updatedLibrary);
+        } catch (Exception e) {
+            log.error("❌ Error actualitzant la biblioteca: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
      * Compta el nombre de jocs en una categoria específica per a un usuari.
      *
      * @param username El nom d'usuari.
@@ -132,4 +177,5 @@ public class LibraryApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }

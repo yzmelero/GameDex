@@ -34,7 +34,9 @@ public interface LibraryRepository extends MongoRepository<Library, String> {
      *         especificats.
      */
     @Query("{ 'videogame.gameId' : :#{#gameId}, 'user.username' : :#{#username} }")
-    Optional<Library> findByUserAndVideogame(@Param("gameId") String gameId, @Param("username") String username);
+    Optional<Library> findByUserAndVideogame(@Param("gameId") String gameId, 
+                                             @Param("username") String username
+                                             );
 
     /**
      * Cerca totes les biblioteques d'un usuari pel seu nom d'usuari.

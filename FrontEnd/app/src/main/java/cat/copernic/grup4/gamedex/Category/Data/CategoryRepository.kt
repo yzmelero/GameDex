@@ -56,6 +56,13 @@ class CategoryRepository {
     suspend fun filterCategories(query: String): Response<List<Category>> {
         return RetrofitInstance.api.filterCategories(query)
     }
+
+    /**
+     * Modifica una categoria.
+     * 
+     * @param category La categoria a modificar.
+     * @return La resposta de la API amb la categoria modificada.
+     */
     suspend fun modifyCategory(category: Category): Response<Category> {
         return RetrofitInstance.api.modifyCategory(category)
     }

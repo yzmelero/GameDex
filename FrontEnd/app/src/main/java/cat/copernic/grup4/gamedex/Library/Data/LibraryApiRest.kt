@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -49,7 +50,10 @@ interface LibraryApiRest {
      * @return La resposta de la API.
      */
     @DELETE("library/delete/{gameId}/{username}")
-    suspend fun deleteVideogameFromLibrary(@Path("gameId") gameId: String, @Path("username") username: String): Response<Void>
+    suspend fun deleteVideogameFromLibrary(
+        @Path("gameId") gameId: String,
+        @Path("username") username: String
+    ): Response<Void>
 
     /**
      * Obté la puntuació mitjana d'un videojoc.
@@ -59,4 +63,26 @@ interface LibraryApiRest {
      */
     @GET("library/averagerating/{gameId}")
     suspend fun getAverageRating(@Path("gameId") gameId: String): Response<Double>
+
+    /**
+     * Obté una entrada de la biblioteca d'un usuari per a un videojoc específic.
+     *
+     * @param gameId Identificador del videojoc.
+     * @param username Nom d'usuari del propietari de la biblioteca.
+     * @return Una resposta amb l'objecte Library si existeix, o una resposta buida si no es troba.
+     */
+    @GET("library/verify/{gameId}/{username}")
+    suspend fun getLibraryEntry(
+        @Path("gameId") gameId: String,
+        @Path("username") username: String
+    ): Response<Library>
+
+    /**
+     * Actualitza la informació d'un videojoc dins la biblioteca d'un usuari.
+     *
+     * @param library L'objecte Library amb les dades actualitzades.
+     * @return Una resposta amb l'objecte Library actualitzat.
+     */
+    @PUT("library/update")
+    suspend fun updateGameInLibrary(@Body library: Library): Response<Library>
 }

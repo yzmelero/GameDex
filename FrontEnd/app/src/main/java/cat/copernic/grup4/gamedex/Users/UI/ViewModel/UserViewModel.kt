@@ -29,8 +29,10 @@ class UserViewModel(private val useCases: UseCases) : ViewModel() {
 
     private val _users = MutableStateFlow<List<User>>(emptyList())
     val users: StateFlow<List<User>> = _users
-    private val _registrationSuccess = MutableStateFlow<Boolean?>(null)
+
+    var _registrationSuccess = MutableStateFlow<Boolean?>(null)
     val registrationSuccess: StateFlow<Boolean?> = _registrationSuccess
+
     private val _inactiveUsers = MutableStateFlow<List<User>>(emptyList())
     val inactiveUsers: StateFlow<List<User>> = _inactiveUsers
 

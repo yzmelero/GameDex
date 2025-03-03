@@ -46,7 +46,7 @@ fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
 
     LaunchedEffect(username) { // ✅ Llama a la función suspend en una corrutina
         user = userViewModel.getUser(username)
-        userViewModel.countByUserAndState(username, "COMPLETED")
+        userViewModel.countByUserAndState(username, "FINISHED")
         userViewModel.countByUserAndState(username, "WANTTOPLAY")
         userViewModel.countByUserAndState(username, "PLAYING")
         userViewModel.countByUserAndState(username, "DROPPED")
