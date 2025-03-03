@@ -233,9 +233,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                             bitmap = it,
                                             contentDescription = stringResource(R.string.category_photo),
                                             contentScale = ContentScale.Crop,
-                                            modifier = Modifier
-                                                .size(120.dp)
-                                                .clip(CircleShape)
+                                            modifier = Modifier.size(height = 170.dp, width = 110.dp)
                                         )
                                     }
                                 } else if (selectedImageUri != null) {
@@ -257,82 +255,66 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                         modifier = Modifier.size(height = 170.dp, width = 110.dp)
                                     )
                                 }
-                                    Icon(
-                                        Icons.Default.Add,
-                                        contentDescription = stringResource(R.string.add_cover),
-                                        modifier = Modifier
-                                            .clickable {
-                                                imagePickerLauncher
-                                                    .launch(
-                                                        PickVisualMediaRequest(
-                                                            ActivityResultContracts
-                                                                .PickVisualMedia.ImageOnly
-                                                        )
+                                Icon(
+                                    Icons.Default.Add,
+                                    contentDescription = stringResource(R.string.add_cover),
+                                    modifier = Modifier
+                                        .clickable {
+                                            imagePickerLauncher
+                                                .launch(
+                                                    PickVisualMediaRequest(
+                                                        ActivityResultContracts
+                                                            .PickVisualMedia.ImageOnly
                                                     )
-                                            }
-                                            .padding(start = 10.dp, top = 100.dp)
-                                            .background(
-                                                colorResource(R.color.header),
-                                                shape = RoundedCornerShape(50)
-                                            )
-                                            .clip(RoundedCornerShape(50))
-                                            .size(40.dp)
-                                    )
-
-                            }
-
-                            Spacer(modifier = Modifier.height(20.dp))
-                            Button(
-                                onClick = {
-                                    if (selectedCategory == null) {
-                                        Toast.makeText(
-                                            context,
-                                            context.getString(R.string.please_select_a_category),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    } else {
-                                        Log.d(
-                                            "AddGamesScreen",
-                                            "Categoría seleccionada: ${selectedCategory?.nameCategory}"
+                                                )
+                                        }
+                                        .padding(start = 10.dp, top = 100.dp)
+                                        .background(
+                                            colorResource(R.color.header),
+                                            shape = RoundedCornerShape(50)
                                         )
-                                        val updatedGame = Videogame(
-                                            gameId = gameId,
-                                            nameGame = nameGame,
-                                            releaseYear = releaseYear,
-                                            ageRecommendation = ageRecommendation,
-                                            developer = developer,
-                                            category = selectedCategory!!.nameCategory,
-                                            descriptionGame = descriptionGame,
-                                            gamePhoto = oldGamePhoto
-                                        )
-                                        Log.d(
-                                            "AddGamesScreen",
-                                            "Datos del nuevo juego: Name: $nameGame, Year: $releaseYear, Age: $ageRecommendation, Developer: $developer, Category: ${selectedCategory?.nameCategory}, Description: $descriptionGame"
-                                        )
-                                        gameViewModel.updateVideogame(updatedGame)
-
-                                    }
-                                },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(
-                                        0xFFFF69B4
-                                    )
-                                ),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .clip(RoundedCornerShape(16.dp))
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.confirm),
-                                    color = Color.White,
-                                    style = GameDexTypography.bodyLarge,
-                                    fontSize = 22.sp
+                                        .clip(RoundedCornerShape(50))
+                                        .size(40.dp)
                                 )
                             }
-                            Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(20.dp))
                         }
-
+                        Button(
+                            onClick = {
+                                if (selectedCategory == null) {
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.please_select_a_category),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    val updatedGame = Videogame(
+                                        gameId = gameId,
+                                        nameGame = nameGame,
+                                        releaseYear = releaseYear,
+                                        ageRecommendation = ageRecommendation,
+                                        developer = developer,
+                                        category = selectedCategory!!.nameCategory,
+                                        descriptionGame = descriptionGame,
+                                        gamePhoto = oldGamePhoto
+                                    )
+                                    gameViewModel.updateVideogame(updatedGame)
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF69B4)),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                                .clip(RoundedCornerShape(16.dp))
+                        ) {
+                            Text(
+                                text = stringResource(R.string.confirm),
+                                color = Color.White,
+                                style = GameDexTypography.bodyLarge,
+                                fontSize = 22.sp
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
 
                 }
