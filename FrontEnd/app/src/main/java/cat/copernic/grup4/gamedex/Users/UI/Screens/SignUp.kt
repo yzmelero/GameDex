@@ -65,6 +65,12 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
     val context = LocalContext.current
     val registrationState by userViewModel.registrationSuccess.collectAsState()
 
+    DisposableEffect(Unit) {
+        onDispose {
+            userViewModel._registrationSuccess.value = null
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
