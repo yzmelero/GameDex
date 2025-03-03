@@ -8,37 +8,64 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document(collection = "videogame") 
+/**
+ * Classe que representa un videojoc.
+ */
+@Document(collection = "videogame")
 @Data // Lombok genera els getters i setters
 @AllArgsConstructor // Lombok genera un constructor amb tots els atributs
 @NoArgsConstructor // Lombok genera un constructor buit
 public class Videogame {
-    
+
+    /**
+     * L'identificador del videojoc.
+     */
     @Id
     private String gameId;
 
+    /**
+     * El nom del videojoc.
+     */
     @Field(name = "name_game")
     private String nameGame;
 
+    /**
+     * La descripció del videojoc.
+     */
     @Field(name = "description_game")
     private String descriptionGame;
 
+    /**
+     * L'any de llançament del videojoc.
+     */
     @Field(name = "release_year")
     private int releaseYear;
-    
-    @Field(name = "game_photo")
-    // Format de la imatge en bytes, MongoDB emmagatema imatges en format binari
-    private byte[] gamePhoto; 
 
+    /**
+     * La foto del videojoc en format byte array.
+     */
+    @Field(name = "game_photo")
+    private byte[] gamePhoto;
+
+    /**
+     * La recomanació d'edat per al videojoc.
+     */
     @Field(name = "age_recommendation")
     private int ageRecommendation;
 
+    /**
+     * El desenvolupador del videojoc.
+     */
     private String developer;
 
+    /**
+     * El nom de la categoria del videojoc.
+     */
     @Field(name = "name_category")
     private String category; // Atribut per guardar només el nom de la categoria
 
-    // 0 for non validated games, 1 for validated games
+    /**
+     * L'estat del videojoc (0 per a no validat, 1 per a validat).
+     */
     private Boolean state;
-
 }

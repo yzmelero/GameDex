@@ -23,15 +23,26 @@ import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModelFactory
 import kotlinx.coroutines.flow.collect
 
+/**
+ * Funció composable que defineix la barra de navegació inferior de l'aplicació.
+ *
+ * @param navController El controlador de navegació.
+ * @param userViewModel El ViewModel de l'usuari.
+ * @param selectedItem L'ítem seleccionat actualment.
+ */
 @Composable
 fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, selectedItem: Int = 0) {
     NavigationBar (
         containerColor = Color(0xFFCE55F4)
     ) {
-     val currentUser by userViewModel.currentUser.collectAsState()
-        val icons = listOf(R.drawable.apps,
-            R.drawable.gamepad, R.drawable.users_alt,
-            R.drawable.user, R.drawable.book_open_cover)
+        val currentUser by userViewModel.currentUser.collectAsState()
+        val icons = listOf(
+            R.drawable.apps,
+            R.drawable.gamepad,
+            R.drawable.users_alt,
+            R.drawable.user,
+            R.drawable.book_open_cover
+        )
 
         val destinations = listOf(
             "list_category/",
@@ -53,7 +64,8 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
                     Image(
                         painter = painterResource(id = iconRes),
                         contentDescription = stringResource(id = descriptions[index]),
-                        modifier = Modifier.size(24.dp))
+                        modifier = Modifier.size(24.dp)
+                    )
                 },
                 selected = selectedItem == index,
                 onClick = { if (index < destinations.size) {
@@ -63,13 +75,16 @@ fun BottomNavBar(navController: NavController, userViewModel: UserViewModel, sel
                     selectedIconColor = Color.Black,
                     unselectedIconColor = Color.Gray,
                     indicatorColor = Color.White
-                    ),
+                ),
                 modifier = Modifier.size(40.dp)
             )
         }
     }
 }
 
+/**
+ * Funció de previsualització per a la barra de navegació inferior.
+ */
 @Preview(showBackground = true)
 @Composable
 fun PreviewBottomBar() {

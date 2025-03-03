@@ -8,18 +8,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Classe que representa una categoria de videojocs.
+ */
 @Document(collection = "category")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
 
+    /**
+     * El nom de la categoria.
+     */
     @Id
     @Field(name = "name_category")
     private String nameCategory;
 
+    /**
+     * La descripció de la categoria.
+     */
     private String description;
 
+    /**
+     * La foto de la categoria en format byte array.
+     */
     @Field(name = "category_photo")
     private byte[] categoryPhoto;
 }
