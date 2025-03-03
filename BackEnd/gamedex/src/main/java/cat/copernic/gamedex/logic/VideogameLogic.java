@@ -29,6 +29,15 @@ public class VideogameLogic {
                 if (videogame.getCategory() == null) {
                     throw new RuntimeException("Category is required");
                 }
+                 // Validació de releaseYear (1950-2023)
+                 if (videogame.getReleaseYear() < 1950 || videogame.getReleaseYear() > 2023) {
+                    throw new RuntimeException("Release year must be between 1950 and 2023");
+                }
+
+                // Validació de ageRecommendation (0-100)
+                if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 100) {
+                    throw new RuntimeException("Age recommendation must be between 0 and 100");
+                }
                 // Comprobar si existeix un videojoc amb el mateix nom
                 // Optional evita els null
                 Optional<Videogame> existingGame = videogameRepo.findByNameGame(videogame.getNameGame());
@@ -70,6 +79,9 @@ public class VideogameLogic {
                 }
 
                 if (videogame.getReleaseYear() != newVideogame.getReleaseYear()) {
+                    if (videogame.getReleaseYear() < 1950 || videogame.getReleaseYear() > 2023) {
+                        throw new RuntimeException("Release year must be between 1950 and 2023");
+                    }
                     newVideogame.setReleaseYear(videogame.getReleaseYear());
                 }
 
@@ -78,6 +90,9 @@ public class VideogameLogic {
                 }
 
                 if (videogame.getAgeRecommendation() != newVideogame.getAgeRecommendation()) {
+                    if (videogame.getAgeRecommendation() < 0 || videogame.getAgeRecommendation() > 100) {
+                        throw new RuntimeException("Age recommendation must be between 0 and 100");
+                    }
                     newVideogame.setAgeRecommendation(videogame.getAgeRecommendation());
                 }
 
