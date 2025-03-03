@@ -114,14 +114,17 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
         }
     }
 
-    LaunchedEffect(gameId) {
+    LaunchedEffect(Unit) {
+        gameViewModel.getAllCategories()
+    }
+    LaunchedEffect(gameId, categories) {
         val game = gameViewModel.videogamesById(gameId)
         game?.let {
             nameGame = it.nameGame
             releaseYear = it.releaseYear
             ageRecommendation = it.ageRecommendation
             developer = it.developer
-            selectedCategory = categories.find { it.nameCategory == game.category }
+            selectedCategory = categories.find { category -> category.nameCategory == it.category }
             descriptionGame = it.descriptionGame
             oldGamePhoto = it.gamePhoto ?: ""
         }
@@ -198,7 +201,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                             onCategorySelected = {
                                 selectedCategory = it
                                 Log.d(
-                                    "AddGamesScreen",
+                                    "ModifyGamesScreen",
                                     "Categoría seleccionada: ${it.nameCategory}"
                                 )
                             }
@@ -244,19 +247,16 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                         model = selectedImageUri,
                                         contentDescription = stringResource(R.string.gamePicture),
                                         contentScale = ContentScale.Crop,
-                                        modifier = Modifier
-                                            .size(120.dp)
-                                            .clip(CircleShape)
+                                        modifier = Modifier.size(height = 170.dp, width = 110.dp)
                                     )
                                 } else {
                                     Image(
                                         painter = painterResource(id = R.drawable.eldenring),
                                         contentDescription = stringResource(R.string.gamePicture),
                                         contentScale = ContentScale.Crop,
-                                        modifier = Modifier
-                                            .size(120.dp)
-                                            .clip(CircleShape)
+                                        modifier = Modifier.size(height = 170.dp, width = 110.dp)
                                     )
+                                }
                                     Icon(
                                         Icons.Default.Add,
                                         contentDescription = stringResource(R.string.add_cover),
@@ -278,7 +278,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                             .clip(RoundedCornerShape(50))
                                             .size(40.dp)
                                     )
-                                }
+
                             }
 
                             Spacer(modifier = Modifier.height(20.dp))
@@ -296,7 +296,7 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                                             "Categoría seleccionada: ${selectedCategory?.nameCategory}"
                                         )
                                         val updatedGame = Videogame(
-                                            gameId = "",
+                                            gameId = gameId,
                                             nameGame = nameGame,
                                             releaseYear = releaseYear,
                                             ageRecommendation = ageRecommendation,
@@ -356,8 +356,8 @@ fun ModifyGamesScreen(navController : NavController, userViewModel: UserViewMode
                     }
                 }
             }
-            BottomSection(navController, userViewModel, 1)
         }
+        BottomSection(navController, userViewModel, 1)
     }
 }
 
@@ -367,5 +367,5 @@ fun PreviewModifyGamesScreen() {
     val fakeNavController = rememberNavController()
     val useCases = UseCases(UserRepository())
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(useCases))
-    AddGamesScreen(navController = fakeNavController, userViewModel)
+    ModifyGamesScreen(navController = fakeNavController, userViewModel)
 }
