@@ -153,8 +153,8 @@ public class VideogameApiController {
     
     /**
      * Obtenir tots els videojocs per categoria.
-     * @param category
-     * @return
+     * @param category L'ID de la categoria.
+     * @return Una llista de videojocs que coincideixen amb la categoria especificada.
      */
     @GetMapping("/byCategory/{category}") // Defineix una ruta GET per a obtenir tots els videojocs per categoria
     public ResponseEntity<List<Videogame>> getVideogamesByCategory(@PathVariable String category) {
@@ -166,8 +166,8 @@ public class VideogameApiController {
 
     /**
      * Obtenir tots els videojocs per nom.
-     * @param nameGame
-     * @return
+     * @param nameGame El nom del videojoc.
+     * @return Una llista de videojocs que coincideixen amb el nom especificat.
      */
     @GetMapping("/byName/{nameGame}") // Defineix una ruta GET per a obtenir tots els videojocs per nom
     public ResponseEntity<List<Videogame>> getVideogamesByName(@PathVariable String nameGame) {

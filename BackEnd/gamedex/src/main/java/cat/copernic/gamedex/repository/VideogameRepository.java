@@ -33,16 +33,16 @@ public interface VideogameRepository extends MongoRepository<Videogame, String> 
 
     /**
      * Cerca videojocs per la seva categoria i estat actiu.
-     * @param category
-     * @param state
-     * @return
+     * @param category L'ID de la categoria.
+     * @param state   L'estat dels videojocs (true per a actius, false per a
+     * @return Una llista de videojocs que coincideixen amb la categoria i l'estat especificats.
      */
     List<Videogame> findByCategoryAndState(String category, boolean state);
 
     /**
      * Cerca videojocs pel seu nom.
-     * @param nameGame
-     * @return
+     * @param nameGame El nom del videojoc.
+     * @return Una llista de videojocs que coincideixen amb el nom especificat.
      */
     List<Videogame> findByNameGameContaining(String nameGame);
 }

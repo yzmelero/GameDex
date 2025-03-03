@@ -214,6 +214,11 @@ public class VideogameLogic {
         }
     }
 
+    /**
+     * Obté tots els videojocs d'una categoria amb l'estat actiu.
+     * @param categoryId L'ID de la categoria.
+     * @return Una llista de videojocs que coincideixen amb la categoria.
+     */
     public List<Videogame> getVideogameByCategory(String categoryId) {
         try {
             return videogameRepo.findByCategoryAndState(categoryId, true);
@@ -224,6 +229,11 @@ public class VideogameLogic {
         }
     }
 
+    /**
+     * Cerca videojocs pel seu nom.
+     * @param nameGame El nom del videojoc.
+     * @return Una llista de videojocs que coincideixen amb el nom.
+     */
     public List<Videogame> searchVideogamesByName(String nameGame) {
         try {
             return videogameRepo.findByNameGameContaining(nameGame);
