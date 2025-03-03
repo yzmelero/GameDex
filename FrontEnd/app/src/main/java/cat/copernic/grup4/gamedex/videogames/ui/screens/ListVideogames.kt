@@ -224,7 +224,6 @@ fun CategoryFilter(
             }
         }
     }
-    Spacer(modifier = Modifier.height(6.dp))
 }
 
 @Composable
@@ -235,7 +234,7 @@ fun VideogamesGrid(videogame: List<Videogame>, selectedCategory: Category?, sear
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 16.dp, bottom = 80.dp)
+            .padding(bottom = 80.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -252,7 +251,7 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         modifier = Modifier
-            .padding(top = 5.dp)
+            .padding(bottom = 10.dp)
             .fillMaxWidth()
             .clickable { navController.navigate("viewGame/${videogame.gameId}") }
     ) {
@@ -293,7 +292,7 @@ fun GameItem(videogame: Videogame, navController: NavController, gameViewModel: 
                     style = GameDexTypography.bodyLarge
                 )
             }
-            Spacer(modifier = Modifier.width(74.dp))
+            Spacer(modifier = Modifier.width(80.dp))
             Box(
                 modifier = Modifier
                     .size(48.dp)

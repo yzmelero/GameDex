@@ -356,8 +356,6 @@ fun GameCard(
 @Composable
 fun CommentsSection(gameId: String, comment: List<Library>, navController: NavController) {
 
-
-    // TODO Fer tota la part dels comentaris ben feta
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
