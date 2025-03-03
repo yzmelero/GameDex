@@ -151,6 +151,11 @@ public class VideogameApiController {
         return ResponseEntity.ok(videogame);
     }
     
+    /**
+     * Obtenir tots els videojocs per categoria.
+     * @param category
+     * @return
+     */
     @GetMapping("/byCategory/{category}") // Defineix una ruta GET per a obtenir tots els videojocs per categoria
     public ResponseEntity<List<Videogame>> getVideogamesByCategory(@PathVariable String category) {
         log.info("Getting videogames by category: " + category);
@@ -159,6 +164,11 @@ public class VideogameApiController {
         return ResponseEntity.ok(videogames);
     }
 
+    /**
+     * Obtenir tots els videojocs per nom.
+     * @param nameGame
+     * @return
+     */
     @GetMapping("/byName/{nameGame}") // Defineix una ruta GET per a obtenir tots els videojocs per nom
     public ResponseEntity<List<Videogame>> getVideogamesByName(@PathVariable String nameGame) {
         log.info("Getting videogames by name: " + nameGame);
