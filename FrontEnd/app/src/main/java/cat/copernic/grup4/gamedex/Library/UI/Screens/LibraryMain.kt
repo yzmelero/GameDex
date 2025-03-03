@@ -42,6 +42,8 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import cat.copernic.grup4.gamedex.Core.Model.Library
+import cat.copernic.grup4.gamedex.Core.Model.User
+import cat.copernic.grup4.gamedex.Core.Model.UserType
 import cat.copernic.grup4.gamedex.R
 import cat.copernic.grup4.gamedex.Users.UI.ViewModel.UserViewModel
 import cat.copernic.grup4.gamedex.Core.ui.BottomSection
@@ -70,7 +72,7 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
     ).get(LibraryViewModel::class.java)
 
     LaunchedEffect(username) {
-        libraryViewModel.getLibrary(username,context)
+        libraryViewModel.getLibrary(username, context)
     }
 
     val libraryItems by libraryViewModel.library.collectAsState()
@@ -100,10 +102,19 @@ fun LibraryScreen(navController: NavController, userViewModel: UserViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
-            contentPadding = PaddingValues(vertical = 8.dp)
+            contentPadding = PaddingValues(bottom = 80.dp),
         ) {
             items(libraryItems) { gameLibrary ->
-                VideogameItem(libraryViewModel, library = gameLibrary, username = username, navController, context)
+                if (currentUser != null) {
+                    VideogameItem(
+                        libraryViewModel,
+                        library = gameLibrary,
+                        username = username,
+                        navController,
+                        context,
+                        currentUser
+                    )
+                }
             }
         }
 
@@ -126,7 +137,8 @@ fun VideogameItem(
     library: Library,
     username: String,
     navController: NavController,
-    context: Context
+    context: Context,
+    currentUser: User
 ) {
     Card(
         modifier = Modifier
@@ -163,6 +175,7 @@ fun VideogameItem(
 
             var showDialog by remember { mutableStateOf(false) }
 
+
             IconButton(
                 onClick = { showDialog = true },
                 modifier = Modifier
@@ -173,6 +186,7 @@ fun VideogameItem(
                     Icons.Default.Delete,
                     contentDescription = stringResource(R.string.deleteGame),
                     tint = Color.White
+
                 )
             }
             if (showDialog) {
@@ -202,10 +216,13 @@ fun VideogameItem(
 
                     })
             }
+
             IconButton(
-                onClick = { library.videogame.gameId?.let { gameId ->
-                    navController.navigate("addToLibrary/$gameId")
-                } ?: Log.e("LibraryScreen", "Error: gameId és nul") },
+                onClick = {
+                    library.videogame.gameId?.let { gameId ->
+                        navController.navigate("addToLibrary/$gameId")
+                    } ?: Log.e("LibraryScreen", "Error: gameId és nul")
+                },
                 modifier = Modifier
                     .background(colorResource(id = R.color.buttons), shape = CircleShape)
                     .size(28.dp) //Ajustar la mida del botó d'eliminar
@@ -220,17 +237,17 @@ fun VideogameItem(
     }
 }
 
-    @Preview
-    @Composable
-    fun LibraryScreenPreview() {
-        val fakeNavController = rememberNavController()
-        val fakeUserRepository = UserRepository()
-        val useCases = UseCases(fakeUserRepository)
+@Preview
+@Composable
+fun LibraryScreenPreview() {
+    val fakeNavController = rememberNavController()
+    val fakeUserRepository = UserRepository()
+    val useCases = UseCases(fakeUserRepository)
 
-        // Crea un fake ViewModel amb dades falses per la vista prèvia
-        val userViewModel =
-            UserViewModel(useCases) // Assegura't que UserViewModel té un constructor per defecte o crea'n un per la vista prèvia
+    // Crea un fake ViewModel amb dades falses per la vista prèvia
+    val userViewModel =
+        UserViewModel(useCases) // Assegura't que UserViewModel té un constructor per defecte o crea'n un per la vista prèvia
 
-        LibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
-    }
+    LibraryScreen(navController = fakeNavController, userViewModel = userViewModel)
+}
 
